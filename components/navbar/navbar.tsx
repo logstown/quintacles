@@ -26,6 +26,7 @@ import {
   Logo,
 } from '@/components/icons'
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { CreateListButton } from './create-list-button'
 
 export const Navbar = () => {
   const searchInput = (
@@ -94,7 +95,7 @@ export const Navbar = () => {
         </NavbarItem>
         <NavbarItem className='hidden lg:flex'>{searchInput}</NavbarItem>
         <NavbarItem className='hidden md:flex'>
-          <Button
+          {/* <Button
             isExternal
             as={Link}
             className='bg-default-100 text-sm font-normal text-default-600'
@@ -103,7 +104,8 @@ export const Navbar = () => {
             variant='flat'
           >
             Sponsor
-          </Button>
+          </Button> */}
+          <CreateListButton />
         </NavbarItem>
         <SignedOut>
           <SignInButton />
