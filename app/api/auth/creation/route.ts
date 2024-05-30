@@ -1,19 +1,19 @@
-import prisma from "@/lib/db";
-import { currentUser } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import prisma from '@/lib/db'
+import { currentUser } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
 
 export async function GET() {
-  const user = await currentUser();
+  const user = await currentUser()
 
   if (!user || user === null || !user.id) {
-    throw new Error("No User for some reason!");
+    throw new Error('No User for some reason!')
   }
 
   let dbUser = await prisma.user.findUnique({
     where: {
       id: user.id,
     },
-  });
+  })
 
   if (!dbUser) {
     dbUser = await prisma.user.create({
@@ -24,8 +24,8 @@ export async function GET() {
         displayName: user.fullName,
         photoURL: user.imageUrl,
       },
-    });
+    })
   }
 
-  return NextResponse.redirect("http://localhost:3000");
+  return NextResponse.redirect('http://localhost:3000')
 }
