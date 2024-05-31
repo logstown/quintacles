@@ -16,7 +16,7 @@ export const getUserListsUrl = (
 ): string => {
   const baseUrl =
     page == 'build'
-      ? `/create//list${mediaTypes[mediaType].urlPlural}?`
+      ? `/create/list/${mediaTypes[mediaType].urlPlural}?`
       : `/explore/${mediaTypes[mediaType].urlPlural}?`
 
   // const restrictionsAsStrings = mapValues(restrictions, x => x?.toString())

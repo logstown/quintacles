@@ -11,14 +11,12 @@ import { MediaType } from '@prisma/client'
 import { some } from 'lodash'
 import { redirect } from 'next/navigation'
 
-export async function surpriseMe(formdata: FormData) {
+export async function surpriseMe(mediaType: MediaType) {
   const user = await currentUser()
 
   if (!user) {
     throw new Error('User not found')
   }
-
-  const mediaType = formdata.get('mediaType') as MediaType
 
   const userRestrictionsArr = await prisma.restrictions.findMany({
     where: {
@@ -34,7 +32,8 @@ export async function surpriseMe(formdata: FormData) {
     },
   })
 
-  const { results: popularPeople } = await getPopularPeople(1)
+  const { results: popularPeople } =
+    mediaType === MediaType.Movie ? await getPopularPeople(1) : { results: [] }
   const decades = getDecades()
   const genres = getGenres(mediaType)
 
@@ -79,11 +78,7 @@ export async function surpriseMe(formdata: FormData) {
       decade = decades[getRandomInt(decades.length)]
     }
 
-    if (
-      mediaType === MediaType.Movie &&
-      (!genre || !decade) &&
-      Math.random() <= 0.15
-    ) {
+    if (popularPeople.length && (!genre || !decade) && Math.random() <= 0.15) {
       const { id, name, profile_path } =
         popularPeople[getRandomInt(popularPeople.length)]
       moviePerson = { id, name, profile_path }
