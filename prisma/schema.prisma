@@ -37,23 +37,19 @@ model UserList {
 
   users User[]
 
-  mediaType            MediaType
   orderedItemIdsString String
 
-  movies     Movie[]
-  tvShows    TvShow[]
-  tvEpisodes TvEpisode[]
+  items ListItem[]
 
-  MovieRestrictions       MovieRestrictions?     @relation(fields: [movieRestrictionsId], references: [id])
-  movieRestrictionsId     Int?
-  TvShowRestrictions      TvShowRestrictions?    @relation(fields: [tvShowRestrictionsId], references: [id])
-  tvShowRestrictionsId    Int?
-  TvEpisodeRestrictions   TvEpisodeRestrictions? @relation(fields: [tvEpisodeRestrictionsId], references: [id])
-  tvEpisodeRestrictionsId Int?
+  Restrictions   Restrictions @relation(fields: [restrictionsId], references: [id])
+  restrictionsId Int
+
+  @@unique(name: "uniqueList", [orderedItemIdsString, restrictionsId])
 }
 
-model MovieRestrictions {
-  id               Int      @id @default(autoincrement())
+model Restrictions {
+  id               Int       @id @default(autoincrement())
+  mediaType        MediaType
   genreId          Int?
   decade           Int?
   isLiveActionOnly Boolean?
@@ -61,62 +57,28 @@ model MovieRestrictions {
   userLists UserList[]
   Person    Person?    @relation(fields: [personId], references: [id])
   personId  Int?
+
+  EpisodesTvShow   ListItem? @relation(fields: [episodesTvShowId], references: [id])
+  episodesTvShowId String?
+
+  @@unique(fields: [mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId], name: "uniqueRestrictions")
 }
 
-model TvShowRestrictions {
-  id               Int      @id @default(autoincrement())
-  genreId          Int?
-  decade           Int?
-  isLiveActionOnly Boolean?
+model ListItem {
+  id String @id @unique
 
-  userLists UserList[]
-}
-
-model TvEpisodeRestrictions {
-  id Int @id @default(autoincrement())
-
-  userLists UserList[]
-
-  TvShow   TvShow @relation(fields: [tvShowId], references: [id])
-  tvShowId Int
-}
-
-model Movie {
-  id           Int      @id @unique
-  title        String
-  releaseDate  DateTime
-  genreIds     Int[]
-  overview     String
-  backdropPath String?
-  posterPath   String?
-
-  userLists UserList[]
-}
-
-model TvShow {
-  id           Int      @id @unique
+  mediaType    MediaType
   name         String
-  firstAirDate DateTime
-  genreIds     Int[]
-  overview     String
-  backdropPath String?
+  date         String
   posterPath   String?
-
-  tvEpisodeRestrictions TvEpisodeRestrictions[]
-
-  userLists UserList[]
-}
-
-model TvEpisode {
-  id           Int      @id @unique
-  name         String
-  airDate      DateTime
-  seasonNum    Int
-  episodeNum   Int
-  overview     String
+  genreIds     Int[]
+  overview     String?
   backdropPath String?
+  seasonNum    Int?
+  episodeNum   Int?
 
-  userLists UserList[]
+  userLists     UserList[]
+  restrictionss Restrictions[]
 }
 
 model Person {
@@ -124,5 +86,5 @@ model Person {
   name        String
   profilePath String?
 
-  movieRestrictions MovieRestrictions[]
+  movieTvRestrictions Restrictions[]
 }

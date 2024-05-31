@@ -11,7 +11,7 @@ import React from 'react'
 type MediaTypeData = {
   [mediaType: string]: {
     url: string
-    db: string
+    urlPlural: string
     display: string
     plural: string
     icon: React.ReactElement
@@ -24,15 +24,15 @@ export const mediaTypes: MediaTypeData = {
   [MediaType.Movie]: {
     url: 'movie',
     display: 'Movie',
-    db: 'movies',
+    urlPlural: 'movies',
     plural: 'movies',
     icon: <FilmIcon />,
     key: MediaType.Movie,
   },
   [MediaType.TvShow]: {
-    url: 'tv',
+    url: 'tv-show',
     display: 'TV Show',
-    db: 'shows',
+    urlPlural: 'shows',
     plural: 'TV shows',
     icon: <TvIcon />,
     key: MediaType.TvShow,
@@ -40,7 +40,7 @@ export const mediaTypes: MediaTypeData = {
   [MediaType.TvEpisode]: {
     url: 'episode',
     display: 'TV Episode',
-    db: 'episodes',
+    urlPlural: 'episodes',
     plural: 'TV Episodes',
     icon: <GalleryVerticalEndIcon />,
     key: MediaType.TvEpisode,
@@ -49,7 +49,7 @@ export const mediaTypes: MediaTypeData = {
     url: 'person',
     display: 'Person',
     plural: 'people',
-    db: 'people',
+    urlPlural: 'people',
     excludeForLists: true,
     icon: <UserIcon />,
     key: MediaType.Person,

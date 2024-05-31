@@ -25,8 +25,8 @@ export function CreateListButton() {
         </Button>
       </DropdownTrigger>
       <DropdownMenu aria-label='Static Actions'>
-        {mediaTypeArrForLists.map(type => {
-          const mediaTypeIconSmaller = cloneElement(type.icon, {
+        {mediaTypeArrForLists.map(({ icon, urlPlural, plural }) => {
+          const mediaTypeIconSmaller = cloneElement(icon, {
             size: 18,
             strokeWidth: 1.5,
           })
@@ -38,11 +38,11 @@ export function CreateListButton() {
                 </span>
               }
               className='capitalize text-black'
-              key={type.url}
+              key={urlPlural}
               as={Link}
-              href={`/create/${type.url}/criteria`}
+              href={`/create/criteria/${urlPlural}`}
             >
-              {type.plural}
+              {plural}
             </DropdownItem>
           )
         })}
