@@ -30,7 +30,7 @@ export const mediaTypes: MediaTypeData = {
     key: MediaType.Movie,
   },
   [MediaType.TvShow]: {
-    url: 'tv-show',
+    url: 'tv',
     display: 'TV Show',
     urlPlural: 'shows',
     plural: 'TV shows',
