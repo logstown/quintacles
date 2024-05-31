@@ -8,7 +8,7 @@ import { Decade, Genre, RestrictionsUI } from '@/lib/models'
 import { getDecades, getUserListsUrl } from '@/lib/random'
 import { currentUser } from '@clerk/nextjs/server'
 import { ListItem, MediaType, Restrictions } from '@prisma/client'
-import { some } from 'lodash'
+import { reduce, some } from 'lodash'
 import { redirect } from 'next/navigation'
 
 export async function surpriseMe(mediaType: MediaType) {
@@ -49,7 +49,7 @@ export async function surpriseMe(mediaType: MediaType) {
     genre: Genre | undefined,
     decade: Decade | undefined,
     moviePerson: TmdbPerson | undefined,
-    isLiveActionOnly: true | undefined,
+    isLiveActionOnly: boolean,
   ) =>
     some(
       userRestrictionsArr,
@@ -63,12 +63,12 @@ export async function surpriseMe(mediaType: MediaType) {
   let genre: Genre | undefined,
     decade: Decade | undefined,
     moviePerson: TmdbPerson | undefined,
-    isLiveActionOnly: true | undefined
+    isLiveActionOnly: boolean
   do {
     genre = undefined
     decade = undefined
     moviePerson = undefined
-    isLiveActionOnly = undefined
+    isLiveActionOnly = false
 
     if (Math.random() <= 0.4) {
       genre = genres[getRandomInt(genres.length)]
@@ -95,11 +95,11 @@ export async function surpriseMe(mediaType: MediaType) {
   const buildURL = getUserListsUrl(
     {
       mediaType,
-      genreId: genre?.id ?? null,
-      decade: decade?.id ?? null,
-      isLiveActionOnly: isLiveActionOnly ?? null,
-      personId: moviePerson?.id ?? null,
-      episodesTvShowId: null,
+      genreId: genre?.id ?? 0,
+      decade: decade?.id ?? 0,
+      isLiveActionOnly,
+      personId: moviePerson?.id ?? 0,
+      episodesTvShowId: '',
     },
     'build',
   )
@@ -118,9 +118,115 @@ export async function getSuggestions(
 }
 
 export async function createList(
-  restrictions: RestrictionsUI,
+  {
+    genreId,
+    decade,
+    mediaType,
+    isLiveActionOnly,
+    Person,
+    EpisodesTvShow,
+  }: RestrictionsUI,
   listItems: ListItem[],
   userListId?: string,
 ) {
-  console.log(restrictions, listItems, userListId)
+  const user = await currentUser()
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+  Person = Person ?? {
+    id: 0,
+    name: '',
+    profilePath: null,
+  }
+
+  EpisodesTvShow = EpisodesTvShow ?? {
+    id: '',
+    mediaType,
+    name: '',
+    genreIds: [],
+    date: '',
+    posterPath: null,
+    overview: null,
+    backdropPath: null,
+    seasonNum: null,
+    episodeNum: null,
+  }
+
+  const { id: restrictionsId } = await prisma.restrictions.upsert({
+    where: {
+      uniqueRestrictions: {
+        mediaType,
+        genreId: genreId ?? 0,
+        decade: decade ?? 0,
+        isLiveActionOnly,
+        personId: Person.id,
+        episodesTvShowId: EpisodesTvShow.id,
+      },
+    },
+    update: {},
+    create: {
+      Person: {
+        connectOrCreate: {
+          where: { id: Person.id },
+          create: Person,
+        },
+      },
+      EpisodesTvShow: {
+        connectOrCreate: {
+          where: { id: EpisodesTvShow.id },
+          create: EpisodesTvShow,
+        },
+      },
+      mediaType,
+      genreId: genreId ?? 0,
+      decade: decade ?? 0,
+      isLiveActionOnly,
+    },
+  })
+
+  const orderedItemIdsString = reduce(
+    listItems,
+    (str, item, i) => {
+      str += item.id.split('-')[1]
+      if (i < listItems.length - 1) {
+        str += '-'
+      }
+
+      return str
+    },
+    '',
+  )
+
+  const { id: listId } = await prisma.userList.upsert({
+    where: {
+      uniqueList: {
+        orderedItemIdsString,
+        restrictionsId,
+      },
+    },
+    update: {
+      users: {
+        connect: { id: user.id },
+      },
+      lastUserAddedAt: new Date(),
+    },
+    create: {
+      orderedItemIdsString,
+      users: {
+        connect: { id: user.id },
+      },
+      Restrictions: {
+        connect: { id: restrictionsId },
+      },
+      items: {
+        connectOrCreate: listItems.map(item => ({
+          where: { id: item.id },
+          create: item,
+        })),
+      },
+    },
+  })
+
+  redirect(`/list/${listId}`)
 }

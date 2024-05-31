@@ -57,11 +57,11 @@ export default async function BuildMoviesListPage({
   }
 
   const restrictions = {
-    decade: null,
-    genreId: null,
-    isLiveActionOnly: null,
+    decade: 0,
+    genreId: 0,
+    isLiveActionOnly: false,
     mediaType: MediaType.TvEpisode,
-    personId: null,
+    personId: 0,
     episodesTvShowId: EpisodesTvShow.id,
     EpisodesTvShow,
   }

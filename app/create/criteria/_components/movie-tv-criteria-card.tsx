@@ -17,11 +17,11 @@ export function MovieTvCriteriaCard({ mediaType }: { mediaType: MediaType }) {
   const router = useRouter()
   const [restrictions, setRestrictions] = useState<RestrictionsUI>({
     mediaType,
-    genreId: null,
-    decade: null,
-    personId: null,
+    genreId: 0,
+    decade: 0,
+    personId: 0,
     isLiveActionOnly: false,
-    episodesTvShowId: null,
+    episodesTvShowId: '',
   })
 
   const goToList = () => {

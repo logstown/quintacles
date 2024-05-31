@@ -33,11 +33,11 @@ export function MovieTvCriteria({
     onRestrictionsChange({
       mediaType,
       genreId,
-      decade: foundDecade?.id ?? null,
+      decade: foundDecade?.id ?? 0,
       isLiveActionOnly,
       personId,
       Person,
-      episodesTvShowId: null,
+      episodesTvShowId: '',
     })
   }
 
@@ -46,12 +46,12 @@ export function MovieTvCriteria({
 
     onRestrictionsChange({
       mediaType,
-      genreId: foundGenre?.id ?? null,
+      genreId: foundGenre?.id ?? 0,
       decade,
       isLiveActionOnly,
       personId,
       Person,
-      episodesTvShowId: null,
+      episodesTvShowId: '',
     })
   }
 
@@ -70,16 +70,16 @@ export function MovieTvCriteria({
       genreId,
       decade,
       isLiveActionOnly,
-      personId: Person?.id ?? null,
+      personId: Person?.id ?? 0,
       Person,
-      episodesTvShowId: null,
+      episodesTvShowId: '',
     })
   }
 
   const setIsLiveActionOnlyFromPicker = (
     e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    const isLiveActionOnly = e.target.value === 'true' || null
+    const isLiveActionOnly = e.target.value === 'true'
 
     onRestrictionsChange({
       mediaType,
@@ -88,7 +88,7 @@ export function MovieTvCriteria({
       isLiveActionOnly,
       personId,
       Person,
-      episodesTvShowId: null,
+      episodesTvShowId: '',
     })
   }
 

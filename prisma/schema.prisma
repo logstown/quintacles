@@ -50,16 +50,16 @@ model UserList {
 model Restrictions {
   id               Int       @id @default(autoincrement())
   mediaType        MediaType
-  genreId          Int?
-  decade           Int?
-  isLiveActionOnly Boolean?
+  genreId          Int
+  decade           Int
+  isLiveActionOnly Boolean
 
   userLists UserList[]
-  Person    Person?    @relation(fields: [personId], references: [id])
-  personId  Int?
+  Person    Person     @relation(fields: [personId], references: [id])
+  personId  Int
 
-  EpisodesTvShow   ListItem? @relation(fields: [episodesTvShowId], references: [id])
-  episodesTvShowId String?
+  EpisodesTvShow   ListItem @relation(fields: [episodesTvShowId], references: [id])
+  episodesTvShowId String
 
   @@unique(fields: [mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId], name: "uniqueRestrictions")
 }
