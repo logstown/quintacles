@@ -1,13 +1,13 @@
 'use server'
 
 import { TmdbGenres, TmdbPerson } from '@/lib/TmdbModels'
-import { getPopularPeople } from '@/lib/TmdbService'
+import { getPopularPeople, getSuggestionsTmdb } from '@/lib/TmdbService'
 import prisma from '@/lib/db'
 import { getGenres } from '@/lib/genres'
-import { Decade, Genre } from '@/lib/models'
+import { Decade, Genre, RestrictionsUI } from '@/lib/models'
 import { getDecades, getUserListsUrl } from '@/lib/random'
 import { currentUser } from '@clerk/nextjs/server'
-import { MediaType } from '@prisma/client'
+import { ListItem, MediaType, Restrictions } from '@prisma/client'
 import { some } from 'lodash'
 import { redirect } from 'next/navigation'
 
@@ -107,4 +107,20 @@ export async function surpriseMe(mediaType: MediaType) {
   redirect(buildURL)
 
   return userRestrictionsArr
+}
+
+export async function getSuggestions(
+  pageNum: number,
+  restrictions: RestrictionsUI,
+) {
+  const res = await getSuggestionsTmdb(pageNum, restrictions)
+  return res
+}
+
+export async function createList(
+  restrictions: RestrictionsUI,
+  listItems: ListItem[],
+  userListId?: string,
+) {
+  console.log(restrictions, listItems, userListId)
 }

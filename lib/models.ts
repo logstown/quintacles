@@ -16,3 +16,11 @@ export type RestrictionsUI = Omit<Restrictions, 'id'> & {
   Person?: Person
   EpisodesTvShow?: ListItem
 }
+
+export interface CreateListSearchParams {
+  genreId?: string
+  decade?: string
+  personId?: string
+  isLiveActionOnly?: string
+  episodesTvShowId?: string
+}

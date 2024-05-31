@@ -32,7 +32,7 @@ export default function MediaPicker({
     | 'danger'
     | undefined
   size?: 'sm' | 'md' | 'lg'
-  idsToExclude?: number[]
+  idsToExclude?: string[]
   onSelected?: (item: ListItem | undefined) => void
 }) {
   const [searchText, setSearchText] = useState('')
@@ -51,7 +51,7 @@ export default function MediaPicker({
 
       const items = map(results, (x: TmdbItem) =>
         convertMediaItem(x, mediaType),
-      ).filter(x => !idsToExclude?.includes(Number(x.id.split('-')[1])))
+      ).filter(x => !idsToExclude?.includes(x.id))
 
       console.log(cloneDeep(items))
       return items

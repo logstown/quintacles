@@ -31,3 +31,11 @@ export function useDebounce(value: any, delay: number) {
 
   return debouncedValue
 }
+
+export const useScrollAfter5Items = (itemsLength?: number) => {
+  useEffect(() => {
+    if (itemsLength === 5) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [itemsLength])
+}

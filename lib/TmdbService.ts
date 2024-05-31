@@ -8,8 +8,10 @@ import {
   TmdbItem,
   TmdbPerson,
   PopularPeople,
+  Season,
 } from './TmdbModels'
 import { mediaTypes } from './mediaTypes'
+import { RestrictionsUI } from './models'
 
 export const getPopular = async (
   mediaType: MediaType,
@@ -34,11 +36,10 @@ export const getPopular = async (
   return fetchFn(url)
 }
 
-export const getSuggestionsTmdb = (
+export const getSuggestionsTmdb = async (
   pageNum: number,
-  { decade, personId, genreId, isLiveActionOnly }: Restrictions,
-  mediaType: MediaType,
-): string => {
+  { decade, personId, genreId, isLiveActionOnly, mediaType }: RestrictionsUI,
+): Promise<MediaItemsResponse> => {
   let params: any = {
     page: pageNum.toString(),
     language: 'en-US',
@@ -70,7 +71,9 @@ export const getSuggestionsTmdb = (
     params.without_genres = TmdbGenres.Animation.toString()
   }
 
-  return `discover/${mediaTypes[mediaType].url}?${new URLSearchParams(params)}`
+  const url = `discover/${mediaTypes[mediaType].url}?${new URLSearchParams(params)}`
+
+  return fetchFn(url)
 }
 
 export const getSimilar = async (
@@ -130,6 +133,13 @@ export const getMeMore = async (
   const { results } = params ? await cb(pageNum, params) : await cb(pageNum)
 
   return [...results, ...(await getMeMore(cb, pages, params, pageNum + 1))]
+}
+
+export const getTvSeason = (
+  showId: number,
+  seasonNum: number,
+): Promise<Season> => {
+  return fetchFn(`tv/${showId}/season/${seasonNum}`)
 }
 
 const fetchFn = async (urlFrag: string) => {
