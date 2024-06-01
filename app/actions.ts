@@ -230,3 +230,5 @@ export async function createList(
 
   redirect(`/list/${listId}`)
 }
+
+export async function removeUserFromList(userListId: string, userId: string) {}
