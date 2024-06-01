@@ -33,7 +33,7 @@ export default async function BuildListPage({
   }
 
   return (
-    <main className='container mb-12 mt-6 flex flex-col gap-8'>
+    <main className='container mx-auto mb-12 mt-6 flex flex-col gap-8'>
       <BuildList restrictions={restrictions} episodeData={episodeData} />
     </main>
   )

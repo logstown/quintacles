@@ -26,6 +26,7 @@
 		"@nextui-org/popover": "^2.1.23",
 		"@nextui-org/progress": "^2.0.30",
 		"@nextui-org/select": "^2.2.0",
+		"@nextui-org/skeleton": "^2.0.28",
 		"@nextui-org/snippet": "^2.0.36",
 		"@nextui-org/switch": "^2.0.29",
 		"@nextui-org/system": "2.2.0",
