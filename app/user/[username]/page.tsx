@@ -1,3 +1,5 @@
+import { UserListQuery } from '@/components/UserListQuery'
+import { UserListSkeleton } from '@/components/user-list/UserListSkeleton'
 import prisma from '@/lib/db'
 import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { Avatar } from '@nextui-org/avatar'
@@ -5,6 +7,7 @@ import { MediaType } from '@prisma/client'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 
 export default async function UserPage({
   params: { username },
@@ -67,12 +70,30 @@ export default async function UserPage({
                 {/* <MediaTypeListCount mediaType={mediaType.key} uid={uid} /> */}
               </div>
             </div>
-            {/* <UserListQuery
-              restrictions={{
-                mediaType: mediaType.key
-              }}
-              uid={uid}
-            /> */}
+            <Suspense
+              fallback={
+                <div className={`flex flex-wrap gap-5`}>
+                  {[1, 2, 3, 4].map(i => (
+                    <UserListSkeleton
+                      key={i}
+                      isEpisodes={mediaType.key === MediaType.TvEpisode}
+                    />
+                  ))}{' '}
+                </div>
+              }
+            >
+              <UserListQuery
+                restrictions={{
+                  mediaType: mediaType.key,
+                  decade: 0,
+                  genreId: 0,
+                  isLiveActionOnly: false,
+                  personId: 0,
+                  episodesTvShowId: '',
+                }}
+                userId={profile.id}
+              />
+            </Suspense>
           </div>
         ))}
       </div>
