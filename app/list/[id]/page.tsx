@@ -102,8 +102,8 @@ export default async function ListPage({
   const userListUserIds = userList.users.map(user => user.id)
 
   return (
-    <main>
-      <div className='mt-8 flex flex-col items-center gap-4 px-8 md:gap-8 md:px-12'>
+    <div>
+      <div className='flex flex-col items-center gap-4 px-8 md:gap-8 md:px-12'>
         <h1 className='text-center text-4xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl lg:tracking-normal'>
           <ListTitleBase
             restrictions={userList.Restrictions as unknown as RestrictionsUI}
@@ -126,7 +126,7 @@ export default async function ListPage({
       <div className='mt-4 flex flex-col items-center gap-10 md:mt-8 lg:gap-7'>
         {listItemsReverse.map((item: ListItemUI, i) => (
           <div
-            className='group mx-4 flex max-w-[650px] flex-col items-stretch rounded-xl lg:mx-0 lg:w-full lg:max-w-none lg:flex-row lg:rounded-none '
+            className='group mx-4 flex max-w-[650px] flex-col items-stretch rounded-xl lg:mx-0 lg:w-full lg:max-w-none lg:flex-row '
             style={{
               backgroundColor: item.bgColor,
             }}
@@ -176,7 +176,7 @@ export default async function ListPage({
             </div>
             <div className='relative flex w-full items-center lg:w-3/5 '>
               <Image
-                classNames={{ img: 'lg:rounded-none rounded-xl' }}
+                classNames={{ wrapper: 'rounded-xl' }}
                 className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right object-cover '
                 src={item.backdropUrl}
                 disableSkeleton={true}
@@ -212,6 +212,6 @@ export default async function ListPage({
           </div>
         ))}
       </div>
-    </main>
+    </div>
   )
 }
