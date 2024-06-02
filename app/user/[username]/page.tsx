@@ -1,8 +1,10 @@
 import { UserListQuery } from '@/components/UserListQuery'
 import { UserListSkeleton } from '@/components/user-list/UserListSkeleton'
+import { getImageStuff } from '@/lib/TmdbService'
 import prisma from '@/lib/db'
 import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { Avatar } from '@nextui-org/avatar'
+import { Image } from '@nextui-org/image'
 import { MediaType } from '@prisma/client'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
@@ -29,28 +31,37 @@ export default async function UserPage({
     redirect('/')
   }
 
+  const stuff = await getImageStuff()
+  console.log(stuff)
+
   return (
     <div className='pb-20'>
-      <div className='mt-8 flex w-fit flex-wrap items-center justify-center gap-8 rounded-full bg-foreground-100 p-10 text-2xl shadow-inner lg:gap-16'>
-        <div className='flex items-center gap-4'>
-          <Avatar
-            src={profile.photoURL ?? undefined}
-            className='h-20 w-20 text-large'
-          />
-          <div>
-            <div className='text-foreground-800'>{profile.displayName}</div>
-            <div className='text-[80%] text-foreground-400'>
-              @{profile.username}
+      <div className='relative'>
+        <img
+          src='https://image.tmdb.org/t/p/w1280/rH0DPF7pB35jxLxKb3JRUgCrrnp.jpg'
+          alt='cover'
+          className=' h-80 w-full rounded-2xl object-cover shadow-xl'
+        />
+        <Avatar
+          isBordered
+          src={profile.photoURL ?? undefined}
+          className='absolute -bottom-[60px] left-0 right-0 ml-auto mr-auto min-h-32 min-w-32 text-large md:left-20 md:right-auto '
+        />
+      </div>
+      <div className='ml-0 mt-20 flex flex-col items-center text-center md:ml-60 md:mt-2 md:items-start md:text-left'>
+        <div className='flex flex-wrap items-baseline gap-6'>
+          <div className='whitespace-nowrap text-3xl text-foreground-800'>
+            {profile.displayName}
+          </div>
+          <div className='text-xl text-foreground-400'>@{profile.username}</div>
+        </div>
+        <div className='flex items-baseline gap-6 pt-4'>
+          <div className='flex items-baseline gap-2'>
+            <CalendarIcon />
+            <div className='text-foreground-400'>
+              Joined {format(new Date(profile.createdAt), 'MMMM yyyy')}
             </div>
           </div>
-        </div>
-        <div className='flex items-center gap-2'>
-          <CalendarIcon />
-          <div className='text-foreground-400'>
-            Joined {format(new Date(profile.createdAt), 'MMMM yyyy')}
-          </div>
-        </div>
-        <div className='flex items-center gap-12'>
           <div className='flex gap-2'>
             <div className='font-bold'>{profile._count.userLists}</div>
             <div className='text-foreground-400'>
@@ -59,6 +70,7 @@ export default async function UserPage({
           </div>
         </div>
       </div>
+
       <div className='mt-10 flex flex-col gap-24 md:mt-16'>
         {mediaTypeArrForLists.map(mediaType => (
           <div key={mediaType.key} className='flex flex-col gap-4'>

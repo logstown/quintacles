@@ -72,7 +72,7 @@ export const Navbar = () => {
   )
 
   return (
-    <NextUINavbar maxWidth='xl' position='sticky'>
+    <NextUINavbar maxWidth='xl' position='sticky' className='shadow-md'>
       <NavbarContent className='basis-1/5 sm:basis-full' justify='start'>
         <NavbarBrand as='li' className='max-w-fit gap-3'>
           <NextLink className='flex items-center justify-start gap-1' href='/'>
