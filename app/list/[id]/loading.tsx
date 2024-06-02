@@ -4,7 +4,7 @@ export default function Loading() {
   const arr = [1, 2, 3, 4, 5]
   return (
     <main>
-      <div className='m-8 flex flex-col items-center gap-4'>
+      <div className='mx-8 mb-8 flex flex-col items-center gap-4'>
         <Skeleton className='w-[600px] rounded-lg text-center text-4xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl'>
           dummy
         </Skeleton>
@@ -19,7 +19,7 @@ export default function Loading() {
       </div>
       <div className='flex flex-col items-stretch gap-10'>
         {arr.map(i => (
-          <Skeleton key={i}>
+          <Skeleton className='rounded-xl' key={i}>
             <div className='aspect-[672/587] w-full lg:aspect-[26.66666/9]'>
               dummy
             </div>
