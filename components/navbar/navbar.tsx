@@ -27,6 +27,27 @@ import {
 } from '@/components/icons'
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { CreateListButton } from './create-list-button'
+import prisma from '@/lib/db'
+import { redirect } from 'next/navigation'
+import { RandomListButton } from './random-list-button'
+
+async function getRandomList() {
+  'use server'
+
+  // const users = await prisma.userList.count()
+  // const foundUserList = await prisma.userList.findMany({
+  //   take: 1,
+  //   skip: Math.floor(Math.random() * (users - 1)),
+  // })
+
+  const results: any[] = await prisma.$queryRawUnsafe(
+    // DO NOT pass in or accept user input here
+    `SELECT * FROM "UserList" ORDER BY RANDOM() LIMIT 1;`,
+  )
+  console.log(results)
+
+  redirect('/list/' + results[0].id)
+}
 
 export const Navbar = () => {
   const searchInput = (
@@ -106,6 +127,11 @@ export const Navbar = () => {
             Sponsor
           </Button> */}
           <CreateListButton />
+        </NavbarItem>
+        <NavbarItem className='hidden md:flex'>
+          <form action={getRandomList}>
+            <RandomListButton />
+          </form>
         </NavbarItem>
         <SignedOut>
           <SignInButton />
