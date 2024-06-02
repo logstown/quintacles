@@ -34,8 +34,6 @@ export function UserListCard({
   const { Person, mediaType } = restrictions
   const isEpisodes = mediaType === MediaType.TvEpisode
 
-  console.log(users)
-
   return (
     <Card shadow='lg' className='w-fit overflow-visible p-0 sm:p-2'>
       {excludeTitle ? (
@@ -47,7 +45,7 @@ export function UserListCard({
         >
           <CardHeader className={`pl-4`}>
             <div className='flex w-full items-baseline gap-3'>
-              <div className={`pl-1 ${Person ? '' : 'hidden'}`}>
+              <div className={`pl-1 ${Person?.id ? '' : 'hidden'}`}>
                 <UserListIcon
                   mediaType={mediaType}
                   personPath={Person!.profilePath}

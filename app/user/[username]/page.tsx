@@ -30,7 +30,7 @@ export default async function UserPage({
   }
 
   return (
-    <div className='px-5 pb-20'>
+    <div className='pb-20'>
       <div className='mt-8 flex w-fit flex-wrap items-center justify-center gap-8 rounded-full bg-foreground-100 p-10 text-2xl shadow-inner lg:gap-16'>
         <div className='flex items-center gap-4'>
           <Avatar
