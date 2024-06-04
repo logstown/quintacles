@@ -33,6 +33,7 @@ export function UserListCard({
 }) {
   const { Person, mediaType } = restrictions
   const isEpisodes = mediaType === MediaType.TvEpisode
+  const userIds = users.map(u => u.id)
 
   return (
     <Card shadow='lg' className='w-fit overflow-visible p-0 sm:p-2'>
@@ -75,14 +76,19 @@ export function UserListCard({
       <CardFooter className='flex items-center justify-center gap-5'>
         <div className='mr-1'>
           <UserTime
-            excludeUser={excludeUser}
+            excludeUser={false}
             users={users}
             lastUserAddedAt={lastUserAddedAt}
             size='sm'
           />
         </div>
         <Divider className='h-4' orientation='vertical' />
-        {/* <UserListButtons isSmall userList={userList} /> */}
+        <UserListButtons
+          isSmall
+          userListId={id}
+          Restrictions={restrictions}
+          userListUserIds={userIds}
+        />
       </CardFooter>
     </Card>
   )

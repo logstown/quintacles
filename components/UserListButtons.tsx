@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { ShareListButton } from './ShareListButton'
 import { currentUser } from '@clerk/nextjs/server'
 import { UserListActions } from './UserListActions'
+import Link from 'next/link'
 
 export async function UserListButtons({
   userListId,
@@ -44,6 +45,7 @@ export async function UserListButtons({
           <Button
             size={isSmall ? 'sm' : 'md'}
             href={userListUrl}
+            as={Link}
             isIconOnly
             className='text-foreground-400'
             aria-label='add'
