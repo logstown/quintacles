@@ -11,7 +11,6 @@ import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
 import { EditCoverImage } from '../_components/EditCoverImage'
 import { getTmdbImageUrl } from '@/lib/random'
-import UserCoverImage from '../_components/UserCoverImage'
 import { currentUser } from '@clerk/nextjs/server'
 
 export default async function UserPage({
