@@ -17,8 +17,7 @@ export function CreateListButton() {
     <Dropdown>
       <DropdownTrigger>
         <Button
-          variant='flat'
-          color='primary'
+          className='bg-gradient-to-tr from-primary-500 to-secondary-500 text-white shadow-lg'
           startContent={<PlusIcon size={20} />}
         >
           Create List

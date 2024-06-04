@@ -77,7 +77,7 @@ export const Navbar = () => {
             <p className='font-bold text-inherit'>ACME</p>
           </NextLink>
         </NavbarBrand>
-        <ul className='ml-2 hidden justify-start gap-4 lg:flex'>
+        {/* <ul className='ml-2 hidden justify-start gap-4 lg:flex'>
           {siteConfig.navItems.map(item => (
             <NavbarItem key={item.href}>
               <NextLink
@@ -92,25 +92,13 @@ export const Navbar = () => {
               </NextLink>
             </NavbarItem>
           ))}
-        </ul>
+        </ul> */}
       </NavbarContent>
 
       <NavbarContent
         className='hidden basis-1/5 sm:flex sm:basis-full'
         justify='end'
       >
-        <NavbarItem className='hidden gap-2 sm:flex'>
-          {/* <Link isExternal aria-label='Twitter' href={siteConfig.links.twitter}>
-            <TwitterIcon className='text-default-500' />
-          </Link>
-          <Link isExternal aria-label='Discord' href={siteConfig.links.discord}>
-            <DiscordIcon className='text-default-500' />
-          </Link>
-          <Link isExternal aria-label='Github' href={siteConfig.links.github}>
-            <GithubIcon className='text-default-500' />
-          </Link> */}
-          <ThemeSwitch />
-        </NavbarItem>
         {/* <NavbarItem className='hidden lg:flex'>{searchInput}</NavbarItem> */}
         <NavbarItem className='hidden md:flex'>
           {/* <Button
@@ -129,6 +117,9 @@ export const Navbar = () => {
           <form action={getRandomList}>
             <RandomListButton />
           </form>
+        </NavbarItem>
+        <NavbarItem className='hidden gap-2 sm:flex'>
+          <ThemeSwitch />
         </NavbarItem>
         <SignedOut>
           <SignInButton />
