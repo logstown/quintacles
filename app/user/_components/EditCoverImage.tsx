@@ -108,7 +108,7 @@ export function EditCoverImage() {
               </ModalHeader>
               <ModalBody>
                 <Input
-                  label='Search for a movie or TV show'
+                  label='Search'
                   value={searchText}
                   autoFocus
                   onValueChange={setSearchText}
