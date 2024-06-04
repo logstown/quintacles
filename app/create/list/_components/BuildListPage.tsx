@@ -4,7 +4,7 @@ import { RestrictionsUI } from '@/lib/models'
 import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { BuildList } from '@/components/build-list/build-list'
-import { EpisodeData } from '../episodes/[tvShowId]/page'
+import { EpisodeData } from '@/lib/random'
 
 export default async function BuildListPage({
   restrictions,
@@ -32,9 +32,5 @@ export default async function BuildListPage({
     redirect(`/list/${possibleDupe.id}/edit`)
   }
 
-  return (
-    <main className='container mx-auto mb-12 mt-6 flex flex-col gap-8'>
-      <BuildList restrictions={restrictions} episodeData={episodeData} />
-    </main>
-  )
+  return <BuildList restrictions={restrictions} episodeData={episodeData} />
 }

@@ -13,8 +13,8 @@ export async function UserListQuery({
   exactMatch,
 }: {
   restrictions: RestrictionsUI
+  sortBy: 'lastUserAddedAt' | 'users'
   userId?: string
-  sortBy?: 'lastUserAddedAt' | 'users'
   exactMatch?: boolean
 }) {
   // const { data, error, isPending } = useQuery({

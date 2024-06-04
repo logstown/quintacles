@@ -10,7 +10,7 @@ import { ListItem, MediaType } from '@prisma/client'
 import { useScrollAfter5Items } from '@/lib/hooks'
 import { Input } from '@nextui-org/input'
 import { Select, SelectItem } from '@nextui-org/select'
-import { EpisodeData } from '@/app/create/list/episodes/[tvShowId]/page'
+import { EpisodeData } from '@/lib/random'
 
 const doesWordStartIncludeTerm = (term: string, str: string): boolean => {
   const strWords = words(str)

@@ -34,7 +34,7 @@ export function UserListActions({
   const iconSize = isSmall ? 20 : 24
 
   const { mutate: deleteListUI, isPending: isDeletePending } = useMutation({
-    mutationFn: (onClose: () => void) => removeUserFromList(userListId, userId),
+    mutationFn: (onClose: () => void) => removeUserFromList(userListId),
     onSuccess: async (data, onClose) => {
       onClose()
     },

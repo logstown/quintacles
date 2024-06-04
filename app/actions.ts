@@ -7,7 +7,7 @@ import { getGenres } from '@/lib/genres'
 import { Decade, Genre, RestrictionsUI } from '@/lib/models'
 import { getDecades, getUserListsUrl } from '@/lib/random'
 import { currentUser } from '@clerk/nextjs/server'
-import { ListItem, MediaType } from '@prisma/client'
+import { ListItem, MediaType, PrismaPromise, UserList } from '@prisma/client'
 import { reduce, some } from 'lodash'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
@@ -118,6 +118,55 @@ export async function getSuggestions(
   return res
 }
 
+function createOrConnectUserToList(
+  userId: string,
+  restrictionsId: number,
+  listItems: ListItem[],
+): PrismaPromise<UserList> {
+  const orderedItemIdsString = reduce(
+    listItems,
+    (str, item, i) => {
+      str += item.id.split('-')[1]
+      if (i < listItems.length - 1) {
+        str += '-'
+      }
+
+      return str
+    },
+    '',
+  )
+
+  return prisma.userList.upsert({
+    where: {
+      uniqueList: {
+        orderedItemIdsString,
+        restrictionsId,
+      },
+    },
+    update: {
+      users: {
+        connect: { id: userId },
+      },
+      lastUserAddedAt: new Date(),
+    },
+    create: {
+      orderedItemIdsString,
+      users: {
+        connect: { id: userId },
+      },
+      Restrictions: {
+        connect: { id: restrictionsId },
+      },
+      items: {
+        connectOrCreate: listItems.map(item => ({
+          where: { id: item.id },
+          create: item,
+        })),
+      },
+    },
+  })
+}
+
 export async function createList(
   {
     genreId,
@@ -128,7 +177,6 @@ export async function createList(
     EpisodesTvShow,
   }: RestrictionsUI,
   listItems: ListItem[],
-  userListId?: string,
 ) {
   const user = await currentUser()
 
@@ -186,53 +234,62 @@ export async function createList(
     },
   })
 
-  const orderedItemIdsString = reduce(
+  const { id: listId } = await createOrConnectUserToList(
+    user.id,
+    restrictionsId,
     listItems,
-    (str, item, i) => {
-      str += item.id.split('-')[1]
-      if (i < listItems.length - 1) {
-        str += '-'
-      }
-
-      return str
-    },
-    '',
   )
-
-  const { id: listId } = await prisma.userList.upsert({
-    where: {
-      uniqueList: {
-        orderedItemIdsString,
-        restrictionsId,
-      },
-    },
-    update: {
-      users: {
-        connect: { id: user.id },
-      },
-      lastUserAddedAt: new Date(),
-    },
-    create: {
-      orderedItemIdsString,
-      users: {
-        connect: { id: user.id },
-      },
-      Restrictions: {
-        connect: { id: restrictionsId },
-      },
-      items: {
-        connectOrCreate: listItems.map(item => ({
-          where: { id: item.id },
-          create: item,
-        })),
-      },
-    },
-  })
 
   redirect(`/list/${listId}`)
 }
 
-export async function removeUserFromList(userListId: string, userId: string) {}
+export async function updateList(
+  restrictionsId: number,
+  listItems: ListItem[],
+  userListId: string,
+) {
+  const user = await currentUser()
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  const removeUserOperation = prisma.userList.update({
+    where: {
+      id: userListId,
+    },
+    data: {
+      users: {
+        disconnect: { id: user.id },
+      },
+    },
+  })
+
+  return prisma.$transaction([
+    removeUserOperation,
+    createOrConnectUserToList(user.id, restrictionsId, listItems),
+  ])
+}
+
+// TODO: this will leave an orphaned list if the last user is removed
+export async function removeUserFromList(userListId: string) {
+  const user = await currentUser()
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  return prisma.userList.update({
+    where: {
+      id: userListId,
+    },
+    data: {
+      users: {
+        disconnect: { id: user.id },
+      },
+    },
+  })
+}
 
 export async function updateUserCoverImage(coverImagePath: string) {
   const user = await currentUser()

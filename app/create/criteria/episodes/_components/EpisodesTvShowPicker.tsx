@@ -2,14 +2,14 @@
 
 import { Suggestions } from '@/components/build-list/Suggestions'
 import MediaPicker from '@/components/media-picker'
-import { getUserListsUrl } from '@/lib/random'
 import { Card, CardBody } from '@nextui-org/card'
-import { ListItem, MediaType, UserList } from '@prisma/client'
+import { ListItem, MediaType } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 
 export function EpisodesTvShowPicker({ tvShowIds }: { tvShowIds: number[] }) {
   const router = useRouter()
 
+  // TODO: add this functionality to create similary button
   const goToBuild = (item: ListItem | undefined) => {
     if (!item) return
     const id = item.id.split('-')[1]

@@ -13,6 +13,7 @@ export type Decade = {
 }
 
 export type RestrictionsUI = Omit<Restrictions, 'id'> & {
+  id?: number
   Person?: Person
   EpisodesTvShow?: ListItem
 }

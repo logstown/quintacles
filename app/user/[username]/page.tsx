@@ -123,6 +123,7 @@ export default async function UserPage({
                   episodesTvShowId: '',
                 }}
                 userId={profile.id}
+                sortBy='lastUserAddedAt'
               />
             </Suspense>
           </div>

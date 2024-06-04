@@ -17,8 +17,8 @@ import { CreateListItem } from './CreateListItem'
 import { AddMedia } from './AddMedia'
 import { EpisodePicker } from './EpisodePicker'
 import { Suggestions } from './Suggestions'
-import { EpisodeData } from '@/app/create/list/episodes/[tvShowId]/page'
-import { createList } from '@/app/actions'
+import { createList, updateList } from '@/app/actions'
+import { EpisodeData } from '@/lib/random'
 
 export function BuildList({
   restrictions,
@@ -36,7 +36,10 @@ export function BuildList({
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
 
   const { mutate: save, isPending: isSavePending } = useMutation({
-    mutationFn: async () => createList(restrictions, listItems, userListId),
+    mutationFn: async () =>
+      userListId
+        ? updateList(restrictions.id!, listItems, userListId)
+        : createList(restrictions, listItems),
     onError: e => console.log(e),
     onSettled(data, error, variables, context) {
       console.log(['onSettled', data, error, variables, context])
@@ -93,7 +96,7 @@ export function BuildList({
   })
 
   return (
-    <>
+    <main className='container mx-auto mb-12 mt-6 flex flex-col gap-8'>
       <div className='flex flex-col items-center'>
         <div className='flex flex-col justify-center gap-6'>
           <h1 className='text-2xl'>{title}</h1>
@@ -166,6 +169,6 @@ export function BuildList({
           />
         )}
       </div>
-    </>
+    </main>
   )
 }
