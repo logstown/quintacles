@@ -1,13 +1,23 @@
 import { Link } from '@nextui-org/link'
-import { Snippet } from '@nextui-org/snippet'
-import { Code } from '@nextui-org/code'
 import { button as buttonStyles } from '@nextui-org/theme'
 
 import { siteConfig } from '@/config/site'
 import { title, subtitle } from '@/components/primitives'
 import { GithubIcon } from '@/components/icons'
+import prisma from '@/lib/db'
 
-export default function Home() {
+export default async function Home() {
+  const deal = await prisma.listItem.findMany({
+    take: 10,
+    orderBy: {
+      userLists: {
+        _count: 'desc',
+      },
+    },
+  })
+
+  console.log(deal)
+
   return (
     <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-10'>
       <div className='inline-block max-w-lg justify-center text-center'>
@@ -44,13 +54,13 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className='mt-8'>
+      {/* <div className='mt-8'>
         <Snippet hideCopyButton hideSymbol variant='flat'>
           <span>
             Get started by editing <Code color='primary'>app/page.tsx</Code>
           </span>
         </Snippet>
-      </div>
+      </div> */}
     </section>
   )
 }

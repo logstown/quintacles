@@ -1,20 +1,20 @@
-import {nextui} from '@nextui-org/theme'
+import { nextui } from '@nextui-org/theme'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
+    './node_modules/@nextui-org/theme/dist/components/(autocomplete|avatar|button|card|divider|dropdown|image|input|link|modal|navbar|popover|progress|select|skeleton|toggle|ripple|spinner|listbox|scroll-shadow|menu).js',
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        mono: ["var(--font-geist-mono)"],
+        sans: ['var(--font-sans)'],
+        mono: ['var(--font-geist-mono)'],
       },
     },
   },
-  darkMode: "class",
+  darkMode: 'class',
   plugins: [nextui()],
 }
