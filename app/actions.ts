@@ -7,8 +7,9 @@ import { getGenres } from '@/lib/genres'
 import { Decade, Genre, RestrictionsUI } from '@/lib/models'
 import { getDecades, getUserListsUrl } from '@/lib/random'
 import { currentUser } from '@clerk/nextjs/server'
-import { ListItem, MediaType, Restrictions } from '@prisma/client'
+import { ListItem, MediaType } from '@prisma/client'
 import { reduce, some } from 'lodash'
+import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 export async function surpriseMe(mediaType: MediaType) {
@@ -232,3 +233,18 @@ export async function createList(
 }
 
 export async function removeUserFromList(userListId: string, userId: string) {}
+
+export async function updateUserCoverImage(coverImagePath: string) {
+  const user = await currentUser()
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { coverImagePath },
+  })
+
+  revalidatePath(`/user/${user.username}`)
+}

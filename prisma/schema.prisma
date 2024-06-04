@@ -15,12 +15,13 @@ datasource db {
 }
 
 model User {
-  id          String     @id @unique
-  username    String     @unique
-  displayName String?
-  photoURL    String?
-  createdAt   DateTime   @default(now())
-  userLists   UserList[]
+  id             String     @id @unique
+  username       String     @unique
+  displayName    String?
+  photoURL       String?
+  coverImagePath String     @default("/movieBackdrop.jpeg")
+  createdAt      DateTime   @default(now())
+  userLists      UserList[]
 }
 
 enum MediaType {

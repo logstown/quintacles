@@ -4,12 +4,15 @@ import { getImageStuff } from '@/lib/TmdbService'
 import prisma from '@/lib/db'
 import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { Avatar } from '@nextui-org/avatar'
-import { Image } from '@nextui-org/image'
 import { MediaType } from '@prisma/client'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
+import { EditCoverImage } from '../_components/EditCoverImage'
+import { getTmdbImageUrl } from '@/lib/random'
+import UserCoverImage from '../_components/UserCoverImage'
+import { currentUser } from '@clerk/nextjs/server'
 
 export default async function UserPage({
   params: { username },
@@ -31,6 +34,14 @@ export default async function UserPage({
     redirect('/')
   }
 
+  const user = await currentUser()
+  const isCurrentUser = user?.id === profile.id
+
+  const coverImageSrc =
+    profile.coverImagePath === '/movieBackdrop.jpeg'
+      ? profile.coverImagePath
+      : getTmdbImageUrl(profile.coverImagePath, 'w1280')
+
   const stuff = await getImageStuff()
   console.log(stuff)
 
@@ -38,7 +49,7 @@ export default async function UserPage({
     <div className='pb-20'>
       <div className='relative'>
         <img
-          src='https://image.tmdb.org/t/p/w1280/kU98MbVVgi72wzceyrEbClZmMFe.jpg'
+          src={coverImageSrc}
           alt='cover'
           className=' h-80 w-full rounded-2xl object-cover shadow-xl'
         />
@@ -47,9 +58,14 @@ export default async function UserPage({
           src={profile.photoURL ?? undefined}
           className='absolute -bottom-[60px] left-0 right-0 ml-auto mr-auto min-h-32 min-w-32 text-large md:left-20 md:right-auto '
         />
+        {isCurrentUser && (
+          <div className='absolute bottom-5 right-5'>
+            <EditCoverImage />
+          </div>
+        )}
       </div>
-      <div className='ml-0 mt-20 flex flex-col items-center text-center md:ml-64 md:mt-4 md:items-start md:text-left'>
-        <div className='flex flex-wrap items-baseline gap-4'>
+      <div className='ml-0 mt-20 flex flex-col items-center text-center md:ml-60 md:mt-4 md:items-start md:text-left'>
+        <div className='flex flex-wrap items-baseline gap-4 font-semibold'>
           <div className='whitespace-nowrap text-3xl text-foreground-800'>
             {profile.displayName}
           </div>
