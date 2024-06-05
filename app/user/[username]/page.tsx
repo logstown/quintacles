@@ -41,8 +41,8 @@ export default async function UserPage({
       ? profile.coverImagePath
       : getTmdbImageUrl(profile.coverImagePath, 'w1280')
 
-  const stuff = await getImageStuff()
-  console.log(stuff)
+  // const stuff = await getImageStuff()
+  // console.log(stuff)
 
   return (
     <div className='pb-20'>
