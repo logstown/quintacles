@@ -131,7 +131,7 @@ export default async function ListPage({
             <div className='xs:px-10 order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pt-10 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-10 xl:gap-12'>
               <div className='text-neutral-300'>
                 <div className='flex items-start gap-4'>
-                  <h1 className='text-xl font-bold underline underline-offset-4 sm:text-2xl sm:font-normal sm:underline-offset-8 md:text-5xl lg:text-4xl xl:text-5xl'>
+                  <h1 className='text-xl font-bold underline underline-offset-4 sm:text-xl sm:font-normal sm:underline-offset-8 md:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
                     {5 - i}
                   </h1>
                   <div
@@ -140,7 +140,7 @@ export default async function ListPage({
                       color: item.textColor,
                     }}
                   >
-                    <h1 className='text-balance text-4xl font-extrabold leading-none tracking-tight sm:text-5xl md:text-6xl lg:text-4xl xl:text-6xl'>
+                    <h1 className='text-balance text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
                       {item.name}{' '}
                       {!isEpisodes && (
                         <small className='text-[50%] font-medium'>
