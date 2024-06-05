@@ -69,6 +69,7 @@ model ListItem {
   id String @id @unique
 
   mediaType    MediaType
+  tmdbId       Int
   name         String
   date         String
   posterPath   String?

@@ -2,7 +2,6 @@ import { EpisodesTvShowPicker } from './_components/EpisodesTvShowPicker'
 import prisma from '@/lib/db'
 import { currentUser } from '@clerk/nextjs/server'
 import { MediaType } from '@prisma/client'
-import { split } from 'lodash'
 
 export default async function TvEpisodeCriteriaPage() {
   const user = await currentUser()
@@ -25,15 +24,13 @@ export default async function TvEpisodeCriteriaPage() {
     select: {
       EpisodesTvShow: {
         select: {
-          id: true,
+          tmdbId: true,
         },
       },
     },
   })
 
-  const tvShowIds = restrictions.map(r =>
-    Number(split(r.EpisodesTvShow.id, '-')[1]),
-  )
+  const tvShowIds = restrictions.map(r => r.EpisodesTvShow.tmdbId)
 
   return <EpisodesTvShowPicker tvShowIds={tvShowIds} />
 }

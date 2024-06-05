@@ -1,8 +1,7 @@
 'use client'
 
 import { EllipsisIcon, PencilIcon, TrashIcon } from 'lucide-react'
-import { Key } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import {
   Modal,
   ModalContent,
@@ -16,19 +15,15 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from '@nextui-org/dropdown'
-import { currentUser } from '@clerk/nextjs/dist/types/server'
 import { Button } from '@nextui-org/button'
-import { UserList } from '@prisma/client'
 import { removeUserFromList } from '@/app/actions'
 
 export function UserListActions({
   userListId,
   isSmall,
-  userId,
 }: {
   userListId: string
   isSmall?: boolean
-  userId: string
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const iconSize = isSmall ? 20 : 24

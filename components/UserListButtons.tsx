@@ -2,9 +2,7 @@ import { RestrictionsUI } from '@/lib/models'
 import { getUserListsUrl } from '@/lib/random'
 import { Button } from '@nextui-org/button'
 import { Tooltip } from '@nextui-org/tooltip'
-import { UserList } from '@prisma/client'
-import { CheckIcon, ListPlus, ShareIcon } from 'lucide-react'
-import { useState } from 'react'
+import { ListPlus } from 'lucide-react'
 import { ShareListButton } from './ShareListButton'
 import { currentUser } from '@clerk/nextjs/server'
 import { UserListActions } from './UserListActions'
@@ -35,11 +33,7 @@ export async function UserListButtons({
         userListId={userListId}
       />
       {doesListBelongToUser ? (
-        <UserListActions
-          isSmall={isSmall}
-          userListId={userListId}
-          userId={user.id}
-        />
+        <UserListActions isSmall={isSmall} userListId={userListId} />
       ) : (
         <Tooltip content='Create similar list'>
           <Button
@@ -55,7 +49,6 @@ export async function UserListButtons({
           </Button>
         </Tooltip>
       )}
-      {/* <UserListLikes userListId={userList.id} numLikes={userList.numLikes} /> */}
     </div>
   )
 }

@@ -31,7 +31,7 @@ export default async function EditListPage({
             select: {
               name: true,
               backdropPath: true,
-              id: true,
+              tmdbId: true,
             },
           },
         },
@@ -47,9 +47,7 @@ export default async function EditListPage({
 
   const episodeData =
     list.Restrictions.mediaType === MediaType.TvEpisode
-      ? await getEpisodeData(
-          Number(list.Restrictions.EpisodesTvShow.id.split('-')[1]),
-        )
+      ? await getEpisodeData(list.Restrictions.EpisodesTvShow.tmdbId)
       : undefined
 
   return (

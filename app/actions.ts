@@ -126,7 +126,7 @@ function createOrConnectUserToList(
   const orderedItemIdsString = reduce(
     listItems,
     (str, item, i) => {
-      str += item.id.split('-')[1]
+      str += item.tmdbId
       if (i < listItems.length - 1) {
         str += '-'
       }
@@ -191,6 +191,7 @@ export async function createList(
 
   EpisodesTvShow = EpisodesTvShow ?? {
     id: '',
+    tmdbId: 0,
     mediaType,
     name: '',
     genreIds: [],

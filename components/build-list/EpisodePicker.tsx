@@ -135,9 +135,7 @@ export function EpisodePicker({
         }}
       >
         {episodes.map(episode => {
-          const idx = findIndex(listItems, {
-            id: `${MediaType.TvEpisode}-${episode.id}`,
-          })
+          const idx = findIndex(listItems, { tmdbId: episode.id })
           return (
             <EpisodeChoice
               backDropFallBack={tvShow.posterPath ?? ''}

@@ -87,32 +87,37 @@ export const convertMediaItem = (
 ): ListItem => {
   let listItem = {
     id: `${mediaType}-${id}`,
+    tmdbId: id,
     mediaType,
-  } as ListItem
+  }
 
   switch (mediaType) {
     case MediaType.Movie:
-      listItem = {
+      return {
         ...listItem,
         name: title,
         posterPath: poster_path,
         date: release_date,
         backdropPath: backdrop_path,
         overview,
-      } as ListItem
-      break
+        seasonNum: null,
+        episodeNum: null,
+        genreIds: genre_ids,
+      }
     case MediaType.TvShow:
-      listItem = {
+      return {
         ...listItem,
         name,
         posterPath: poster_path,
         date: first_air_date,
         backdropPath: backdrop_path,
         overview,
-      } as ListItem
-      break
+        seasonNum: null,
+        episodeNum: null,
+        genreIds: genre_ids,
+      }
     case MediaType.TvEpisode:
-      listItem = {
+      return {
         ...listItem,
         name,
         date: air_date,
@@ -120,22 +125,22 @@ export const convertMediaItem = (
         seasonNum: season_number,
         episodeNum: episode_number,
         overview,
-      } as ListItem
-      break
+        posterPath: null,
+        genreIds: [],
+      }
     case MediaType.Person:
-      listItem = {
+      return {
         ...listItem,
         name,
         posterPath: profile_path,
+        date: '',
+        backdropPath: null,
+        overview: '',
+        seasonNum: null,
+        episodeNum: null,
+        genreIds: [],
       }
-      break
   }
-
-  if (genre_ids) {
-    listItem.genreIds = genre_ids
-  }
-
-  return listItem
 }
 
 const fetchAllEpisodes = async (

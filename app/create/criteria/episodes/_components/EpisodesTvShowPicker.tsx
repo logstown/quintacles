@@ -12,9 +12,8 @@ export function EpisodesTvShowPicker({ tvShowIds }: { tvShowIds: number[] }) {
   // TODO: add this functionality to create similary button
   const goToBuild = (item: ListItem | undefined) => {
     if (!item) return
-    const id = item.id.split('-')[1]
 
-    router.push(`/create/list/episodes/${id}`)
+    router.push(`/create/list/episodes/${item.tmdbId}`)
   }
   return (
     <div className='flex flex-col gap-12'>

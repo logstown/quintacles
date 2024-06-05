@@ -10,7 +10,7 @@ import { Divider } from '@nextui-org/divider'
 import { Image } from '@nextui-org/image'
 import { ListItem, MediaType } from '@prisma/client'
 import { format } from 'date-fns'
-import { clamp, includes } from 'lodash'
+import { clamp, find, includes } from 'lodash'
 import Vibrant from 'node-vibrant'
 
 export interface ListItemUI extends ListItem {
@@ -89,12 +89,7 @@ export default async function ListPage({
 
   const listItemPromises = userList.orderedItemIdsString
     .split('-')
-    .map(
-      id =>
-        userList.items.find(
-          item => item.id === `${userList.Restrictions.mediaType}-${id}`,
-        )!,
-    )
+    .map(tmdbId => find(userList.items, { tmdbId: Number(tmdbId) })!)
     .map(item => addColorToListItem(item))
     .reverse()
 
