@@ -266,10 +266,12 @@ export async function updateList(
     },
   })
 
-  return prisma.$transaction([
+  const deal = await prisma.$transaction([
     removeUserOperation,
     createOrConnectUserToList(user.id, restrictionsId, listItems),
   ])
+
+  redirect(`/list/${deal[1].id}`)
 }
 
 // TODO: this will leave an orphaned list if the last user is removed

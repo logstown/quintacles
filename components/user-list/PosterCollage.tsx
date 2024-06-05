@@ -394,7 +394,7 @@ export function PosterCollageStraight({
   return (
     <div className='flex gap-3 sm:gap-4'>
       {posters.map((lite, i) => (
-        <div key={i} className='flex max-w-[120px] flex-col items-center gap-1'>
+        <div key={i} className='flex max-w-[185px] flex-col items-center gap-1'>
           {isSkeleton ? (
             <Skeleton className='rounded-xl drop-shadow-lg'>
               <Image alt='bullcrap' src='/dummyPoster.jpeg' />
@@ -403,7 +403,7 @@ export function PosterCollageStraight({
             <Image
               className='rounded-xl drop-shadow-lg'
               alt='bullcrap'
-              src={getTmdbImageUrl(lite.posterPath, 'w154')}
+              src={getTmdbImageUrl(lite.posterPath, 'w342')}
             />
           )}
           <p className='text-sm font-semibold text-neutral-400 md:text-base'>

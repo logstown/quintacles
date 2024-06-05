@@ -86,7 +86,7 @@ export async function UserListQuery({
   })
 
   return (
-    <div className={`flex flex-wrap gap-5`}>
+    <div className={`flex flex-col gap-7 md:gap-12`}>
       {lists.map(list => (
         <UserListCard
           key={list.id}

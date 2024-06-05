@@ -41,8 +41,8 @@ export default async function UserPage({
       ? profile.coverImagePath
       : getTmdbImageUrl(profile.coverImagePath, 'w1280')
 
-  // const stuff = await getImageStuff()
-  // console.log(stuff)
+  const stuff = await getImageStuff()
+  console.log(stuff)
 
   return (
     <div className='pb-20'>
@@ -90,7 +90,7 @@ export default async function UserPage({
         </div>
       </div>
 
-      <div className='mt-10 flex flex-col gap-24 md:mt-16'>
+      <div className='mt-10 flex flex-col items-center gap-24 md:mt-16'>
         {mediaTypeArrForLists.map(mediaType => (
           <div key={mediaType.key} className='flex flex-col gap-4'>
             <div className='flex items-end gap-6 pb-4 pl-4'>
@@ -103,7 +103,7 @@ export default async function UserPage({
             </div>
             <Suspense
               fallback={
-                <div className={`flex flex-wrap gap-5`}>
+                <div className={`flex flex-col gap-5`}>
                   {[1, 2, 3, 4].map(i => (
                     <UserListSkeleton
                       key={i}
