@@ -3,7 +3,9 @@ import { getTmdbImageUrl } from '../../lib/random'
 import { ListItem } from '@prisma/client'
 import { Card } from '@nextui-org/card'
 import { Tooltip } from '@nextui-org/tooltip'
+import NextImage from 'next/image'
 import { Image } from '@nextui-org/image'
+
 export function SuggestionItem({
   item,
   idx,
@@ -35,6 +37,9 @@ export function SuggestionItem({
         >
           {item.posterPath ? (
             <Image
+              as={NextImage}
+              width={300}
+              height={450}
               src={getTmdbImageUrl(item.posterPath, 'w300')}
               alt='NextUI hero Image'
             />

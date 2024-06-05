@@ -8,6 +8,7 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card'
 import { Image } from '@nextui-org/image'
 import { Divider } from '@nextui-org/divider'
 import { format } from 'date-fns'
+import NextImage from 'next/image'
 import { ItemOverview } from '../ItemOverview'
 
 export function EpisodeChoice({
@@ -55,6 +56,9 @@ export function EpisodeChoice({
         <div className='flex flex-1 flex-col items-center gap-4'>
           <AddListIdx idx={idx}>
             <Image
+              as={NextImage}
+              width={300}
+              height={169}
               src={getTmdbImageUrl(
                 episode.still_path ?? backDropFallBack,
                 'w300',

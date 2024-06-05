@@ -6,6 +6,7 @@ import { ListItem, MediaType } from '@prisma/client'
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover'
 import { Image } from '@nextui-org/image'
 import { Card, CardFooter } from '@nextui-org/card'
+import NextImage from 'next/image'
 import { Button } from '@nextui-org/button'
 
 export const CreateListItem = ({
@@ -46,6 +47,9 @@ export const CreateListItem = ({
             className={isEpisode ? 'aspect-video' : ''}
           >
             <Image
+              as={NextImage}
+              width={300}
+              height={isEpisode ? 169 : 450}
               className={`object-cover ${isEpisode ? 'brightness-75' : ''}`}
               src={getTmdbImageUrl(
                 isEpisode ? item.backdropPath : item.posterPath,

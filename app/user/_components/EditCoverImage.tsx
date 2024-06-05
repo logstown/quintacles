@@ -19,6 +19,7 @@ import { useState } from 'react'
 import { getTmdbImageUrl } from '@/lib/random'
 import { updateUserCoverImage } from '@/app/actions'
 import { CircularProgress } from '@nextui-org/progress'
+import NextImage from 'next/image'
 
 export function EditCoverImage() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -129,6 +130,7 @@ export function EditCoverImage() {
                     >
                       <CardBody className='p-0'>
                         <Image
+                          as={NextImage}
                           shadow='sm'
                           radius='lg'
                           width={300}

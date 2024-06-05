@@ -3,6 +3,7 @@ import { clone } from 'lodash'
 import dummyPoster from '../../assets/dummyPoster.jpeg'
 import { Image } from '@nextui-org/image'
 import { Card, CardFooter } from '@nextui-org/card'
+import NextImage from 'next/image'
 import { Skeleton } from '@nextui-org/skeleton'
 
 export function PosterCollageGallery({
@@ -397,10 +398,13 @@ export function PosterCollageStraight({
         <div key={i} className='flex max-w-[185px] flex-col items-center gap-1'>
           {isSkeleton ? (
             <Skeleton className='rounded-xl drop-shadow-lg'>
-              <Image alt='bullcrap' src='/dummyPoster.jpeg' />
+              <img alt='bullcrap' src='/dummyPoster.jpeg' />
             </Skeleton>
           ) : (
             <Image
+              as={NextImage}
+              width={342}
+              height={513}
               className='rounded-xl drop-shadow-lg'
               alt='bullcrap'
               src={getTmdbImageUrl(lite.posterPath, 'w342')}
@@ -436,6 +440,9 @@ export function BackdropCollageStraight({
           ) : (
             <Card isFooterBlurred className='aspect-video'>
               <Image
+                as={NextImage}
+                width={300}
+                height={169}
                 className='object-cover brightness-90'
                 src={getTmdbImageUrl(lite.backdropPath, 'w300')}
                 alt='NextUI hero Image'

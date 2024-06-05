@@ -8,6 +8,7 @@ import { RestrictionsUI } from '@/lib/models'
 import { getTmdbImageUrl } from '@/lib/random'
 import { Divider } from '@nextui-org/divider'
 import { Image } from '@nextui-org/image'
+import NextImage from 'next/image'
 import { ListItem, MediaType } from '@prisma/client'
 import { format } from 'date-fns'
 import { clamp, find, includes } from 'lodash'
@@ -170,11 +171,9 @@ export default async function ListPage({
               </div>
             </div>
             <div className='relative flex w-full items-center lg:w-3/5 '>
-              <Image
-                classNames={{ wrapper: 'rounded-xl' }}
-                className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right object-cover '
+              <NextImage
+                className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right rounded-xl object-cover'
                 src={item.backdropUrl}
-                disableSkeleton={true}
                 alt='Robot Group'
                 width={1280}
                 height={720}
@@ -184,6 +183,8 @@ export default async function ListPage({
                   <Image
                     isBlurred
                     alt='dude'
+                    as={NextImage}
+                    height={277.5}
                     width={185}
                     src={getTmdbImageUrl(item.posterPath, 'w185')}
                   />
