@@ -38,7 +38,6 @@ export function CreateListButton() {
               }
               className='capitalize text-foreground'
               key={urlPlural}
-              as={Link}
               href={`/create/criteria/${urlPlural}`}
             >
               {plural}
