@@ -56,10 +56,7 @@ export const getDecades = (): Decade[] => {
     .map(x => ({ id: x, name: `${x}s` }))
 }
 
-export const getTmdbImageUrl = (
-  path?: string | null,
-  size?: string,
-): string => {
+export const getTmdbImageUrl = (path?: string | null, size?: string): string => {
   if (!path) {
     return ''
   }
@@ -86,7 +83,6 @@ export const convertMediaItem = (
   mediaType: MediaType,
 ): ListItem => {
   let listItem = {
-    id: `${mediaType}-${id}`,
     tmdbId: id,
     mediaType,
   }
@@ -168,9 +164,7 @@ export interface EpisodeData {
   seasons: string[]
 }
 
-export const getEpisodeData = async (
-  tvShowId: number,
-): Promise<EpisodeData> => {
+export const getEpisodeData = async (tvShowId: number): Promise<EpisodeData> => {
   const allEpisodes = await fetchAllEpisodes(tvShowId, 1)
   const seasons = flow(
     map('season_number'),

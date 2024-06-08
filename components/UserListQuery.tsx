@@ -56,6 +56,14 @@ export async function UserListQuery({
           },
         }
 
+  const itemSelect = {
+    select: {
+      name: true,
+      posterPath: true,
+      backdropPath: true,
+    },
+  }
+
   const lists = await prisma.userList.findMany({
     where: {
       users,
@@ -65,35 +73,37 @@ export async function UserListQuery({
     orderBy,
     include: {
       users: true,
-      items: {
-        select: {
-          name: true,
-          posterPath: true,
-          backdropPath: true,
-        },
-      },
+      item1: itemSelect,
+      item2: itemSelect,
+      item3: itemSelect,
+      item4: itemSelect,
+      item5: itemSelect,
       Restrictions: {
         include: {
           Person: true,
-          EpisodesTvShow: {
-            select: {
-              name: true,
-            },
-          },
+          EpisodesTvShow: true,
         },
       },
     },
   })
+
+  // const listItemLites  =[lists[0].item1, lists[0].item2, lists[0].item3, lists[0].item4, lists[0].item5
 
   return (
     <div className={`flex flex-col gap-7 md:gap-12`}>
       {lists.map(list => (
         <UserListCard
           key={list.id}
-          restrictions={list.Restrictions as unknown as RestrictionsUI}
+          restrictions={list.Restrictions}
           id={list.id}
           users={list.users}
-          listItemLites={list.items}
+          listItemLites={[
+            list.item1,
+            list.item2,
+            list.item3,
+            list.item4,
+            list.item5,
+          ]}
           excludeUser={!!userId}
           excludeTitle={exactMatch}
           lastUserAddedAt={list.lastUserAddedAt}

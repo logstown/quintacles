@@ -20,7 +20,11 @@ export default async function BuildTvEpisodesListPage({
     )) as TvShow
 
     if (tmdbShow) {
-      EpisodesTvShow = convertMediaItem(tmdbShow, MediaType.TvShow)
+      EpisodesTvShow = {
+        id: tmdbShow.id,
+        name: tmdbShow.name,
+        posterPath: tmdbShow.poster_path,
+      }
     }
   } catch (e) {}
 
@@ -30,11 +34,7 @@ export default async function BuildTvEpisodesListPage({
   }
 
   const restrictions = {
-    decade: 0,
-    genreId: 0,
-    isLiveActionOnly: false,
     mediaType: MediaType.TvEpisode,
-    personId: 0,
     episodesTvShowId: EpisodesTvShow.id,
     EpisodesTvShow,
   }

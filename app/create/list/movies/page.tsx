@@ -38,13 +38,12 @@ export default async function BuildMoviesListPage({
   }
 
   const restrictions = {
-    decade: decade?.id ?? 0,
-    genreId: genre?.id ?? 0,
+    decade: decade?.id,
+    genreId: genre?.id,
     isLiveActionOnly,
     mediaType: MediaType.Movie,
-    personId: Person?.id ?? 0,
+    personId: Person?.id,
     Person,
-    episodesTvShowId: '',
   }
 
   return <BuildListPage restrictions={restrictions} />

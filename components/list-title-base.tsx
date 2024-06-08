@@ -16,7 +16,7 @@ const getListTitle = (
     title += `${decade}s `
   }
 
-  if (Person && Person.id !== 0) {
+  if (Person) {
     title += `${Person.name} `
   }
 

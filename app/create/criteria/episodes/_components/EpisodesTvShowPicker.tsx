@@ -15,6 +15,7 @@ export function EpisodesTvShowPicker({ tvShowIds }: { tvShowIds: number[] }) {
 
     router.push(`/create/list/episodes/${item.tmdbId}`)
   }
+
   return (
     <div className='flex flex-col gap-12'>
       <div className='flex justify-center'>
@@ -35,14 +36,7 @@ export function EpisodesTvShowPicker({ tvShowIds }: { tvShowIds: number[] }) {
       </div>
       <Suggestions
         showIds={tvShowIds}
-        restrictions={{
-          genreId: 0,
-          decade: 0,
-          personId: 0,
-          isLiveActionOnly: false,
-          episodesTvShowId: '',
-          mediaType: MediaType.TvShow,
-        }}
+        restrictions={{ mediaType: MediaType.TvShow }}
         onItemSelected={goToBuild}
       />
     </div>

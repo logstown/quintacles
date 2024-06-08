@@ -6,7 +6,7 @@ import { filter, flow, orderBy, take } from 'lodash/fp'
 import { words, findIndex } from 'lodash'
 import { EpisodeChoice } from './EpisodeChoice'
 import { SearchIcon } from 'lucide-react'
-import { ListItem, MediaType } from '@prisma/client'
+import { ListItem, MediaType, TvShowLite } from '@prisma/client'
 import { useScrollAfter5Items } from '@/lib/hooks'
 import { Input } from '@nextui-org/input'
 import { Select, SelectItem } from '@nextui-org/select'
@@ -28,7 +28,7 @@ export function EpisodePicker({
   listItems,
   episodeData: { allEpisodes, seasons },
 }: {
-  tvShow: ListItem
+  tvShow: TvShowLite
   onItemSelected: (item: ListItem) => void
   listItems: ListItem[]
   episodeData: EpisodeData
@@ -44,9 +44,7 @@ export function EpisodePicker({
           doesWordStartIncludeTerm(search, ep.name) ||
           doesWordStartIncludeTerm(search, ep.overview),
       ),
-      filter(ep =>
-        season === 'All' ? true : ep.season_number === Number(season),
-      ),
+      filter(ep => (season === 'All' ? true : ep.season_number === Number(season))),
       orderBy(
         ep =>
           sortEpsBy === SortBy.Popularity
@@ -111,10 +109,7 @@ export function EpisodePicker({
             className='w-40'
             onChange={handleSortEpsByChange}
           >
-            <SelectItem
-              key={SortBy.Popularity}
-              value={SortBy.Popularity.toString()}
-            >
+            <SelectItem key={SortBy.Popularity} value={SortBy.Popularity.toString()}>
               Popular
             </SelectItem>
             <SelectItem

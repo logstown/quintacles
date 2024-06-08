@@ -16,8 +16,8 @@ import { CreateListItem } from './CreateListItem'
 import { AddMedia } from './AddMedia'
 import { EpisodePicker } from './EpisodePicker'
 import { Suggestions } from './Suggestions'
-import { createList, updateList } from '@/app/actions'
 import { EpisodeData } from '@/lib/random'
+import { createOrUpdateUserList } from '@/app/actions'
 
 export function BuildList({
   restrictions,
@@ -36,9 +36,7 @@ export function BuildList({
 
   const { mutate: save, isPending: isSavePending } = useMutation({
     mutationFn: async () =>
-      userListId
-        ? updateList(restrictions.id!, listItems, userListId)
-        : createList(restrictions, listItems),
+      createOrUpdateUserList({ restrictions, listItems, userListId }),
     onError: e => console.log(e),
     onSettled(data, error, variables, context) {
       console.log(['onSettled', data, error, variables, context])
@@ -51,8 +49,8 @@ export function BuildList({
     setListItems([...listItems, item])
   }
 
-  const removeFromList = (item: ListItem) => {
-    const newList = reject(listItems, { id: item.id })
+  const removeFromList = ({ tmdbId }: ListItem) => {
+    const newList = reject(listItems, { tmdbId })
     setListItems(newList)
   }
 

@@ -7,16 +7,16 @@ import { GithubIcon } from '@/components/icons'
 import prisma from '@/lib/db'
 
 export default async function Home() {
-  const deal = await prisma.listItem.findMany({
-    take: 10,
-    orderBy: {
-      userLists: {
-        _count: 'desc',
-      },
-    },
-  })
+  // const deal = await prisma.listItem.findMany({
+  //   take: 10,
+  //   orderBy: {
+  //     userLists: {
+  //       _count: 'desc',
+  //     },
+  //   },
+  // })
 
-  console.log(deal)
+  // console.log(deal)
 
   return (
     <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-10'>
@@ -24,9 +24,7 @@ export default async function Home() {
         <h1 className={title()}>Make&nbsp;</h1>
         <h1 className={title({ color: 'violet' })}>beautiful&nbsp;</h1>
         <br />
-        <h1 className={title()}>
-          websites regardless of your design experience.
-        </h1>
+        <h1 className={title()}>websites regardless of your design experience.</h1>
         <h2 className={subtitle({ class: 'mt-4' })}>
           Beautiful, fast and modern React UI library.
         </h2>

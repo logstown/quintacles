@@ -25,7 +25,7 @@ export function AddMedia({
 
     if (!item) return
 
-    if (some(listItems, { id: item.id })) return
+    if (some(listItems, { id: item.tmdbId })) return
     addListItem(item)
   }
 
@@ -62,7 +62,7 @@ export function AddMedia({
         <PopoverContent className='py-4'>
           <MediaPicker
             shouldAutoFocus={true}
-            idsToExclude={listItems.map(x => x.id)}
+            idsToExclude={listItems.map(x => x.tmdbId)}
             onSelected={mediaPicked}
             mediaType={mediaType}
           />

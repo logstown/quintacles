@@ -18,12 +18,10 @@ export default async function BuildShowsListPage({
   const decade = find(decades, { id: Number(searchParams.decade) })
 
   const restrictions = {
-    decade: decade?.id ?? 0,
-    genreId: genre?.id ?? 0,
+    decade: decade?.id,
+    genreId: genre?.id,
     isLiveActionOnly,
     mediaType: MediaType.TvShow,
-    personId: 0,
-    episodesTvShowId: '',
   }
 
   return <BuildListPage restrictions={restrictions} />

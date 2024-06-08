@@ -32,7 +32,7 @@ export default function MediaPicker({
     | 'danger'
     | undefined
   size?: 'sm' | 'md' | 'lg'
-  idsToExclude?: string[]
+  idsToExclude?: number[]
   onSelected?: (item: ListItem | undefined) => void
 }) {
   const [searchText, setSearchText] = useState('')
@@ -51,7 +51,7 @@ export default function MediaPicker({
 
       const items = map(results, (x: TmdbItem) =>
         convertMediaItem(x, mediaType),
-      ).filter(x => !idsToExclude?.includes(x.id))
+      ).filter(x => !idsToExclude?.includes(x.tmdbId))
 
       console.log(cloneDeep(items))
       return items
@@ -66,7 +66,7 @@ export default function MediaPicker({
   const onSelectionChange = (key: React.Key) => {
     console.log(key)
     if (onSelected) {
-      const item = find(items, { id: key?.toString() })
+      const item = find(items, { tmdbId: Number(key) })
       onSelected(item)
     }
   }
@@ -105,7 +105,7 @@ export default function MediaPicker({
       >
         {item => (
           <AutocompleteItem
-            key={item.id}
+            key={item.tmdbId}
             className='capitalize'
             startContent={
               <Avatar

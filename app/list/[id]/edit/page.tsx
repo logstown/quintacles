@@ -1,6 +1,5 @@
 import { BuildList } from '@/components/build-list/build-list'
 import prisma from '@/lib/db'
-import { RestrictionsUI } from '@/lib/models'
 import { getEpisodeData } from '@/lib/random'
 import { currentUser } from '@clerk/nextjs/server'
 import { MediaType } from '@prisma/client'
@@ -23,17 +22,15 @@ export default async function EditListPage({
       users: { some: { id: user.id } },
     },
     include: {
-      items: true,
+      item1: true,
+      item2: true,
+      item3: true,
+      item4: true,
+      item5: true,
       Restrictions: {
         include: {
           Person: true,
-          EpisodesTvShow: {
-            select: {
-              name: true,
-              backdropPath: true,
-              tmdbId: true,
-            },
-          },
+          EpisodesTvShow: true,
         },
       },
     },
@@ -47,14 +44,14 @@ export default async function EditListPage({
 
   const episodeData =
     list.Restrictions.mediaType === MediaType.TvEpisode
-      ? await getEpisodeData(list.Restrictions.EpisodesTvShow.tmdbId)
+      ? await getEpisodeData(list.Restrictions.EpisodesTvShow.id)
       : undefined
 
   return (
     <BuildList
-      restrictions={list.Restrictions as unknown as RestrictionsUI}
+      restrictions={list.Restrictions}
       userListId={list.id}
-      listItemsToEdit={list.items}
+      listItemsToEdit={[list.item1, list.item2, list.item3, list.item4, list.item5]}
       episodeData={episodeData}
     />
   )

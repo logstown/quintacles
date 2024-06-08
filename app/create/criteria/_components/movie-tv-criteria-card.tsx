@@ -15,14 +15,7 @@ import { MovieTvCriteria } from '@/components/movie-tv-criteria'
 
 export function MovieTvCriteriaCard({ mediaType }: { mediaType: MediaType }) {
   const router = useRouter()
-  const [restrictions, setRestrictions] = useState<RestrictionsUI>({
-    mediaType,
-    genreId: 0,
-    decade: 0,
-    personId: 0,
-    isLiveActionOnly: false,
-    episodesTvShowId: '',
-  })
+  const [restrictions, setRestrictions] = useState<RestrictionsUI>({ mediaType })
 
   const goToList = () => {
     const url = getUserListsUrl(restrictions)

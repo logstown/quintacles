@@ -1,4 +1,4 @@
-import { ListItem, MediaType, Person, Restrictions } from '@prisma/client'
+import { MediaType, Person, Restrictions, TvShowLite } from '@prisma/client'
 
 export type Genre = {
   id: number
@@ -12,10 +12,15 @@ export type Decade = {
   name: string
 }
 
-export type RestrictionsUI = Omit<Restrictions, 'id'> & {
-  id?: number
+export type RestrictionsUI = {
+  mediaType: MediaType
+  isLiveActionOnly?: boolean
+  genreId?: number
+  decade?: number
+  personId?: number
   Person?: Person
-  EpisodesTvShow?: ListItem
+  episodesTvShowId?: number
+  EpisodesTvShow?: TvShowLite
 }
 
 export interface CreateListSearchParams {

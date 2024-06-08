@@ -30,15 +30,15 @@ export default async function ListPage({
     where: { id },
     include: {
       users: true,
-      items: true,
+      item1: true,
+      item2: true,
+      item3: true,
+      item4: true,
+      item5: true,
       Restrictions: {
         include: {
           Person: true,
-          EpisodesTvShow: {
-            select: {
-              name: true,
-            },
-          },
+          EpisodesTvShow: true,
         },
       },
     },
@@ -88,9 +88,13 @@ export default async function ListPage({
     } as ListItemUI
   }
 
-  const listItemPromises = userList.orderedItemIdsString
-    .split('-')
-    .map(tmdbId => find(userList.items, { tmdbId: Number(tmdbId) })!)
+  const listItemPromises = [
+    userList.item1,
+    userList.item2,
+    userList.item3,
+    userList.item4,
+    userList.item5,
+  ]
     .map(item => addColorToListItem(item))
     .reverse()
 
@@ -102,7 +106,7 @@ export default async function ListPage({
       <div className='flex flex-col items-center gap-4 px-8 md:gap-8 md:px-12'>
         <h1 className='text-center text-4xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl lg:tracking-normal'>
           <ListTitleBase
-            restrictions={userList.Restrictions as unknown as RestrictionsUI}
+            restrictions={userList.Restrictions}
             includeMediaType={true}
           />
         </h1>
@@ -115,7 +119,7 @@ export default async function ListPage({
           <UserListButtons
             userListId={userList.id}
             userListUserIds={userListUserIds}
-            Restrictions={userList.Restrictions as unknown as RestrictionsUI}
+            Restrictions={userList.Restrictions}
           />
         </div>
       </div>
@@ -126,7 +130,7 @@ export default async function ListPage({
             style={{
               backgroundColor: item.bgColor,
             }}
-            key={item.id}
+            key={item.tmdbId}
           >
             <div className='xs:px-10 order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pt-10 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-10 xl:gap-12'>
               <div className='text-neutral-300'>

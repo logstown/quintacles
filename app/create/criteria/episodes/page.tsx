@@ -24,13 +24,13 @@ export default async function TvEpisodeCriteriaPage() {
     select: {
       EpisodesTvShow: {
         select: {
-          tmdbId: true,
+          id: true,
         },
       },
     },
   })
 
-  const tvShowIds = restrictions.map(r => r.EpisodesTvShow.tmdbId)
+  const tvShowIds = restrictions.map(r => r.EpisodesTvShow.id)
 
   return <EpisodesTvShowPicker tvShowIds={tvShowIds} />
 }

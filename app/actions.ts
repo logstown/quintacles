@@ -8,7 +8,7 @@ import { Decade, Genre, RestrictionsUI } from '@/lib/models'
 import { getDecades, getUserListsUrl } from '@/lib/random'
 import { currentUser } from '@clerk/nextjs/server'
 import { ListItem, MediaType, PrismaPromise, UserList } from '@prisma/client'
-import { reduce, some } from 'lodash'
+import { some } from 'lodash'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
@@ -100,7 +100,7 @@ export async function surpriseMe(mediaType: MediaType) {
       decade: decade?.id ?? 0,
       isLiveActionOnly,
       personId: moviePerson?.id ?? 0,
-      episodesTvShowId: '',
+      episodesTvShowId: 0,
     },
     'build',
   )
@@ -110,37 +110,91 @@ export async function surpriseMe(mediaType: MediaType) {
   return userRestrictionsArr
 }
 
-export async function getSuggestions(
-  pageNum: number,
-  restrictions: RestrictionsUI,
-) {
+export async function getSuggestions(pageNum: number, restrictions: RestrictionsUI) {
   const res = await getSuggestionsTmdb(pageNum, restrictions)
   return res
 }
 
 function createOrConnectUserToList(
   userId: string,
-  restrictionsId: number,
+  {
+    mediaType,
+    decade,
+    isLiveActionOnly,
+    genreId,
+    Person,
+    EpisodesTvShow,
+  }: RestrictionsUI,
   listItems: ListItem[],
+  isUpdate = false,
 ): PrismaPromise<UserList> {
-  const orderedItemIdsString = reduce(
-    listItems,
-    (str, item, i) => {
-      str += item.tmdbId
-      if (i < listItems.length - 1) {
-        str += '-'
-      }
+  Person = Person ?? {
+    id: 0,
+    name: '',
+    profilePath: null,
+  }
 
-      return str
-    },
-    '',
-  )
+  EpisodesTvShow = EpisodesTvShow ?? {
+    id: 0,
+    name: '',
+    posterPath: null,
+  }
+
+  decade = decade ?? 0
+  genreId = genreId ?? 0
+  isLiveActionOnly = isLiveActionOnly ?? false
+
+  const uniqueRestrictions = {
+    mediaType,
+    genreId,
+    decade,
+    isLiveActionOnly,
+    personId: Person.id,
+    episodesTvShowId: EpisodesTvShow.id,
+  }
+
+  const Restrictions = isUpdate
+    ? {
+        connect: { uniqueRestrictions },
+      }
+    : {
+        connectOrCreate: {
+          where: { uniqueRestrictions },
+          create: {
+            mediaType,
+            decade,
+            isLiveActionOnly,
+            genreId,
+            Person: {
+              connectOrCreate: {
+                where: { id: Person.id },
+                create: Person,
+              },
+            },
+            EpisodesTvShow: {
+              connectOrCreate: {
+                where: { id: EpisodesTvShow.id },
+                create: EpisodesTvShow,
+              },
+            },
+          },
+        },
+      }
 
   return prisma.userList.upsert({
     where: {
       uniqueList: {
-        orderedItemIdsString,
-        restrictionsId,
+        mediaType,
+        decade,
+        isLiveActionOnly,
+        genreId,
+        personId: Person.id,
+        episodesTvShowId: EpisodesTvShow.id,
+        item1Id: listItems[0].tmdbId,
+        item2Id: listItems[1].tmdbId,
+        item3Id: listItems[2].tmdbId,
+        item4Id: listItems[3].tmdbId,
+        item5Id: listItems[4].tmdbId,
       },
     },
     update: {
@@ -150,128 +204,111 @@ function createOrConnectUserToList(
       lastUserAddedAt: new Date(),
     },
     create: {
-      orderedItemIdsString,
       users: {
         connect: { id: userId },
       },
-      Restrictions: {
-        connect: { id: restrictionsId },
+      Restrictions,
+      item1: {
+        connectOrCreate: {
+          where: {
+            uniqueListItem: {
+              tmdbId: listItems[0].tmdbId,
+              mediaType,
+            },
+          },
+          create: listItems[0],
+        },
       },
-      items: {
-        connectOrCreate: listItems.map(item => ({
-          where: { id: item.id },
-          create: item,
-        })),
+      item2: {
+        connectOrCreate: {
+          where: {
+            uniqueListItem: {
+              tmdbId: listItems[1].tmdbId,
+              mediaType,
+            },
+          },
+          create: listItems[1],
+        },
+      },
+      item3: {
+        connectOrCreate: {
+          where: {
+            uniqueListItem: {
+              tmdbId: listItems[2].tmdbId,
+              mediaType,
+            },
+          },
+          create: listItems[2],
+        },
+      },
+      item4: {
+        connectOrCreate: {
+          where: {
+            uniqueListItem: {
+              tmdbId: listItems[3].tmdbId,
+              mediaType,
+            },
+          },
+          create: listItems[3],
+        },
+      },
+      item5: {
+        connectOrCreate: {
+          where: {
+            uniqueListItem: {
+              tmdbId: listItems[4].tmdbId,
+              mediaType,
+            },
+          },
+          create: listItems[4],
+        },
       },
     },
   })
 }
 
-export async function createList(
-  {
-    genreId,
-    decade,
-    mediaType,
-    isLiveActionOnly,
-    Person,
-    EpisodesTvShow,
-  }: RestrictionsUI,
-  listItems: ListItem[],
-) {
+export async function createOrUpdateUserList({
+  restrictions,
+  listItems,
+  userListId,
+}: {
+  restrictions: RestrictionsUI
+  listItems: ListItem[]
+  userListId?: string
+}) {
   const user = await currentUser()
 
   if (!user) {
     throw new Error('User not found')
   }
-  Person = Person ?? {
-    id: 0,
-    name: '',
-    profilePath: null,
-  }
 
-  EpisodesTvShow = EpisodesTvShow ?? {
-    id: '',
-    tmdbId: 0,
-    mediaType,
-    name: '',
-    genreIds: [],
-    date: '',
-    posterPath: null,
-    overview: null,
-    backdropPath: null,
-    seasonNum: null,
-    episodeNum: null,
-  }
-
-  const { id: restrictionsId } = await prisma.restrictions.upsert({
-    where: {
-      uniqueRestrictions: {
-        mediaType,
-        genreId: genreId ?? 0,
-        decade: decade ?? 0,
-        isLiveActionOnly,
-        personId: Person.id,
-        episodesTvShowId: EpisodesTvShow.id,
-      },
-    },
-    update: {},
-    create: {
-      Person: {
-        connectOrCreate: {
-          where: { id: Person.id },
-          create: Person,
-        },
-      },
-      EpisodesTvShow: {
-        connectOrCreate: {
-          where: { id: EpisodesTvShow.id },
-          create: EpisodesTvShow,
-        },
-      },
-      mediaType,
-      genreId: genreId ?? 0,
-      decade: decade ?? 0,
-      isLiveActionOnly,
-    },
-  })
-
-  const { id: listId } = await createOrConnectUserToList(
+  const createUpdateOperation = createOrConnectUserToList(
     user.id,
-    restrictionsId,
+    restrictions,
     listItems,
+    !!userListId,
   )
 
-  redirect(`/list/${listId}`)
-}
+  if (userListId) {
+    const transResult = await prisma.$transaction([
+      createUpdateOperation,
+      prisma.userList.update({
+        where: {
+          id: userListId,
+        },
+        data: {
+          users: {
+            disconnect: { id: user.id },
+          },
+        },
+      }),
+    ])
 
-export async function updateList(
-  restrictionsId: number,
-  listItems: ListItem[],
-  userListId: string,
-) {
-  const user = await currentUser()
-
-  if (!user) {
-    throw new Error('User not found')
+    redirect(`/list/${transResult[0].id}`)
+  } else {
+    const { id } = await createUpdateOperation
+    redirect(`/list/${id}`)
   }
-
-  const removeUserOperation = prisma.userList.update({
-    where: {
-      id: userListId,
-    },
-    data: {
-      users: {
-        disconnect: { id: user.id },
-      },
-    },
-  })
-
-  const deal = await prisma.$transaction([
-    removeUserOperation,
-    createOrConnectUserToList(user.id, restrictionsId, listItems),
-  ])
-
-  redirect(`/list/${deal[1].id}`)
 }
 
 // TODO: this will leave an orphaned list if the last user is removed

@@ -78,10 +78,10 @@ export function Suggestions({
             {data?.pages.map((group, i) => (
               <React.Fragment key={i}>
                 {group.suggestions.map((item: ListItem) => {
-                  const idx = findIndex(listItems, { id: item.id })
+                  const idx = findIndex(listItems, { tmdbId: item.tmdbId })
                   return (
                     <SuggestionItem
-                      key={item.id}
+                      key={item.tmdbId}
                       item={item}
                       idx={idx}
                       onItemSelected={onItemSelected}

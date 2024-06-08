@@ -69,9 +69,7 @@ export default async function UserPage({
             <div className='whitespace-nowrap text-3xl text-foreground-800'>
               {profile.displayName}
             </div>
-            <div className='text-xl text-foreground-400'>
-              @{profile.username}
-            </div>
+            <div className='text-xl text-foreground-400'>@{profile.username}</div>
           </div>
           <div className='flex gap-4 pt-4'>
             <div className='flex items-end gap-2'>
@@ -94,9 +92,7 @@ export default async function UserPage({
         {mediaTypeArrForLists.map(mediaType => (
           <div key={mediaType.key} className='flex flex-col gap-4'>
             <div className='flex items-end gap-6 pb-4 pl-4'>
-              <h1 className='text-5xl font-bold capitalize'>
-                {mediaType.plural}
-              </h1>
+              <h1 className='text-5xl font-bold capitalize'>{mediaType.plural}</h1>
               <div>
                 {/* <MediaTypeListCount mediaType={mediaType.key} uid={uid} /> */}
               </div>
@@ -114,14 +110,7 @@ export default async function UserPage({
               }
             >
               <UserListQuery
-                restrictions={{
-                  mediaType: mediaType.key,
-                  decade: 0,
-                  genreId: 0,
-                  isLiveActionOnly: false,
-                  personId: 0,
-                  episodesTvShowId: '',
-                }}
+                restrictions={{ mediaType: mediaType.key }}
                 userId={profile.id}
                 sortBy='lastUserAddedAt'
               />

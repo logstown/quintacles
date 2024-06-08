@@ -39,36 +39,46 @@ model UserList {
 
   users User[]
 
-  orderedItemIdsString String
+  item1   ListItem @relation("item1", fields: [mediaType, item1Id], references: [mediaType, tmdbId])
+  item1Id Int
+  item2   ListItem @relation("item2", fields: [mediaType, item2Id], references: [mediaType, tmdbId])
+  item2Id Int
+  item3   ListItem @relation("item3", fields: [mediaType, item3Id], references: [mediaType, tmdbId])
+  item3Id Int
+  item4   ListItem @relation("item4", fields: [mediaType, item4Id], references: [mediaType, tmdbId])
+  item4Id Int
+  item5   ListItem @relation("item5", fields: [mediaType, item5Id], references: [mediaType, tmdbId])
+  item5Id Int
 
-  items ListItem[]
+  Restrictions     Restrictions @relation(fields: [mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId], references: [mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId])
+  mediaType        MediaType
+  genreId          Int
+  decade           Int
+  isLiveActionOnly Boolean
+  personId         Int
+  episodesTvShowId Int
 
-  Restrictions   Restrictions @relation(fields: [restrictionsId], references: [id])
-  restrictionsId Int
-
-  @@unique(name: "uniqueList", [orderedItemIdsString, restrictionsId])
+  @@unique(name: "uniqueList", [item1Id, item2Id, item3Id, item4Id, item5Id, mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId])
 }
 
 model Restrictions {
-  id               Int       @id @default(autoincrement())
   mediaType        MediaType
   genreId          Int
   decade           Int
   isLiveActionOnly Boolean
 
+  Person   Person @relation(fields: [personId], references: [id])
+  personId Int
+
+  EpisodesTvShow   TvShowLite @relation(fields: [episodesTvShowId], references: [id])
+  episodesTvShowId Int
+
   userLists UserList[]
-  Person    Person     @relation(fields: [personId], references: [id])
-  personId  Int
 
-  EpisodesTvShow   ListItem @relation(fields: [episodesTvShowId], references: [id])
-  episodesTvShowId String
-
-  @@unique(fields: [mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId], name: "uniqueRestrictions")
+  @@id(fields: [mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId], name: "uniqueRestrictions")
 }
 
 model ListItem {
-  id String @id @unique
-
   mediaType    MediaType
   tmdbId       Int
   name         String
@@ -80,8 +90,13 @@ model ListItem {
   seasonNum    Int?
   episodeNum   Int?
 
-  userLists     UserList[]
-  restrictionss Restrictions[]
+  item1 UserList[] @relation("item1")
+  item2 UserList[] @relation("item2")
+  item3 UserList[] @relation("item3")
+  item4 UserList[] @relation("item4")
+  item5 UserList[] @relation("item5")
+
+  @@id(name: "uniqueListItem", fields: [mediaType, tmdbId])
 }
 
 model Person {
@@ -89,5 +104,13 @@ model Person {
   name        String
   profilePath String?
 
-  movieTvRestrictions Restrictions[]
+  restrictions Restrictions[]
+}
+
+model TvShowLite {
+  id         Int     @id @unique
+  name       String
+  posterPath String?
+
+  retrictions Restrictions[]
 }

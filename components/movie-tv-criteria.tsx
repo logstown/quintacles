@@ -11,14 +11,7 @@ import { Select, SelectItem } from '@nextui-org/select'
 import MediaPicker from './media-picker'
 
 export function MovieTvCriteria({
-  restrictions: {
-    decade,
-    genreId,
-    Person,
-    personId,
-    isLiveActionOnly,
-    mediaType,
-  },
+  restrictions: { decade, genreId, Person, personId, isLiveActionOnly, mediaType },
   onRestrictionsChange,
 }: {
   restrictions: RestrictionsUI
@@ -33,11 +26,10 @@ export function MovieTvCriteria({
     onRestrictionsChange({
       mediaType,
       genreId,
-      decade: foundDecade?.id ?? 0,
+      decade: foundDecade?.id,
       isLiveActionOnly,
       personId,
       Person,
-      episodesTvShowId: '',
     })
   }
 
@@ -46,12 +38,11 @@ export function MovieTvCriteria({
 
     onRestrictionsChange({
       mediaType,
-      genreId: foundGenre?.id ?? 0,
+      genreId: foundGenre?.id,
       decade,
       isLiveActionOnly,
       personId,
       Person,
-      episodesTvShowId: '',
     })
   }
 
@@ -70,9 +61,8 @@ export function MovieTvCriteria({
       genreId,
       decade,
       isLiveActionOnly,
-      personId: Person?.id ?? 0,
+      personId: Person?.id,
       Person,
-      episodesTvShowId: '',
     })
   }
 
@@ -88,7 +78,6 @@ export function MovieTvCriteria({
       isLiveActionOnly,
       personId,
       Person,
-      episodesTvShowId: '',
     })
   }
 
@@ -152,9 +141,7 @@ export function MovieTvCriteria({
         {[{ id: '', name: 'Any', icon: undefined }, ...mediaTypeGenres].map(
           genre => (
             <AutocompleteItem
-              startContent={
-                <span className='text-neutral-400'>{genre.icon}</span>
-              }
+              startContent={<span className='text-neutral-400'>{genre.icon}</span>}
               key={genre.id}
             >
               {genre.name}
