@@ -341,9 +341,7 @@ export function BackdropCard({
         src={getTmdbImageUrl(item.backdropPath, 'w780')}
       />
       <CardFooter className='absolute top-1 z-10 ml-1 w-auto overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
-        <p className='drop-drop-shadow-lg text-tiny text-white/80'>
-          {item.name}
-        </p>
+        <p className='drop-drop-shadow-lg text-tiny text-white/80'>{item.name}</p>
       </CardFooter>
     </Card>
   )
@@ -395,7 +393,7 @@ export function PosterCollageStraight({
   return (
     <div className='flex gap-3 sm:gap-4'>
       {posters.map((lite, i) => (
-        <div key={i} className='flex max-w-[185px] flex-col items-center gap-1'>
+        <div key={i} className='flex flex-col items-center gap-1'>
           {isSkeleton ? (
             <Skeleton className='rounded-xl drop-shadow-lg'>
               <img alt='bullcrap' src='/dummyPoster.jpeg' />
@@ -434,9 +432,9 @@ export function BackdropCollageStraight({
   return (
     <div className='flex flex-col gap-4'>
       {backdrops.map((lite, i) => (
-        <div key={i} className='flex max-w-[300px] items-center gap-2'>
+        <div key={i} className='flex items-center gap-2'>
           {isSkeleton ? (
-            <Skeleton className='h-[169px] w-[300px] rounded-xl drop-shadow-lg' />
+            <Skeleton className='aspect-video rounded-xl drop-shadow-lg' />
           ) : (
             <Card isFooterBlurred className='aspect-video'>
               <Image

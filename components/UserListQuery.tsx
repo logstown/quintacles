@@ -87,10 +87,12 @@ export async function UserListQuery({
     },
   })
 
-  // const listItemLites  =[lists[0].item1, lists[0].item2, lists[0].item3, lists[0].item4, lists[0].item5
+  const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
 
   return (
-    <div className={`flex flex-col gap-7 md:gap-12`}>
+    <div
+      className={`flex ${isEpisodes ? 'flex-wrap gap-12 md:gap-7' : 'flex-col gap-7 md:gap-12'}`}
+    >
       {lists.map(list => (
         <UserListCard
           key={list.id}

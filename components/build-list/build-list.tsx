@@ -38,9 +38,6 @@ export function BuildList({
     mutationFn: async () =>
       createOrUpdateUserList({ restrictions, listItems, userListId }),
     onError: e => console.log(e),
-    onSettled(data, error, variables, context) {
-      console.log(['onSettled', data, error, variables, context])
-    },
   })
 
   const title = userListId ? 'Edit List' : 'Add Items'

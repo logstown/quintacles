@@ -88,7 +88,7 @@ export default async function UserPage({
         </div>
       </div>
 
-      <div className='mt-10 flex flex-col items-center gap-24 md:mt-16'>
+      <div className='mx-auto mt-10 flex flex-col gap-24 md:mt-16 md:max-w-screen-lg'>
         {mediaTypeArrForLists.map(mediaType => (
           <div key={mediaType.key} className='flex flex-col gap-4'>
             <div className='flex items-end gap-6 pb-4 pl-4'>
