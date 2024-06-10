@@ -69,13 +69,9 @@ export function BuildList({
       <div key={i} className='relative'>
         <div className='invisible'>
           {isEpisodes ? (
-            <img
-              className='hidden sm:block'
-              src='/dummyStill.jpeg'
-              alt='NextUI hero Image'
-            />
+            <img className='hidden sm:block' src='/dummyStill.jpeg' alt='dummy' />
           ) : (
-            <img src='/dummyPoster.jpeg' alt='NextUI hero Image' />
+            <img src='/dummyPoster.jpeg' alt='dummy' />
           )}
         </div>
         {i === listItems.length && !isEpisodes && (

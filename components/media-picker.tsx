@@ -96,7 +96,6 @@ export default function MediaPicker({
             ? mediaTypes[mediaType].display
             : `Select a ${mediaTypes[mediaType].display}`
         }
-        autoFocus={shouldAutoFocus}
         placeholder='Type to search...'
         color={color}
         menuTrigger='input'

@@ -212,6 +212,7 @@ export function PosterCollageBigFirstRightGrid({
     >
       {posters.map((p, i) => (
         <Image
+          key={i}
           classNames={{
             wrapper: i == 0 ? 'col-span-2 row-span-2 p-2' : 'p-2',
           }}

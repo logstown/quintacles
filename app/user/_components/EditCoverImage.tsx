@@ -107,7 +107,6 @@ export function EditCoverImage() {
                 <Input
                   label='Search'
                   value={searchText}
-                  autoFocus
                   onValueChange={setSearchText}
                 />
                 <div
