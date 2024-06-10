@@ -11,7 +11,7 @@ import {
 } from '@nextui-org/dropdown'
 import { NavbarItem } from '@nextui-org/navbar'
 import { cloneElement } from 'react'
-import { Link } from '@nextui-org/link'
+import Link from 'next/link'
 
 export function BrowseDropdown() {
   return (

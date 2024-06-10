@@ -10,7 +10,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from '@nextui-org/dropdown'
-import { Link } from '@nextui-org/link'
+import Link from 'next/link'
 
 export function CreateListButton() {
   return (
