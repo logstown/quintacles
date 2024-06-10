@@ -32,11 +32,9 @@ export function CreateListButton() {
           return (
             <DropdownItem
               startContent={
-                <span className='text-foreground-600'>
-                  {mediaTypeIconSmaller}
-                </span>
+                <span className='text-foreground-600'>{mediaTypeIconSmaller}</span>
               }
-              className='capitalize text-foreground'
+              className='capitalize'
               key={urlPlural}
               href={`/create/criteria/${urlPlural}`}
             >

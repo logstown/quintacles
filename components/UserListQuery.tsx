@@ -39,7 +39,16 @@ export async function UserListQuery({
 
   const Restrictions = exactMatch
     ? {
-        equals: restrictions,
+        is: {
+          // uniqueRestrictions: {
+          mediaType: restrictions.mediaType,
+          genreId: restrictions.genreId ?? 0,
+          decade: restrictions.decade ?? 0,
+          isLiveActionOnly: restrictions.isLiveActionOnly,
+          personId: restrictions.personId ?? 0,
+          episodesTvShowId: restrictions.episodesTvShowId ?? 0,
+          // },
+        },
       }
     : {
         is: pickBy(restrictions, v => v),

@@ -18,6 +18,7 @@ import { CreateListButton } from './create-list-button'
 import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { RandomListButton } from './random-list-button'
+import { BrowseDropdown } from './BrowseDropdown'
 
 async function getRandomList() {
   'use server'
@@ -61,13 +62,14 @@ export const Navbar = () => {
 
   return (
     <NextUINavbar maxWidth='xl' position='sticky' className='shadow-md'>
-      <NavbarContent className='basis-1/5 sm:basis-full' justify='start'>
+      <NavbarContent className='basis-1/5 gap-8 sm:basis-full' justify='start'>
         <NavbarBrand as='li' className='max-w-fit gap-3'>
           <NextLink className='flex items-center justify-start gap-1' href='/'>
             <Logo />
-            <p className='font-bold text-inherit'>ACME</p>
+            <p className='font-bold text-inherit'>RANKER</p>
           </NextLink>
         </NavbarBrand>
+        <BrowseDropdown />
         {/* <ul className='ml-2 hidden justify-start gap-4 lg:flex'>
           {siteConfig.navItems.map(item => (
             <NavbarItem key={item.href}>
