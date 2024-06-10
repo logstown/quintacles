@@ -440,13 +440,14 @@ export function BackdropCollageStraight({
                 as={NextImage}
                 width={300}
                 height={169}
-                className='object-cover brightness-90'
+                className='max-w-[282px] object-cover brightness-90'
                 src={getTmdbImageUrl(lite.backdropPath, 'w300')}
                 alt='NextUI hero Image'
               />
-              <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] items-center gap-2 overflow-hidden rounded-large border-1 border-white/20 py-1 text-white/80 shadow-small'>
-                <p className='text-sm font-bold'>{i + 1}</p>
-                <p className='text-tiny'>"{lite.name}"</p>
+              <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] items-baseline gap-2 overflow-hidden rounded-large border-1 border-white/20 py-1 text-white/80 shadow-md'>
+                <p className='text-xl font-bold'>{i + 1}</p>
+                <p className='text-xl'>·</p>
+                <p>{lite.name}</p>
               </CardFooter>
             </Card>
           )}

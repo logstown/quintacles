@@ -34,7 +34,8 @@ export function CreateListButton() {
               startContent={
                 <span className='text-foreground-600'>{mediaTypeIconSmaller}</span>
               }
-              className='capitalize'
+              className='capitalize text-foreground'
+              as={Link}
               key={urlPlural}
               href={`/create/criteria/${urlPlural}`}
             >

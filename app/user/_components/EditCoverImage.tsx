@@ -88,11 +88,7 @@ export function EditCoverImage() {
 
   return (
     <>
-      <Button
-        size='sm'
-        onPress={onOpen}
-        startContent={<PencilIcon size={15} />}
-      >
+      <Button size='sm' onPress={onOpen} startContent={<PencilIcon size={15} />}>
         Edit cover image
       </Button>
       <Modal
@@ -124,7 +120,7 @@ export function EditCoverImage() {
                     <Card
                       shadow='sm'
                       key={item.id}
-                      className={`max-w-[300px] ${selected?.id === item.id && 'border-4 border-primary'}`}
+                      className={`w-[300px] ${selected?.id === item.id && 'border-4 border-primary'}`}
                       isPressable
                       onPress={() => setSelected(item)}
                     >
@@ -150,11 +146,7 @@ export function EditCoverImage() {
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button
-                  color='danger'
-                  variant='light'
-                  onPress={closeModal(onClose)}
-                >
+                <Button color='danger' variant='light' onPress={closeModal(onClose)}>
                   Cancel
                 </Button>
                 <Button

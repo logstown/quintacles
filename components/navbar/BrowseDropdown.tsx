@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDown, Link } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { mediaTypeArrForLists } from '../../lib/mediaTypes'
 import { Button } from '@nextui-org/button'
 import {
@@ -11,6 +11,7 @@ import {
 } from '@nextui-org/dropdown'
 import { NavbarItem } from '@nextui-org/navbar'
 import { cloneElement } from 'react'
+import { Link } from '@nextui-org/link'
 
 export function BrowseDropdown() {
   return (
@@ -39,7 +40,8 @@ export function BrowseDropdown() {
               startContent={
                 <span className='text-foreground-500'>{mediaTypeIconSmaller}</span>
               }
-              className='capitalize'
+              as={Link}
+              className='capitalize text-foreground'
               key={type.urlPlural}
               href={`/browse/${type.urlPlural}`}
             >
