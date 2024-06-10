@@ -1,153 +1,62 @@
-'use client'
-
+import { CreateListSearchParams, RestrictionsUI } from '@/lib/models'
 import { ListTitle } from '@/app/create/criteria/_components/list-title'
-import { UserListQuery } from '@/components/UserListQuery'
 import { ListTitleBase } from '@/components/list-title-base'
-import MediaPicker from '@/components/media-picker'
-import { MovieTvCriteria } from '@/components/movie-tv-criteria'
-import { mediaTypes } from '@/lib/mediaTypes'
-import { RestrictionsUI } from '@/lib/models'
-import { Divider } from '@nextui-org/divider'
-import { Select, SelectItem } from '@nextui-org/select'
-import { Switch } from '@nextui-org/switch'
-import { ListItem, MediaType } from '@prisma/client'
-import { forEach, map, omitBy } from 'lodash'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { UserListQuery } from '@/components/UserListQuery'
+import { Suspense } from 'react'
+import { UserListSkeleton } from '@/components/user-list/UserListSkeleton'
+import { BrowseCriteria } from '../_components/BrowseCriteria'
+import { MediaType } from '@prisma/client'
 
-type SearchParamPair = {
-  name: string
-  value: string | undefined
-}
-
-export function BrowsePage({
-  restrictionsFromParent,
-  sortBy,
-  exactMatch,
+export default async function BrowsePage({
+  searchParams,
+  restrictions,
 }: {
-  restrictionsFromParent: RestrictionsUI
-  sortBy: 'lastUserAddedAt' | 'users'
-  exactMatch: boolean
+  searchParams: CreateListSearchParams & { sortBy: string; exactMatch: string }
+  restrictions: RestrictionsUI
 }) {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+  const sortBy =
+    searchParams.sortBy === 'lastUserAddedAt' || searchParams.sortBy === 'users'
+      ? searchParams.sortBy
+      : 'lastUserAddedAt'
+  const exactMatch =
+    searchParams.exactMatch == 'true' || !!restrictions.episodesTvShowId
 
-  const [restrictions, setRestrictions] = useState<RestrictionsUI>(
-    restrictionsFromParent,
-  )
-
-  const createQueryString = useCallback(
-    (nameValuePairs: SearchParamPair[]) => {
-      const params = new URLSearchParams(searchParams.toString())
-      forEach(nameValuePairs, ({ name, value }) => {
-        if (value !== undefined && value !== 'false') {
-          params.set(name, value)
-        } else {
-          params.delete(name)
-        }
-      })
-
-      return params.toString()
-    },
-    [searchParams],
-  )
-
-  const setRoute = (pairs: SearchParamPair[]) => {
-    const url = pathname + '?' + createQueryString(pairs)
-    console.log('setting route', url)
-
-    router.replace(url, { scroll: false })
-  }
-
-  const setSortByFromPicker = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const pair = { name: 'sortBy', value: e.target.value }
-    setRoute([pair])
-  }
-
-  const tvShowSelected = (item: ListItem | undefined) => {
-    // setSearchParams(prev => {
-    //     if (item) {
-    //       prev.set('episodeTvShowId', item.tmdbId.toString())
-    //     } else {
-    //       prev.delete('episodeTvShowId')
-    //     }
-    //     return prev
-    //   })
-    console.log(item)
-  }
-
-  const restrictionsChange = (newRestrictions: RestrictionsUI) => {
-    setRestrictions(newRestrictions)
-    const filteredRestrictions = omitBy(
-      newRestrictions,
-      (value, key) => key === 'mediaType',
-    )
-    const pairs = map(filteredRestrictions, (value, key) => ({
-      name: key,
-      value: value?.toString(),
-    }))
-
-    console.log(pairs)
-    setRoute(pairs)
-  }
-
-  const setExactMatchFromPicker = (value: boolean) => {
-    console.log(value)
-
-    const pair = { name: 'exactMatch', value: value ? 'true' : undefined }
-    setRoute([pair])
-  }
+  const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
 
   return (
-    <>
-      <h1 className='text-3xl font-semibold'>
-        Explore{' '}
-        <span className='capitalize text-primary'>
-          {mediaTypes[restrictions.mediaType].plural}
-        </span>
-      </h1>
-      <div className='flex flex-wrap items-baseline gap-4 sm:gap-8'>
-        <Select
-          label='Sort By'
-          labelPlacement='outside'
-          variant='bordered'
-          disallowEmptySelection={true}
-          size='lg'
-          selectedKeys={[sortBy]}
-          onChange={setSortByFromPicker}
-          className='w-32'
-          color='primary'
-        >
-          <SelectItem key='lastUserAddedAt' value='lastUserAddedAt'>
-            Latest
-          </SelectItem>
-          <SelectItem key='users' value='users'>
-            Popular
-          </SelectItem>
-        </Select>
-        <Divider className='h-8' orientation='vertical' />
-        {restrictions.mediaType === MediaType.TvEpisode ? (
-          <MediaPicker
-            labelExcludesSelect={true}
-            size='lg'
-            color='primary'
-            selectedItem={restrictions.EpisodesTvShow}
-            onSelected={tvShowSelected}
-            mediaType={MediaType.TvShow}
-          />
-        ) : (
-          <>
-            <MovieTvCriteria
-              restrictions={restrictions}
-              onRestrictionsChange={restrictionsChange}
-            />
-            <Switch isSelected={exactMatch} onValueChange={setExactMatchFromPicker}>
-              Exact Match
-            </Switch>
-          </>
+    <div
+      className={`mx-auto flex max-w-screen-xl flex-col gap-14 pb-20 ${isEpisodes ? 'items-stert' : 'items-center'} `}
+    >
+      <BrowseCriteria
+        restrictionsFromParent={restrictions}
+        sortByFromParent={sortBy}
+        exactMatchFromParent={exactMatch}
+      />
+      <div className={`flex flex-col gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}>
+        {exactMatch && (
+          <ListTitle mediaType={restrictions.mediaType}>
+            <ListTitleBase restrictions={restrictions} />
+          </ListTitle>
         )}
+        <Suspense
+          key={JSON.stringify({ restrictions, sortBy, exactMatch })}
+          fallback={
+            <div
+              className={`flex ${isEpisodes ? 'flex-wrap gap-12 md:gap-7' : 'flex-col gap-7 md:gap-12'}`}
+            >
+              {[1, 2, 3, 4].map(i => (
+                <UserListSkeleton key={i} isEpisodes={isEpisodes} />
+              ))}{' '}
+            </div>
+          }
+        >
+          <UserListQuery
+            restrictions={restrictions}
+            sortBy={sortBy}
+            exactMatch={exactMatch}
+          />
+        </Suspense>
       </div>
-    </>
+    </div>
   )
 }

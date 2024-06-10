@@ -2,7 +2,7 @@ import { UserTime } from '../UserTime'
 import { BackdropCollageStraight, PosterCollageStraight } from './PosterCollage'
 import { UserListIcon } from './UserListIcon'
 import { getUserListsUrl } from '../../lib/random'
-import { MediaType, User, UserList } from '@prisma/client'
+import { MediaType, User } from '@prisma/client'
 import { RestrictionsUI } from '@/lib/models'
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
 import Link from 'next/link'
@@ -40,12 +40,9 @@ export function UserListCard({
       {excludeTitle ? (
         <div className='w-full p-4'></div>
       ) : (
-        <Link
-          href={getUserListsUrl(restrictions, 'explore')}
-          color='foreground'
-        >
+        <Link href={getUserListsUrl(restrictions, 'explore')} color='foreground'>
           <CardHeader className={`pl-4`}>
-            <div className='flex w-full items-baseline gap-3'>
+            <div className='flex w-full items-baseline gap-3 truncate'>
               <div className={`pl-1 ${Person?.id ? '' : 'hidden'}`}>
                 <UserListIcon
                   mediaType={mediaType}
@@ -54,7 +51,7 @@ export function UserListCard({
                 />
               </div>
               <h2
-                className={`truncate font-semibold ${isEpisodes ? 'text-2xl' : 'text-2xl sm:text-4xl'}`}
+                className={`font-semibold ${isEpisodes ? 'text-2xl' : 'text-2xl sm:text-4xl'}`}
               >
                 <ListTitleBase restrictions={restrictions} />
               </h2>
@@ -62,9 +59,7 @@ export function UserListCard({
           </CardHeader>
         </Link>
       )}
-      <CardBody
-        className={`overflow-visible ${isEpisodes ? 'pt-0' : 'pb-2 pt-1'}`}
-      >
+      <CardBody className={`overflow-visible ${isEpisodes ? 'pt-0' : 'pb-2 pt-1'}`}>
         <Link href={`/list/${id}`} color='foreground'>
           {isEpisodes ? (
             <BackdropCollageStraight backdropLites={listItemLites} />

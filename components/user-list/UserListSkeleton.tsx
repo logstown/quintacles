@@ -7,18 +7,16 @@ export function UserListSkeleton({ isEpisodes }: { isEpisodes: boolean }) {
     <Card shadow='lg' className='w-fit overflow-visible p-0 sm:p-2'>
       <CardHeader className={`pl-4`}>
         <Skeleton className='rounded-lg'>
-          <div className='flex w-full items-baseline gap-3'>
+          <div className='flex w-full items-baseline gap-3 truncate'>
             <h2
-              className={`truncate font-semibold ${isEpisodes ? 'text-2xl tracking-tight' : 'text-2xl sm:text-4xl'}`}
+              className={`font-semibold ${isEpisodes ? 'text-2xl tracking-tight' : 'text-2xl sm:text-4xl'}`}
             >
               Dummy Title Time
             </h2>
           </div>
         </Skeleton>
       </CardHeader>
-      <CardBody
-        className={`overflow-visible ${isEpisodes ? 'pt-0' : 'pb-2 pt-1'}`}
-      >
+      <CardBody className={`overflow-visible ${isEpisodes ? 'pt-0' : 'pb-2 pt-1'}`}>
         {isEpisodes ? <BackdropCollageStraight /> : <PosterCollageStraight />}
       </CardBody>
       <CardFooter className='flex justify-end'>

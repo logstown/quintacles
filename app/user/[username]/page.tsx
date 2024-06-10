@@ -99,7 +99,9 @@ export default async function UserPage({
             </div>
             <Suspense
               fallback={
-                <div className={`flex flex-col gap-5`}>
+                <div
+                  className={`flex ${mediaType.key === MediaType.TvEpisode ? 'flex-wrap gap-12 md:gap-7' : 'flex-col gap-7 md:gap-12'}`}
+                >
                   {[1, 2, 3, 4].map(i => (
                     <UserListSkeleton
                       key={i}

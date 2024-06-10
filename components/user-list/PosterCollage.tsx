@@ -1,6 +1,5 @@
 import { getTmdbImageUrl } from '../../lib/random'
 import { clone } from 'lodash'
-import dummyPoster from '../../assets/dummyPoster.jpeg'
 import { Image } from '@nextui-org/image'
 import { Card, CardFooter } from '@nextui-org/card'
 import NextImage from 'next/image'
@@ -434,7 +433,7 @@ export function BackdropCollageStraight({
       {backdrops.map((lite, i) => (
         <div key={i} className='flex items-center gap-2'>
           {isSkeleton ? (
-            <Skeleton className='aspect-video rounded-xl drop-shadow-lg' />
+            <Skeleton className='aspect-video w-[300px] rounded-xl drop-shadow-lg' />
           ) : (
             <Card isFooterBlurred className='aspect-video'>
               <Image

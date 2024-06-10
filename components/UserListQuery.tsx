@@ -1,6 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
 import { UserListCard } from './user-list/UserList'
-import { UserListSkeleton } from './user-list/UserListSkeleton'
 import { RestrictionsUI } from '@/lib/models'
 import prisma from '@/lib/db'
 import { pickBy } from 'lodash'
@@ -17,18 +15,6 @@ export async function UserListQuery({
   userId?: string
   exactMatch?: boolean
 }) {
-  // const { data, error, isPending } = useQuery({
-  //   queryKey: [
-  //     'userListsByMediaType',
-  //     restrictions.mediaType,
-  //     restrictions,
-  //     userId,
-  //     sortBy,
-  //     exactMatch
-  //   ],
-  //   queryFn: () => getUserListsByAny({ restrictions, userId, sortBy, exactMatch })
-  // })
-
   const users = userId
     ? {
         some: {

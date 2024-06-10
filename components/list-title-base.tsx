@@ -57,7 +57,8 @@ export function ListTitleBase({
 
   return (
     <>
-      {tvShow && <span className='italic'>{tvShow}</span>} {partialTitle}
+      {tvShow && <span className={includeMediaType ? 'italic' : ''}>{tvShow}</span>}{' '}
+      {partialTitle}
     </>
   )
 }
