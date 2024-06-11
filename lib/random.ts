@@ -15,12 +15,12 @@ export const getUserListsUrl = (
     episodesTvShowId,
     mediaType,
   }: RestrictionsUI,
-  page: 'build' | 'explore' = 'build',
+  page: 'build' | 'browse' = 'build',
 ): string => {
   const baseUrl =
     page == 'build'
       ? `/create/list/${mediaTypes[mediaType].urlPlural}?`
-      : `/explore/${mediaTypes[mediaType].urlPlural}?`
+      : `/browse/${mediaTypes[mediaType].urlPlural}?`
 
   // const restrictionsAsStrings = mapValues(restrictions, x => x?.toString())
   // const params = pickBy(restrictionsAsStrings, x => !!x)
@@ -43,7 +43,7 @@ export const getUserListsUrl = (
     params.episodesTvShowId = episodesTvShowId.toString()
   }
 
-  if (page == 'explore') {
+  if (page == 'browse') {
     params.exactMatch = 'true'
   }
 

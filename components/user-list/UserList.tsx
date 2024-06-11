@@ -40,7 +40,7 @@ export function UserListCard({
       {excludeTitle ? (
         <div className='w-full p-4'></div>
       ) : (
-        <Link href={getUserListsUrl(restrictions, 'explore')} color='foreground'>
+        <Link href={getUserListsUrl(restrictions, 'browse')} color='foreground'>
           <CardHeader className={`pl-4`}>
             <div className='flex w-full items-baseline gap-3 truncate'>
               <div className={`pl-1 ${Person?.id ? '' : 'hidden'}`}>

@@ -99,7 +99,7 @@ export function BrowseCriteria({
   return (
     <div className='flex flex-col items-start gap-10'>
       <h1 className='text-3xl font-semibold'>
-        Explore{' '}
+        Browse{' '}
         <span className='capitalize text-primary'>
           {mediaTypes[restrictions.mediaType].plural}
         </span>
