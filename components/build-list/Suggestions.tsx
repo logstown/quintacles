@@ -10,10 +10,10 @@ import { SuggestionItem } from './SuggestionItem'
 import { useScrollAfter5Items } from '../../lib/hooks'
 import { mediaTypes } from '../../lib/mediaTypes'
 import { ListItem } from '@prisma/client'
-import { CircularProgress } from '@nextui-org/progress'
 import { getSuggestions } from '@/app/actions'
 import { RestrictionsUI } from '@/lib/models'
 import { useInView } from 'react-intersection-observer'
+import { Spinner } from '@nextui-org/spinner'
 
 export function Suggestions({
   onItemSelected,
@@ -68,7 +68,7 @@ export function Suggestions({
       <h2 className='p-6 text-2xl'>Suggestions</h2>
       {status === 'pending' ? (
         <div className='flex justify-center'>
-          <CircularProgress size='lg' aria-label='loading' />
+          <Spinner size='lg' />
         </div>
       ) : status === 'error' ? (
         <p>Error: {error.message}</p>
@@ -95,12 +95,7 @@ export function Suggestions({
           </div>
           {hasNextPage && (
             <div className='mt-14 flex justify-center'>
-              <CircularProgress
-                ref={ref}
-                size='lg'
-                className='ml-10'
-                aria-label='loading'
-              />
+              <Spinner ref={ref} size='lg' className='ml-10' />
             </div>
           )}
           <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>

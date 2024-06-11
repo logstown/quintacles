@@ -18,8 +18,8 @@ import { PencilIcon } from 'lucide-react'
 import { useState } from 'react'
 import { getTmdbImageUrl } from '@/lib/random'
 import { updateUserCoverImage } from '@/app/actions'
-import { CircularProgress } from '@nextui-org/progress'
 import NextImage from 'next/image'
+import { Spinner } from '@nextui-org/spinner'
 
 export function EditCoverImage() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -114,7 +114,7 @@ export function EditCoverImage() {
                 >
                   {!items && !isLoading && <p>Search for a movie or TV show</p>}
                   {isSuccess && !items?.length && <p>Nothing Found...</p>}
-                  {isLoading && <CircularProgress />}
+                  {isLoading && <Spinner />}
                   {items?.map((item: any) => (
                     <Card
                       shadow='sm'
