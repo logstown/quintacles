@@ -50,7 +50,7 @@ export function MovieTvCriteria({
     console.log(item)
     const Person = item
       ? {
-          id: item.id,
+          id: item.tmdbId,
           name: item.name,
           profilePath: item.profilePath ?? '',
         }

@@ -5,7 +5,6 @@ import { useState } from 'react'
 import { reject } from 'lodash'
 import { ListItem, MediaType } from '@prisma/client'
 import { mediaTypes } from '@/lib/mediaTypes'
-import { redirect } from 'next/navigation'
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
 import { ListTitle } from '../../app/create/criteria/_components/list-title'
 import { ListTitleBase } from '@/components/list-title-base'
@@ -18,6 +17,7 @@ import { EpisodePicker } from './EpisodePicker'
 import { Suggestions } from './Suggestions'
 import { EpisodeData } from '@/lib/random'
 import { createOrUpdateUserList } from '@/app/actions'
+import Link from 'next/link'
 
 export function BuildList({
   restrictions,
@@ -49,10 +49,6 @@ export function BuildList({
   const removeFromList = ({ tmdbId }: ListItem) => {
     const newList = reject(listItems, { tmdbId })
     setListItems(newList)
-  }
-
-  const goToCriteria = () => {
-    redirect(`/create/criteria/${mediaTypes[restrictions.mediaType].urlPlural}`)
   }
 
   const items = [0, 1, 2, 3, 4].map(i => {
@@ -120,10 +116,11 @@ export function BuildList({
             <CardFooter className='mt-2 justify-end gap-4'>
               {!userListId && (
                 <Button
+                  href={`/create/criteria/${mediaTypes[restrictions.mediaType].urlPlural}`}
+                  as={Link}
                   className={isSavePending ? 'invisible' : ''}
                   startContent={<ArrowLeft size={15} />}
                   variant='light'
-                  onClick={goToCriteria}
                 >
                   Criteria
                 </Button>

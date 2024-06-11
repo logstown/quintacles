@@ -17,13 +17,18 @@ export const getUserListsUrl = (
   }: RestrictionsUI,
   page: 'build' | 'browse' = 'build',
 ): string => {
+  console.log(genreId, personId)
   const baseUrl =
-    page == 'build'
-      ? `/create/list/${mediaTypes[mediaType].urlPlural}?`
-      : `/browse/${mediaTypes[mediaType].urlPlural}?`
+    page === 'build'
+      ? `/create/list/${mediaTypes[mediaType].urlPlural}`
+      : `/browse/${mediaTypes[mediaType].urlPlural}`
 
   // const restrictionsAsStrings = mapValues(restrictions, x => x?.toString())
   // const params = pickBy(restrictionsAsStrings, x => !!x)
+
+  if (page === 'build' && mediaType === MediaType.TvEpisode) {
+    return `${baseUrl}/${episodesTvShowId}`
+  }
 
   const params = {} as any
 
@@ -37,17 +42,17 @@ export const getUserListsUrl = (
     params.isLiveActionOnly = 'true'
   }
   if (personId) {
-    params.moviePersonId = personId.toString()
+    params.personId = personId.toString()
   }
   if (episodesTvShowId) {
-    params.episodesTvShowId = episodesTvShowId.toString()
+    params.tvShowId = episodesTvShowId.toString()
   }
 
-  if (page == 'browse') {
+  if (page == 'browse' && mediaType !== MediaType.TvEpisode) {
     params.exactMatch = 'true'
   }
 
-  return baseUrl + new URLSearchParams(params as Record<string, string>)
+  return `${baseUrl}?${new URLSearchParams(params as Record<string, string>)}`
 }
 
 export const getDecades = (): Decade[] => {
