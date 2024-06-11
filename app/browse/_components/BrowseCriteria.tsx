@@ -108,7 +108,7 @@ export function BrowseCriteria({
   return (
     <div className='flex flex-col items-start gap-10'>
       <h1 className='text-3xl font-semibold'>
-        {user ? <>{user.displayName}'s </> : <>Browse </>}
+        {user ? `${user.displayName}'s` : 'Browse '}
         <span className='capitalize text-primary'>
           {mediaTypes[restrictions.mediaType].plural}
         </span>
