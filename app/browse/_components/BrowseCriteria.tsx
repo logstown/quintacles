@@ -4,11 +4,13 @@ import MediaPicker from '@/components/media-picker'
 import { MovieTvCriteria } from '@/components/movie-tv-criteria'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
+import { Avatar } from '@nextui-org/avatar'
 import { Divider } from '@nextui-org/divider'
 import { Select, SelectItem } from '@nextui-org/select'
 import { Switch } from '@nextui-org/switch'
 import { ListItem, MediaType, User } from '@prisma/client'
 import { forEach, isEqual, map, omitBy, set } from 'lodash'
+import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
@@ -106,13 +108,32 @@ export function BrowseCriteria({
   }
 
   return (
-    <div className='flex flex-col items-start gap-10'>
-      <h1 className='text-3xl font-semibold'>
-        {user ? `${user.displayName}'s` : 'Browse '}
-        <span className='capitalize text-primary'>
-          {mediaTypes[restrictions.mediaType].plural}
-        </span>
-      </h1>
+    <div className='flex w-full flex-col items-center gap-10'>
+      <div className='flex w-full flex-wrap items-center justify-between'>
+        <h1 className='text-6xl font-semibold'>
+          <span className='capitalize text-primary'>
+            {mediaTypes[restrictions.mediaType].display}
+          </span>{' '}
+          Lists
+        </h1>
+        {user && (
+          <Link href={`/user/${user.username}`}>
+            <div className='flex items-center gap-4'>
+              <Avatar
+                isBordered
+                src={user.photoURL ?? undefined}
+                className='min-h-24 min-w-24 text-large'
+              />
+              <div className='font-semibold'>
+                <div className='whitespace-nowrap text-3xl text-foreground-800'>
+                  {user.displayName}
+                </div>
+                <div className='text-xl text-foreground-400'>@{user.username}</div>
+              </div>
+            </div>
+          </Link>
+        )}
+      </div>
       <div className='flex flex-wrap items-baseline gap-4 sm:gap-8'>
         <Select
           label='Sort By'

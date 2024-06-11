@@ -1,14 +1,9 @@
-import { UserListQuery } from '@/components/UserListQuery'
-import { UserListSkeleton } from '@/components/user-list/UserListSkeleton'
-import { getImageStuff } from '@/lib/TmdbService'
 import prisma from '@/lib/db'
 import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { Avatar } from '@nextui-org/avatar'
-import { MediaType } from '@prisma/client'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { redirect } from 'next/navigation'
-import { Suspense } from 'react'
 import { EditCoverImage } from '../_components/EditCoverImage'
 import { getTmdbImageUrl } from '@/lib/random'
 import { currentUser } from '@clerk/nextjs/server'
@@ -47,17 +42,17 @@ export default async function UserPage({
 
   return (
     <div className='pb-20'>
-      <div className='mx-auto max-w-screen-lg'>
+      <div className='mx-auto max-w-screen-xl'>
         <div className='relative'>
           <img
             src={coverImageSrc}
             alt='cover'
-            className=' h-80 w-full rounded-t-xl object-cover shadow-xl'
+            className='h-80 w-full rounded-t-xl object-cover shadow-xl'
           />
           <Avatar
             isBordered
             src={profile.photoURL ?? undefined}
-            className='absolute -bottom-[60px] left-0 right-0 ml-auto mr-auto min-h-32 min-w-32 text-large md:left-20 md:right-auto '
+            className='absolute -bottom-[60px] left-0 right-0 ml-auto mr-auto min-h-32 min-w-32 text-large md:left-20 md:right-auto'
           />
           {isCurrentUser && (
             <div className='absolute bottom-5 right-5'>

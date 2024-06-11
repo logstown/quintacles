@@ -13,8 +13,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: 'Ranker',
+    template: `%s - Ranker`,
   },
   description: siteConfig.description,
   icons: {
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
           <div className='relative flex h-screen flex-col'>
             <Navbar />
             {/* <main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'></main> */}
