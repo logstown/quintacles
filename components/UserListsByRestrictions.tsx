@@ -4,20 +4,26 @@ import { Suspense } from 'react'
 import { UserListQuery } from './UserListQuery'
 import { ListTitleBase } from './list-title-base'
 import { UserListSkeleton } from './user-list/UserListSkeleton'
-import { MediaType } from '@prisma/client'
+import { MediaType, User } from '@prisma/client'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { Button } from '@nextui-org/button'
+import { ArrowRightIcon } from 'lucide-react'
+import Link from 'next/link'
 
 export function UserListsByRestrictions({
   restrictions,
   exactMatch,
   sortBy,
   mediaTypeOnly,
+  userId,
+  username,
 }: {
   restrictions: RestrictionsUI
   exactMatch: boolean
   sortBy: UserListSortBy
   mediaTypeOnly?: boolean
+  userId?: string
+  username?: string
 }) {
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
 
@@ -50,10 +56,17 @@ export function UserListsByRestrictions({
           sortBy={sortBy}
           exactMatch={exactMatch}
           mediaTypeOnly={mediaTypeOnly}
+          userId={userId}
         />
-        {mediaTypeOnly && (
+        {mediaTypeOnly && username && (
           <div className='flex justify-end pr-4'>
-            <Button color='primary'>
+            <Button
+              color='primary'
+              radius='full'
+              as={Link}
+              href={`/user/${username}/${mediaTypes[restrictions.mediaType].urlPlural}`}
+              endContent={<ArrowRightIcon size={20} />}
+            >
               All {mediaTypes[restrictions.mediaType].display} Lists
             </Button>
           </div>

@@ -1,5 +1,5 @@
 import { CreateListSearchParams } from '@/lib/models'
-import { MediaType } from '@prisma/client'
+import { MediaType, User } from '@prisma/client'
 import { getGenres } from '@/lib/genres'
 import { getDecades } from '@/lib/random'
 import { TmdbPerson } from '@/lib/TmdbModels'
@@ -11,9 +11,11 @@ import BrowsePage from './BrowsePage'
 export default async function MoviesOrShowsPage({
   searchParams,
   mediaType,
+  user,
 }: {
   searchParams: CreateListSearchParams & { sortBy: string; exactMatch: string }
   mediaType: MediaType
+  user?: User
 }) {
   const mediaTypeGenres = getGenres(mediaType)
   const decades = getDecades()
@@ -48,5 +50,13 @@ export default async function MoviesOrShowsPage({
     Person,
   }
 
-  return <BrowsePage restrictions={restrictions} searchParams={searchParams} />
+  console.log(user)
+
+  return (
+    <BrowsePage
+      restrictions={restrictions}
+      user={user}
+      searchParams={searchParams}
+    />
+  )
 }

@@ -97,6 +97,8 @@ export default async function UserPage({
             exactMatch={false}
             sortBy='lastUserAddedAt'
             mediaTypeOnly={true}
+            userId={profile.id}
+            username={profile.username}
           />
         ))}
       </div>

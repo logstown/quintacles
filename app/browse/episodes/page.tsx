@@ -1,14 +1,16 @@
-import { MediaType } from '@prisma/client'
+import { MediaType, User } from '@prisma/client'
 import { TvShow } from '@/lib/TmdbModels'
 import { getMediaItem } from '@/lib/TmdbService'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { redirect } from 'next/navigation'
 import BrowsePage from '../_components/BrowsePage'
 
-export default async function MoviesOrShowsPage({
+export default async function EpisodesBrowsePage({
   searchParams,
+  user,
 }: {
   searchParams: { sortBy: string; exactMatch: string; tvShowId: string }
+  user?: User
 }) {
   const tvShowId = Number(searchParams.tvShowId)
   let EpisodesTvShow
@@ -38,5 +40,11 @@ export default async function MoviesOrShowsPage({
     EpisodesTvShow,
   }
 
-  return <BrowsePage restrictions={restrictions} searchParams={searchParams} />
+  return (
+    <BrowsePage
+      restrictions={restrictions}
+      searchParams={searchParams}
+      user={user}
+    />
+  )
 }

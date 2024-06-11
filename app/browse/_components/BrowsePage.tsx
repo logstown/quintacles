@@ -1,14 +1,16 @@
 import { CreateListSearchParams, RestrictionsUI } from '@/lib/models'
 import { BrowseCriteria } from '../_components/BrowseCriteria'
-import { MediaType } from '@prisma/client'
+import { MediaType, User } from '@prisma/client'
 import { UserListsByRestrictions } from '@/components/UserListsByRestrictions'
 
 export default async function BrowsePage({
   searchParams,
   restrictions,
+  user,
 }: {
   searchParams: CreateListSearchParams & { sortBy: string; exactMatch: string }
   restrictions: RestrictionsUI
+  user?: User
 }) {
   const sortBy =
     searchParams.sortBy === 'lastUserAddedAt' || searchParams.sortBy === 'users'
@@ -27,11 +29,13 @@ export default async function BrowsePage({
         restrictionsFromParent={restrictions}
         sortByFromParent={sortBy}
         exactMatchFromParent={exactMatch}
+        user={user}
       />
       <UserListsByRestrictions
         restrictions={restrictions}
         sortBy={sortBy}
         exactMatch={exactMatch}
+        userId={user?.id}
       />
     </div>
   )

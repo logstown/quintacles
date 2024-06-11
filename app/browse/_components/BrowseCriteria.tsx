@@ -7,7 +7,7 @@ import { RestrictionsUI } from '@/lib/models'
 import { Divider } from '@nextui-org/divider'
 import { Select, SelectItem } from '@nextui-org/select'
 import { Switch } from '@nextui-org/switch'
-import { ListItem, MediaType } from '@prisma/client'
+import { ListItem, MediaType, User } from '@prisma/client'
 import { forEach, isEqual, map, omitBy, set } from 'lodash'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useState } from 'react'
@@ -21,10 +21,12 @@ export function BrowseCriteria({
   restrictionsFromParent,
   sortByFromParent,
   exactMatchFromParent,
+  user,
 }: {
   restrictionsFromParent: RestrictionsUI
   sortByFromParent: 'lastUserAddedAt' | 'users'
   exactMatchFromParent: boolean
+  user?: User
 }) {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -106,7 +108,7 @@ export function BrowseCriteria({
   return (
     <div className='flex flex-col items-start gap-10'>
       <h1 className='text-3xl font-semibold'>
-        Browse{' '}
+        {user ? <>{user.displayName}'s </> : <>Browse </>}
         <span className='capitalize text-primary'>
           {mediaTypes[restrictions.mediaType].plural}
         </span>
