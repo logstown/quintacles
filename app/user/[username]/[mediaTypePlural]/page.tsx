@@ -1,5 +1,5 @@
+import EpisodesBrowse from '@/app/browse/_components/EpisodesPage'
 import MoviesOrShowsPage from '@/app/browse/_components/MoviesOrShowsPage'
-import EpisodesBrowsePage from '@/app/browse/episodes/page'
 import prisma from '@/lib/db'
 import { mediaTypeArr } from '@/lib/mediaTypes'
 import { CreateListSearchParams } from '@/lib/models'
@@ -31,7 +31,7 @@ export default async function UserMediaTypeLists({
   }
 
   return mediaType.key === MediaType.TvEpisode ? (
-    <EpisodesBrowsePage searchParams={searchParams} user={user} />
+    <EpisodesBrowse searchParams={searchParams} user={user} />
   ) : (
     <MoviesOrShowsPage
       searchParams={searchParams}
