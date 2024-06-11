@@ -9,11 +9,13 @@ export async function UserListQuery({
   userId,
   sortBy,
   exactMatch,
+  mediaTypeOnly,
 }: {
   restrictions: RestrictionsUI
   sortBy: 'lastUserAddedAt' | 'users'
   userId?: string
   exactMatch?: boolean
+  mediaTypeOnly?: boolean
 }) {
   const users = userId
     ? {
@@ -64,7 +66,7 @@ export async function UserListQuery({
       users,
       Restrictions,
     },
-    take: 5,
+    take: mediaTypeOnly ? 3 : 5,
     orderBy,
     include: {
       users: true,

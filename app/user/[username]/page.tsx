@@ -12,6 +12,7 @@ import { Suspense } from 'react'
 import { EditCoverImage } from '../_components/EditCoverImage'
 import { getTmdbImageUrl } from '@/lib/random'
 import { currentUser } from '@clerk/nextjs/server'
+import { UserListsByRestrictions } from '@/components/UserListsByRestrictions'
 
 export default async function UserPage({
   params: { username },
@@ -90,34 +91,13 @@ export default async function UserPage({
 
       <div className='mx-auto mt-10 flex max-w-screen-lg flex-col gap-24 md:mt-16'>
         {mediaTypeArrForLists.map(mediaType => (
-          <div key={mediaType.key} className='flex flex-col gap-4'>
-            <div className='flex items-end gap-6 pb-4 pl-4'>
-              <h1 className='text-5xl font-bold capitalize'>{mediaType.plural}</h1>
-              <div>
-                {/* <MediaTypeListCount mediaType={mediaType.key} uid={uid} /> */}
-              </div>
-            </div>
-            <Suspense
-              fallback={
-                <div
-                  className={`flex ${mediaType.key === MediaType.TvEpisode ? 'flex-wrap gap-12 md:gap-7' : 'flex-col gap-7 md:gap-12'}`}
-                >
-                  {[1, 2, 3, 4].map(i => (
-                    <UserListSkeleton
-                      key={i}
-                      isEpisodes={mediaType.key === MediaType.TvEpisode}
-                    />
-                  ))}{' '}
-                </div>
-              }
-            >
-              <UserListQuery
-                restrictions={{ mediaType: mediaType.key }}
-                userId={profile.id}
-                sortBy='lastUserAddedAt'
-              />
-            </Suspense>
-          </div>
+          <UserListsByRestrictions
+            key={mediaType.key}
+            restrictions={{ mediaType: mediaType.key }}
+            exactMatch={false}
+            sortBy='lastUserAddedAt'
+            mediaTypeOnly={true}
+          />
         ))}
       </div>
     </div>

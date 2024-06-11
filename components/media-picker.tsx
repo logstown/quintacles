@@ -53,7 +53,6 @@ export default function MediaPicker({
         convertMediaItem(x, mediaType),
       ).filter(x => !idsToExclude?.includes(x.tmdbId))
 
-      console.log(cloneDeep(items))
       return items
     },
     enabled: debouncedSearchText.length >= 3,
@@ -64,7 +63,6 @@ export default function MediaPicker({
   })
 
   const onSelectionChange = (key: React.Key) => {
-    console.log(key)
     if (onSelected) {
       const item = find(items, { tmdbId: Number(key) })
       onSelected(item)

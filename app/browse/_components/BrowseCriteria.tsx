@@ -8,7 +8,7 @@ import { Divider } from '@nextui-org/divider'
 import { Select, SelectItem } from '@nextui-org/select'
 import { Switch } from '@nextui-org/switch'
 import { ListItem, MediaType } from '@prisma/client'
-import { forEach, map, omitBy, set } from 'lodash'
+import { forEach, isEqual, map, omitBy, set } from 'lodash'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
@@ -36,6 +36,18 @@ export function BrowseCriteria({
   const [sortBy, setSortBy] = useState(sortByFromParent)
   const [exactMatch, setexactMatch] = useState(exactMatchFromParent)
 
+  if (!isEqual(restrictionsFromParent, restrictions)) {
+    setRestrictions(restrictionsFromParent)
+  }
+
+  if (sortByFromParent !== sortBy) {
+    setSortBy(sortByFromParent)
+  }
+
+  if (exactMatchFromParent !== exactMatch) {
+    setexactMatch(exactMatchFromParent)
+  }
+
   const createQueryString = useCallback(
     (nameValuePairs: SearchParamPair[]) => {
       const params = new URLSearchParams(searchParams.toString())
@@ -54,8 +66,6 @@ export function BrowseCriteria({
 
   const setRoute = (pairs: SearchParamPair[]) => {
     const url = pathname + '?' + createQueryString(pairs)
-    console.log('setting route', url)
-
     router.replace(url, { scroll: false })
   }
 
@@ -68,8 +78,6 @@ export function BrowseCriteria({
   }
 
   const tvShowSelected = (item: ListItem | undefined) => {
-    console.log(item)
-
     const pair = { name: 'tvShowId', value: item?.tmdbId.toString() }
     setRoute([pair])
   }
@@ -85,7 +93,6 @@ export function BrowseCriteria({
       value: value?.toString(),
     }))
 
-    console.log(pairs)
     setRoute(pairs)
   }
 

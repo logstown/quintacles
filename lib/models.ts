@@ -30,3 +30,5 @@ export interface CreateListSearchParams {
   isLiveActionOnly?: string
   episodesTvShowId?: string
 }
+
+export type UserListSortBy = 'lastUserAddedAt' | 'users'

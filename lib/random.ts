@@ -17,7 +17,6 @@ export const getUserListsUrl = (
   }: RestrictionsUI,
   page: 'build' | 'browse' = 'build',
 ): string => {
-  console.log(genreId, personId)
   const baseUrl =
     page === 'build'
       ? `/create/list/${mediaTypes[mediaType].urlPlural}`

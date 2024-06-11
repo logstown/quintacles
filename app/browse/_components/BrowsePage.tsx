@@ -1,11 +1,7 @@
 import { CreateListSearchParams, RestrictionsUI } from '@/lib/models'
-import { ListTitle } from '@/app/create/criteria/_components/list-title'
-import { ListTitleBase } from '@/components/list-title-base'
-import { UserListQuery } from '@/components/UserListQuery'
-import { Suspense } from 'react'
-import { UserListSkeleton } from '@/components/user-list/UserListSkeleton'
 import { BrowseCriteria } from '../_components/BrowseCriteria'
 import { MediaType } from '@prisma/client'
+import { UserListsByRestrictions } from '@/components/UserListsByRestrictions'
 
 export default async function BrowsePage({
   searchParams,
@@ -32,31 +28,11 @@ export default async function BrowsePage({
         sortByFromParent={sortBy}
         exactMatchFromParent={exactMatch}
       />
-      <div className={`flex flex-col gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}>
-        {exactMatch && (
-          <ListTitle mediaType={restrictions.mediaType}>
-            <ListTitleBase restrictions={restrictions} />
-          </ListTitle>
-        )}
-        <Suspense
-          key={JSON.stringify({ restrictions, sortBy, exactMatch })}
-          fallback={
-            <div
-              className={`flex ${isEpisodes ? 'flex-wrap gap-12 md:gap-7' : 'flex-col gap-7 md:gap-12'}`}
-            >
-              {[1, 2, 3, 4].map(i => (
-                <UserListSkeleton key={i} isEpisodes={isEpisodes} />
-              ))}{' '}
-            </div>
-          }
-        >
-          <UserListQuery
-            restrictions={restrictions}
-            sortBy={sortBy}
-            exactMatch={exactMatch}
-          />
-        </Suspense>
-      </div>
+      <UserListsByRestrictions
+        restrictions={restrictions}
+        sortBy={sortBy}
+        exactMatch={exactMatch}
+      />
     </div>
   )
 }

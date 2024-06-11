@@ -33,7 +33,6 @@ async function getRandomList() {
     // DO NOT pass in or accept user input here
     `SELECT * FROM "UserList" ORDER BY RANDOM() LIMIT 1;`,
   )
-  console.log(results)
 
   redirect('/list/' + results[0].id)
 }

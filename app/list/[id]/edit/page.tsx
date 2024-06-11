@@ -36,8 +36,6 @@ export default async function EditListPage({
     },
   })
 
-  console.log(list)
-
   if (!list) {
     redirect(`/list/${id}`)
   }

@@ -34,7 +34,7 @@ export const mediaTypes: MediaTypeData = {
   },
   [MediaType.TvEpisode]: {
     url: 'episode',
-    display: 'TV Episode',
+    display: 'Episode',
     urlPlural: 'episodes',
     plural: 'Episodes',
     icon: <GalleryVerticalEndIcon />,
