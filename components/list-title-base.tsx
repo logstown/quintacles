@@ -51,7 +51,7 @@ export function ListTitleBase({
   const partialTitle = useMemo(() => {
     const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
     return getListTitle(includeMediaType, isEpisodes, restrictions)
-  }, [restrictions])
+  }, [restrictions, includeMediaType])
 
   const tvShow = restrictions.EpisodesTvShow?.name
 

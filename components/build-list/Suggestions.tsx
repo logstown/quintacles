@@ -59,7 +59,7 @@ export function Suggestions({
     if (inView) {
       fetchNextPage()
     }
-  }, [inView])
+  }, [inView, fetchNextPage])
 
   useScrollAfter5Items(listItems?.length)
 
