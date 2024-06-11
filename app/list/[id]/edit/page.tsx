@@ -13,7 +13,7 @@ export default async function EditListPage({
   const user = await currentUser()
 
   if (!user) {
-    redirect(`/list/${id}/edit`)
+    redirect(`/list/${id}`)
   }
 
   const list = await prisma.userList.findUnique({
@@ -39,7 +39,7 @@ export default async function EditListPage({
   console.log(list)
 
   if (!list) {
-    redirect('/')
+    redirect(`/list/${id}`)
   }
 
   const episodeData =
