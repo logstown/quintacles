@@ -42,12 +42,12 @@ export default async function UserPage({
 
   return (
     <div className='pb-20'>
-      <div className='mx-auto max-w-screen-xl'>
+      <div className='mx-auto max-w-screen-xl shadow-xl'>
         <div className='relative'>
           <img
             src={coverImageSrc}
             alt='cover'
-            className='h-80 w-full rounded-t-xl object-cover shadow-xl'
+            className='h-80 w-full rounded-t-xl object-cover'
           />
           <Avatar
             isBordered
@@ -60,7 +60,7 @@ export default async function UserPage({
             </div>
           )}
         </div>
-        <div className='flex flex-col items-center rounded-b-xl pb-6 pl-0 pt-20 text-center shadow-xl md:items-start md:pl-60 md:pt-4 md:text-left'>
+        <div className='flex flex-col items-center rounded-b-xl pb-6 pl-0 pt-20 text-center dark:border-2 dark:border-foreground-100 md:items-start md:pl-60 md:pt-4 md:text-left'>
           <div className='flex flex-wrap items-baseline gap-4 font-semibold'>
             <div className='whitespace-nowrap text-3xl text-foreground-800'>
               {profile.displayName}

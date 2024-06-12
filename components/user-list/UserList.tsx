@@ -36,7 +36,10 @@ export function UserListCard({
   const userIds = users.map(u => u.id)
 
   return (
-    <Card shadow='lg' className='w-fit overflow-visible p-0 sm:p-2'>
+    <Card
+      shadow='lg'
+      className='w-fit overflow-visible p-0 dark:border-3 dark:border-foreground-100 sm:p-2'
+    >
       {excludeTitle ? (
         <div className='w-full p-4'></div>
       ) : (

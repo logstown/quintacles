@@ -125,7 +125,7 @@ export default async function ListPage({
       <div className='mt-4 flex flex-col items-center gap-10 md:mt-8'>
         {listItemsReverse.map((item: ListItemUI, i) => (
           <div
-            className='group mx-4 flex max-w-[700px] flex-col items-stretch rounded-xl lg:mx-0 lg:w-full lg:max-w-none lg:flex-row '
+            className='group mx-4 flex max-w-screen-sm flex-col items-stretch rounded-xl shadow-2xl lg:mx-0 lg:w-full lg:max-w-none lg:flex-row'
             style={{
               backgroundColor: item.bgColor,
             }}
@@ -173,7 +173,7 @@ export default async function ListPage({
                 </div>
               </div>
             </div>
-            <div className='relative flex w-full items-center lg:w-3/5 '>
+            <div className='relative flex w-full items-center lg:w-3/5'>
               <NextImage
                 className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right rounded-xl object-cover'
                 src={item.backdropUrl}
