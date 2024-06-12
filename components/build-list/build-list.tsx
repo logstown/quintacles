@@ -12,7 +12,6 @@ import { Button } from '@nextui-org/button'
 import { RestrictionsUI } from '@/lib/models'
 import { useMutation } from '@tanstack/react-query'
 import { CreateListItem } from './CreateListItem'
-import { AddMedia } from './AddMedia'
 import { EpisodePicker } from './EpisodePicker'
 import { Suggestions } from './Suggestions'
 import { EpisodeData } from '@/lib/random'
@@ -51,36 +50,6 @@ export function BuildList({
     setListItems(newList)
   }
 
-  const items = [0, 1, 2, 3, 4].map(i => {
-    const item = listItems[i]
-
-    return item ? (
-      <CreateListItem
-        key={i}
-        item={item}
-        itemOrder={i + 1}
-        removeFromList={removeFromList}
-      />
-    ) : (
-      <div key={i} className='relative'>
-        <div className='invisible'>
-          {isEpisodes ? (
-            <img className='hidden sm:block' src='/dummyStill.jpeg' alt='dummy' />
-          ) : (
-            <img src='/dummyPoster.jpeg' alt='dummy' />
-          )}
-        </div>
-        {i === listItems.length && !isEpisodes && (
-          <AddMedia
-            addListItem={addListItem}
-            mediaType={restrictions.mediaType}
-            listItems={listItems}
-          />
-        )}
-      </div>
-    )
-  })
-
   return (
     <main className='container mx-auto mb-12 mt-6 flex flex-col gap-8'>
       <div className='flex flex-col items-center'>
@@ -101,15 +70,22 @@ export function BuildList({
                 handle='.media-item-grip'
                 className='flex flex-wrap justify-center gap-2 lg:gap-5'
               > */}
-              {listItems.length === 0 && isEpisodes && (
-                <div className='absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2'>
-                  <em>Add Episodes Below</em>
-                </div>
-              )}
               <div
                 className={`flex justify-center ${isEpisodes ? 'flex-col gap-5 sm:flex-row sm:gap-3 lg:gap-5' : 'gap-1 sm:gap-5'}`}
               >
-                {items}
+                {[0, 1, 2, 3, 4].map(i => {
+                  const item = listItems[i]
+
+                  return (
+                    <CreateListItem
+                      key={i}
+                      item={item}
+                      itemOrder={i + 1}
+                      removeFromList={removeFromList}
+                      isEpisode={isEpisodes}
+                    />
+                  )
+                })}
               </div>
               {/* </ReactSortable> */}
             </CardBody>
