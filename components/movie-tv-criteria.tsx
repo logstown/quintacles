@@ -3,7 +3,7 @@
 import { TmdbGenres } from '../lib/TmdbModels'
 import { getDecades } from '../lib/random'
 import { find } from 'lodash'
-import { MediaType, Person } from '@prisma/client'
+import { MediaType } from '@prisma/client'
 import { useGenres } from '@/lib/hooks'
 import { RestrictionsUI } from '@/lib/models'
 import { Autocomplete, AutocompleteItem } from '@nextui-org/autocomplete'

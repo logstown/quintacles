@@ -6,9 +6,6 @@ import { ListTitleBase } from './list-title-base'
 import { UserListSkeleton } from './user-list/UserListSkeleton'
 import { MediaType } from '@prisma/client'
 import { mediaTypes } from '@/lib/mediaTypes'
-import { Button } from '@nextui-org/button'
-import { ArrowRightIcon } from 'lucide-react'
-import Link from 'next/link'
 
 export function UserListsByRestrictions({
   restrictions,

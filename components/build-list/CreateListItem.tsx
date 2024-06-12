@@ -8,6 +8,7 @@ import { Image } from '@nextui-org/image'
 import { Card, CardFooter } from '@nextui-org/card'
 import NextImage from 'next/image'
 import { Button } from '@nextui-org/button'
+import { AddListIdx } from './AddListIdx'
 
 export const CreateListItem = ({
   item,
@@ -43,7 +44,7 @@ export const CreateListItem = ({
       className={`flex items-center ${isEpisode ? 'gap-3 sm:flex-col sm:gap-1' : 'flex-col gap-2'}`}
     >
       <div
-        className={`text-center text-neutral-400 lg:text-xl ${isEpisode ? 'text-xl sm:order-last sm:text-base' : 'order-last'} `}
+        className={`text-center text-neutral-400 lg:text-xl ${isEpisode ? 'text-xl sm:order-last sm:text-base' : 'order-last'} ${!item ? 'invisible' : ''} `}
       >
         {itemOrder}
       </div>
@@ -59,17 +60,19 @@ export const CreateListItem = ({
             isFooterBlurred
             className={`${isEpisode ? 'aspect-video' : ''} ${item ? '' : 'border-3 border-dashed border-secondary-200'}`}
           >
-            <Image
-              as={NextImage}
-              width={300}
-              height={isEpisode ? 169 : 450}
-              className={`object-cover ${isEpisode ? 'brightness-75' : ''} ${item ? '' : 'invisible'}`}
-              src={imgSrc}
-              alt='NextUI hero Image'
-            />
+            <AddListIdx idx={itemOrder - 1} disabled={!!item}>
+              <Image
+                as={NextImage}
+                width={300}
+                height={isEpisode ? 169 : 450}
+                className={`object-cover ${isEpisode ? 'brightness-75' : ''} ${item ? '' : 'invisible'}`}
+                src={imgSrc}
+                alt='NextUI hero Image'
+              />
+            </AddListIdx>
             {isEpisode && !!item && (
               <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] justify-center overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
-                <p className='text-left text-tiny text-white/80'>{item?.name}</p>
+                <p className='text-left text-tiny text-white/80'>{item.name}</p>
               </CardFooter>
             )}
           </Card>

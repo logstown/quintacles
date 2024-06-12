@@ -3,7 +3,7 @@ import { BrowseCriteria } from '../_components/BrowseCriteria'
 import { MediaType, User } from '@prisma/client'
 import { UserListsByRestrictions } from '@/components/UserListsByRestrictions'
 
-export default async function BrowsePage({
+export default function BrowsePage({
   searchParams,
   restrictions,
   user,
