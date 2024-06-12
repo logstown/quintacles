@@ -3,6 +3,10 @@ import { RestrictionsUI } from '@/lib/models'
 import prisma from '@/lib/db'
 import { pickBy } from 'lodash'
 import { MediaType, Prisma } from '@prisma/client'
+import { Button } from '@nextui-org/button'
+import Link from 'next/link'
+import { mediaTypes } from '@/lib/mediaTypes'
+import { ArrowRightIcon } from 'lucide-react'
 
 export async function UserListQuery({
   restrictions,
@@ -10,12 +14,14 @@ export async function UserListQuery({
   sortBy,
   exactMatch,
   mediaTypeOnly,
+  username,
 }: {
   restrictions: RestrictionsUI
   sortBy: 'lastUserAddedAt' | 'users'
   userId?: string
   exactMatch?: boolean
   mediaTypeOnly?: boolean
+  username?: string
 }) {
   const users = userId
     ? {
@@ -110,6 +116,19 @@ export async function UserListQuery({
       ))}
       {lists.length === 0 && (
         <em className='p-10 text-xl text-foreground-500'>Nothing yet</em>
+      )}
+      {mediaTypeOnly && username && lists.length >= 3 && (
+        <div className='flex justify-end pr-4'>
+          <Button
+            color='primary'
+            radius='full'
+            as={Link}
+            href={`/user/${username}/${mediaTypes[restrictions.mediaType].urlPlural}`}
+            endContent={<ArrowRightIcon size={20} />}
+          >
+            All {mediaTypes[restrictions.mediaType].display} Lists
+          </Button>
+        </div>
       )}
     </div>
   )

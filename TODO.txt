@@ -1,0 +1,5 @@
+Handle Errors (error.tsx)
+Loading indicators (loading.tsx)
+
+make adjustor for cover image
+better surprise me... go back to clickable restriction buttons
