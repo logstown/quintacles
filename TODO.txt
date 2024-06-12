@@ -3,5 +3,6 @@ Loading indicators (loading.tsx)
 
 make adjustor for cover image
 better surprise me... go back to clickable restriction buttons
-fix autocomplete for choosing list items
+### fix autocomplete for choosing list items
 adding sorting to create list
+need to infinite scroll browse

@@ -146,7 +146,7 @@ export function PosterCollageStackedRight({
       {posterPaths.map((p, i) => (
         <Image
           key={i}
-          className=' rounded-xl border-3 border-zinc-300 drop-shadow-xl'
+          className='rounded-xl border-3 border-zinc-300 drop-shadow-xl'
           classNames={{
             wrapper: 'absolute h-[225px] w-[150px]',
           }}
@@ -357,7 +357,7 @@ export function PosterCollageCardDec({
   const startingWidth = cardWidth / 5
 
   return (
-    <div className=' h-[360px] overflow-hidden'>
+    <div className='h-[360px] overflow-hidden'>
       <div className='relative ml-12 mt-12'>
         {posters.reverse().map((poster, i) => (
           <Image
@@ -445,7 +445,7 @@ export function BackdropCollageStraight({
                 src={getTmdbImageUrl(lite.backdropPath, 'w300')}
                 alt='NextUI hero Image'
               />
-              <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] items-baseline gap-1 overflow-hidden rounded-large border-1 border-white/20 py-1 text-white/80 shadow-md'>
+              <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] items-baseline gap-2 overflow-hidden rounded-large border-1 border-white/20 py-1 text-white/80 shadow-md'>
                 <p className='font-bold'>{i + 1}</p>
                 <p>·</p>
                 <p>{lite.name}</p>
