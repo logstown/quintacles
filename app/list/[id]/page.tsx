@@ -125,7 +125,7 @@ export default async function ListPage({
       <div className='mt-4 flex flex-col items-center gap-10 md:mt-8'>
         {listItemsReverse.map((item: ListItemUI, i) => (
           <div
-            className='group mx-4 flex max-w-screen-sm flex-col items-stretch rounded-xl shadow-2xl lg:mx-0 lg:w-full lg:max-w-none lg:flex-row'
+            className='group mx-4 flex max-w-screen-sm flex-col items-stretch rounded-xl shadow-2xl lg:mx-0 lg:w-full lg:max-w-[2100px] lg:flex-row'
             style={{
               backgroundColor: item.bgColor,
             }}
