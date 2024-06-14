@@ -14,7 +14,7 @@ export default async function UserPage({
 }: {
   params: { username: string }
 }) {
-  const profile = await prisma.user.findUnique({
+  const profilePromise = prisma.user.findUnique({
     where: { username },
     include: {
       _count: {
@@ -25,11 +25,12 @@ export default async function UserPage({
     },
   })
 
+  const [profile, user] = await Promise.all([profilePromise, currentUser()])
+
   if (!profile) {
     redirect('/')
   }
 
-  const user = await currentUser()
   const isCurrentUser = user?.id === profile.id
 
   const coverImageSrc =
