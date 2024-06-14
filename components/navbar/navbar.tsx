@@ -19,6 +19,7 @@ import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { RandomListButton } from './random-list-button'
 import { BrowseDropdown } from './BrowseDropdown'
+import { UserOrSignIn } from './UserOrSignIn'
 
 async function getRandomList() {
   'use server'
@@ -113,12 +114,7 @@ export const Navbar = () => {
         <NavbarItem className='hidden gap-2 sm:flex'>
           <ThemeSwitch />
         </NavbarItem>
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton appearance={{ elements: { avatarBox: 'h-10 w-10' } }} />
-        </SignedIn>
+        <UserOrSignIn />
       </NavbarContent>
 
       <NavbarContent className='h- basis-1 pl-4 sm:hidden' justify='end'>
