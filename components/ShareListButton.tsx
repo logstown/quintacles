@@ -17,7 +17,7 @@ export function ShareListButton({
   const [listShared, setListShared] = useState(false)
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`http://localhost:5173/list/${userListId}`)
+    navigator.clipboard.writeText(`http://localhost:5173/list/${userListId}`) // TODO fix this
     setListShared(true)
 
     setTimeout(() => {

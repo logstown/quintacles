@@ -1,8 +1,13 @@
 Handle Errors (error.tsx)
 Loading indicators (loading.tsx)
+### fix autocomplete for choosing list items
+adding drag/drop sorting to create list
+need to infinite scroll browse
+add IMDB link to list page
+cache prisma calls
 
 make adjustor for cover image
 better surprise me... go back to clickable restriction buttons
-### fix autocomplete for choosing list items
-adding sorting to create list
-need to infinite scroll browse
+add framer motion animations
+maybe change user list url to use slug
+look into pregenerating dynamic pages?
