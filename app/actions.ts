@@ -1,5 +1,6 @@
 'use server'
 
+import { userListQuery } from '@/lib/PrismaService'
 import { TmdbGenres, TmdbPerson } from '@/lib/TmdbModels'
 import { getPopularPeople, getSuggestionsTmdb } from '@/lib/TmdbService'
 import prisma from '@/lib/db'
@@ -345,4 +346,29 @@ export async function updateUserCoverImage(coverImagePath: string) {
   })
 
   revalidatePath(`/user/${user.username}`)
+}
+
+export async function userListQueryServer({
+  userId,
+  restrictions,
+  sortBy,
+  exactMatch,
+  pageNum,
+  pageSize,
+}: {
+  userId?: string
+  restrictions: RestrictionsUI
+  sortBy: 'lastUserAddedAt' | 'users'
+  exactMatch: boolean
+  pageNum: number
+  pageSize: number
+}) {
+  return userListQuery({
+    userId,
+    restrictions,
+    sortBy,
+    exactMatch,
+    pageSize,
+    pageNum,
+  })
 }

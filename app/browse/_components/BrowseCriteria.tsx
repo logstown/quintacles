@@ -111,7 +111,8 @@ export function BrowseCriteria({
     <div className='flex w-full flex-col items-center gap-10'>
       <div className='flex w-full flex-wrap items-center justify-between'>
         <h1 className='text-6xl font-semibold'>
-          <span className='capitalize text-primary'>
+          Browse{' '}
+          <span className='bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text capitalize text-transparent'>
             {mediaTypes[restrictions.mediaType].display}
           </span>{' '}
           Lists
@@ -153,7 +154,7 @@ export function BrowseCriteria({
             Popular
           </SelectItem>
         </Select>
-        <Divider className='h-8' orientation='vertical' />
+        {/* <Divider className='h-8' orientation='vertical' /> */}
         {restrictions.mediaType === MediaType.TvEpisode ? (
           <MediaPicker
             labelExcludesSelect={true}
@@ -170,7 +171,7 @@ export function BrowseCriteria({
               onRestrictionsChange={restrictionsChange}
             />
             <Switch isSelected={exactMatch} onValueChange={setExactMatchFromPicker}>
-              Exact Match
+              Exact
             </Switch>
           </>
         )}

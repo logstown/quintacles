@@ -1,14 +1,16 @@
+'use client'
+
 import { RestrictionsUI } from '@/lib/models'
 import { getUserListsUrl } from '@/lib/random'
 import { Button } from '@nextui-org/button'
 import { Tooltip } from '@nextui-org/tooltip'
 import { ListPlus } from 'lucide-react'
 import { ShareListButton } from './ShareListButton'
-import { currentUser } from '@clerk/nextjs/server'
 import { UserListActions } from './UserListActions'
 import Link from 'next/link'
+import { useUser } from '@clerk/nextjs'
 
-export async function UserListButtons({
+export function UserListButtons({
   userListId,
   Restrictions,
   userListUserIds,
@@ -19,10 +21,9 @@ export async function UserListButtons({
   Restrictions: RestrictionsUI
   isSmall?: boolean
 }) {
+  const { user } = useUser()
   const iconSize = isSmall ? 20 : 24
   const userListUrl = getUserListsUrl(Restrictions)
-
-  const user = await currentUser()
   const doesListBelongToUser = user && userListUserIds.includes(user.id)
 
   return (

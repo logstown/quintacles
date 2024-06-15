@@ -1,7 +1,9 @@
 import { CreateListSearchParams, RestrictionsUI } from '@/lib/models'
 import { BrowseCriteria } from '../_components/BrowseCriteria'
 import { MediaType, User } from '@prisma/client'
-import { UserListsByRestrictions } from '@/components/UserListsByRestrictions'
+import { ListTitle } from '@/app/create/criteria/_components/list-title'
+import { ListTitleBase } from '@/components/list-title-base'
+import { UserListInfinite } from './UserListInfinite'
 
 export default function BrowsePage({
   searchParams,
@@ -21,6 +23,15 @@ export default function BrowsePage({
 
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
 
+  // const initialData = await userListQuery({
+  //   userId: user?.id,
+  //   restrictions,
+  //   sortBy,
+  //   exactMatch,
+  //   pageSize: 5,
+  //   pageNum: 1,
+  // })
+
   return (
     <div
       className={`mx-auto flex max-w-screen-xl flex-col gap-14 pb-20 ${isEpisodes ? 'items-stert' : 'items-center'} `}
@@ -31,12 +42,19 @@ export default function BrowsePage({
         exactMatchFromParent={exactMatch}
         user={user}
       />
-      <UserListsByRestrictions
-        restrictions={restrictions}
-        sortBy={sortBy}
-        exactMatch={exactMatch}
-        userId={user?.id}
-      />
+      <div className={`flex flex-col gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}>
+        {exactMatch && (
+          <ListTitle mediaType={restrictions.mediaType}>
+            <ListTitleBase restrictions={restrictions} />
+          </ListTitle>
+        )}
+        <UserListInfinite
+          restrictions={restrictions}
+          sortBy={sortBy}
+          exactMatch={exactMatch}
+          userId={user?.id}
+        />
+      </div>
     </div>
   )
 }

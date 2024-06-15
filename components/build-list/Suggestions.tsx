@@ -75,7 +75,6 @@ export function Suggestions({
   })
 
   useEffect(() => {
-    console.log('inView', inView)
     if (inView) {
       fetchNextPage()
     }
@@ -85,7 +84,6 @@ export function Suggestions({
 
   const suggestionSelected = (item: ListItem) => {
     if (onItemSelected) {
-      console.log('item', item)
       onItemSelected(item)
     } else {
       router.push(`/create/list/episodes/${item.tmdbId}`)
