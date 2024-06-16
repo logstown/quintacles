@@ -12,12 +12,15 @@ import { ListItem, MediaType } from '@prisma/client'
 import { format } from 'date-fns'
 import { clamp, includes } from 'lodash'
 import Vibrant from 'node-vibrant'
+import Link from 'next/link'
+import { mediaTypes } from '@/lib/mediaTypes'
 
 export interface ListItemUI extends ListItem {
   bgColor: string
   textColor: string
   rgb: number[]
   backdropUrl: string
+  tmdbHref: string
 }
 
 export default async function ListPage({
@@ -47,7 +50,8 @@ export default async function ListPage({
     return <NotFoundPage />
   }
 
-  const isEpisodes = userList.Restrictions.mediaType === MediaType.TvEpisode
+  const { Restrictions: restrictions } = userList
+  const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
 
   const getBetterHSL = (
     hsl: [number, number, number] | undefined,
@@ -78,12 +82,18 @@ export default async function ListPage({
       backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
     }
 
+    const baseUrl = `https://www.themoviedb.org`
+    const tmdbHref = isEpisodes
+      ? `${baseUrl}/${mediaTypes[MediaType.TvShow].url}/${restrictions.EpisodesTvShow.id}/season/${item.seasonNum}/episode/${item.episodeNum}`
+      : `${baseUrl}/${mediaTypes[restrictions.mediaType].url}/${item.tmdbId}`
+
     return {
       ...item,
       bgColor,
       rgb,
       textColor,
       backdropUrl,
+      tmdbHref,
     } as ListItemUI
   }
 
@@ -104,10 +114,7 @@ export default async function ListPage({
     <div>
       <div className='flex flex-col items-center gap-4 px-8 md:gap-8 md:px-12'>
         <h1 className='text-center text-4xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl lg:tracking-normal'>
-          <ListTitleBase
-            restrictions={userList.Restrictions}
-            includeMediaType={true}
-          />
+          <ListTitleBase restrictions={restrictions} includeMediaType={true} />
         </h1>
         <div className='flex flex-wrap items-center justify-center space-x-4'>
           <UserTime
@@ -118,7 +125,7 @@ export default async function ListPage({
           <UserListButtons
             userListId={userList.id}
             userListUserIds={userListUserIds}
-            Restrictions={userList.Restrictions}
+            Restrictions={restrictions}
           />
         </div>
       </div>
@@ -143,14 +150,16 @@ export default async function ListPage({
                       color: item.textColor,
                     }}
                   >
-                    <h1 className='text-balance text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
-                      {item.name}{' '}
-                      {!isEpisodes && (
-                        <small className='text-[50%] font-medium'>
-                          ({new Date(item.date).getFullYear()})
-                        </small>
-                      )}
-                    </h1>
+                    <Link href={item.tmdbHref} target='_blank'>
+                      <h1 className='text-balance text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
+                        {item.name}{' '}
+                        {!isEpisodes && (
+                          <small className='text-[50%] font-medium'>
+                            ({new Date(item.date).getFullYear()})
+                          </small>
+                        )}
+                      </h1>
+                    </Link>
                     {isEpisodes && (
                       <h3 className='flex items-baseline gap-4 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
                         Season {item.seasonNum} · Episode {item.episodeNum}
