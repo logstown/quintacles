@@ -19,12 +19,20 @@ export default async function BuildListPage({
     throw new Error('User not found')
   }
 
+  const restictionsForQuery = {
+    decade: restrictions.decade ?? 0,
+    genreId: restrictions.genreId ?? 0,
+    isLiveActionOnly: restrictions.isLiveActionOnly,
+    mediaType: restrictions.mediaType,
+    personId: restrictions.personId ?? 0,
+  }
+
   const possibleDupe = await prisma.userList.findFirst({
     where: {
       users: {
         some: { id: user.id },
       },
-      Restrictions: { is: omit(restrictions, 'Person', 'EpisodesTvShow') },
+      Restrictions: { is: restictionsForQuery },
     },
   })
 
