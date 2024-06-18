@@ -31,6 +31,7 @@ export async function surpriseMe(mediaType: MediaType) {
           },
         },
       },
+      mediaType,
     },
   })
 
@@ -56,7 +57,6 @@ export async function surpriseMe(mediaType: MediaType) {
     some(
       userRestrictionsArr,
       restrictions =>
-        restrictions.mediaType === mediaType &&
         restrictions.genreId === (genre?.id ?? 0) &&
         restrictions.decade === (decade?.id ?? 0) &&
         restrictions.personId === (moviePerson?.id ?? 0) &&
