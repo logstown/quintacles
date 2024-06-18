@@ -116,7 +116,7 @@ export const Navbar = () => {
         <UserOrSignIn />
       </NavbarContent>
 
-      <NavbarContent className='h- basis-1 pl-4 sm:hidden' justify='end'>
+      <NavbarContent className='basis-1 pl-4 sm:hidden' justify='end'>
         {/* <Link isExternal aria-label='Github' href={siteConfig.links.github}>
           <GithubIcon className='text-default-500' />
         </Link> */}
