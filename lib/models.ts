@@ -1,4 +1,4 @@
-import { MediaType, Person, Restrictions, TvShowLite } from '@prisma/client'
+import { MediaType, Person, TvShowLite } from '@prisma/client'
 
 export type Genre = {
   id: number

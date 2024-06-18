@@ -25,7 +25,7 @@ export function BrowseDropdown() {
             endContent={<ChevronDown strokeWidth={1.3} size={20} />}
             variant='light'
           >
-            Browse
+            Browse Lists
           </Button>
         </DropdownTrigger>
       </NavbarItem>

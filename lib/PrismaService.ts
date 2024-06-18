@@ -1,3 +1,5 @@
+'server only'
+
 import { pickBy } from 'lodash'
 import { RestrictionsUI } from './models'
 import { Prisma } from '@prisma/client'

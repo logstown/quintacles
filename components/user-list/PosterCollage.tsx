@@ -391,7 +391,7 @@ export function PosterCollageStraight({
   const posters = isSkeleton ? Array(5).fill(0) : posterLites
 
   return (
-    <div className='flex gap-3 sm:gap-4'>
+    <div className='flex gap-1 sm:gap-4'>
       {posters.map((lite, i) => (
         <div key={i} className='flex flex-col items-center gap-1'>
           {isSkeleton ? (

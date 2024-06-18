@@ -1,4 +1,4 @@
-import { MediaType, Restrictions } from '@prisma/client'
+import { MediaType } from '@prisma/client'
 import {
   TmdbGenre,
   Movie,
@@ -112,9 +112,7 @@ export const getImageStuff = async (): Promise<any> => {
   return fetchFn(`configuration`)
 }
 
-export const getPopularPeople = async (
-  page: number,
-): Promise<PopularPeople> => {
+export const getPopularPeople = async (page: number): Promise<PopularPeople> => {
   return fetchFn(`person/popular?page=${page}`)
 }
 
@@ -135,10 +133,7 @@ export const getMeMore = async (
   return [...results, ...(await getMeMore(cb, pages, params, pageNum + 1))]
 }
 
-export const getTvSeason = (
-  showId: number,
-  seasonNum: number,
-): Promise<Season> => {
+export const getTvSeason = (showId: number, seasonNum: number): Promise<Season> => {
   return fetchFn(`tv/${showId}/season/${seasonNum}`)
 }
 
