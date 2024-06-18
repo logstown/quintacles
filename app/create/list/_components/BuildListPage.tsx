@@ -1,4 +1,3 @@
-import { omit } from 'lodash'
 import { currentUser } from '@clerk/nextjs/server'
 import { RestrictionsUI } from '@/lib/models'
 import prisma from '@/lib/db'
@@ -25,6 +24,7 @@ export default async function BuildListPage({
     isLiveActionOnly: restrictions.isLiveActionOnly,
     mediaType: restrictions.mediaType,
     personId: restrictions.personId ?? 0,
+    episodesTvShowId: restrictions.episodesTvShowId ?? 0,
   }
 
   const possibleDupe = await prisma.userList.findFirst({
