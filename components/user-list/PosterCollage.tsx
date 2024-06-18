@@ -391,9 +391,9 @@ export function PosterCollageStraight({
   const posters = isSkeleton ? Array(5).fill(0) : posterLites
 
   return (
-    <div className='flex gap-1 sm:gap-4'>
+    <div className='flex gap-1 sm:gap-4 md:gap-8'>
       {posters.map((lite, i) => (
-        <div key={i} className='flex flex-col items-center gap-1'>
+        <div key={i} className='flex flex-col items-center gap-2'>
           {isSkeleton ? (
             <Skeleton className='rounded-xl drop-shadow-lg'>
               <img alt='bullcrap' src='/dummyPoster.jpeg' />
@@ -401,9 +401,10 @@ export function PosterCollageStraight({
           ) : (
             <Image
               as={NextImage}
+              isBlurred
               width={342}
               height={513}
-              className='rounded-xl drop-shadow-lg'
+              className='drop-shadow-lg'
               alt='bullcrap'
               src={getTmdbImageUrl(lite.posterPath, 'w342')}
             />
@@ -430,13 +431,16 @@ export function BackdropCollageStraight({
   const backdrops = isSkeleton ? Array(5).fill(0) : backdropLites
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-8'>
       {backdrops.map((lite, i) => (
         <div key={i} className='flex items-center gap-2'>
           {isSkeleton ? (
             <Skeleton className='aspect-video w-[300px] rounded-xl drop-shadow-lg' />
           ) : (
-            <Card isFooterBlurred className='aspect-video'>
+            <Card
+              isFooterBlurred
+              className='aspect-video border-none drop-shadow-xl'
+            >
               <Image
                 as={NextImage}
                 width={300}
