@@ -17,6 +17,7 @@ import { Suggestions } from './Suggestions'
 import { EpisodeData } from '@/lib/random'
 import { createOrUpdateUserList } from '@/app/actions'
 import Link from 'next/link'
+import { Reorder } from 'framer-motion'
 
 export function BuildList({
   restrictions,
@@ -62,32 +63,32 @@ export function BuildList({
               </ListTitle>
             </CardHeader>
             <CardBody className='rounded-xl bg-foreground-100 shadow-inner sm:p-10'>
-              {/* <ReactSortable
-                list={listItems}
-                setList={setListItems}
-                animation={200}
-                delay={2}
-                handle='.media-item-grip'
-                className='flex flex-wrap justify-center gap-2 lg:gap-5'
-              > */}
-              <div
+              <Reorder.Group
+                values={listItems}
+                axis='x'
+                onReorder={setListItems}
                 className={`flex justify-center ${isEpisodes ? 'flex-col gap-5 sm:flex-row sm:gap-3 lg:gap-5' : 'gap-1 sm:gap-5'}`}
               >
                 {[0, 1, 2, 3, 4].map(i => {
                   const item = listItems[i]
 
                   return (
-                    <CreateListItem
-                      key={i}
-                      item={item}
-                      itemOrder={i + 1}
-                      removeFromList={removeFromList}
-                      isEpisode={isEpisodes}
-                    />
+                    <Reorder.Item
+                      key={item?.tmdbId}
+                      value={item}
+                      className={`flex items-center ${isEpisodes ? 'gap-3 sm:flex-col sm:gap-1' : 'flex-col gap-2'}`}
+                    >
+                      <CreateListItem
+                        key={i}
+                        item={item}
+                        itemOrder={i + 1}
+                        removeFromList={removeFromList}
+                        isEpisode={isEpisodes}
+                      />
+                    </Reorder.Item>
                   )
                 })}
-              </div>
-              {/* </ReactSortable> */}
+              </Reorder.Group>
             </CardBody>
             <CardFooter className='mt-2 justify-end gap-4'>
               {!userListId && (

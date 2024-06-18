@@ -4,9 +4,8 @@ import { useState } from 'react'
 import { getTmdbImageUrl } from '../../lib/random'
 import { ListItem } from '@prisma/client'
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover'
-import { Image } from '@nextui-org/image'
 import { Card, CardFooter } from '@nextui-org/card'
-import NextImage from 'next/image'
+import Image from 'next/image'
 import { Button } from '@nextui-org/button'
 import { AddListIdx } from './AddListIdx'
 
@@ -40,9 +39,7 @@ export const CreateListItem = ({
   }
 
   return (
-    <div
-      className={`flex items-center ${isEpisode ? 'gap-3 sm:flex-col sm:gap-1' : 'flex-col gap-2'}`}
-    >
+    <>
       <div
         className={`text-center text-neutral-400 lg:text-xl ${isEpisode ? 'text-xl sm:order-last sm:text-base' : 'order-last'} ${!item ? 'invisible' : ''} `}
       >
@@ -62,7 +59,6 @@ export const CreateListItem = ({
           >
             <AddListIdx idx={itemOrder - 1} disabled={!!item}>
               <Image
-                as={NextImage}
                 width={300}
                 height={isEpisode ? 169 : 450}
                 className={`object-cover ${isEpisode ? 'brightness-75' : ''} ${item ? '' : 'invisible'}`}
@@ -104,6 +100,6 @@ export const CreateListItem = ({
           </PopoverContent>
         )}
       </Popover>
-    </div>
+    </>
   )
 }
