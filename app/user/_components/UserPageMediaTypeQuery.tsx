@@ -24,35 +24,41 @@ export async function UserPageMediaTypeQuery({
     pageNum: 1,
   })
   return (
-    <UserListsWrapper isEpisodes={mediaType === MediaType.TvEpisode}>
-      {lists.map(list => (
-        <UserListCard
-          key={list.id}
-          restrictions={list.Restrictions}
-          id={list.id}
-          users={list.users}
-          listItemLites={[
-            list.item1,
-            list.item2,
-            list.item3,
-            list.item4,
-            list.item5,
-          ]}
-          excludeUser={!!userId}
-          lastUserAddedAt={list.lastUserAddedAt}
-        />
-      ))}
-      <div className='flex justify-end pr-4'>
-        <Button
-          color='primary'
-          radius='full'
-          as={Link}
-          href={`/user/${username}/${mediaTypes[mediaType].urlPlural}`}
-          endContent={<ArrowRightIcon size={20} />}
-        >
-          All {mediaTypes[mediaType].display} Lists
-        </Button>
-      </div>
-    </UserListsWrapper>
+    <>
+      <UserListsWrapper isEpisodes={mediaType === MediaType.TvEpisode}>
+        {lists.map((list, i) => (
+          <div className='flex flex-col items-end'>
+            <UserListCard
+              key={list.id}
+              restrictions={list.Restrictions}
+              id={list.id}
+              users={list.users}
+              listItemLites={[
+                list.item1,
+                list.item2,
+                list.item3,
+                list.item4,
+                list.item5,
+              ]}
+              excludeUser={!!userId}
+              lastUserAddedAt={list.lastUserAddedAt}
+            />
+            {i === lists.length - 1 && (
+              <Button
+                color='primary'
+                radius='full'
+                as={Link}
+                className='m-6'
+                href={`/user/${username}/${mediaTypes[mediaType].urlPlural}`}
+                endContent={<ArrowRightIcon size={20} />}
+              >
+                All {mediaTypes[mediaType].display} Lists
+              </Button>
+            )}
+          </div>
+        ))}
+      </UserListsWrapper>
+      {/* <div className='flex justify-end pr-4'></div> */}
+    </>
   )
 }

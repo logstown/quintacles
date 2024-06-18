@@ -88,7 +88,7 @@ export default async function UserPage({
         </div>
       </div>
 
-      <div className='mx-auto mt-10 flex max-w-screen-lg flex-col gap-24 md:mt-16'>
+      <div className='mx-auto mt-10 flex max-w-screen-lg flex-col gap-20 md:mt-16'>
         {mediaTypeArrForLists.map(mediaType => {
           const isEpisodes = mediaType.key === MediaType.TvEpisode
 
