@@ -27,9 +27,8 @@ export async function UserPageMediaTypeQuery({
     <>
       <UserListsWrapper isEpisodes={mediaType === MediaType.TvEpisode}>
         {lists.map((list, i) => (
-          <div className='flex flex-col items-end'>
+          <div key={list.id} className='flex flex-col items-end'>
             <UserListCard
-              key={list.id}
               restrictions={list.Restrictions}
               id={list.id}
               users={list.users}
