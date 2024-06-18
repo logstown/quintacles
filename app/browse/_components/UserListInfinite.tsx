@@ -9,6 +9,7 @@ import { useInView } from 'react-intersection-observer'
 import { Spinner } from '@nextui-org/spinner'
 import React from 'react'
 import { userListQueryServer } from '@/app/actions'
+import { UserListsWrapper } from '@/components/user-list/UserListsWrapper'
 
 export function UserListInfinite({
   // initialData,
@@ -71,8 +72,8 @@ export function UserListInfinite({
         <p>Error: {error.message}</p>
       ) : (
         <>
-          <div
-            className={`flex ${restrictions.mediaType === MediaType.TvEpisode ? 'flex-wrap gap-12 md:gap-7' : 'flex-col gap-7 md:gap-12'}`}
+          <UserListsWrapper
+            isEpisodes={restrictions.mediaType === MediaType.TvEpisode}
           >
             {data?.pages.map((group, i) => (
               <React.Fragment key={i}>
@@ -96,7 +97,7 @@ export function UserListInfinite({
                 ))}
               </React.Fragment>
             ))}
-          </div>
+          </UserListsWrapper>
           {(hasNextPage || (isFetching && !isFetchingNextPage)) && (
             <div className='mt-14 flex justify-center'>
               <Spinner ref={ref} size='lg' className='ml-10' />

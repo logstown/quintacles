@@ -1,4 +1,5 @@
 import { UserListCard } from '@/components/user-list/UserList'
+import { UserListsWrapper } from '@/components/user-list/UserListsWrapper'
 import { userListQuery } from '@/lib/PrismaService'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { Button } from '@nextui-org/button'
@@ -23,9 +24,7 @@ export async function UserPageMediaTypeQuery({
     pageNum: 1,
   })
   return (
-    <div
-      className={`flex ${mediaType === MediaType.TvEpisode ? 'flex-wrap gap-12 md:gap-7' : 'flex-col gap-7 md:gap-12'}`}
-    >
+    <UserListsWrapper isEpisodes={mediaType === MediaType.TvEpisode}>
       {lists.map(list => (
         <UserListCard
           key={list.id}
@@ -54,6 +53,6 @@ export async function UserPageMediaTypeQuery({
           All {mediaTypes[mediaType].display} Lists
         </Button>
       </div>
-    </div>
+    </UserListsWrapper>
   )
 }
