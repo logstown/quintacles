@@ -4,6 +4,7 @@ import { Button } from '@nextui-org/button'
 import { Tooltip } from '@nextui-org/tooltip'
 import { CheckIcon, ShareIcon } from 'lucide-react'
 import { useState } from 'react'
+import copy from 'clipboard-copy'
 
 export function ShareListButton({
   isSmall,
@@ -17,12 +18,10 @@ export function ShareListButton({
   const [listShared, setListShared] = useState(false)
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`http://localhost:5173/list/${userListId}`) // TODO fix this
+    copy(`${window.location.origin}/list/${userListId}`)
     setListShared(true)
 
-    setTimeout(() => {
-      setListShared(false)
-    }, 5000)
+    setTimeout(() => setListShared(false), 5000)
   }
   return (
     <Tooltip content='Link copied to clipboard!' isOpen={listShared}>
