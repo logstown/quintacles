@@ -18,6 +18,7 @@ export function MediaTypeUserLists({
 
         return (
           <div
+            key={mediaType.key}
             className={`flex flex-col gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}
           >
             <h1 className='pl-4 text-5xl font-bold capitalize'>
