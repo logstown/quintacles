@@ -4,6 +4,7 @@ import { Image } from '@nextui-org/image'
 import { Card, CardFooter } from '@nextui-org/card'
 import NextImage from 'next/image'
 import { Skeleton } from '@nextui-org/skeleton'
+import React from 'react'
 
 export function PosterCollageGallery({
   posterPaths,
@@ -433,30 +434,33 @@ export function BackdropCollageStraight({
   return (
     <div className='flex flex-col gap-8'>
       {backdrops.map((lite, i) => (
-        <div key={i} className='flex items-center gap-2'>
+        <React.Fragment key={i}>
           {isSkeleton ? (
             <Skeleton className='aspect-video w-[300px] rounded-xl drop-shadow-lg' />
           ) : (
-            <Card
-              isFooterBlurred
-              className='aspect-video border-none drop-shadow-xl'
-            >
-              <Image
-                as={NextImage}
-                width={300}
-                height={169}
-                className='max-w-[282px] object-cover brightness-90'
-                src={getTmdbImageUrl(lite.backdropPath, 'w300')}
-                alt='NextUI hero Image'
-              />
-              <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] items-baseline gap-2 overflow-hidden rounded-large border-1 border-white/20 py-1 text-white/80 shadow-md'>
-                <p className='font-bold'>{i + 1}</p>
-                <p>·</p>
-                <p>{lite.name}</p>
-              </CardFooter>
-            </Card>
+            <div className='flex items-center gap-4'>
+              <p className='text-sm font-semibold text-neutral-400 md:text-base'>
+                {i + 1}
+              </p>
+              <Card
+                isFooterBlurred
+                className='aspect-video border-none drop-shadow-xl'
+              >
+                <Image
+                  as={NextImage}
+                  width={300}
+                  height={169}
+                  className='max-w-[250px] object-cover brightness-90'
+                  src={getTmdbImageUrl(lite.backdropPath, 'w300')}
+                  alt='NextUI hero Image'
+                />
+                <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] overflow-hidden rounded-large border-1 border-white/20 py-1 text-white/80 shadow-md'>
+                  <p>{lite.name}</p>
+                </CardFooter>
+              </Card>
+            </div>
           )}
-        </div>
+        </React.Fragment>
       ))}
     </div>
   )
