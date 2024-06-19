@@ -49,14 +49,16 @@ export async function UserPageMediaTypeQuery({
             />
             {i === lists.length - 1 && (
               <Button
-                color='primary'
-                radius='full'
+                color='secondary'
+                size='lg'
+                radius='lg'
+                variant='light'
                 as={Link}
                 className='m-6'
                 href={moreHref}
-                endContent={<ArrowRightIcon size={20} />}
+                endContent={<ArrowRightIcon size={15} />}
               >
-                All {mediaTypeObj.display} Lists
+                All {mediaTypeObj.display} lists
               </Button>
             )}
           </div>
