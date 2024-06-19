@@ -292,7 +292,7 @@ export async function createOrUpdateUserList({
   )
 
   if (userListId) {
-    const transResult = await prisma.$transaction([
+    const [{ id }] = await prisma.$transaction([
       createUpdateOperation,
       prisma.userList.update({
         where: {
@@ -306,7 +306,7 @@ export async function createOrUpdateUserList({
       }),
     ])
 
-    redirect(`/list/${transResult[0].id}`)
+    redirect(`/list/${id}`)
   } else {
     const { id } = await createUpdateOperation
     redirect(`/list/${id}`)
