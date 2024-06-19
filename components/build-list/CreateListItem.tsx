@@ -55,7 +55,7 @@ export const CreateListItem = ({
           <Card
             isPressable={!!item}
             isFooterBlurred
-            className={`${isEpisode ? 'aspect-video' : ''} ${item ? '' : 'border-3 border-dashed border-secondary-200'}`}
+            className={`${isEpisode ? 'aspect-video' : ''} ${item ? '' : 'border-3 border-dashed border-primary-200'}`}
           >
             <AddListIdx idx={itemOrder - 1} disabled={!!item}>
               <Image

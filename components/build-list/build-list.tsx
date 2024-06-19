@@ -97,7 +97,7 @@ export function BuildList({
                   as={Link}
                   className={isSavePending ? 'invisible' : ''}
                   startContent={<ArrowLeft size={15} />}
-                  variant='light'
+                  variant='faded'
                 >
                   Criteria
                 </Button>
