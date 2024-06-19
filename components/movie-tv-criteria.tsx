@@ -13,9 +13,11 @@ import MediaPicker from './media-picker'
 export function MovieTvCriteria({
   restrictions: { decade, genreId, Person, personId, isLiveActionOnly, mediaType },
   onRestrictionsChange,
+  isBrowse,
 }: {
   restrictions: RestrictionsUI
   onRestrictionsChange: (restrictions: RestrictionsUI) => void
+  isBrowse?: boolean
 }) {
   const decades = getDecades()
   const mediaTypeGenres = useGenres(mediaType)
@@ -82,7 +84,9 @@ export function MovieTvCriteria({
   }
 
   return (
-    <div className='flex flex-wrap items-end gap-4 sm:gap-8'>
+    <div
+      className={`${isBrowse ? 'justify-center' : ''} flex flex-wrap items-end gap-4 sm:gap-8`}
+    >
       <Autocomplete
         label='Decade'
         variant='bordered'

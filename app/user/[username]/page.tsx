@@ -11,6 +11,7 @@ import { MediaType } from '@prisma/client'
 import { Suspense } from 'react'
 import { UserListSkeleton } from '@/components/user-list/UserListSkeleton'
 import { UserPageMediaTypeQuery } from '../_components/UserPageMediaTypeQuery'
+import { UserCoverImage } from '../_components/UserCoverImage'
 
 export default async function UserPage({
   params: { username },
@@ -48,11 +49,7 @@ export default async function UserPage({
     <div className='pb-20'>
       <div className='mx-auto max-w-screen-xl shadow-xl'>
         <div className='relative'>
-          <img
-            src={coverImageSrc}
-            alt='cover'
-            className='h-80 w-full rounded-t-xl object-cover'
-          />
+          <UserCoverImage coverImagePath={coverImageSrc} />
           <Avatar
             isBordered
             src={profile.photoURL ?? undefined}

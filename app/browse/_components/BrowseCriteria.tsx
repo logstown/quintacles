@@ -109,33 +109,36 @@ export function BrowseCriteria({
 
   return (
     <div className='flex w-full flex-col items-center gap-10'>
-      <div className='flex w-full flex-wrap items-center justify-between'>
+      <div className='flex w-full flex-wrap items-center justify-center gap-10'>
+        {user && (
+          <>
+            <Link href={`/user/${user.username}`}>
+              <div className='flex items-center gap-4'>
+                <Avatar
+                  isBordered
+                  src={user.photoURL ?? undefined}
+                  className='min-h-24 min-w-24 text-large'
+                />
+                <div className='font-semibold'>
+                  <div className='whitespace-nowrap text-3xl text-foreground-800'>
+                    {user.displayName}
+                  </div>
+                  <div className='text-xl text-foreground-400'>@{user.username}</div>
+                </div>
+              </div>
+            </Link>
+            <Divider className='h-10' orientation='vertical' />
+          </>
+        )}
         <h1 className='text-6xl font-semibold'>
-          Browse{' '}
-          <span className='bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text capitalize text-transparent'>
+          {!user && 'Browse '}
+          <span className='bg-gradient-to-b from-primary-500 to-secondary-500 bg-clip-text capitalize text-transparent'>
             {mediaTypes[restrictions.mediaType].display}
           </span>{' '}
           Lists
         </h1>
-        {user && (
-          <Link href={`/user/${user.username}`}>
-            <div className='flex items-center gap-4'>
-              <Avatar
-                isBordered
-                src={user.photoURL ?? undefined}
-                className='min-h-24 min-w-24 text-large'
-              />
-              <div className='font-semibold'>
-                <div className='whitespace-nowrap text-3xl text-foreground-800'>
-                  {user.displayName}
-                </div>
-                <div className='text-xl text-foreground-400'>@{user.username}</div>
-              </div>
-            </div>
-          </Link>
-        )}
       </div>
-      <div className='flex flex-wrap items-baseline gap-4 sm:gap-8'>
+      <div className='flex flex-wrap items-baseline justify-center gap-4 sm:gap-8'>
         <Select
           label='Sort By'
           labelPlacement='outside'
@@ -167,6 +170,7 @@ export function BrowseCriteria({
         ) : (
           <>
             <MovieTvCriteria
+              isBrowse={true}
               restrictions={restrictions}
               onRestrictionsChange={restrictionsChange}
             />

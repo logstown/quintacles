@@ -42,11 +42,15 @@ export default function BrowsePage({
         exactMatchFromParent={exactMatch}
         user={user}
       />
-      <div className={`flex flex-col gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}>
+      <div
+        className={`flex flex-col items-center gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}
+      >
         {exactMatch && (
+          // <div className='sticky top-16 z-30 flex w-full justify-center bg-background'>  TODO: Fix this
           <ListTitle mediaType={restrictions.mediaType}>
             <ListTitleBase restrictions={restrictions} />
           </ListTitle>
+          // </div>
         )}
         <UserListInfinite
           restrictions={restrictions}

@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <ModalContent>
         {onClose => (
           <>
-            <ModalBody>{children}</ModalBody>
+            <ModalBody className='px-0 lg:px-6'>{children}</ModalBody>
             <ModalFooter>
               <Button color='danger' variant='light' onPress={onClose}>
                 Close
