@@ -1,4 +1,4 @@
-import EpisodesBrowse from '@/app/browse/_components/EpisodesPage'
+import EpisodesBrowse from '@/app/browse/_components/EpisodesBrowse'
 import MoviesOrShowsPage from '@/app/browse/_components/MoviesOrShowsPage'
 import prisma from '@/lib/db'
 import { mediaTypeArr } from '@/lib/mediaTypes'

@@ -1,4 +1,4 @@
-import EpisodesBrowse from '../_components/EpisodesPage'
+import EpisodesBrowse from '../_components/EpisodesBrowse'
 
 export default async function EpisodesBrowsePage({
   searchParams,

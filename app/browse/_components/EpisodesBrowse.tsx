@@ -3,7 +3,7 @@ import { TvShow } from '@/lib/TmdbModels'
 import { getMediaItem } from '@/lib/TmdbService'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { redirect } from 'next/navigation'
-import BrowsePage from '../_components/BrowsePage'
+import BrowsePage from './BrowsePage'
 
 export default async function EpisodesBrowse({
   searchParams,
