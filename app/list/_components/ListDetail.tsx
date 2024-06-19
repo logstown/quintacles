@@ -109,7 +109,7 @@ export async function ListDetail({ id }: { id: string }) {
   return (
     <div>
       <div className='flex flex-col items-center gap-4 px-8 md:gap-8 md:px-12'>
-        <h1 className='text-center text-4xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl lg:tracking-normal'>
+        <h1 className='text-center text-4xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl'>
           <ListTitleBase restrictions={restrictions} includeMediaType={true} />
         </h1>
         <div className='flex flex-wrap items-center justify-center space-x-4'>

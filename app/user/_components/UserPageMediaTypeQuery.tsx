@@ -13,8 +13,8 @@ export async function UserPageMediaTypeQuery({
   username,
 }: {
   mediaType: MediaType
-  userId: string
-  username: string
+  userId?: string
+  username?: string
 }) {
   const lists = await userListQuery({
     userId,
@@ -23,6 +23,11 @@ export async function UserPageMediaTypeQuery({
     pageSize: 3,
     pageNum: 1,
   })
+  const mediaTypeObj = mediaTypes[mediaType]
+  const moreHref = username
+    ? `/user/${username}/${mediaTypeObj.urlPlural}`
+    : `/browse/${mediaTypeObj.urlPlural}`
+
   return (
     <>
       <UserListsWrapper isEpisodes={mediaType === MediaType.TvEpisode}>
@@ -48,10 +53,10 @@ export async function UserPageMediaTypeQuery({
                 radius='full'
                 as={Link}
                 className='m-6'
-                href={`/user/${username}/${mediaTypes[mediaType].urlPlural}`}
+                href={moreHref}
                 endContent={<ArrowRightIcon size={20} />}
               >
-                All {mediaTypes[mediaType].display} Lists
+                All {mediaTypeObj.display} Lists
               </Button>
             )}
           </div>
