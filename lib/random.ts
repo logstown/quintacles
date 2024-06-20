@@ -1,10 +1,12 @@
-import { range, reject } from 'lodash'
-import { Decade, RestrictionsUI } from './models'
+import { find, range, reject } from 'lodash'
+import { CreateListSearchParams, Decade, RestrictionsUI } from './models'
 import { ListItem, MediaType } from '@prisma/client'
 import { mediaTypes } from './mediaTypes'
-import { getTvSeason } from './TmdbService'
-import { Season, TvEpisode } from './TmdbModels'
+import { getMediaItem, getTvSeason } from './TmdbService'
+import { Season, TmdbPerson, TvEpisode, TvShow } from './TmdbModels'
 import { flow, map, sortBy, uniq } from 'lodash/fp'
+import { redirect } from 'next/navigation'
+import { getGenres } from './genres'
 
 export const getUserListsUrl = (
   {
@@ -40,7 +42,7 @@ export const getUserListsUrl = (
     params.personId = personId.toString()
   }
   if (episodesTvShowId) {
-    params.tvShowId = episodesTvShowId.toString()
+    params.episodesTvShowId = episodesTvShowId.toString()
   }
 
   if (page == 'browse' && mediaType !== MediaType.TvEpisode) {
@@ -174,4 +176,77 @@ export const getEpisodeData = async (tvShowId: number): Promise<EpisodeData> => 
   )(allEpisodes)
 
   return { allEpisodes, seasons }
+}
+
+export async function getRestrictionsFromParams({
+  mediaType,
+  searchParams,
+}: {
+  mediaType: MediaType
+  searchParams: CreateListSearchParams
+}): Promise<RestrictionsUI> {
+  'server only'
+
+  if (mediaType === MediaType.TvEpisode) {
+    const tvShowId = Number(searchParams.episodesTvShowId)
+    let EpisodesTvShow
+    try {
+      const tmdbShow = (await getMediaItem(
+        mediaTypes[MediaType.TvShow].key,
+        tvShowId,
+      )) as TvShow
+
+      if (tmdbShow) {
+        EpisodesTvShow = {
+          id: tmdbShow.id,
+          name: tmdbShow.name,
+          posterPath: tmdbShow.poster_path,
+        }
+      }
+    } catch (e) {}
+
+    if (!EpisodesTvShow) {
+      console.warn('EpisodesTvShow not found')
+      redirect('/')
+    }
+
+    return {
+      mediaType: MediaType.TvEpisode,
+      episodesTvShowId: EpisodesTvShow.id,
+      EpisodesTvShow,
+    }
+  } else {
+    const mediaTypeGenres = getGenres(mediaType)
+    const decades = getDecades()
+
+    const isLiveActionOnly = searchParams.isLiveActionOnly === 'true'
+    const genre = find(mediaTypeGenres, { id: Number(searchParams.genreId) })
+    const decade = find(decades, { id: Number(searchParams.decade) })
+    let Person
+    if (mediaType === MediaType.Movie && searchParams.personId) {
+      try {
+        const tmdbPerson = (await getMediaItem(
+          mediaTypes[MediaType.Person].key,
+          Number(searchParams.personId),
+        )) as TmdbPerson
+
+        if (tmdbPerson) {
+          Person = {
+            id: tmdbPerson.id,
+            name: tmdbPerson.name,
+            profilePath: tmdbPerson.profile_path,
+          }
+        }
+      } catch (e) {}
+    }
+
+    return {
+      decade: decade?.id,
+      genreId: genre?.id,
+      isLiveActionOnly,
+      mediaType,
+      personId: Person?.id,
+      Person,
+    }
+  }
 }

@@ -1,19 +1,47 @@
-import { CreateListSearchParams, RestrictionsUI } from '@/lib/models'
+import { CreateListSearchParams } from '@/lib/models'
 import { BrowseCriteria } from '../_components/BrowseCriteria'
-import { MediaType, User } from '@prisma/client'
+import { MediaType } from '@prisma/client'
 import { ListTitle } from '@/app/create/criteria/_components/list-title'
 import { ListTitleBase } from '@/components/list-title-base'
 import { UserListInfinite } from './UserListInfinite'
+import { find } from 'lodash'
+import { mediaTypeArr } from '@/lib/mediaTypes'
+import { redirect } from 'next/navigation'
+import prisma from '@/lib/db'
+import { getRestrictionsFromParams } from '@/lib/random'
 
-export default function BrowsePage({
+export default async function BrowsePage({
   searchParams,
-  restrictions,
-  user,
+  params: { username, mediaTypePlural },
 }: {
-  searchParams: CreateListSearchParams & { sortBy: string; exactMatch: string }
-  restrictions: RestrictionsUI
-  user?: User
+  searchParams: CreateListSearchParams & {
+    sortBy: string
+    exactMatch: string
+  }
+  params: { username?: string; mediaTypePlural: string }
 }) {
+  const mediaType = find(mediaTypeArr, { urlPlural: mediaTypePlural })
+
+  if (!mediaType) {
+    redirect(`/`)
+  }
+
+  let user
+  if (username) {
+    user = await prisma.user.findUnique({
+      where: { username },
+    })
+
+    if (!user) {
+      redirect('/')
+    }
+  }
+
+  const restrictions = await getRestrictionsFromParams({
+    mediaType: mediaType.key,
+    searchParams,
+  })
+
   const sortBy =
     searchParams.sortBy === 'lastUserAddedAt' || searchParams.sortBy === 'users'
       ? searchParams.sortBy

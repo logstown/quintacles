@@ -1,42 +1,12 @@
-import EpisodesBrowse from '@/app/browse/_components/EpisodesBrowse'
-import MoviesOrShowsPage from '@/app/browse/_components/MoviesOrShowsPage'
-import prisma from '@/lib/db'
-import { mediaTypeArr } from '@/lib/mediaTypes'
+import BrowsePage from '@/app/browse/_components/BrowsePage'
 import { CreateListSearchParams } from '@/lib/models'
-import { MediaType } from '@prisma/client'
-import { redirect } from 'next/navigation'
 
 export default async function UserMediaTypeLists({
-  params: { username, mediaTypePlural },
+  params,
   searchParams,
 }: {
   params: { username: string; mediaTypePlural: string }
-  searchParams: CreateListSearchParams & { sortBy: string; exactMatch: string } & {
-    tvShowId: string
-  }
+  searchParams: CreateListSearchParams & { sortBy: string; exactMatch: string }
 }) {
-  const mediaType = mediaTypeArr.find(
-    mediaType => mediaType.urlPlural === mediaTypePlural,
-  )
-  if (!mediaType) {
-    redirect(`/`)
-  }
-
-  const user = await prisma.user.findUnique({
-    where: { username },
-  })
-
-  if (!user) {
-    redirect('/')
-  }
-
-  return mediaType.key === MediaType.TvEpisode ? (
-    <EpisodesBrowse searchParams={searchParams} user={user} />
-  ) : (
-    <MoviesOrShowsPage
-      searchParams={searchParams}
-      mediaType={mediaType.key}
-      user={user}
-    />
-  )
+  return <BrowsePage searchParams={searchParams} params={params} />
 }

@@ -82,7 +82,7 @@ export function BrowseCriteria({
   }
 
   const tvShowSelected = (item: ListItem | undefined) => {
-    const pair = { name: 'tvShowId', value: item?.tmdbId.toString() }
+    const pair = { name: 'episodesTvShowId', value: item?.tmdbId.toString() }
     setRoute([pair])
   }
 

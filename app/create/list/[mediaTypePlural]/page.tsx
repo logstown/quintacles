@@ -1,15 +1,12 @@
 import { currentUser } from '@clerk/nextjs/server'
-import { CreateListSearchParams, RestrictionsUI } from '@/lib/models'
+import { CreateListSearchParams } from '@/lib/models'
 import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { BuildList } from '@/components/build-list/build-list'
-import { EpisodeData, getDecades, getEpisodeData } from '@/lib/random'
+import { EpisodeData, getEpisodeData, getRestrictionsFromParams } from '@/lib/random'
 import { find } from 'lodash'
-import { mediaTypeArr, mediaTypes } from '@/lib/mediaTypes'
+import { mediaTypeArr } from '@/lib/mediaTypes'
 import { MediaType } from '@prisma/client'
-import { getGenres } from '@/lib/genres'
-import { getMediaItem } from '@/lib/TmdbService'
-import { TmdbPerson, TvShow } from '@/lib/TmdbModels'
 
 export default async function BuildListPage({
   params: { mediaTypePlural },
@@ -62,75 +59,4 @@ export default async function BuildListPage({
   }
 
   return <BuildList restrictions={restrictions} episodeData={episodeData} />
-}
-
-async function getRestrictionsFromParams({
-  mediaType,
-  searchParams,
-}: {
-  mediaType: MediaType
-  searchParams: CreateListSearchParams
-}): Promise<RestrictionsUI> {
-  if (mediaType === MediaType.TvEpisode) {
-    const tvShowId = Number(searchParams.episodesTvShowId)
-    let EpisodesTvShow
-    try {
-      const tmdbShow = (await getMediaItem(
-        mediaTypes[MediaType.TvShow].key,
-        tvShowId,
-      )) as TvShow
-
-      if (tmdbShow) {
-        EpisodesTvShow = {
-          id: tmdbShow.id,
-          name: tmdbShow.name,
-          posterPath: tmdbShow.poster_path,
-        }
-      }
-    } catch (e) {}
-
-    if (!EpisodesTvShow) {
-      console.warn('EpisodesTvShow not found')
-      redirect('/')
-    }
-
-    return {
-      mediaType: MediaType.TvEpisode,
-      episodesTvShowId: EpisodesTvShow.id,
-      EpisodesTvShow,
-    }
-  } else {
-    const mediaTypeGenres = getGenres(mediaType)
-    const decades = getDecades()
-
-    const isLiveActionOnly = searchParams.isLiveActionOnly === 'true'
-    const genre = find(mediaTypeGenres, { id: Number(searchParams.genreId) })
-    const decade = find(decades, { id: Number(searchParams.decade) })
-    let Person
-    if (mediaType === MediaType.Movie && searchParams.personId) {
-      try {
-        const tmdbPerson = (await getMediaItem(
-          mediaTypes[MediaType.Person].key,
-          Number(searchParams.personId),
-        )) as TmdbPerson
-
-        if (tmdbPerson) {
-          Person = {
-            id: tmdbPerson.id,
-            name: tmdbPerson.name,
-            profilePath: tmdbPerson.profile_path,
-          }
-        }
-      } catch (e) {}
-    }
-
-    return {
-      decade: decade?.id,
-      genreId: genre?.id,
-      isLiveActionOnly,
-      mediaType,
-      personId: Person?.id,
-      Person,
-    }
-  }
 }
