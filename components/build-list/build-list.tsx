@@ -74,7 +74,7 @@ export function BuildList({
 
                   return (
                     <Reorder.Item
-                      key={item?.tmdbId}
+                      key={item?.tmdbId ?? i}
                       value={item}
                       className={`flex items-center ${isEpisodes ? 'gap-3 sm:flex-col sm:gap-1' : 'flex-col gap-2'}`}
                     >
