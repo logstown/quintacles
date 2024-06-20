@@ -31,6 +31,7 @@ export function UserListInfinite({
     error,
     fetchNextPage,
     hasNextPage,
+    isPending,
     isFetching,
     isFetchingNextPage,
     status,
@@ -38,6 +39,7 @@ export function UserListInfinite({
     // initialData,
     queryKey: ['userLists', restrictions, sortBy, exactMatch, userId],
     queryFn: async ({ pageParam }) => {
+      console.log(pageParam)
       const lists = await userListQueryServer({
         userId,
         restrictions,
@@ -51,7 +53,7 @@ export function UserListInfinite({
         page: pageParam,
       }
     },
-    initialPageParam: 1,
+    initialPageParam: 0,
     getNextPageParam: (lastPage, allpages, lastPageParam) => {
       if (lastPage.lists.length === 0) {
         return undefined
@@ -98,7 +100,12 @@ export function UserListInfinite({
               </React.Fragment>
             ))}
           </UserListsWrapper>
-          {(hasNextPage || (isFetching && !isFetchingNextPage)) && (
+          {isPending && (
+            <div className='mt-14 flex justify-center'>
+              <Spinner size='lg' className='ml-10' />
+            </div>
+          )}
+          {!isPending && (hasNextPage || (isFetching && !isFetchingNextPage)) && (
             <div className='mt-14 flex justify-center'>
               <Spinner ref={ref} size='lg' className='ml-10' />
             </div>

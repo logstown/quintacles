@@ -21,7 +21,7 @@ export async function UserPageMediaTypeQuery({
     restrictions: { mediaType },
     sortBy: 'lastUserAddedAt',
     pageSize: 3,
-    pageNum: 1,
+    pageNum: 0,
   })
   const mediaTypeObj = mediaTypes[mediaType]
   const moreHref = username

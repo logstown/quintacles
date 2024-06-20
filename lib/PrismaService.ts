@@ -70,7 +70,7 @@ export async function userListQuery({
       Restrictions,
     },
     take: pageSize,
-    skip: (pageNum - 1) * pageSize,
+    skip: pageNum * pageSize,
     orderBy,
     include: {
       users: true,
