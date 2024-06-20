@@ -86,7 +86,7 @@ export function Suggestions({
     if (onItemSelected) {
       onItemSelected(item)
     } else {
-      router.push(`/create/list/episodes/${item.tmdbId}`)
+      router.push(`/create/list/episodes?episodesTvShowId=${item.tmdbId}`)
     }
   }
 

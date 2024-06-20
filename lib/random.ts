@@ -25,10 +25,6 @@ export const getUserListsUrl = (
   // const restrictionsAsStrings = mapValues(restrictions, x => x?.toString())
   // const params = pickBy(restrictionsAsStrings, x => !!x)
 
-  if (page === 'build' && mediaType === MediaType.TvEpisode) {
-    return `${baseUrl}/${episodesTvShowId}`
-  }
-
   const params = {} as any
 
   if (genreId) {
