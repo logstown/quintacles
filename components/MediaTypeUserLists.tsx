@@ -23,7 +23,7 @@ export function MediaTypeUserLists({
           >
             <h1 className='pl-4 text-5xl font-bold capitalize'>
               <span className='text-foreground-400'>Latest </span>
-              {mediaTypes[mediaType.key].plural}
+              {mediaTypes[mediaType.key].display}
             </h1>
             <Suspense
               key={JSON.stringify({ mediaType: mediaType.key })}

@@ -85,6 +85,7 @@ export function Suggestions({
   const suggestionSelected = (item: ListItem) => {
     if (onItemSelected) {
       onItemSelected(item)
+      setSearchText('')
     } else {
       router.push(`/create/list/episodes?episodesTvShowId=${item.tmdbId}`)
     }
