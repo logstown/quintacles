@@ -3,10 +3,11 @@ import { CreateListSearchParams } from '@/lib/models'
 import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { BuildList } from '@/components/build-list/build-list'
-import { EpisodeData, getEpisodeData, getRestrictionsFromParams } from '@/lib/random'
+import { EpisodeData, getEpisodeData } from '@/lib/random'
 import { find } from 'lodash'
 import { mediaTypeArr } from '@/lib/mediaTypes'
 import { MediaType } from '@prisma/client'
+import { getRestrictionsFromParams } from '@/lib/server-functions'
 
 export default async function BuildListPage({
   params: { mediaTypePlural },

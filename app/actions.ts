@@ -1,12 +1,12 @@
 'use server'
 
-import { userListQuery } from '@/lib/PrismaService'
 import { TmdbGenres, TmdbPerson } from '@/lib/TmdbModels'
 import { getPopularPeople, getSuggestionsTmdb } from '@/lib/TmdbService'
 import prisma from '@/lib/db'
 import { getGenres } from '@/lib/genres'
 import { Decade, Genre, RestrictionsUI } from '@/lib/models'
 import { getDecades, getUserListsUrl } from '@/lib/random'
+import { userListQuery } from '@/lib/server-functions'
 import { currentUser } from '@clerk/nextjs/server'
 import { ListItem, MediaType, PrismaPromise, UserList } from '@prisma/client'
 import { some } from 'lodash'

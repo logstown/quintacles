@@ -1,7 +1,7 @@
 import { UserListCard } from '@/components/user-list/UserList'
 import { UserListsWrapper } from '@/components/user-list/UserListsWrapper'
-import { userListQuery } from '@/lib/PrismaService'
 import { mediaTypes } from '@/lib/mediaTypes'
+import { userListQuery } from '@/lib/server-functions'
 import { Button } from '@nextui-org/button'
 import { MediaType } from '@prisma/client'
 import { ArrowRightIcon } from 'lucide-react'

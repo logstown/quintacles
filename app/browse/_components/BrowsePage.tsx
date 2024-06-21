@@ -8,7 +8,7 @@ import { find } from 'lodash'
 import { mediaTypeArr } from '@/lib/mediaTypes'
 import { redirect } from 'next/navigation'
 import prisma from '@/lib/db'
-import { getRestrictionsFromParams } from '@/lib/random'
+import { getRestrictionsFromParams } from '@/lib/server-functions'
 
 export default async function BrowsePage({
   searchParams,
