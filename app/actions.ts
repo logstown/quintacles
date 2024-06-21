@@ -294,16 +294,7 @@ export async function createOrUpdateUserList({
   if (userListId) {
     const [{ id }] = await prisma.$transaction([
       createUpdateOperation,
-      prisma.userList.update({
-        where: {
-          id: userListId,
-        },
-        data: {
-          users: {
-            disconnect: { id: user.id },
-          },
-        },
-      }),
+      removeUserFromList(userListId, user.id),
     ])
 
     redirect(`/list/${id}`)
@@ -314,23 +305,32 @@ export async function createOrUpdateUserList({
 }
 
 // TODO: this will leave an orphaned list if the last user is removed
-export async function removeUserFromList(userListId: string) {
-  const user = await currentUser()
-
-  if (!user) {
-    throw new Error('User not found')
-  }
-
+function removeUserFromList(
+  userListId: string,
+  userId: string,
+): PrismaPromise<UserList> {
   return prisma.userList.update({
     where: {
       id: userListId,
     },
     data: {
       users: {
-        disconnect: { id: user.id },
+        disconnect: { id: userId },
       },
     },
   })
+}
+
+export async function userDeletesList(userListId: string) {
+  const user = await currentUser()
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  await removeUserFromList(userListId, user.id)
+  redirect('/') // works but could be better ux
+  // TODO revalidate more
 }
 
 export async function updateUserCoverImage(coverImagePath: string) {

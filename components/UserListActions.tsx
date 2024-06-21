@@ -16,7 +16,7 @@ import {
   DropdownTrigger,
 } from '@nextui-org/dropdown'
 import { Button } from '@nextui-org/button'
-import { removeUserFromList } from '@/app/actions'
+import { userDeletesList } from '@/app/actions'
 
 export function UserListActions({
   userListId,
@@ -29,7 +29,7 @@ export function UserListActions({
   const iconSize = isSmall ? 20 : 24
 
   const { mutate: deleteListUI, isPending: isDeletePending } = useMutation({
-    mutationFn: (onClose: () => void) => removeUserFromList(userListId),
+    mutationFn: (onClose: () => void) => userDeletesList(userListId),
     onSuccess: async (data, onClose) => {
       onClose()
     },
@@ -73,9 +73,7 @@ export function UserListActions({
         <ModalContent>
           {onClose => (
             <>
-              <ModalHeader className='flex flex-col gap-1'>
-                Delete List?
-              </ModalHeader>
+              <ModalHeader className='flex flex-col gap-1'>Delete List?</ModalHeader>
               <ModalFooter>
                 <Button
                   isLoading={isDeletePending}
