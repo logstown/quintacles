@@ -26,7 +26,9 @@ export async function userListQuery({
           id: userId,
         },
       }
-    : {}
+    : {
+        some: {},
+      }
 
   const Restrictions = exactMatch
     ? {
