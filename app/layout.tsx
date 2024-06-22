@@ -10,6 +10,7 @@ import { fontSans } from '@/config/fonts'
 import { Navbar } from '@/components/navbar/navbar'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
   title: {
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           fontSans.variable,
         )}
       >
+        <Toaster />
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
           <div className='relative flex h-screen flex-col'>
             <Navbar />

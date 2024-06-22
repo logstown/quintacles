@@ -82,7 +82,7 @@ export function UserListCard({
             size='sm'
           />
         </div>
-        <Divider className='h-4' orientation='vertical' />
+        <Divider className='h-5' orientation='vertical' />
         <UserListButtons
           isSmall
           userListId={id}

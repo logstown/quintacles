@@ -1,6 +1,6 @@
 'use client'
 
-import { EllipsisIcon, PencilIcon, TrashIcon } from 'lucide-react'
+import { EllipsisIcon, PencilIcon, ShareIcon, TrashIcon } from 'lucide-react'
 import { useMutation } from '@tanstack/react-query'
 import {
   Modal,
@@ -17,6 +17,8 @@ import {
 } from '@nextui-org/dropdown'
 import { Button } from '@nextui-org/button'
 import { userDeletesList } from '@/app/actions'
+import copy from 'clipboard-copy'
+import { toast } from 'sonner'
 
 export function UserListActions({
   userListId,
@@ -26,7 +28,7 @@ export function UserListActions({
   isSmall?: boolean
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const iconSize = isSmall ? 20 : 24
+  const iconSize = isSmall ? 24 : 28
 
   const { mutate: deleteListUI, isPending: isDeletePending } = useMutation({
     mutationFn: (onClose: () => void) => userDeletesList(userListId),
@@ -35,13 +37,18 @@ export function UserListActions({
     },
   })
 
+  const shareList = () => {
+    copy(`${window.location.origin}/list/${userListId}`)
+    toast.success('Link copied to clipboard!')
+  }
+
   return (
     <>
       <Dropdown>
         <DropdownTrigger>
           <Button
             isIconOnly
-            size={isSmall ? 'sm' : 'md'}
+            size={isSmall ? 'md' : 'lg'}
             className='text-foreground-400'
             aria-label='add'
             variant='light'
@@ -50,6 +57,15 @@ export function UserListActions({
           </Button>
         </DropdownTrigger>
         <DropdownMenu aria-label='Static Actions'>
+          <DropdownItem
+            key='share'
+            startContent={<ShareIcon size={15} />}
+            className='text-primary'
+            color='primary'
+            onPress={shareList}
+          >
+            Share
+          </DropdownItem>
           <DropdownItem
             key='edit'
             href={`/list/${userListId}/edit`}
