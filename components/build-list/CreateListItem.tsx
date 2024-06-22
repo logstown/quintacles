@@ -41,7 +41,7 @@ export const CreateListItem = ({
   return (
     <>
       <div
-        className={`text-center text-neutral-400 lg:text-xl ${isEpisode ? 'text-xl sm:order-last sm:text-base' : 'order-last'} ${!item ? 'invisible' : ''} `}
+        className={`text-center text-foreground-400 lg:text-xl ${isEpisode ? 'text-xl sm:order-last sm:text-base' : 'order-last'} ${!item ? 'invisible' : ''} `}
       >
         {itemOrder}
       </div>

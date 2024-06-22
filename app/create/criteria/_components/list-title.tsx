@@ -15,7 +15,7 @@ export function ListTitle({
   })
   return (
     <div className='flex gap-3'>
-      <div className='text-neutral-400'>{mediaTypeIcon}</div>
+      <div className='text-foreground-400'>{mediaTypeIcon}</div>
       <h1 className='text-2xl font-semibold tracking-tight sm:text-3xl'>
         {children}
       </h1>

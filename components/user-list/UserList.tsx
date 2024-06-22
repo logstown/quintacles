@@ -46,7 +46,7 @@ export function UserListCard({
         <Link href={getUserListsUrl(restrictions, 'browse')} color='foreground'>
           <CardHeader className={`${isEpisodes ? '' : 'py-3 md:py-6'} pl-4`}>
             <div
-              className={`flex w-full items-baseline gap-3 truncate ${isEpisodes ? 'justify-center' : ''}`}
+              className={`flex w-full items-center gap-6 truncate ${isEpisodes ? 'justify-center' : ''}`}
             >
               <div className={`pl-1 ${Person?.id ? '' : 'hidden'}`}>
                 <UserListIcon

@@ -145,7 +145,9 @@ export function MovieTvCriteria({
         {[{ id: '', name: 'Any', icon: undefined }, ...mediaTypeGenres].map(
           genre => (
             <AutocompleteItem
-              startContent={<span className='text-neutral-400'>{genre.icon}</span>}
+              startContent={
+                <span className='mr-1 text-foreground-400'>{genre.icon}</span>
+              }
               key={genre.id}
             >
               {genre.name}
