@@ -18,6 +18,7 @@ import { EpisodeData } from '@/lib/random'
 import { createOrUpdateUserList } from '@/app/actions'
 import Link from 'next/link'
 import { Reorder } from 'framer-motion'
+import { BackgroundGradient } from '../background-gradient'
 
 export function BuildList({
   restrictions,
@@ -51,70 +52,78 @@ export function BuildList({
     setListItems(newList)
   }
 
+  const listCard = (
+    <Card shadow='lg' className='py-4 sm:px-6 md:px-10'>
+      <CardHeader className='pb-5'>
+        <ListTitle mediaType={restrictions.mediaType}>
+          <ListTitleBase restrictions={restrictions} />
+        </ListTitle>
+      </CardHeader>
+      <CardBody className='rounded-xl bg-foreground-100 shadow-inner sm:p-10'>
+        <Reorder.Group
+          values={listItems}
+          axis='x'
+          onReorder={setListItems}
+          className={`flex justify-center ${isEpisodes ? 'flex-col gap-5 sm:flex-row sm:gap-3 lg:gap-5' : 'gap-1 sm:gap-5'}`}
+        >
+          {[0, 1, 2, 3, 4].map(i => {
+            const item = listItems[i]
+
+            return (
+              <Reorder.Item
+                key={item?.tmdbId ?? i}
+                value={item}
+                className={`flex items-center ${isEpisodes ? 'gap-3 sm:flex-col sm:gap-1' : 'flex-col gap-2'}`}
+              >
+                <CreateListItem
+                  key={i}
+                  item={item}
+                  itemOrder={i + 1}
+                  removeFromList={removeFromList}
+                  isEpisode={isEpisodes}
+                />
+              </Reorder.Item>
+            )
+          })}
+        </Reorder.Group>
+      </CardBody>
+      <CardFooter className='mt-2 justify-end gap-4'>
+        {!userListId && (
+          <Button
+            href={`/create/criteria/${mediaTypes[restrictions.mediaType].urlPlural}`}
+            as={Link}
+            className={isSavePending ? 'invisible' : ''}
+            startContent={<ArrowLeft size={15} />}
+            variant='faded'
+          >
+            Criteria
+          </Button>
+        )}
+        <Button
+          isDisabled={listItems.length !== 5}
+          color='primary'
+          size='lg'
+          variant='shadow'
+          endContent={isSavePending ? '' : <SaveIcon size={20} />}
+          isLoading={isSavePending}
+          onClick={() => save()}
+        >
+          {isSavePending ? 'Saving...' : 'Save'}
+        </Button>
+      </CardFooter>
+    </Card>
+  )
+
   return (
     <main className='container mx-auto mb-12 mt-6 flex flex-col gap-8'>
       <div className='flex flex-col items-center'>
         <div className='flex flex-col justify-center gap-6'>
           <h1 className='text-2xl'>{title}</h1>
-          <Card shadow='lg' className='py-4 sm:px-6 md:px-10'>
-            <CardHeader className='pb-5'>
-              <ListTitle mediaType={restrictions.mediaType}>
-                <ListTitleBase restrictions={restrictions} />
-              </ListTitle>
-            </CardHeader>
-            <CardBody className='rounded-xl bg-foreground-100 shadow-inner sm:p-10'>
-              <Reorder.Group
-                values={listItems}
-                axis='x'
-                onReorder={setListItems}
-                className={`flex justify-center ${isEpisodes ? 'flex-col gap-5 sm:flex-row sm:gap-3 lg:gap-5' : 'gap-1 sm:gap-5'}`}
-              >
-                {[0, 1, 2, 3, 4].map(i => {
-                  const item = listItems[i]
-
-                  return (
-                    <Reorder.Item
-                      key={item?.tmdbId ?? i}
-                      value={item}
-                      className={`flex items-center ${isEpisodes ? 'gap-3 sm:flex-col sm:gap-1' : 'flex-col gap-2'}`}
-                    >
-                      <CreateListItem
-                        key={i}
-                        item={item}
-                        itemOrder={i + 1}
-                        removeFromList={removeFromList}
-                        isEpisode={isEpisodes}
-                      />
-                    </Reorder.Item>
-                  )
-                })}
-              </Reorder.Group>
-            </CardBody>
-            <CardFooter className='mt-2 justify-end gap-4'>
-              {!userListId && (
-                <Button
-                  href={`/create/criteria/${mediaTypes[restrictions.mediaType].urlPlural}`}
-                  as={Link}
-                  className={isSavePending ? 'invisible' : ''}
-                  startContent={<ArrowLeft size={15} />}
-                  variant='faded'
-                >
-                  Criteria
-                </Button>
-              )}
-              <Button
-                isDisabled={listItems.length !== 5}
-                color='primary'
-                size='lg'
-                variant='shadow'
-                endContent={isSavePending ? '' : <SaveIcon size={20} />}
-                isLoading={isSavePending}
-                onClick={() => save()}
-              >
-                {isSavePending ? 'Saving...' : 'Save'}
-              </Button>
-            </CardFooter>
-          </Card>
+          {listItems.length === 5 ? (
+            <BackgroundGradient>{listCard}</BackgroundGradient>
+          ) : (
+            listCard
+          )}
         </div>
       </div>
       <div className='mt-10'>
