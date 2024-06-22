@@ -88,8 +88,21 @@ export function EditCoverImage() {
 
   return (
     <>
-      <Button size='sm' onPress={onOpen} startContent={<PencilIcon size={15} />}>
+      <Button
+        size='sm'
+        className='hidden sm:inline-flex'
+        onPress={onOpen}
+        startContent={<PencilIcon size={15} />}
+      >
         Edit cover image
+      </Button>
+      <Button
+        size='sm'
+        className='inline-flex sm:hidden'
+        isIconOnly
+        onPress={onOpen}
+      >
+        <PencilIcon size={15} />
       </Button>
       <Modal
         isOpen={isOpen}
@@ -110,7 +123,7 @@ export function EditCoverImage() {
                   onValueChange={setSearchText}
                 />
                 <div
-                  className={`flex min-h-[250px] rounded-lg bg-foreground-100 p-4 ${isMessage ? 'items-center justify-center' : 'flex-wrap content-start gap-3 '}`}
+                  className={`flex min-h-[250px] rounded-lg bg-foreground-100 p-4 ${isMessage ? 'items-center justify-center' : 'flex-wrap content-start gap-3'}`}
                 >
                   {!items && !isLoading && <p>Search for a movie or TV show</p>}
                   {isSuccess && !items?.length && <p>Nothing Found...</p>}

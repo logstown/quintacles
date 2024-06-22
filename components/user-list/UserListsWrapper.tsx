@@ -7,7 +7,7 @@ export function UserListsWrapper({
 }) {
   return (
     <div
-      className={`flex ${isEpisodes ? 'flex-wrap justify-center gap-12 md:gap-7' : 'flex-col gap-5 md:gap-8'}`}
+      className={`flex ${isEpisodes ? 'flex-wrap justify-center gap-12 md:gap-7' : 'flex-col gap-8 sm:gap-12'}`}
     >
       {children}
     </div>

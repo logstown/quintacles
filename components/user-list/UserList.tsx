@@ -38,13 +38,13 @@ export function UserListCard({
   return (
     <Card
       shadow='lg'
-      className='w-fit overflow-visible p-0 dark:border-3 dark:border-foreground-100 sm:p-2'
+      className={`w-fit overflow-visible p-0 dark:outline-foreground-100 ${isEpisodes ? 'sm:p-3' : 'sm:px-4 sm:py-2'}`}
     >
       {excludeTitle ? (
         <div className='w-full p-4'></div>
       ) : (
         <Link href={getUserListsUrl(restrictions, 'browse')} color='foreground'>
-          <CardHeader className={`${isEpisodes ? '' : 'py-6'} pl-4`}>
+          <CardHeader className={`${isEpisodes ? '' : 'py-3 md:py-6'} pl-4`}>
             <div
               className={`flex w-full items-baseline gap-3 truncate ${isEpisodes ? 'justify-center' : ''}`}
             >

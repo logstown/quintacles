@@ -410,9 +410,7 @@ export function PosterCollageStraight({
               src={getTmdbImageUrl(lite.posterPath, 'w342')}
             />
           )}
-          <p className='text-sm font-semibold text-neutral-400 md:text-base'>
-            {i + 1}
-          </p>
+          <MediaRank>{i + 1}</MediaRank>
         </div>
       ))}
     </div>
@@ -439,9 +437,7 @@ export function BackdropCollageStraight({
             <Skeleton className='aspect-video w-[300px] rounded-xl drop-shadow-lg' />
           ) : (
             <div className='flex items-center gap-4'>
-              <p className='text-sm font-semibold text-neutral-400 md:text-base'>
-                {i + 1}
-              </p>
+              <MediaRank>{i + 1}</MediaRank>
               <Card
                 isFooterBlurred
                 className='aspect-video border-none drop-shadow-xl'
@@ -450,7 +446,7 @@ export function BackdropCollageStraight({
                   as={NextImage}
                   width={300}
                   height={169}
-                  className='max-w-[250px] object-cover brightness-90'
+                  className='max-w-[245px] object-cover brightness-90'
                   src={getTmdbImageUrl(lite.backdropPath, 'w300')}
                   alt='NextUI hero Image'
                 />
@@ -463,5 +459,13 @@ export function BackdropCollageStraight({
         </React.Fragment>
       ))}
     </div>
+  )
+}
+
+function MediaRank({ children }: { children: React.ReactNode }) {
+  return (
+    <p className='text-tiny font-semibold text-foreground-400 sm:text-sm md:text-base'>
+      {children}
+    </p>
   )
 }
