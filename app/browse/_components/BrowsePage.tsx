@@ -9,6 +9,8 @@ import { mediaTypeArr } from '@/lib/mediaTypes'
 import { redirect } from 'next/navigation'
 import prisma from '@/lib/db'
 import { getRestrictionsFromParams } from '@/lib/server-functions'
+import Link from 'next/link'
+import { Avatar } from '@nextui-org/avatar'
 
 export default async function BrowsePage({
   searchParams,
@@ -61,31 +63,52 @@ export default async function BrowsePage({
   // })
 
   return (
-    <div
-      className={`mx-auto flex max-w-screen-xl flex-col gap-14 pb-20 ${isEpisodes ? 'items-stert' : 'items-center'} `}
-    >
-      <BrowseCriteria
-        restrictionsFromParent={restrictions}
-        sortByFromParent={sortBy}
-        exactMatchFromParent={exactMatch}
-        user={user}
-      />
+    <div className='mx-auto flex w-full max-w-screen-xl flex-col items-center gap-4 pb-20'>
+      {user ? (
+        <Link href={`/user/${user.username}`}>
+          <div className='flex items-center gap-4'>
+            <Avatar
+              isBordered
+              src={user.photoURL ?? undefined}
+              className='min-h-24 min-w-24 text-large'
+            />
+            <div className='font-semibold'>
+              <div className='whitespace-nowrap text-3xl text-foreground-800'>
+                {user.displayName}
+              </div>
+              <div className='text-xl text-foreground-400'>@{user.username}</div>
+            </div>
+          </div>
+        </Link>
+      ) : (
+        <h1 className='text-6xl font-semibold'>Browse</h1>
+      )}
       <div
-        className={`flex flex-col items-center gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}
+        className={`flex w-full flex-col gap-14 ${isEpisodes ? 'items-stert' : 'items-center'} `}
       >
-        {exactMatch && (
-          // <div className='sticky top-16 z-30 flex w-full justify-center bg-background'>  TODO: Fix this
-          <ListTitle mediaType={restrictions.mediaType}>
-            <ListTitleBase restrictions={restrictions} />
-          </ListTitle>
-          // </div>
-        )}
-        <UserListInfinite
-          restrictions={restrictions}
-          sortBy={sortBy}
-          exactMatch={exactMatch}
-          userId={user?.id}
+        <BrowseCriteria
+          restrictionsFromParent={restrictions}
+          sortByFromParent={sortBy}
+          exactMatchFromParent={exactMatch}
+          user={user}
         />
+        <div
+          className={`flex flex-col items-center gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}
+        >
+          {exactMatch && (
+            // <div className='sticky top-16 z-30 flex w-full justify-center bg-background'>  TODO: Fix this
+            <ListTitle mediaType={restrictions.mediaType}>
+              <ListTitleBase restrictions={restrictions} />
+            </ListTitle>
+            // </div>
+          )}
+          <UserListInfinite
+            restrictions={restrictions}
+            sortBy={sortBy}
+            exactMatch={exactMatch}
+            userId={user?.id}
+          />
+        </div>
       </div>
     </div>
   )

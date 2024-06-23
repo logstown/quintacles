@@ -2,12 +2,11 @@
 
 import MediaPicker from '@/components/media-picker'
 import { MovieTvCriteria } from '@/components/movie-tv-criteria'
-import { mediaTypes } from '@/lib/mediaTypes'
+import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
-import { Avatar } from '@nextui-org/avatar'
-import { Divider } from '@nextui-org/divider'
 import { Select, SelectItem } from '@nextui-org/select'
 import { Switch } from '@nextui-org/switch'
+import { Tab, Tabs } from '@nextui-org/tabs'
 import { ListItem, MediaType, User } from '@prisma/client'
 import { forEach, isEqual, map, omitBy, set } from 'lodash'
 import Link from 'next/link'
@@ -39,6 +38,8 @@ export function BrowseCriteria({
   )
   const [sortBy, setSortBy] = useState(sortByFromParent)
   const [exactMatch, setexactMatch] = useState(exactMatchFromParent)
+
+  const baseUrl = user ? `/user/${user.username}` : '/browse'
 
   if (!isEqual(restrictionsFromParent, restrictions)) {
     setRestrictions(restrictionsFromParent)
@@ -109,36 +110,17 @@ export function BrowseCriteria({
 
   return (
     <div className='flex w-full flex-col items-center gap-10'>
-      <div className='flex w-full flex-wrap items-center justify-center gap-10'>
-        {user && (
-          <>
-            <Link href={`/user/${user.username}`}>
-              <div className='flex items-center gap-4'>
-                <Avatar
-                  isBordered
-                  src={user.photoURL ?? undefined}
-                  className='min-h-24 min-w-24 text-large'
-                />
-                <div className='font-semibold'>
-                  <div className='whitespace-nowrap text-3xl text-foreground-800'>
-                    {user.displayName}
-                  </div>
-                  <div className='text-xl text-foreground-400'>@{user.username}</div>
-                </div>
-              </div>
-            </Link>
-            <Divider className='h-10' orientation='vertical' />
-          </>
-        )}
-        <h1 className='text-6xl font-semibold'>
-          {!user && 'Browse '}
-          <span className='bg-gradient-to-b from-primary-500 to-secondary-500 bg-clip-text capitalize text-transparent'>
-            {mediaTypes[restrictions.mediaType].display}
-          </span>{' '}
-          Lists
-        </h1>
-      </div>
-      <div className='flex flex-wrap items-baseline justify-center gap-4 sm:gap-8'>
+      <div className='flex w-full max-w-screen-lg items-baseline justify-center gap-16'>
+        <Tabs aria-label='Options' fullWidth selectedKey={pathname} size='lg'>
+          {mediaTypeArrForLists.map(mediaType => (
+            <Tab
+              key={`${baseUrl}/${mediaType.urlPlural}`}
+              as={Link}
+              title={mediaType.plural}
+              href={`${baseUrl}/${mediaType.urlPlural}`}
+            />
+          ))}
+        </Tabs>
         <Select
           label='Sort By'
           labelPlacement='outside'
@@ -147,7 +129,7 @@ export function BrowseCriteria({
           size='lg'
           selectedKeys={[sortBy]}
           onChange={setSortByFromPicker}
-          className='w-32'
+          className='w-32 shrink-0'
           color='primary'
         >
           <SelectItem key='lastUserAddedAt' value='lastUserAddedAt'>
@@ -157,7 +139,8 @@ export function BrowseCriteria({
             Popular
           </SelectItem>
         </Select>
-        {/* <Divider className='h-8' orientation='vertical' /> */}
+      </div>
+      <div className='flex flex-wrap items-baseline justify-center gap-4 sm:gap-8'>
         {restrictions.mediaType === MediaType.TvEpisode ? (
           <MediaPicker
             labelExcludesSelect={true}
