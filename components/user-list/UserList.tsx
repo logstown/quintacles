@@ -73,7 +73,7 @@ export function UserListCard({
           )}
         </Link>
       </CardBody>
-      <CardFooter className='flex items-center justify-center gap-5'>
+      <CardFooter className='flex items-center justify-end gap-5'>
         <div className='mr-1'>
           <UserTime
             excludeUser={false}
