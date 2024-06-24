@@ -4,11 +4,13 @@ import MediaPicker from '@/components/media-picker'
 import { MovieTvCriteria } from '@/components/movie-tv-criteria'
 import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
+import { Button } from '@nextui-org/button'
 import { Select, SelectItem } from '@nextui-org/select'
 import { Switch } from '@nextui-org/switch'
 import { Tab, Tabs } from '@nextui-org/tabs'
 import { ListItem, MediaType, User } from '@prisma/client'
 import { forEach, isEqual, map, omitBy, set } from 'lodash'
+import { FilterIcon, SlidersHorizontalIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useState } from 'react'
@@ -38,6 +40,7 @@ export function BrowseCriteria({
   )
   const [sortBy, setSortBy] = useState(sortByFromParent)
   const [exactMatch, setexactMatch] = useState(exactMatchFromParent)
+  const [showCriteria, setCriteria] = useState(false)
 
   const baseUrl = user ? `/user/${user.username}` : '/browse'
 
@@ -139,30 +142,38 @@ export function BrowseCriteria({
             Popular
           </SelectItem>
         </Select>
+        <Switch isSelected={showCriteria} onValueChange={setCriteria} size='lg'>
+          <SlidersHorizontalIcon />
+        </Switch>
       </div>
-      <div className='flex flex-wrap items-baseline justify-center gap-4 sm:gap-8'>
-        {restrictions.mediaType === MediaType.TvEpisode ? (
-          <MediaPicker
-            labelExcludesSelect={true}
-            size='lg'
-            color='primary'
-            selectedItem={restrictions.EpisodesTvShow}
-            onSelected={tvShowSelected}
-            mediaType={MediaType.TvShow}
-          />
-        ) : (
-          <>
-            <MovieTvCriteria
-              isBrowse={true}
-              restrictions={restrictions}
-              onRestrictionsChange={restrictionsChange}
+      {showCriteria && (
+        <div className='flex flex-wrap items-baseline justify-center gap-4 sm:gap-8'>
+          {restrictions.mediaType === MediaType.TvEpisode ? (
+            <MediaPicker
+              labelExcludesSelect={true}
+              size='lg'
+              color='primary'
+              selectedItem={restrictions.EpisodesTvShow}
+              onSelected={tvShowSelected}
+              mediaType={MediaType.TvShow}
             />
-            <Switch isSelected={exactMatch} onValueChange={setExactMatchFromPicker}>
-              Exact
-            </Switch>
-          </>
-        )}
-      </div>
+          ) : (
+            <>
+              <MovieTvCriteria
+                isBrowse={true}
+                restrictions={restrictions}
+                onRestrictionsChange={restrictionsChange}
+              />
+              <Switch
+                isSelected={exactMatch}
+                onValueChange={setExactMatchFromPicker}
+              >
+                Exact
+              </Switch>
+            </>
+          )}
+        </div>
+      )}
     </div>
   )
 }
