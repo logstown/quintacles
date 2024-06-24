@@ -43,7 +43,7 @@ export const getSuggestionsTmdb = async (
   let params: any = {
     page: pageNum.toString(),
     language: 'en-US',
-    sort_by: 'vote_count.desc',
+    sort_by: 'popularity.desc',
     with_original_language: 'en',
   }
 
