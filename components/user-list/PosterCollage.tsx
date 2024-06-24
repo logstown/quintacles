@@ -396,7 +396,7 @@ export function PosterCollageStraight({
       {posters.map((lite, i) => (
         <div key={i} className='flex flex-col items-center gap-2'>
           {isSkeleton ? (
-            <Skeleton className='rounded-xl drop-shadow-lg'>
+            <Skeleton className='rounded-xl'>
               <img alt='bullcrap' src='/dummyPoster.jpeg' />
             </Skeleton>
           ) : (
@@ -405,7 +405,7 @@ export function PosterCollageStraight({
               isBlurred
               width={342}
               height={513}
-              className='drop-shadow-lg'
+              className='shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]'
               alt='bullcrap'
               src={getTmdbImageUrl(lite.posterPath, 'w342')}
             />
@@ -434,17 +434,18 @@ export function BackdropCollageStraight({
       {backdrops.map((lite, i) => (
         <React.Fragment key={i}>
           {isSkeleton ? (
-            <Skeleton className='aspect-video w-[300px] rounded-xl drop-shadow-lg' />
+            <Skeleton className='aspect-video w-[300px] rounded-xl' />
           ) : (
             <div className='flex items-center gap-4'>
               <MediaRank>{i + 1}</MediaRank>
               <Card
                 isFooterBlurred
-                className='aspect-video border-none drop-shadow-xl'
+                className='aspect-video border-none shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]'
               >
                 <Image
                   as={NextImage}
                   width={300}
+                  isBlurred
                   height={169}
                   className='max-w-[245px] object-cover brightness-90'
                   src={getTmdbImageUrl(lite.backdropPath, 'w300')}

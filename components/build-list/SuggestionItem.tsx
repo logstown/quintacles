@@ -33,7 +33,7 @@ export function SuggestionItem({
           isPressable
           isDisabled={isChosen}
           onPress={() => !isChosen && !isUnselectable && onItemSelected(item)}
-          className={`h-full w-full justify-center shadow-xl ${!isChosen && !isUnselectable ? 'hover:z-10 hover:scale-110 hover:shadow-lg' : ''} ${isUnselectable ? 'cursor-auto' : ''}`}
+          className={`h-full w-full justify-center shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${!isChosen && !isUnselectable ? 'hover:z-10 hover:scale-110 hover:shadow-lg' : ''} ${isUnselectable ? 'cursor-auto' : ''}`}
         >
           {item.posterPath ? (
             <Image
