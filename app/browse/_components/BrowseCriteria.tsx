@@ -113,7 +113,7 @@ export function BrowseCriteria({
 
   return (
     <div className='flex w-full flex-col items-center gap-10'>
-      <div className='flex w-full max-w-screen-lg items-baseline justify-center gap-16'>
+      <div className='flex w-full max-w-screen-lg flex-col items-center justify-center gap-8 sm:flex-row sm:items-baseline sm:gap-12'>
         <Tabs aria-label='Options' fullWidth selectedKey={pathname} size='lg'>
           {mediaTypeArrForLists.map(mediaType => (
             <Tab
@@ -124,27 +124,29 @@ export function BrowseCriteria({
             />
           ))}
         </Tabs>
-        <Select
-          label='Sort By'
-          labelPlacement='outside'
-          variant='bordered'
-          disallowEmptySelection={true}
-          size='lg'
-          selectedKeys={[sortBy]}
-          onChange={setSortByFromPicker}
-          className='w-32 shrink-0'
-          color='primary'
-        >
-          <SelectItem key='lastUserAddedAt' value='lastUserAddedAt'>
-            Latest
-          </SelectItem>
-          <SelectItem key='users' value='users'>
-            Popular
-          </SelectItem>
-        </Select>
-        <Switch isSelected={showCriteria} onValueChange={setCriteria} size='lg'>
-          <SlidersHorizontalIcon />
-        </Switch>
+        <div className='flex items-baseline gap-12'>
+          <Select
+            label='Sort By'
+            labelPlacement='outside'
+            variant='bordered'
+            disallowEmptySelection={true}
+            size='lg'
+            selectedKeys={[sortBy]}
+            onChange={setSortByFromPicker}
+            className='w-32 shrink-0'
+            color='primary'
+          >
+            <SelectItem key='lastUserAddedAt' value='lastUserAddedAt'>
+              Latest
+            </SelectItem>
+            <SelectItem key='users' value='users'>
+              Popular
+            </SelectItem>
+          </Select>
+          <Switch isSelected={showCriteria} onValueChange={setCriteria} size='lg'>
+            <SlidersHorizontalIcon />
+          </Switch>
+        </div>
       </div>
       {showCriteria && (
         <div className='flex flex-wrap items-baseline justify-center gap-4 sm:gap-8'>

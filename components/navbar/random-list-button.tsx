@@ -8,13 +8,25 @@ export function RandomListButton() {
   const { pending } = useFormStatus()
 
   return (
-    <Button
-      type='submit'
-      variant='bordered'
-      isLoading={pending}
-      startContent={!pending && <ShuffleIcon size={15} />}
-    >
-      Random
-    </Button>
+    <>
+      <Button
+        type='submit'
+        variant='bordered'
+        className='hidden md:flex'
+        isLoading={pending}
+        startContent={!pending && <ShuffleIcon size={15} />}
+      >
+        Random
+      </Button>
+      <Button
+        type='submit'
+        variant='bordered'
+        isIconOnly
+        className='md:hidden'
+        isLoading={pending}
+      >
+        {!pending && <ShuffleIcon size={15} />}
+      </Button>
+    </>
   )
 }

@@ -63,7 +63,7 @@ export default async function BrowsePage({
   // })
 
   return (
-    <div className='mx-auto flex w-full max-w-screen-xl flex-col items-center gap-4 pb-20'>
+    <div className='mx-auto flex w-full max-w-screen-xl flex-col items-center gap-8 pb-20 sm:gap-4'>
       {user ? (
         <Link href={`/user/${user.username}`}>
           <div className='flex items-center gap-4'>

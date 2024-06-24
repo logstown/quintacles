@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Rows3Icon } from 'lucide-react'
 import { mediaTypeArrForLists } from '../../lib/mediaTypes'
 import { Button } from '@nextui-org/button'
 import {
@@ -13,20 +13,26 @@ import { NavbarItem } from '@nextui-org/navbar'
 import { cloneElement } from 'react'
 import Link from 'next/link'
 
-export function BrowseDropdown() {
+export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
   return (
     <Dropdown>
       <NavbarItem>
         <DropdownTrigger>
-          <Button
-            disableRipple
-            className='bg-transparent p-0 data-[hover=true]:bg-transparent'
-            radius='sm'
-            endContent={<ChevronDown strokeWidth={1.3} size={20} />}
-            variant='light'
-          >
-            Browse Lists
-          </Button>
+          {isSmall ? (
+            <Button isIconOnly variant='flat'>
+              {<Rows3Icon strokeWidth={1.3} size={20} />}
+            </Button>
+          ) : (
+            <Button
+              disableRipple
+              className='bg-transparent p-0 data-[hover=true]:bg-transparent'
+              radius='sm'
+              endContent={<ChevronDown strokeWidth={1.3} size={20} />}
+              variant='light'
+            >
+              Browse
+            </Button>
+          )}
         </DropdownTrigger>
       </NavbarItem>
       <DropdownMenu aria-label='ACME features'>

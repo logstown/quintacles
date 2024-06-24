@@ -1,16 +1,11 @@
 import {
   Navbar as NextUINavbar,
   NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem,
 } from '@nextui-org/navbar'
-import { Link } from '@nextui-org/link'
 import NextLink from 'next/link'
 
-import { siteConfig } from '@/config/site'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { Logo } from '@/components/icons'
 import { CreateListButton } from './create-list-button'
@@ -38,74 +33,34 @@ async function getRandomList() {
 }
 
 export const Navbar = () => {
-  // const searchInput = (
-  //   <Input
-  //     aria-label='Search'
-  //     classNames={{
-  //       inputWrapper: 'bg-default-100',
-  //       input: 'text-sm',
-  //     }}
-  //     endContent={
-  //       <Kbd className='hidden lg:inline-block' keys={['command']}>
-  //         K
-  //       </Kbd>
-  //     }
-  //     labelPlacement='outside'
-  //     placeholder='Search...'
-  //     startContent={
-  //       <SearchIcon className='pointer-events-none flex-shrink-0 text-base text-default-400' />
-  //     }
-  //     type='search'
-  //   />
-  // )
-
   return (
     <NextUINavbar maxWidth='xl' position='sticky' className='shadow-md'>
-      <NavbarContent className='basis-1/5 gap-8 sm:basis-full' justify='start'>
+      <NavbarContent
+        className='basis-1/5 gap-4 sm:basis-full sm:gap-8'
+        justify='start'
+      >
         <NavbarBrand as='li' className='max-w-fit gap-3'>
           <NextLink className='flex items-center justify-start gap-1' href='/'>
             <Logo />
-            <p className='font-bold text-inherit'>RANKER</p>
+            <p className='hidden font-bold text-inherit sm:block'>RANKER</p>
           </NextLink>
         </NavbarBrand>
         <BrowseDropdown />
-        {/* <ul className='ml-2 hidden justify-start gap-4 lg:flex'>
-          {siteConfig.navItems.map(item => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: 'foreground' }),
-                  'data-[active=true]:font-medium data-[active=true]:text-primary',
-                )}
-                color='foreground'
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul> */}
       </NavbarContent>
 
       <NavbarContent
         className='hidden basis-1/5 sm:flex sm:basis-full'
         justify='end'
       >
-        {/* <NavbarItem className='hidden lg:flex'>{searchInput}</NavbarItem> */}
-        <NavbarItem className='hidden md:flex'>
-          {/* <Button
-            isExternal
-            as={Link}
-            className='bg-default-100 text-sm font-normal text-default-600'
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className='text-danger' />}
-            variant='flat'
-          >
-            Sponsor
-          </Button> */}
-          <CreateListButton />
+        <NavbarItem>
+          <div className='md:hidden'>
+            <CreateListButton isSmall />
+          </div>
+          <div className='hidden md:flex'>
+            <CreateListButton />
+          </div>
         </NavbarItem>
-        <NavbarItem className='hidden md:flex'>
+        <NavbarItem>
           <form action={getRandomList}>
             <RandomListButton />
           </form>
@@ -117,35 +72,42 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className='basis-1 pl-4 sm:hidden' justify='end'>
-        {/* <Link isExternal aria-label='Github' href={siteConfig.links.github}>
-          <GithubIcon className='text-default-500' />
-        </Link> */}
+        <CreateListButton isSmall />
+        <RandomListButton />
         <ThemeSwitch />
-        <NavbarMenuToggle />
+        <UserOrSignIn />
+        {/* <NavbarMenuToggle /> */}
       </NavbarContent>
 
-      <NavbarMenu>
-        {/* {searchInput} */}
+      {/* <NavbarMenu>
         <div className='mx-4 mt-2 flex flex-col gap-2'>
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? 'primary'
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? 'danger'
-                      : 'foreground'
-                }
-                href='#'
-                size='lg'
+          <NavbarMenuItem key='browse'>
+            <Link href='/browse/movies' size='lg'>
+              Browse
+            </Link>
+          </NavbarMenuItem>
+          {mediaTypeArrForLists.map(({ icon, urlPlural, plural }) => {
+            const mediaTypeIconSmaller = cloneElement(icon, {
+              size: 18,
+              strokeWidth: 1.5,
+            })
+            return (
+              <NavbarMenuItem
+                className='capitalize text-foreground'
+                key={urlPlural}
               >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
+                <Link
+                  href={`/create/criteria/${urlPlural}`}
+                  size='lg'
+                  color='foreground'
+                >
+                  Create {plural} list
+                </Link>
+              </NavbarMenuItem>
+            )
+          })}
         </div>
-      </NavbarMenu>
+      </NavbarMenu> */}
     </NextUINavbar>
   )
 }
