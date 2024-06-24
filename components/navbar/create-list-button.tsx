@@ -36,12 +36,13 @@ export function CreateListButton({ isSmall }: { isSmall?: boolean }) {
         {mediaTypeArrForLists.map(({ icon, urlPlural, plural }) => {
           const mediaTypeIconSmaller = cloneElement(icon, {
             size: 18,
-            strokeWidth: 1.5,
           })
           return (
             <DropdownItem
               startContent={
-                <span className='text-foreground-600'>{mediaTypeIconSmaller}</span>
+                <span className='mr-1 text-foreground-600'>
+                  {mediaTypeIconSmaller}
+                </span>
               }
               className='capitalize text-foreground'
               as={Link}

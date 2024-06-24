@@ -25,8 +25,6 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
           ) : (
             <Button
               disableRipple
-              className='bg-transparent p-0 data-[hover=true]:bg-transparent'
-              radius='sm'
               endContent={<ChevronDown strokeWidth={1.3} size={20} />}
               variant='light'
             >
@@ -39,12 +37,13 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
         {mediaTypeArrForLists.map(type => {
           const mediaTypeIconSmaller = cloneElement(type.icon, {
             size: 18,
-            strokeWidth: 1.5,
           })
           return (
             <DropdownItem
               startContent={
-                <span className='text-foreground-500'>{mediaTypeIconSmaller}</span>
+                <span className='mr-1 text-foreground-500'>
+                  {mediaTypeIconSmaller}
+                </span>
               }
               as={Link}
               className='capitalize text-foreground'

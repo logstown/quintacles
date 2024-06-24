@@ -7,6 +7,7 @@ blurred footer does not work in Firefox
 make cron job to delete orphaned lists
 metadata
 gridify episode browse
+
 ### Need a Home page
 ### adding drag/drop sorting to create list
 ### find better generic background image for cover pic and media missing backdrop

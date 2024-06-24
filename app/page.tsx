@@ -1,4 +1,3 @@
-import { subtitle } from '@/components/primitives'
 import { MediaTypeUserLists } from '@/components/MediaTypeUserLists'
 import { FlipWords } from '@/components/flip-words'
 
@@ -19,7 +18,7 @@ export default async function Home() {
   return (
     <>
       <div className='flex justify-center'>
-        <h1 className='bg-gradient-to-b from-primary-500 to-secondary-500 bg-clip-text text-5xl font-bold capitalize text-transparent md:text-7xl'>
+        <h1 className='bg-gradient-to-r from-secondary-500 to-danger-500 bg-clip-text text-5xl font-bold capitalize text-transparent md:text-7xl'>
           Media Ranker
         </h1>
       </div>
