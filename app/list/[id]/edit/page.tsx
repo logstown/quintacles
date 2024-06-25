@@ -18,8 +18,10 @@ export default async function EditListPage({
 
   const list = await prisma.userList.findUnique({
     where: {
-      id,
-      users: { some: { id: user.id } },
+      id: Number(id),
+      users: {
+        some: { id: user.id },
+      },
     },
     include: {
       item1: true,

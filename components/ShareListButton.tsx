@@ -13,7 +13,7 @@ export function ShareListButton({
 }: {
   isSmall?: boolean
   iconSize: number
-  userListId: string
+  userListId: number
 }) {
   const [listShared, setListShared] = useState(false)
 

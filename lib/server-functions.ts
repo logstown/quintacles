@@ -9,7 +9,7 @@ import { TvShow, TmdbPerson } from './TmdbModels'
 import { getMediaItem } from './TmdbService'
 import { getGenres } from './genres'
 import { mediaTypes } from './mediaTypes'
-import { getDecades } from './random'
+import { getDecades, getSlug } from './random'
 
 export async function userListQuery({
   userId,
@@ -28,40 +28,20 @@ export async function userListQuery({
 }) {
   const users = userId
     ? {
-        some: {
-          id: userId,
-        },
+        some: { id: userId },
       }
     : {
         some: {},
       }
 
-  const Restrictions = exactMatch
-    ? {
-        is: {
-          // uniqueRestrictions: {
-          mediaType: restrictions.mediaType,
-          genreId: restrictions.genreId ?? 0,
-          decade: restrictions.decade ?? 0,
-          isLiveActionOnly: restrictions.isLiveActionOnly,
-          personId: restrictions.personId ?? 0,
-          episodesTvShowId: restrictions.episodesTvShowId ?? 0,
-          // },
-        },
-      }
-    : {
-        is: pickBy(restrictions, v => v),
-      }
+  const slug = getSlug(restrictions)
+  const Restrictions = exactMatch ? { slug } : { is: pickBy(restrictions, v => v) }
 
   const orderBy =
     sortBy === 'lastUserAddedAt'
-      ? {
-          lastUserAddedAt: Prisma.SortOrder.desc,
-        }
+      ? { lastUserAddedAt: Prisma.SortOrder.desc }
       : {
-          users: {
-            _count: Prisma.SortOrder.desc,
-          },
+          users: { _count: Prisma.SortOrder.desc },
         }
 
   const itemSelect = {

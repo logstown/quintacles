@@ -5,10 +5,18 @@ import { mediaTypes } from '../lib/mediaTypes'
 import { MediaType } from '@prisma/client'
 import { RestrictionsUI } from '@/lib/models'
 
-const getListTitle = (
+export const getListTitle = (
   isDetailView: boolean = false,
-  isEpisodes: boolean = false,
-  { mediaType, decade, Person, isLiveActionOnly, genreId }: RestrictionsUI,
+  {
+    mediaType,
+    decade,
+    Person,
+    isLiveActionOnly,
+    genreId,
+    episodesTvShowId,
+    EpisodesTvShow,
+  }: RestrictionsUI,
+  isForSlug?: boolean,
 ): string => {
   let title = ''
 
@@ -28,12 +36,16 @@ const getListTitle = (
     title += `${getGenreById(genreId)?.name} `
   }
 
-  if (!trim(title) && !isEpisodes) {
+  if (!trim(title) && !episodesTvShowId) {
     title += 'Top Five '
   }
 
+  if (isForSlug && EpisodesTvShow) {
+    title += `${EpisodesTvShow.name} `
+  }
+
   if (isDetailView) {
-    const replaced = isEpisodes ? 'TV' : ''
+    const replaced = episodesTvShowId ? 'TV' : ''
     const plural = replace(mediaTypes[mediaType].plural, replaced, '')
     title += plural
   }
@@ -49,8 +61,7 @@ export function ListTitleBase({
   includeMediaType?: boolean
 }) {
   const partialTitle = useMemo(() => {
-    const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
-    return getListTitle(includeMediaType, isEpisodes, restrictions)
+    return getListTitle(includeMediaType, restrictions)
   }, [restrictions, includeMediaType])
 
   const tvShow = restrictions.EpisodesTvShow?.name

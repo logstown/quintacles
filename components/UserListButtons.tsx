@@ -15,7 +15,7 @@ export function UserListButtons({
   userListUserIds,
   isSmall,
 }: {
-  userListId: string
+  userListId: number
   userListUserIds: string[]
   Restrictions: RestrictionsUI
   isSmall?: boolean

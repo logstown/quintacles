@@ -28,7 +28,7 @@ export function BuildList({
 }: {
   restrictions: RestrictionsUI
   listItemsToEdit?: ListItem[]
-  userListId?: string
+  userListId?: number
   episodeData?: EpisodeData
 }) {
   const [listItems, setListItems] = useState<ListItem[]>(listItemsToEdit ?? [])

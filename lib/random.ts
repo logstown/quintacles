@@ -5,6 +5,8 @@ import { mediaTypes } from './mediaTypes'
 import { getTvSeason } from './TmdbService'
 import { Season, TvEpisode } from './TmdbModels'
 import { flow, map, sortBy, uniq } from 'lodash/fp'
+import { getListTitle } from '@/components/list-title-base'
+import slug from 'slug'
 
 export const getUserListsUrl = (
   {
@@ -174,4 +176,9 @@ export const getEpisodeData = async (tvShowId: number): Promise<EpisodeData> => 
   )(allEpisodes)
 
   return { allEpisodes, seasons }
+}
+
+export const getSlug = (restrictions: RestrictionsUI): string => {
+  const title = getListTitle(true, restrictions, true)
+  return slug(title)
 }

@@ -33,35 +33,32 @@ enum MediaType {
 }
 
 model UserList {
-  id              String   @id @default(uuid())
+  id              Int      @id @default(autoincrement())
   createdAt       DateTime @default(now())
   lastUserAddedAt DateTime @default(now())
 
   users User[]
 
-  item1   ListItem @relation("item1", fields: [mediaType, item1Id], references: [mediaType, tmdbId])
-  item1Id Int
-  item2   ListItem @relation("item2", fields: [mediaType, item2Id], references: [mediaType, tmdbId])
-  item2Id Int
-  item3   ListItem @relation("item3", fields: [mediaType, item3Id], references: [mediaType, tmdbId])
-  item3Id Int
-  item4   ListItem @relation("item4", fields: [mediaType, item4Id], references: [mediaType, tmdbId])
-  item4Id Int
-  item5   ListItem @relation("item5", fields: [mediaType, item5Id], references: [mediaType, tmdbId])
-  item5Id Int
+  mediaType MediaType
 
-  Restrictions     Restrictions @relation(fields: [mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId], references: [mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId])
-  mediaType        MediaType
-  genreId          Int
-  decade           Int
-  isLiveActionOnly Boolean
-  personId         Int
-  episodesTvShowId Int
+  item1            ListItem     @relation("item1", fields: [mediaType, item1Id], references: [mediaType, tmdbId])
+  item1Id          Int
+  item2            ListItem     @relation("item2", fields: [mediaType, item2Id], references: [mediaType, tmdbId])
+  item2Id          Int
+  item3            ListItem     @relation("item3", fields: [mediaType, item3Id], references: [mediaType, tmdbId])
+  item3Id          Int
+  item4            ListItem     @relation("item4", fields: [mediaType, item4Id], references: [mediaType, tmdbId])
+  item4Id          Int
+  item5            ListItem     @relation("item5", fields: [mediaType, item5Id], references: [mediaType, tmdbId])
+  item5Id          Int
+  Restrictions     Restrictions @relation(fields: [restrictionsSlug], references: [slug])
+  restrictionsSlug String
 
-  @@unique(name: "uniqueList", [item1Id, item2Id, item3Id, item4Id, item5Id, mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId])
+  @@unique(name: "uniqueList", [item1Id, item2Id, item3Id, item4Id, item5Id, restrictionsSlug])
 }
 
 model Restrictions {
+  slug             String    @id
   mediaType        MediaType
   genreId          Int
   decade           Int
@@ -74,8 +71,6 @@ model Restrictions {
   episodesTvShowId Int
 
   userLists UserList[]
-
-  @@id(fields: [mediaType, decade, isLiveActionOnly, genreId, personId, episodesTvShowId], name: "uniqueRestrictions")
 }
 
 model ListItem {

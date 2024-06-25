@@ -3,7 +3,7 @@ import { CreateListSearchParams } from '@/lib/models'
 import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { BuildList } from '@/components/build-list/build-list'
-import { EpisodeData, getEpisodeData } from '@/lib/random'
+import { EpisodeData, getEpisodeData, getSlug } from '@/lib/random'
 import { find } from 'lodash'
 import { mediaTypeArr } from '@/lib/mediaTypes'
 import { MediaType } from '@prisma/client'
@@ -32,21 +32,14 @@ export default async function BuildListPage({
     searchParams,
   })
 
-  const restictionsForQuery = {
-    decade: restrictions.decade ?? 0,
-    genreId: restrictions.genreId ?? 0,
-    isLiveActionOnly: restrictions.isLiveActionOnly,
-    mediaType: restrictions.mediaType,
-    personId: restrictions.personId ?? 0,
-    episodesTvShowId: restrictions.episodesTvShowId ?? 0,
-  }
+  const slug = getSlug(restrictions)
 
   const possibleDupe = await prisma.userList.findFirst({
     where: {
       users: {
         some: { id: user.id },
       },
-      Restrictions: { is: restictionsForQuery },
+      Restrictions: { slug },
     },
   })
 

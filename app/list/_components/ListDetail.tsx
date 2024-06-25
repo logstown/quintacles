@@ -23,7 +23,7 @@ export interface ListItemUI extends ListItem {
   tmdbHref: string
 }
 
-export async function ListDetail({ id }: { id: string }) {
+export async function ListDetail({ id }: { id: number }) {
   const userList = await prisma.userList.findUnique({
     where: { id },
     include: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { cloneDeep, find, map } from 'lodash'
+import { find, map } from 'lodash'
 import { mediaTypes } from '../lib/mediaTypes'
 import { TmdbItem } from '../lib/TmdbModels'
 import { ListItem, MediaType } from '@prisma/client'

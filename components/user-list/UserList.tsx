@@ -20,7 +20,7 @@ export function UserListCard({
   excludeTitle,
 }: {
   restrictions: RestrictionsUI
-  id: string
+  id: number
   users: User[]
   listItemLites: {
     name: string

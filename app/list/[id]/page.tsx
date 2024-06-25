@@ -5,5 +5,5 @@ export default async function ListPage({
 }: {
   params: { id: string }
 }) {
-  return <ListDetail id={id} />
+  return <ListDetail id={Number(id)} />
 }

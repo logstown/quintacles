@@ -24,7 +24,7 @@ export function UserListActions({
   userListId,
   isSmall,
 }: {
-  userListId: string
+  userListId: number
   isSmall?: boolean
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()

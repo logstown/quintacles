@@ -5,7 +5,7 @@ import { getPopularPeople, getSuggestionsTmdb } from '@/lib/TmdbService'
 import prisma from '@/lib/db'
 import { getGenres } from '@/lib/genres'
 import { Decade, Genre, RestrictionsUI } from '@/lib/models'
-import { getDecades, getUserListsUrl } from '@/lib/random'
+import { getDecades, getSlug, getUserListsUrl } from '@/lib/random'
 import { userListQuery } from '@/lib/server-functions'
 import { currentUser } from '@clerk/nextjs/server'
 import { ListItem, MediaType, PrismaPromise, UserList } from '@prisma/client'
@@ -119,17 +119,13 @@ export async function getSuggestions(pageNum: number, restrictions: Restrictions
 
 function createOrConnectUserToList(
   userId: string,
-  {
-    mediaType,
-    decade,
-    isLiveActionOnly,
-    genreId,
-    Person,
-    EpisodesTvShow,
-  }: RestrictionsUI,
+  restrictions: RestrictionsUI,
   listItems: ListItem[],
   isUpdate = false,
 ): PrismaPromise<UserList> {
+  let { mediaType, decade, isLiveActionOnly, genreId, Person, EpisodesTvShow } =
+    restrictions
+
   Person = Person ?? {
     id: 0,
     name: '',
@@ -146,23 +142,17 @@ function createOrConnectUserToList(
   genreId = genreId ?? 0
   isLiveActionOnly = isLiveActionOnly ?? false
 
-  const uniqueRestrictions = {
-    mediaType,
-    genreId,
-    decade,
-    isLiveActionOnly,
-    personId: Person.id,
-    episodesTvShowId: EpisodesTvShow.id,
-  }
+  const slug = getSlug(restrictions)
 
   const Restrictions = isUpdate
     ? {
-        connect: { uniqueRestrictions },
+        connect: { slug },
       }
     : {
         connectOrCreate: {
-          where: { uniqueRestrictions },
+          where: { slug },
           create: {
+            slug,
             mediaType,
             decade,
             isLiveActionOnly,
@@ -186,12 +176,7 @@ function createOrConnectUserToList(
   return prisma.userList.upsert({
     where: {
       uniqueList: {
-        mediaType,
-        decade,
-        isLiveActionOnly,
-        genreId,
-        personId: Person.id,
-        episodesTvShowId: EpisodesTvShow.id,
+        restrictionsSlug: slug,
         item1Id: listItems[0].tmdbId,
         item2Id: listItems[1].tmdbId,
         item3Id: listItems[2].tmdbId,
@@ -276,7 +261,7 @@ export async function createOrUpdateUserList({
 }: {
   restrictions: RestrictionsUI
   listItems: ListItem[]
-  userListId?: string
+  userListId?: number
 }) {
   const user = await currentUser()
 
@@ -306,7 +291,7 @@ export async function createOrUpdateUserList({
 
 // TODO: this will leave an orphaned list if the last user is removed
 function removeUserFromList(
-  userListId: string,
+  userListId: number,
   userId: string,
 ): PrismaPromise<UserList> {
   return prisma.userList.update({
@@ -321,7 +306,7 @@ function removeUserFromList(
   })
 }
 
-export async function userDeletesList(userListId: string) {
+export async function userDeletesList(userListId: number) {
   const user = await currentUser()
 
   if (!user) {
