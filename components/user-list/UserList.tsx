@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { ListTitleBase } from '../list-title-base'
 import { Divider } from '@nextui-org/divider'
 import { UserListButtons } from '../UserListButtons'
+import { UserListLink } from './UserListLink'
 
 export function UserListCard({
   restrictions,
@@ -33,7 +34,7 @@ export function UserListCard({
 }) {
   const { Person, mediaType } = restrictions
   const isEpisodes = mediaType === MediaType.TvEpisode
-  const userIds = users.map(u => u.id)
+  const usernames = users.map(u => u.username)
 
   return (
     <Card
@@ -65,13 +66,13 @@ export function UserListCard({
         </Link>
       )}
       <CardBody className={`overflow-visible ${isEpisodes ? 'pt-0' : 'pb-2 pt-1'}`}>
-        <Link href={`/list/${id}`} color='foreground'>
+        <UserListLink listId={id} restrictions={restrictions} usernames={usernames}>
           {isEpisodes ? (
             <BackdropCollageStraight backdropLites={listItemLites} />
           ) : (
             <PosterCollageStraight posterLites={listItemLites} />
           )}
-        </Link>
+        </UserListLink>
       </CardBody>
       <CardFooter className='flex items-center justify-end gap-5'>
         <div className='mr-1'>
@@ -87,7 +88,7 @@ export function UserListCard({
           isSmall
           userListId={id}
           Restrictions={restrictions}
-          userListUserIds={userIds}
+          usernames={usernames}
         />
       </CardFooter>
     </Card>

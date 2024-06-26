@@ -277,16 +277,16 @@ export async function createOrUpdateUserList({
   )
 
   if (userListId) {
-    const [{ id }] = await prisma.$transaction([
+    await prisma.$transaction([
       createUpdateOperation,
       removeUserFromList(userListId, user.id),
     ])
-
-    redirect(`/list/${id}`)
   } else {
-    const { id } = await createUpdateOperation
-    redirect(`/list/${id}`)
+    await createUpdateOperation
   }
+
+  const slug = getSlug(restrictions)
+  redirect(`/user/${user.username}/list/${slug}`)
 }
 
 // TODO: this will leave an orphaned list if the last user is removed

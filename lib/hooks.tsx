@@ -1,6 +1,9 @@
 import { MediaType } from '@prisma/client'
 import { useEffect, useMemo, useState } from 'react'
 import { getGenres } from './genres'
+import { RestrictionsUI } from './models'
+import { getSlug, getUserListsUrl } from './random'
+import { useUser } from '@clerk/nextjs'
 
 export const useGenres = (mediaType: MediaType) => {
   return useMemo(() => {
@@ -38,4 +41,27 @@ export const useScrollAfter5Items = (itemsLength?: number) => {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }, [itemsLength])
+}
+
+export const useUserListUrl = (restrictions: RestrictionsUI) => {
+  return useMemo(() => getUserListsUrl(restrictions), [restrictions])
+}
+
+export const useUserListLink = (
+  restrictions: RestrictionsUI,
+  usernames: string[],
+  listId: number,
+) => {
+  const { user } = useUser()
+  const slug = useMemo(() => getSlug(restrictions), [restrictions])
+
+  let username: string | undefined
+
+  if (user && usernames.includes(user.username ?? '')) {
+    username = user.username ?? ''
+  } else if (usernames.length == 1) {
+    username = usernames[0]
+  }
+
+  return username ? `/user/${username}/list/${slug}` : `/list/${listId}`
 }

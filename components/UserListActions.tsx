@@ -19,16 +19,23 @@ import { Button } from '@nextui-org/button'
 import { userDeletesList } from '@/app/actions'
 import copy from 'clipboard-copy'
 import { toast } from 'sonner'
+import { useUserListLink } from '@/lib/hooks'
+import { RestrictionsUI } from '@/lib/models'
 
 export function UserListActions({
   userListId,
   isSmall,
+  restrictions,
+  usernames,
 }: {
   userListId: number
   isSmall?: boolean
+  restrictions: RestrictionsUI
+  usernames: string[]
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const iconSize = isSmall ? 24 : 28
+  const userListLink = useUserListLink(restrictions, usernames, userListId)
 
   const { mutate: deleteListUI, isPending: isDeletePending } = useMutation({
     mutationFn: (onClose: () => void) => userDeletesList(userListId),
@@ -38,7 +45,7 @@ export function UserListActions({
   })
 
   const shareList = () => {
-    copy(`${window.location.origin}/list/${userListId}`)
+    copy(`${window.location.origin}${userListLink}`)
     toast.success('Link copied to clipboard!')
   }
 

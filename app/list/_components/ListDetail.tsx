@@ -23,24 +23,49 @@ export interface ListItemUI extends ListItem {
   tmdbHref: string
 }
 
-export async function ListDetail({ id }: { id: number }) {
-  const userList = await prisma.userList.findUnique({
-    where: { id },
-    include: {
-      users: true,
-      item1: true,
-      item2: true,
-      item3: true,
-      item4: true,
-      item5: true,
-      Restrictions: {
-        include: {
-          Person: true,
-          EpisodesTvShow: true,
-        },
+export async function ListDetail(
+  props: { id: number } | { username: string; slug: string },
+) {
+  const isForUser = 'username' in props
+  const include = {
+    item1: true,
+    item2: true,
+    item3: true,
+    item4: true,
+    item5: true,
+    _count: {
+      select: { users: true },
+    },
+    Restrictions: {
+      include: {
+        Person: true,
+        EpisodesTvShow: true,
       },
     },
-  })
+  }
+
+  const userList = isForUser
+    ? await prisma.userList.findFirst({
+        where: {
+          users: {
+            some: { username: props.username },
+          },
+          Restrictions: { slug: props.slug },
+        },
+        include: {
+          ...include,
+          users: {
+            where: { username: props.username },
+          },
+        },
+      })
+    : await prisma.userList.findUnique({
+        where: { id: props.id },
+        include: {
+          ...include,
+          users: true,
+        },
+      })
 
   if (!userList) {
     return <NotFoundPage />
@@ -104,7 +129,9 @@ export async function ListDetail({ id }: { id: number }) {
     .reverse()
 
   const listItemsReverse = await Promise.all(listItemPromises)
-  const userListUserIds = userList.users.map(user => user.id)
+  const userListUsernames = userList.users.map(user => user.username)
+
+  console.log(isForUser, userList.users.length)
 
   return (
     <div>
@@ -112,17 +139,24 @@ export async function ListDetail({ id }: { id: number }) {
         <h1 className='text-center text-4xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl'>
           <ListTitleBase restrictions={restrictions} includeMediaType={true} />
         </h1>
-        <div className='flex flex-wrap items-center justify-center space-x-4'>
-          <UserTime
-            users={userList.users}
-            lastUserAddedAt={userList.lastUserAddedAt}
-          />
-          <Divider className='h-6' orientation='vertical' />
-          <UserListButtons
-            userListId={userList.id}
-            userListUserIds={userListUserIds}
-            Restrictions={restrictions}
-          />
+        <div className='flex flex-col items-center gap-2'>
+          <div className='flex flex-wrap items-center justify-center space-x-4'>
+            <UserTime
+              users={userList.users}
+              lastUserAddedAt={userList.lastUserAddedAt}
+            />
+            <Divider className='h-6' orientation='vertical' />
+            <UserListButtons
+              userListId={userList.id}
+              usernames={userListUsernames}
+              Restrictions={restrictions}
+            />
+          </div>
+          {isForUser && userList._count.users > 1 && (
+            <Link href={`/list/${userList.id}`} className='text-foreground-400'>
+              See all users
+            </Link>
+          )}
         </div>
       </div>
       <div className='mt-4 flex flex-col items-center gap-10 md:mt-8'>
