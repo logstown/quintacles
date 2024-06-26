@@ -211,7 +211,7 @@ export async function ListDetail(
             </div>
             <div className='relative flex w-full items-center lg:w-3/5'>
               <NextImage
-                className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right rounded-xl object-cover'
+                className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right aspect-video rounded-xl object-cover'
                 src={item.backdropUrl}
                 alt='Robot Group'
                 width={1280}

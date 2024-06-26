@@ -7,18 +7,9 @@ blurred footer does not work in Firefox
 make cron job to delete orphaned lists
 metadata
 gridify episode browse
-change name of UserPageMediaTypeQuery
-
-### Need a Home page
-### adding drag/drop sorting to create list
-### find better generic background image for cover pic and media missing backdrop
-### add IMDB link to list page
-### fix autocomplete for choosing list items
-### need to infinite scroll browse
 
 better surprise me... go back to clickable restriction buttons
 add framer motion animations
-maybe change user list url to use slug
 look into pregenerating dynamic pages?
 notifications for when users make the same list
 launch list modal from user screen and home page
