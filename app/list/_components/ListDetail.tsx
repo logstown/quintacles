@@ -153,7 +153,11 @@ export async function ListDetail(
             />
           </div>
           {isForUser && userList._count.users > 1 && (
-            <Link href={`/list/${userList.id}`} className='text-foreground-400'>
+            <Link
+              href={`/list/${userList.id}`}
+              className='text-foreground-400'
+              replace={true}
+            >
               See all users
             </Link>
           )}
