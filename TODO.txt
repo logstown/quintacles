@@ -6,8 +6,8 @@ make adjustor for cover image
 blurred footer does not work in Firefox
 make cron job to delete orphaned lists
 metadata
-gridify episode browse
 
+Nice to haves:
 better surprise me... go back to clickable restriction buttons
 add framer motion animations
 look into pregenerating dynamic pages?
@@ -16,5 +16,4 @@ launch list modal from user screen and home page
 
 
 ideas:
-add tabs for mediatypes in browse
 allow anyone to edit any list to create their own

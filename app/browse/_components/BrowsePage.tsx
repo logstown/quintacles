@@ -1,6 +1,5 @@
 import { CreateListSearchParams } from '@/lib/models'
 import { BrowseCriteria } from '../_components/BrowseCriteria'
-import { MediaType } from '@prisma/client'
 import { ListTitle } from '@/app/create/criteria/_components/list-title'
 import { ListTitleBase } from '@/components/list-title-base'
 import { UserListInfinite } from './UserListInfinite'
@@ -51,8 +50,6 @@ export default async function BrowsePage({
   const exactMatch =
     searchParams.exactMatch == 'true' || !!restrictions.episodesTvShowId
 
-  const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
-
   // const initialData = await userListQuery({
   //   userId: user?.id,
   //   restrictions,
@@ -83,18 +80,14 @@ export default async function BrowsePage({
       ) : (
         <h1 className='text-6xl font-semibold'>Browse</h1>
       )}
-      <div
-        className={`flex w-full flex-col gap-14 ${isEpisodes ? 'items-stert' : 'items-center'} `}
-      >
+      <div className={`flex w-full flex-col items-center gap-14`}>
         <BrowseCriteria
           restrictionsFromParent={restrictions}
           sortByFromParent={sortBy}
           exactMatchFromParent={exactMatch}
           user={user}
         />
-        <div
-          className={`flex flex-col items-center gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}
-        >
+        <div className={`flex w-full max-w-screen-lg flex-col items-center gap-10`}>
           {exactMatch && (
             // <div className='sticky top-16 z-30 flex w-full justify-center bg-background'>  TODO: Fix this
             <ListTitle mediaType={restrictions.mediaType}>

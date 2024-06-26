@@ -75,6 +75,7 @@ export function UserListInfinite({
       ) : (
         <>
           <UserListsWrapper
+            isBrowse={true}
             isEpisodes={restrictions.mediaType === MediaType.TvEpisode}
           >
             {data?.pages.map((group, i) => (

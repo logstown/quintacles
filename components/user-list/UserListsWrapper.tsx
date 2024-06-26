@@ -1,13 +1,15 @@
 export function UserListsWrapper({
   children,
   isEpisodes,
+  isBrowse,
 }: {
   children: React.ReactNode
   isEpisodes: boolean
+  isBrowse?: boolean
 }) {
   return (
     <div
-      className={`flex ${isEpisodes ? 'flex-wrap justify-center gap-12 md:gap-7' : 'flex-col gap-8 sm:gap-12'}`}
+      className={`${isEpisodes ? `episode-list-grid ${isBrowse ? 'justify-center' : ''}` : 'flex flex-col gap-8 sm:gap-12'}`}
     >
       {children}
     </div>

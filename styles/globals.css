@@ -26,4 +26,11 @@
     gap: 1.75rem;
     grid-template-columns: repeat(auto-fit, 175px);
   }
+
+  .episode-list-grid {
+    gap: 1.5rem;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, 320px);
+  }
 }
