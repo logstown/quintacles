@@ -7,7 +7,7 @@ import { MediaType } from '@prisma/client'
 import { ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
 
-export async function UserPageMediaTypeQuery({
+export async function MediaTypeQuery({
   mediaType,
   userId,
   username,

@@ -2,7 +2,7 @@ import { mediaTypeArrForLists, mediaTypes } from '@/lib/mediaTypes'
 import { MediaType } from '@prisma/client'
 import { Suspense } from 'react'
 import { UserListSkeleton } from './user-list/UserListSkeleton'
-import { UserPageMediaTypeQuery } from '@/app/user/_components/UserPageMediaTypeQuery'
+import { MediaTypeQuery } from '@/app/user/_components/MediaTypeQuery'
 
 export function MediaTypeUserLists({
   userId,
@@ -37,7 +37,7 @@ export function MediaTypeUserLists({
                 </div>
               }
             >
-              <UserPageMediaTypeQuery
+              <MediaTypeQuery
                 userId={userId}
                 username={username}
                 mediaType={mediaType.key}
