@@ -1,17 +1,22 @@
 import { formatDistanceToNowStrict } from 'date-fns'
 import { random } from 'lodash'
 import { User } from '@prisma/client'
-import { AvatarGroup } from '@nextui-org/avatar'
+import { Avatar, AvatarGroup } from '@nextui-org/avatar'
 import { UserTimeAvatar } from './UserTimeAvatar'
+import Link from 'next/link'
 
 export function UserTime({
   users,
   lastUserAddedAt,
+  actualUserCount,
+  userListId,
   size,
   excludeUser,
 }: {
   users: Pick<User, 'username' | 'displayName' | 'photoURL'>[]
   lastUserAddedAt: Date
+  actualUserCount?: number
+  userListId?: number
   size?: 'sm' | 'md' | 'lg'
   excludeUser?: boolean
 }) {
@@ -27,7 +32,22 @@ export function UserTime({
       {!excludeUser && !!usersToDisplay.length && (
         <>
           {usersToDisplay.length === 1 ? (
-            <UserTimeAvatar user={usersToDisplay[0]} size={size} />
+            actualUserCount && actualUserCount > 1 ? (
+              <AvatarGroup isBordered>
+                <Avatar
+                  isFocusable
+                  as={Link}
+                  href={`/list/${userListId}`}
+                  replace={true}
+                  className='transition-transform'
+                  size={size}
+                  name={`+${actualUserCount - 1}`}
+                />
+                <UserTimeAvatar user={usersToDisplay[0]} size={size} />
+              </AvatarGroup>
+            ) : (
+              <UserTimeAvatar user={usersToDisplay[0]} size={size} />
+            )
           ) : (
             <AvatarGroup total={users.length - 5}>
               {usersToDisplay.map((user, i) => (

@@ -143,7 +143,9 @@ export async function ListDetail(
           <div className='flex flex-wrap items-center justify-center space-x-4'>
             <UserTime
               users={userList.users}
+              actualUserCount={userList._count.users}
               lastUserAddedAt={userList.lastUserAddedAt}
+              userListId={userList.id}
             />
             <Divider className='h-6' orientation='vertical' />
             <UserListButtons
@@ -152,15 +154,6 @@ export async function ListDetail(
               Restrictions={restrictions}
             />
           </div>
-          {isForUser && userList._count.users > 1 && (
-            <Link
-              href={`/list/${userList.id}`}
-              className='text-foreground-400'
-              replace={true}
-            >
-              See all users
-            </Link>
-          )}
         </div>
       </div>
       <div className='mt-4 flex flex-col items-center gap-10 md:mt-8'>
