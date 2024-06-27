@@ -3,11 +3,12 @@
 import { useState } from 'react'
 import { getTmdbImageUrl } from '../../lib/random'
 import { ListItem } from '@prisma/client'
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover'
 import { Card, CardFooter } from '@nextui-org/card'
 import Image from 'next/image'
 import { Button } from '@nextui-org/button'
 import { AddListIdx } from './AddListIdx'
+import { XIcon } from 'lucide-react'
+import { Tooltip } from '@nextui-org/tooltip'
 
 export const CreateListItem = ({
   item,
@@ -39,67 +40,52 @@ export const CreateListItem = ({
   }
 
   return (
-    <>
+    <div
+      className={`relative flex items-center ${isEpisode ? 'gap-3 xl:flex-col xl:gap-1' : 'flex-col gap-2'}`}
+    >
       <div
-        className={`text-center text-foreground-400 lg:text-xl ${isEpisode ? 'text-xl sm:order-last sm:text-base' : 'order-last'} ${!item ? 'invisible' : ''} `}
+        className={`text-center text-foreground-400 lg:text-xl ${isEpisode ? 'text-xl xl:order-last xl:text-base' : 'order-last'} ${!item ? 'invisible' : ''} `}
       >
         {itemOrder}
       </div>
-      <Popover
-        placement={placement as any}
-        showArrow={true}
-        isOpen={isOpen}
-        onOpenChange={openChange}
+      {!!item && (
+        <Button
+          className={`absolute top-0 z-10 rounded-full ${isEpisode ? 'right-2 xl:right-0' : 'right-0 h-6 w-6 min-w-6 md:h-10 md:w-10 md:min-w-10'}`}
+          color='danger'
+          variant='solid'
+          onPress={() => removeFromList(item)}
+          isIconOnly
+        >
+          {/* <XIcon className='hidden sm:inline' strokeWidth={3} size={40} /> */}
+          <XIcon />
+        </Button>
+      )}
+      <Tooltip
+        isDisabled={!item || isEpisode}
+        content={`${item?.name} (${new Date(item?.date ?? '').getFullYear()})`}
+        placement='bottom'
       >
-        <PopoverTrigger>
-          <Card
-            isPressable={!!item}
-            isFooterBlurred
-            className={`${isEpisode ? 'aspect-video' : ''} ${item ? '' : 'border-3 border-dashed border-primary-200'}`}
-          >
-            <AddListIdx idx={itemOrder - 1} disabled={!!item}>
-              <Image
-                width={300}
-                height={isEpisode ? 169 : 450}
-                className={`object-cover ${isEpisode ? 'brightness-75' : ''} ${item ? '' : 'invisible'}`}
-                src={imgSrc}
-                alt='NextUI hero Image'
-              />
-            </AddListIdx>
-            {isEpisode && !!item && (
-              <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] justify-center overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
-                <p className='text-left text-tiny text-white/80'>{item.name}</p>
-              </CardFooter>
-            )}
-          </Card>
-        </PopoverTrigger>
-        {!!item && (
-          <PopoverContent>
-            <div className='flex flex-col gap-2 p-1'>
-              <div className='font-bold'>
-                {item.name}{' '}
-                <span className='text-tiny font-normal'>
-                  ({new Date(item.date || '').getFullYear()})
-                </span>
-              </div>
-              <div className='text-center'>
-                <Button
-                  size='sm'
-                  className='w-full'
-                  variant='flat'
-                  color='danger'
-                  onPress={() => {
-                    removeFromList(item)
-                    setIsOpen(false)
-                  }}
-                >
-                  Remove
-                </Button>
-              </div>
-            </div>
-          </PopoverContent>
-        )}
-      </Popover>
-    </>
+        <Card
+          isFooterBlurred
+          isPressable
+          className={`${isEpisode ? 'aspect-video' : ''} ${item ? 'cursor-move' : 'border-3 border-dashed border-primary-200'}`}
+        >
+          <AddListIdx idx={itemOrder - 1} disabled={!!item}>
+            <Image
+              width={300}
+              height={isEpisode ? 169 : 450}
+              className={`object-cover ${isEpisode ? 'brightness-75' : ''} ${item ? '' : 'invisible'}`}
+              src={imgSrc}
+              alt='NextUI hero Image'
+            />
+          </AddListIdx>
+          {isEpisode && !!item && (
+            <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] justify-center overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
+              <p className='text-left text-tiny text-white/80'>{item.name}</p>
+            </CardFooter>
+          )}
+        </Card>
+      </Tooltip>
+    </div>
   )
 }

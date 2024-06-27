@@ -19,8 +19,8 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
       <NavbarItem>
         <DropdownTrigger>
           {isSmall ? (
-            <Button isIconOnly variant='flat'>
-              {<Rows3Icon strokeWidth={1.3} size={20} />}
+            <Button isIconOnly size='sm' variant='flat'>
+              <ChevronDown strokeWidth={1.3} size={20} />
             </Button>
           ) : (
             <Button

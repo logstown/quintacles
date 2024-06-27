@@ -45,7 +45,12 @@ export const Navbar = () => {
             <p className='hidden font-bold text-inherit sm:block'>RANKER</p>
           </NextLink>
         </NavbarBrand>
-        <BrowseDropdown />
+        <div className='md:hidden'>
+          <BrowseDropdown isSmall />
+        </div>
+        <div className='hidden md:flex'>
+          <BrowseDropdown />
+        </div>
       </NavbarContent>
 
       <NavbarContent

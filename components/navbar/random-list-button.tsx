@@ -22,6 +22,7 @@ export function RandomListButton() {
         type='submit'
         variant='bordered'
         isIconOnly
+        size='sm'
         className='md:hidden'
         isLoading={pending}
       >

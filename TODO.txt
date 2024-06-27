@@ -1,11 +1,12 @@
 Handle Errors (error.tsx)
 Loading indicators (loading.tsx)
 cache prisma calls
-add api route for updating a user
 make adjustor for cover image
-blurred footer does not work in Firefox
-make cron job to delete orphaned lists
 metadata
+single-user list has updated time of last user. Should be single-user
+   - need explicit many to many table between users and userlists
+need to attribute TMDB
+prevent user from selecting daily show episodes
 
 Nice to haves:
 better surprise me... go back to clickable restriction buttons
@@ -13,6 +14,7 @@ add framer motion animations
 look into pregenerating dynamic pages?
 notifications for when users make the same list
 launch list modal from user screen and home page
+make cron job to delete orphaned lists
 
 
 ideas:

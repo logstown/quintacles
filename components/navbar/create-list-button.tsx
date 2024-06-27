@@ -19,6 +19,7 @@ export function CreateListButton({ isSmall }: { isSmall?: boolean }) {
         {isSmall ? (
           <Button
             isIconOnly
+            size='sm'
             className='bg-gradient-to-tr from-primary-500 to-secondary-500 text-white shadow-lg'
           >
             {<PlusIcon strokeWidth={1.3} size={20} />}
