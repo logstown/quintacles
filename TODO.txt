@@ -6,7 +6,6 @@ metadata
 single-user list has updated time of last user. Should be single-user
    - need explicit many to many table between users and userlists
 need to attribute TMDB
-prevent user from selecting daily show episodes
 
 Nice to haves:
 better surprise me... go back to clickable restriction buttons
