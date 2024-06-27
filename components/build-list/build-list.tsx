@@ -111,7 +111,7 @@ export function BuildList({
   )
 
   return (
-    <main className='mx-auto mb-12 mt-6 flex flex-col gap-8'>
+    <main className='mx-auto mb-12 mt-6 flex max-w-screen-xl flex-col gap-8'>
       <div className='flex flex-col items-center'>
         <div className='flex flex-col justify-center gap-6'>
           <h1 className='text-2xl'>{title}</h1>

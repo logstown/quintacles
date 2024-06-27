@@ -13,6 +13,9 @@ module.exports = {
         sans: ['var(--font-sans)'],
         mono: ['var(--font-geist-mono)'],
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
     },
   },
   darkMode: 'class',

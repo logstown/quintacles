@@ -7,13 +7,13 @@ import {
 import NextLink from 'next/link'
 
 import { ThemeSwitch } from '@/components/theme-switch'
-import { Logo } from '@/components/icons'
 import { CreateListButton } from './create-list-button'
 import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { RandomListButton } from './random-list-button'
 import { BrowseDropdown } from './BrowseDropdown'
 import { UserOrSignIn } from './UserOrSignIn'
+import NextImage from 'next/image'
 
 async function getRandomList() {
   'use server'
@@ -40,9 +40,9 @@ export const Navbar = () => {
         justify='start'
       >
         <NavbarBrand as='li' className='max-w-fit gap-3'>
-          <NextLink className='flex items-center justify-start gap-1' href='/'>
-            <Logo />
-            <p className='hidden font-bold text-inherit sm:block'>RANKER</p>
+          <NextLink className='flex items-center justify-start gap-2' href='/'>
+            <NextImage alt='octopus' width='65' height='65' src='/octopus.png' />
+            <p className='hidden font-bold text-inherit sm:block'>Quintacles</p>
           </NextLink>
         </NavbarBrand>
         <div className='md:hidden'>

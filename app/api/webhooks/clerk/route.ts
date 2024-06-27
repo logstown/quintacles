@@ -53,9 +53,10 @@ export async function POST(req: Request) {
   // For this guide, you simply log the payload to the console
   const eventType = evt.type
 
+  console.log(evt)
+
   if (eventType === 'user.created') {
-    const { id, username, first_name, last_name, image_url, created_at } =
-      evt.data
+    const { id, username, first_name, last_name, image_url, created_at } = evt.data
 
     if (!id || !username) {
       return new Response('Error occurred -- missing data', {
@@ -75,8 +76,7 @@ export async function POST(req: Request) {
       },
     })
   } else if (eventType === 'user.updated') {
-    const { id, username, first_name, last_name, image_url, updated_at } =
-      evt.data
+    const { id, username, first_name, last_name, image_url, updated_at } = evt.data
 
     if (!id || !username) {
       return new Response('Error occurred -- missing data', {

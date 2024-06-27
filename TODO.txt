@@ -3,9 +3,8 @@ Loading indicators (loading.tsx)
 cache prisma calls
 make adjustor for cover image
 metadata
-single-user list has updated time of last user. Should be single-user
-   - need explicit many to many table between users and userlists
 need to attribute TMDB
+better footer
 
 Nice to haves:
 better surprise me... go back to clickable restriction buttons

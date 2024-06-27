@@ -33,7 +33,7 @@ export default async function TvEpisodeCriteriaPage() {
   const tvShowIds = restrictions.map(r => r.EpisodesTvShow.id)
 
   return (
-    <div className='mx-auto flex max-w-screen-xl flex-col gap-6'>
+    <div className='mx-auto flex flex-col gap-6'>
       <h1 className='text-xl sm:text-2xl'>Choose Episodes TV Show</h1>
       <Suggestions
         isForEpisodes={true}

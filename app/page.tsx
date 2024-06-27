@@ -1,5 +1,6 @@
 import { MediaTypeUserLists } from '@/components/MediaTypeUserLists'
 import { FlipWords } from '@/components/flip-words'
+import NextImage from 'next/image'
 
 export default async function Home() {
   // const deal = await prisma.listItem.findMany({
@@ -17,15 +18,18 @@ export default async function Home() {
 
   return (
     <>
-      <div className='flex justify-center'>
-        <h1 className='bg-gradient-to-r from-secondary-500 to-danger-500 bg-clip-text text-5xl font-bold capitalize text-transparent md:text-7xl'>
-          Media Ranker
-        </h1>
-      </div>
-      <div className='flex items-center justify-center pt-5'>
-        <div className='h-16 w-[450px] pl-24 text-2xl font-normal text-foreground-600 md:pl-6 md:text-4xl'>
-          Your Top Five
-          <FlipWords words={words} />
+      <div>
+        <div className='flex items-center justify-center gap-2'>
+          <NextImage alt='octopus' width='150' height='150' src='/octopus.png' />
+          <h1 className='bg-gradient-to-br from-secondary-500 to-primary-500 bg-clip-text text-5xl font-bold capitalize text-transparent md:text-7xl'>
+            Quintacles
+          </h1>
+        </div>
+        <div className='flex items-center justify-center pt-5'>
+          <div className='h-16 w-[450px] pl-24 text-2xl font-normal text-foreground-600 md:pl-6 md:text-4xl'>
+            Your Top Five
+            <FlipWords words={words} />
+          </div>
         </div>
       </div>
       <MediaTypeUserLists />

@@ -102,7 +102,7 @@ export function Suggestions({
   }
 
   return (
-    <div className='flex w-full flex-col items-center gap-8'>
+    <div className='flex flex-col items-center gap-8'>
       <div>
         <h2 className='text-2xl'>
           {debouncedSearchText ? 'Search' : 'Search or choose from suggestions:'}
@@ -114,7 +114,7 @@ export function Suggestions({
           placeholder='Search'
           variant='bordered'
           value={searchText}
-          className='mt-4 w-[400px]'
+          className='mt-4 max-w-[400px]'
           onValueChange={setSearchText}
         />
       </div>

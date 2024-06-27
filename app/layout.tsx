@@ -45,7 +45,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className='relative flex h-screen flex-col'>
             <Navbar />
             {/* <main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'></main> */}
-            <main className='flex-grow px-4 pt-16'>{children}</main>
+            <main className='bg-gradient-radial flex-grow from-foreground-200 to-background px-4 pt-16'>
+              {children}
+            </main>
             <footer className='flex w-full items-center justify-center py-3'>
               <Link
                 isExternal

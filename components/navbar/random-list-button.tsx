@@ -11,7 +11,7 @@ export function RandomListButton() {
     <>
       <Button
         type='submit'
-        variant='bordered'
+        variant='ghost'
         className='hidden md:flex'
         isLoading={pending}
         startContent={!pending && <ShuffleIcon size={15} />}
@@ -20,7 +20,7 @@ export function RandomListButton() {
       </Button>
       <Button
         type='submit'
-        variant='bordered'
+        variant='ghost'
         isIconOnly
         size='sm'
         className='md:hidden'
