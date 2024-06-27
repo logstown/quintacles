@@ -36,6 +36,7 @@ export default async function TvEpisodeCriteriaPage() {
     <div className='mx-auto flex max-w-screen-xl flex-col gap-6'>
       <h1 className='text-xl sm:text-2xl'>Choose Episodes TV Show</h1>
       <Suggestions
+        isForEpisodes={true}
         mediaIds={tvShowIds}
         restrictions={{ mediaType: MediaType.TvShow }}
       />

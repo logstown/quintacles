@@ -2,7 +2,7 @@
 
 import { InfoIcon, SearchIcon } from 'lucide-react'
 import { useEffect } from 'react'
-import { findIndex } from 'lodash'
+import { findIndex, intersection } from 'lodash'
 import { convertMediaItem } from '../../lib/random'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import React from 'react'
@@ -16,22 +16,26 @@ import { useInView } from 'react-intersection-observer'
 import { Spinner } from '@nextui-org/spinner'
 import { Input } from '@nextui-org/input'
 import { useRouter } from 'next/navigation'
+import { TmdbGenres } from '@/lib/TmdbModels'
 
 export function Suggestions({
   onItemSelected,
   restrictions,
   listItems,
   mediaIds,
+  isForEpisodes,
 }: {
   onItemSelected?: (item: ListItem) => void
   restrictions: RestrictionsUI
   listItems?: ListItem[]
   mediaIds?: number[]
+  isForEpisodes?: boolean
 }) {
   const router = useRouter()
   const [ref, inView] = useInView()
   const [searchText, setSearchText] = React.useState('')
   const debouncedSearchText = useDebounce(searchText, 500)
+  const tvGenresToExclude = [TmdbGenres.News, TmdbGenres.Soap, TmdbGenres.Talk]
 
   const getSearchRestults = async () => {
     const res = await fetch(
@@ -49,7 +53,13 @@ export function Suggestions({
 
     const suggestions = data.results
       .filter((x: any) => !mediaIds?.includes(x.id))
+      .filter((x: any) =>
+        isForEpisodes
+          ? intersection(x.genre_ids, tvGenresToExclude).length === 0
+          : true,
+      )
       .map((x: any) => convertMediaItem(x, restrictions.mediaType))
+
     return {
       suggestions,
       page: data.page,

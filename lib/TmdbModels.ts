@@ -132,10 +132,13 @@ export enum TmdbGenres {
   Horror = 27,
   Music = 10402,
   Mystery = 9648,
+  News = 10763,
   Romance = 10749,
   ScienceFiction = 878,
+  Soap = 10766,
+  Talk = 10767,
   TVMovie = 10770,
   Thriller = 53,
   War = 10752,
-  Western = 37
+  Western = 37,
 }
