@@ -7,7 +7,7 @@ import { getGenres } from '@/lib/genres'
 import { Decade, Genre, RestrictionsUI } from '@/lib/models'
 import { getDecades, getSlug, getUserListsUrl } from '@/lib/random'
 import { userListQuery } from '@/lib/server-functions'
-import { currentUser } from '@clerk/nextjs/server'
+import { User, currentUser } from '@clerk/nextjs/server'
 import { ListItem, MediaType, PrismaPromise, UserList } from '@prisma/client'
 import { some } from 'lodash'
 import { revalidatePath } from 'next/cache'
@@ -118,7 +118,7 @@ export async function getSuggestions(pageNum: number, restrictions: Restrictions
 }
 
 function createOrConnectUserToList(
-  userId: string,
+  user: User,
   restrictions: RestrictionsUI,
   listItems: ListItem[],
   isUpdate = false,
@@ -173,6 +173,10 @@ function createOrConnectUserToList(
         },
       }
 
+  const users = {
+    create: { userId: user.id, username: user.username! },
+  }
+
   return prisma.userList.upsert({
     where: {
       uniqueList: {
@@ -185,15 +189,11 @@ function createOrConnectUserToList(
       },
     },
     update: {
-      users: {
-        create: { userId },
-      },
+      users,
       lastUserAddedAt: new Date(),
     },
     create: {
-      users: {
-        create: { userId },
-      },
+      users,
       Restrictions,
       item1: {
         connectOrCreate: {
@@ -270,7 +270,7 @@ export async function createOrUpdateUserList({
   }
 
   const createUpdateOperation = createOrConnectUserToList(
-    user.id,
+    user,
     restrictions,
     listItems,
     !!userListId,

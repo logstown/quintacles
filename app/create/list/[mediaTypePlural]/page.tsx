@@ -34,17 +34,17 @@ export default async function BuildListPage({
 
   const slug = getSlug(restrictions)
 
-  const dupe = await prisma.userList.findFirst({
+  const dupe = await prisma.usersOnUserLists.findUnique({
     where: {
-      users: {
-        some: { userId: user.id },
+      userRestrictionsById: {
+        userId: user.id,
+        restrictionsSlug: slug,
       },
-      Restrictions: { slug },
     },
   })
 
   if (dupe) {
-    redirect(`/list/${dupe.id}/edit`)
+    redirect(`/list/${dupe.userListId}/edit`)
   }
 
   let episodeData: EpisodeData | undefined

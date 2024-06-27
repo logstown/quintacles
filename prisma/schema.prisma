@@ -15,15 +15,16 @@ datasource db {
 }
 
 model User {
-  id             String   @id @unique
-  username       String   @unique
+  id             String             @id @unique
+  username       String             @unique
   displayName    String?
   photoURL       String?
-  coverImagePath String   @default("/movieBackdrop.jpeg")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now())
+  coverImagePath String             @default("/movieBackdrop.jpeg")
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @default(now())
+  userLists      UsersOnUserLists[]
 
-  userLists UsersOnUserLists[]
+  @@unique([id, username])
 }
 
 enum MediaType {
@@ -55,19 +56,24 @@ model UserList {
   Restrictions     Restrictions @relation(fields: [restrictionsSlug], references: [slug])
   restrictionsSlug String
 
+  @@unique([id, restrictionsSlug])
   @@unique(name: "uniqueList", [item1Id, item2Id, item3Id, item4Id, item5Id, restrictionsSlug])
 }
 
 model UsersOnUserLists {
-  userId     String
-  userListId Int
+  userId           String
+  userListId       Int
+  restrictionsSlug String
+  username         String
 
-  User     User     @relation(fields: [userId], references: [id])
-  UserList UserList @relation(fields: [userListId], references: [id])
+  User     User     @relation(fields: [userId, username], references: [id, username])
+  UserList UserList @relation(fields: [userListId, restrictionsSlug], references: [id, restrictionsSlug])
 
   userAddedAt DateTime @default(now())
 
   @@id([userId, userListId])
+  @@unique(name: "userRestrictionsById", [userId, restrictionsSlug])
+  @@unique(name: "userRestrictionsByUsername", [username, restrictionsSlug])
 }
 
 model Restrictions {

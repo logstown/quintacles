@@ -15,116 +15,17 @@ import Vibrant from 'node-vibrant'
 import Link from 'next/link'
 import { mediaTypes } from '@/lib/mediaTypes'
 
-export interface ListItemUI extends ListItem {
-  bgColor: string
-  textColor: string
-  rgb: number[]
-  backdropUrl: string
-  tmdbHref: string
-}
+type ListDetailProps = { id: number } | { username: string; slug: string }
 
-export async function ListDetail(
-  props: { id: number } | { username: string; slug: string },
-) {
-  const isForUser = 'username' in props
-  const include = {
-    item1: true,
-    item2: true,
-    item3: true,
-    item4: true,
-    item5: true,
-    _count: {
-      select: { users: true },
-    },
-    Restrictions: {
-      include: {
-        Person: true,
-        EpisodesTvShow: true,
-      },
-    },
-  }
+export async function ListDetail(props: ListDetailProps) {
+  const { userList, userListUsers, userAddedAt } = await getUserListData(props)
 
-  const userList = isForUser
-    ? await prisma.userList.findFirst({
-        where: {
-          users: {
-            some: {
-              User: { username: props.username },
-            },
-          },
-          Restrictions: { slug: props.slug },
-        },
-        include: {
-          ...include,
-          users: {
-            where: {
-              User: { username: props.username },
-            },
-            include: { User: true },
-          },
-        },
-      })
-    : await prisma.userList.findUnique({
-        where: { id: props.id },
-        include: {
-          ...include,
-          users: {
-            include: { User: true },
-          },
-        },
-      })
-
-  if (!userList) {
+  if (!userList || !userAddedAt) {
     return <NotFoundPage />
   }
 
-  const userListUsers = userList.users.map(u => u.User)
   const { Restrictions: restrictions } = userList
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
-
-  const getBetterHSL = (
-    hsl: [number, number, number] | undefined,
-    lower: number,
-    upper: number,
-  ) => {
-    if (!hsl) return
-    const trans = clamp(hsl[2] * 100, lower, upper)
-    return `hsl(${hsl[0] * 360}, ${hsl[1] * 100}%, ${trans}%)`
-  }
-
-  const addColorToListItem = async (item: ListItem) => {
-    let bgColor = 'black'
-    let rgb = [0, 0, 0]
-    let textColor = 'white'
-    let backdropUrl = '/movieBackdrop.jpeg'
-
-    if (item.backdropPath) {
-      const { vibrantSize, bgSize } = isEpisodes
-        ? { vibrantSize: 'original', bgSize: 'original' }
-        : { vibrantSize: 'w300', bgSize: 'w1280' }
-      const color = await Vibrant.from(
-        getTmdbImageUrl(item.backdropPath, vibrantSize),
-      ).getPalette()
-      bgColor = getBetterHSL(color.DarkMuted?.hsl, 0, 25) ?? bgColor
-      rgb = color.DarkMuted?.rgb ?? rgb
-      textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
-      backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
-    }
-
-    const baseUrl = `https://www.themoviedb.org`
-    const tmdbHref = isEpisodes
-      ? `${baseUrl}/${mediaTypes[MediaType.TvShow].url}/${restrictions.EpisodesTvShow.id}/season/${item.seasonNum}/episode/${item.episodeNum}`
-      : `${baseUrl}/${mediaTypes[restrictions.mediaType].url}/${item.tmdbId}`
-
-    return {
-      ...item,
-      bgColor,
-      rgb,
-      textColor,
-      backdropUrl,
-      tmdbHref,
-    } as ListItemUI
-  }
 
   const listItemPromises = [
     userList.item1,
@@ -133,13 +34,42 @@ export async function ListDetail(
     userList.item4,
     userList.item5,
   ]
-    .map(item => addColorToListItem(item))
+    .map(async item => {
+      let bgColor = 'black'
+      let rgb = [0, 0, 0]
+      let textColor = 'white'
+      let backdropUrl = '/movieBackdrop.jpeg'
+
+      if (item.backdropPath) {
+        const { vibrantSize, bgSize } = isEpisodes
+          ? { vibrantSize: 'original', bgSize: 'original' }
+          : { vibrantSize: 'w300', bgSize: 'w1280' }
+        const color = await Vibrant.from(
+          getTmdbImageUrl(item.backdropPath, vibrantSize),
+        ).getPalette()
+        bgColor = getBetterHSL(color.DarkMuted?.hsl, 0, 25) ?? bgColor
+        rgb = color.DarkMuted?.rgb ?? rgb
+        textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
+        backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
+      }
+
+      const baseUrl = `https://www.themoviedb.org`
+      const tmdbHref = isEpisodes
+        ? `${baseUrl}/${mediaTypes[MediaType.TvShow].url}/${restrictions.EpisodesTvShow.id}/season/${item.seasonNum}/episode/${item.episodeNum}`
+        : `${baseUrl}/${mediaTypes[restrictions.mediaType].url}/${item.tmdbId}`
+
+      return {
+        ...item,
+        bgColor,
+        rgb,
+        textColor,
+        backdropUrl,
+        tmdbHref,
+      }
+    })
     .reverse()
 
   const listItemsReverse = await Promise.all(listItemPromises)
-  const userListUsernames = userListUsers.map(user => user.username)
-
-  console.log(isForUser, userListUsers.length)
 
   return (
     <div>
@@ -152,24 +82,20 @@ export async function ListDetail(
             <UserTime
               users={userListUsers}
               actualUserCount={userList._count.users}
-              lastUserAddedAt={
-                userListUsers.length === 1
-                  ? userList.users[0].userAddedAt
-                  : userList.lastUserAddedAt
-              }
+              lastUserAddedAt={userAddedAt}
               userListId={userList.id}
             />
             <Divider className='h-6' orientation='vertical' />
             <UserListButtons
               userListId={userList.id}
-              usernames={userListUsernames}
+              usernames={userListUsers.map(user => user.username)}
               Restrictions={restrictions}
             />
           </div>
         </div>
       </div>
       <div className='mx-auto mt-4 flex max-w-screen-2xl flex-col items-center gap-16 md:mt-8'>
-        {listItemsReverse.map((item: ListItemUI, i) => (
+        {listItemsReverse.map((item, i) => (
           <div
             className='group mx-4 flex flex-col items-stretch rounded-xl shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] lg:mx-0 lg:w-full lg:flex-row'
             style={{
@@ -261,4 +187,71 @@ export async function ListDetail(
       </div>
     </div>
   )
+}
+
+const getBetterHSL = (
+  hsl: [number, number, number] | undefined,
+  lower: number,
+  upper: number,
+) => {
+  if (!hsl) return
+  const trans = clamp(hsl[2] * 100, lower, upper)
+  return `hsl(${hsl[0] * 360}, ${hsl[1] * 100}%, ${trans}%)`
+}
+
+async function getUserListData(props: ListDetailProps) {
+  const isForUser = 'username' in props
+  const include = {
+    item1: true,
+    item2: true,
+    item3: true,
+    item4: true,
+    item5: true,
+    _count: {
+      select: { users: true },
+    },
+    Restrictions: {
+      include: {
+        Person: true,
+        EpisodesTvShow: true,
+      },
+    },
+  }
+
+  if (isForUser) {
+    const userOnUserList = await prisma.usersOnUserLists.findUnique({
+      where: {
+        userRestrictionsByUsername: {
+          username: props.username,
+          restrictionsSlug: props.slug,
+        },
+      },
+      include: {
+        UserList: { include },
+        User: true,
+      },
+    })
+
+    return {
+      userList: userOnUserList?.UserList,
+      userListUsers: userOnUserList ? [userOnUserList.User] : [],
+      userAddedAt: userOnUserList?.userAddedAt,
+    }
+  } else {
+    const userList = await prisma.userList.findUnique({
+      where: { id: props.id },
+      include: {
+        ...include,
+        users: {
+          include: { User: true },
+        },
+      },
+    })
+
+    return {
+      userList,
+      userListUsers: userList ? userList.users.map(u => u.User) : [],
+      userAddedAt: userList?.lastUserAddedAt,
+    }
+  }
 }
