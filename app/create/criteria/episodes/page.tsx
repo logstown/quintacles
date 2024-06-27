@@ -16,7 +16,7 @@ export default async function TvEpisodeCriteriaPage() {
       userLists: {
         some: {
           users: {
-            some: { id: user.id },
+            some: { userId: user.id },
           },
         },
       },

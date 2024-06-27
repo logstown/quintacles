@@ -37,7 +37,7 @@ export default async function BuildListPage({
   const dupe = await prisma.userList.findFirst({
     where: {
       users: {
-        some: { id: user.id },
+        some: { userId: user.id },
       },
       Restrictions: { slug },
     },

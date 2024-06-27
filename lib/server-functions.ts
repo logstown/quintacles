@@ -28,7 +28,7 @@ export async function userListQuery({
 }) {
   const users = userId
     ? {
-        some: { id: userId },
+        some: { userId },
       }
     : {
         some: {},
@@ -52,7 +52,7 @@ export async function userListQuery({
     },
   }
 
-  return prisma.userList.findMany({
+  const lists = await prisma.userList.findMany({
     where: {
       users,
       Restrictions,
@@ -61,7 +61,11 @@ export async function userListQuery({
     skip: pageNum * pageSize,
     orderBy,
     include: {
-      users: true,
+      users: {
+        include: {
+          User: true,
+        },
+      },
       item1: itemSelect,
       item2: itemSelect,
       item3: itemSelect,
@@ -75,6 +79,11 @@ export async function userListQuery({
       },
     },
   })
+
+  return lists.map(list => ({
+    ...list,
+    users: list.users.map(u => u.User),
+  }))
 }
 
 export async function getRestrictionsFromParams({

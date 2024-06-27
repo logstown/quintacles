@@ -15,14 +15,15 @@ datasource db {
 }
 
 model User {
-  id             String     @id @unique
-  username       String     @unique
+  id             String   @id @unique
+  username       String   @unique
   displayName    String?
   photoURL       String?
-  coverImagePath String     @default("/movieBackdrop.jpeg")
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @default(now())
-  userLists      UserList[]
+  coverImagePath String   @default("/movieBackdrop.jpeg")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now())
+
+  userLists UsersOnUserLists[]
 }
 
 enum MediaType {
@@ -37,7 +38,7 @@ model UserList {
   createdAt       DateTime @default(now())
   lastUserAddedAt DateTime @default(now())
 
-  users User[]
+  users UsersOnUserLists[]
 
   mediaType MediaType
 
@@ -55,6 +56,18 @@ model UserList {
   restrictionsSlug String
 
   @@unique(name: "uniqueList", [item1Id, item2Id, item3Id, item4Id, item5Id, restrictionsSlug])
+}
+
+model UsersOnUserLists {
+  userId     String
+  userListId Int
+
+  User     User     @relation(fields: [userId], references: [id])
+  UserList UserList @relation(fields: [userListId], references: [id])
+
+  userAddedAt DateTime @default(now())
+
+  @@id([userId, userListId])
 }
 
 model Restrictions {

@@ -48,14 +48,19 @@ export async function ListDetail(
     ? await prisma.userList.findFirst({
         where: {
           users: {
-            some: { username: props.username },
+            some: {
+              User: { username: props.username },
+            },
           },
           Restrictions: { slug: props.slug },
         },
         include: {
           ...include,
           users: {
-            where: { username: props.username },
+            where: {
+              User: { username: props.username },
+            },
+            include: { User: true },
           },
         },
       })
@@ -63,7 +68,9 @@ export async function ListDetail(
         where: { id: props.id },
         include: {
           ...include,
-          users: true,
+          users: {
+            include: { User: true },
+          },
         },
       })
 
@@ -71,6 +78,7 @@ export async function ListDetail(
     return <NotFoundPage />
   }
 
+  const userListUsers = userList.users.map(u => u.User)
   const { Restrictions: restrictions } = userList
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
 
@@ -129,9 +137,9 @@ export async function ListDetail(
     .reverse()
 
   const listItemsReverse = await Promise.all(listItemPromises)
-  const userListUsernames = userList.users.map(user => user.username)
+  const userListUsernames = userListUsers.map(user => user.username)
 
-  console.log(isForUser, userList.users.length)
+  console.log(isForUser, userListUsers.length)
 
   return (
     <div>
@@ -142,9 +150,13 @@ export async function ListDetail(
         <div className='flex flex-col items-center gap-2'>
           <div className='flex flex-wrap items-center justify-center space-x-4'>
             <UserTime
-              users={userList.users}
+              users={userListUsers}
               actualUserCount={userList._count.users}
-              lastUserAddedAt={userList.lastUserAddedAt}
+              lastUserAddedAt={
+                userListUsers.length === 1
+                  ? userList.users[0].userAddedAt
+                  : userList.lastUserAddedAt
+              }
               userListId={userList.id}
             />
             <Divider className='h-6' orientation='vertical' />

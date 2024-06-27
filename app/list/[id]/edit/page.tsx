@@ -20,7 +20,7 @@ export default async function EditListPage({
     where: {
       id: Number(id),
       users: {
-        some: { id: user.id },
+        some: { userId: user.id },
       },
     },
     include: {

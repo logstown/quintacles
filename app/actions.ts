@@ -26,7 +26,7 @@ export async function surpriseMe(mediaType: MediaType) {
         some: {
           users: {
             some: {
-              id: user.id,
+              userId: user.id,
             },
           },
         },
@@ -186,13 +186,13 @@ function createOrConnectUserToList(
     },
     update: {
       users: {
-        connect: { id: userId },
+        create: { userId },
       },
       lastUserAddedAt: new Date(),
     },
     create: {
       users: {
-        connect: { id: userId },
+        create: { userId },
       },
       Restrictions,
       item1: {
@@ -290,17 +290,12 @@ export async function createOrUpdateUserList({
 }
 
 // TODO: this will leave an orphaned list if the last user is removed
-function removeUserFromList(
-  userListId: number,
-  userId: string,
-): PrismaPromise<UserList> {
-  return prisma.userList.update({
+function removeUserFromList(userListId: number, userId: string): PrismaPromise<any> {
+  return prisma.usersOnUserLists.delete({
     where: {
-      id: userListId,
-    },
-    data: {
-      users: {
-        disconnect: { id: userId },
+      userId_userListId: {
+        userListId,
+        userId,
       },
     },
   })
