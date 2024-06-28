@@ -4,7 +4,6 @@ cache prisma calls
 make adjustor for cover image
 metadata
 need to attribute TMDB
-better footer
 
 Nice to haves:
 better surprise me... go back to clickable restriction buttons
