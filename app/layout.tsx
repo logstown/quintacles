@@ -11,6 +11,8 @@ import { Navbar } from '@/components/navbar/navbar'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Toaster } from 'sonner'
+import NextLink from 'next/link'
+import { MailIcon, ScrollTextIcon } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: {
@@ -48,13 +50,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main className='bg-gradient-radial flex-grow from-foreground-200 to-background px-4 py-16'>
               {children}
             </main>
-            <footer className='flex w-full items-center justify-evenly gap-3 p-3'>
+            <footer className='flex w-full flex-wrap items-center justify-evenly gap-3 p-3'>
               <div className='whitespace-nowrap text-tiny sm:text-base'>
                 © quintacles.com 2024
               </div>
               <div className='text-tiny'>
                 This website uses the TMDB API but is not endorsed or certified by
                 TMDB.
+              </div>
+              <div className='flex gap-8'>
+                <Link
+                  href='mailto:ljoecks@gmail.com'
+                  as={NextLink}
+                  className='text-sm text-foreground'
+                >
+                  <MailIcon size={20} className='mr-2 text-foreground-500' />
+                  Contact
+                </Link>
+                <Link
+                  href='/credits'
+                  as={NextLink}
+                  className='text-sm text-foreground'
+                >
+                  <ScrollTextIcon size={20} className='mr-2 text-foreground-500' />
+                  Credits
+                </Link>
               </div>
             </footer>
           </div>
