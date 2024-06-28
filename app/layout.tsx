@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head />
       <body
         className={clsx(
-          'min-h-screen bg-background font-sans antialiased',
+          'min-h-screen overflow-y-scroll bg-background font-sans antialiased',
           fontSans.variable,
         )}
       >

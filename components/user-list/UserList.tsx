@@ -65,7 +65,9 @@ export function UserListCard({
           </CardHeader>
         </Link>
       )}
-      <CardBody className={`overflow-visible ${isEpisodes ? 'pt-0' : 'pb-2 pt-1'}`}>
+      <CardBody
+        className={`overflow-visible ${isEpisodes ? 'pt-0' : 'px-1 pb-2 pt-1 sm:px-3'}`}
+      >
         <UserListLink listId={id} restrictions={restrictions} usernames={usernames}>
           {isEpisodes ? (
             <BackdropCollageStraight backdropLites={listItemLites} />
@@ -74,7 +76,7 @@ export function UserListCard({
           )}
         </UserListLink>
       </CardBody>
-      <CardFooter className='flex items-center justify-end gap-5'>
+      <CardFooter className='flex items-center justify-center gap-5 sm:justify-end'>
         <div className='mr-1'>
           <UserTime
             excludeUser={false}

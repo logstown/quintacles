@@ -405,7 +405,7 @@ export function PosterCollageStraight({
               isBlurred
               width={342}
               height={513}
-              className='shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]'
+              className='rounded-md shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
               alt='bullcrap'
               src={getTmdbImageUrl(lite.posterPath, 'w342')}
             />

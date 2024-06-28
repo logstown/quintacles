@@ -39,7 +39,6 @@ export function UserListInfinite({
     // initialData,
     queryKey: ['userLists', restrictions, sortBy, exactMatch, userId],
     queryFn: async ({ pageParam }) => {
-      console.log(pageParam)
       const lists = await userListQueryServer({
         userId,
         restrictions,

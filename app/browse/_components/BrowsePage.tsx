@@ -60,7 +60,7 @@ export default async function BrowsePage({
   // })
 
   return (
-    <div className='mx-auto flex w-full flex-col items-center gap-8 pb-20 sm:gap-4'>
+    <div className='mx-auto flex w-full flex-col items-center gap-8 pb-20'>
       {user ? (
         <Link href={`/user/${user.username}`}>
           <div className='flex items-center gap-4'>
@@ -80,14 +80,14 @@ export default async function BrowsePage({
       ) : (
         <h1 className='text-6xl font-semibold'>Browse</h1>
       )}
-      <div className={`flex w-full flex-col items-center gap-14`}>
+      <div className={`flex w-full max-w-screen-lg flex-col items-center gap-14`}>
         <BrowseCriteria
           restrictionsFromParent={restrictions}
           sortByFromParent={sortBy}
           exactMatchFromParent={exactMatch}
           user={user}
         />
-        <div className={`flex w-full max-w-screen-lg flex-col items-center gap-10`}>
+        <div className={`flex w-full flex-col items-center gap-10`}>
           {exactMatch && (
             // <div className='sticky top-16 z-30 flex w-full justify-center bg-background'>  TODO: Fix this
             <ListTitle mediaType={restrictions.mediaType}>

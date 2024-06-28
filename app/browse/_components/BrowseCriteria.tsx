@@ -4,6 +4,7 @@ import MediaPicker from '@/components/media-picker'
 import { MovieTvCriteria } from '@/components/movie-tv-criteria'
 import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
+import { Card, CardBody } from '@nextui-org/card'
 import { Select, SelectItem } from '@nextui-org/select'
 import { Switch } from '@nextui-org/switch'
 import { Tab, Tabs } from '@nextui-org/tabs'
@@ -111,70 +112,82 @@ export function BrowseCriteria({
   }
 
   return (
-    <div className='flex w-full flex-col items-center gap-10'>
-      <div className='flex w-full max-w-screen-lg flex-col items-center justify-center gap-8 sm:flex-row sm:items-baseline sm:gap-12'>
-        <Tabs aria-label='Options' fullWidth selectedKey={pathname} size='lg'>
-          {mediaTypeArrForLists.map(mediaType => (
-            <Tab
-              key={`${baseUrl}/${mediaType.urlPlural}`}
-              as={Link}
-              title={mediaType.plural}
-              href={`${baseUrl}/${mediaType.urlPlural}`}
-            />
-          ))}
-        </Tabs>
-        <div className='flex items-baseline gap-12'>
-          <Select
-            label='Sort By'
-            labelPlacement='outside'
-            variant='bordered'
-            disallowEmptySelection={true}
+    <Card className='w-full p-6'>
+      <CardBody className='flex flex-col items-center gap-10'>
+        <div className='flex w-full flex-col items-center justify-center gap-8 md:flex-row md:items-baseline md:gap-12'>
+          <Tabs
+            aria-label='Options'
+            fullWidth
+            selectedKey={pathname}
             size='lg'
-            selectedKeys={[sortBy]}
-            onChange={setSortByFromPicker}
-            className='w-32 shrink-0'
             color='primary'
           >
-            <SelectItem key='lastUserAddedAt' value='lastUserAddedAt'>
-              Latest
-            </SelectItem>
-            <SelectItem key='users' value='users'>
-              Popular
-            </SelectItem>
-          </Select>
-          <Switch isSelected={showCriteria} onValueChange={setCriteria} size='lg'>
-            <SlidersHorizontalIcon />
-          </Switch>
-        </div>
-      </div>
-      {showCriteria && (
-        <div className='flex flex-wrap items-baseline justify-center gap-4 sm:gap-8'>
-          {restrictions.mediaType === MediaType.TvEpisode ? (
-            <MediaPicker
-              labelExcludesSelect={true}
+            {mediaTypeArrForLists.map(mediaType => (
+              <Tab
+                key={`${baseUrl}/${mediaType.urlPlural}`}
+                as={Link}
+                title={mediaType.plural}
+                href={`${baseUrl}/${mediaType.urlPlural}`}
+              />
+            ))}
+          </Tabs>
+          <div className='flex items-baseline gap-12'>
+            <Select
+              label='Sort By'
+              labelPlacement='outside'
+              disallowEmptySelection={true}
+              size='lg'
+              selectedKeys={[sortBy]}
+              onChange={setSortByFromPicker}
+              className='w-32 shrink-0'
+              color='primary'
+            >
+              <SelectItem key='lastUserAddedAt' value='lastUserAddedAt'>
+                Latest
+              </SelectItem>
+              <SelectItem key='users' value='users'>
+                Popular
+              </SelectItem>
+            </Select>
+            <Switch
+              isSelected={showCriteria}
+              onValueChange={setCriteria}
               size='lg'
               color='primary'
-              selectedItem={restrictions.EpisodesTvShow}
-              onSelected={tvShowSelected}
-              mediaType={MediaType.TvShow}
-            />
-          ) : (
-            <>
-              <MovieTvCriteria
-                isBrowse={true}
-                restrictions={restrictions}
-                onRestrictionsChange={restrictionsChange}
-              />
-              <Switch
-                isSelected={exactMatch}
-                onValueChange={setExactMatchFromPicker}
-              >
-                Exact
-              </Switch>
-            </>
-          )}
+            >
+              <SlidersHorizontalIcon />
+            </Switch>
+          </div>
         </div>
-      )}
-    </div>
+        {showCriteria && (
+          <div className='flex flex-wrap items-baseline justify-center gap-4 sm:gap-8'>
+            {restrictions.mediaType === MediaType.TvEpisode ? (
+              <MediaPicker
+                labelExcludesSelect={true}
+                size='lg'
+                color='primary'
+                selectedItem={restrictions.EpisodesTvShow}
+                onSelected={tvShowSelected}
+                mediaType={MediaType.TvShow}
+              />
+            ) : (
+              <>
+                <MovieTvCriteria
+                  isBrowse={true}
+                  restrictions={restrictions}
+                  onRestrictionsChange={restrictionsChange}
+                />
+                <Switch
+                  isSelected={exactMatch}
+                  onValueChange={setExactMatchFromPicker}
+                >
+                  Exact
+                </Switch>
+              </>
+            )}
+          </div>
+        )}
+      </CardBody>
+    </Card>
   )
 }

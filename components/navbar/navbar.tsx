@@ -78,7 +78,9 @@ export const Navbar = () => {
 
       <NavbarContent className='basis-1 pl-4 sm:hidden' justify='end'>
         <CreateListButton isSmall />
-        <RandomListButton />
+        <form action={getRandomList}>
+          <RandomListButton />
+        </form>
         <ThemeSwitch />
         <UserOrSignIn />
         {/* <NavbarMenuToggle /> */}
