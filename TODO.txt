@@ -3,7 +3,6 @@ Loading indicators (loading.tsx)
 cache prisma calls
 make adjustor for cover image
 metadata
-need to attribute TMDB
 
 Nice to haves:
 better surprise me... go back to clickable restriction buttons

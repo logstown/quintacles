@@ -17,7 +17,7 @@ export default function ListLoading() {
           </div>
         </div>
       </div>
-      <div className='flex flex-col items-stretch gap-10'>
+      <div className='flex max-w-screen-2xl flex-col items-stretch gap-10'>
         {arr.map(i => (
           <Skeleton className='rounded-xl' key={i}>
             <div className='aspect-[672/587] w-full lg:aspect-[26.66666/9]'>
