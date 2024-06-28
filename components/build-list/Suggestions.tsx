@@ -112,7 +112,7 @@ export function Suggestions({
           isClearable
           size='lg'
           placeholder='Search'
-          variant='bordered'
+          variant='faded'
           value={searchText}
           className='mt-4 max-w-[400px]'
           onValueChange={setSearchText}

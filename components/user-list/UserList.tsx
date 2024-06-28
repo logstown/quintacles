@@ -10,6 +10,9 @@ import { ListTitleBase } from '../list-title-base'
 import { Divider } from '@nextui-org/divider'
 import { UserListButtons } from '../UserListButtons'
 import { UserListLink } from './UserListLink'
+import { getGenreById } from '@/lib/genres'
+import { cloneElement } from 'react'
+import { GenreIcon } from './GenreIcon'
 
 export function UserListCard({
   restrictions,
@@ -49,18 +52,21 @@ export function UserListCard({
             <div
               className={`flex w-full items-center gap-6 truncate ${isEpisodes ? 'justify-center' : ''}`}
             >
-              <div className={`pl-1 ${Person?.id ? '' : 'hidden'}`}>
-                <UserListIcon
-                  mediaType={mediaType}
-                  personPath={Person!.profilePath}
-                  useMediaIcon={false}
-                />
-              </div>
-              <h2
-                className={`font-semibold ${isEpisodes ? 'text-2xl' : 'text-2xl sm:text-4xl'}`}
+              {!!Person?.id && (
+                <div className='pl-1'>
+                  <UserListIcon
+                    mediaType={mediaType}
+                    personPath={Person.profilePath}
+                    useMediaIcon={false}
+                  />
+                </div>
+              )}
+              <div
+                className={`flex items-center gap-3 text-2xl font-semibold ${isEpisodes ? '' : 'sm:text-4xl'}`}
               >
+                <GenreIcon genreId={restrictions.genreId} />
                 <ListTitleBase restrictions={restrictions} />
-              </h2>
+              </div>
             </div>
           </CardHeader>
         </Link>

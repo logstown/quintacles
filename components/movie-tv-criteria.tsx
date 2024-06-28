@@ -146,7 +146,7 @@ export function MovieTvCriteria({
           genre => (
             <AutocompleteItem
               startContent={
-                <span className='mr-1 text-foreground-400'>{genre.icon}</span>
+                <span className='mr-1 text-foreground-500'>{genre.icon}</span>
               }
               key={genre.id}
             >
