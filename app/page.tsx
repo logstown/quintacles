@@ -2,6 +2,8 @@ import { MediaTypeUserLists } from '@/components/MediaTypeUserLists'
 import { FlipWords } from '@/components/flip-words'
 import NextImage from 'next/image'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   // const deal = await prisma.listItem.findMany({
   //   take: 10,

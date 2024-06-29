@@ -16,8 +16,8 @@ import { MailIcon, ScrollTextIcon } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Ranker',
-    template: `%s - Ranker`,
+    default: 'Quintacles',
+    template: `%s - Quintacles`,
   },
   description: siteConfig.description,
   icons: {
