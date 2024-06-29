@@ -3,6 +3,10 @@ Loading indicators (loading.tsx)
 cache prisma calls
 make adjustor for cover image
 metadata
+Search suggestions:
+   -layout shift when searching
+   - need minimum characters
+Need a place to access current user's page
 
 Nice to haves:
 better surprise me... go back to clickable restriction buttons

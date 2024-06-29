@@ -278,8 +278,8 @@ export async function createOrUpdateUserList({
 
   if (userListId) {
     await prisma.$transaction([
-      createUpdateOperation,
       removeUserFromList(userListId, user.id),
+      createUpdateOperation,
     ])
   } else {
     await createUpdateOperation
