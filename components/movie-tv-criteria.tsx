@@ -22,7 +22,7 @@ export function MovieTvCriteria({
   const decades = getDecades()
   const mediaTypeGenres = useGenres(mediaType)
 
-  const setDecadeFromPicker = (decadeId: React.Key) => {
+  const setDecadeFromPicker = (decadeId: React.Key | null) => {
     const foundDecade = find(decades, { id: Number(decadeId) })
 
     onRestrictionsChange({
@@ -35,7 +35,7 @@ export function MovieTvCriteria({
     })
   }
 
-  const setGenreFromPicker = (genreId: React.Key) => {
+  const setGenreFromPicker = (genreId: React.Key | null) => {
     const foundGenre = find(mediaTypeGenres, { id: Number(genreId) })
 
     onRestrictionsChange({
