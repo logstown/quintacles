@@ -37,6 +37,7 @@ export function SuggestionItem({
         >
           {item.posterPath ? (
             <Image
+              unoptimized
               as={NextImage}
               width={300}
               height={450}

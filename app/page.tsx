@@ -23,6 +23,7 @@ export default async function Home() {
       <div>
         <div className='flex flex-wrap items-center justify-center gap-2'>
           <NextImage
+            unoptimized
             alt='octopus'
             width='150'
             className='w-[100px] md:w-[150px]'

@@ -56,6 +56,7 @@ export function EpisodeChoice({
         <div className='flex flex-1 flex-col items-center gap-4'>
           <AddListIdx idx={idx}>
             <Image
+              unoptimized
               as={NextImage}
               width={300}
               height={169}

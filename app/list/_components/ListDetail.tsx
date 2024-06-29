@@ -149,6 +149,7 @@ export async function ListDetail(props: ListDetailProps) {
             </div>
             <div className='relative flex w-full items-center lg:w-3/5'>
               <NextImage
+                unoptimized
                 className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right aspect-video rounded-xl object-cover'
                 src={item.backdropUrl}
                 alt='Robot Group'
@@ -158,6 +159,7 @@ export async function ListDetail(props: ListDetailProps) {
               {!includes(item.backdropUrl, 'tmdb') && (
                 <div className='absolute left-20 z-20'>
                   <Image
+                    unoptimized
                     isBlurred
                     alt='dude'
                     as={NextImage}

@@ -41,7 +41,13 @@ export const Navbar = () => {
       >
         <NavbarBrand as='li' className='max-w-fit gap-3'>
           <NextLink className='flex items-center justify-start gap-2' href='/'>
-            <NextImage alt='octopus' width='65' height='65' src='/octopus.png' />
+            <NextImage
+              alt='octopus'
+              width='65'
+              height='65'
+              src='/octopus.png'
+              unoptimized
+            />
             <p className='hidden text-xl font-semibold sm:block'>Quintacles</p>
           </NextLink>
         </NavbarBrand>

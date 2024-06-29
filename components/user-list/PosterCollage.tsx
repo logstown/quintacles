@@ -401,6 +401,7 @@ export function PosterCollageStraight({
             </Skeleton>
           ) : (
             <Image
+              unoptimized
               as={NextImage}
               isBlurred
               width={342}
@@ -443,6 +444,7 @@ export function BackdropCollageStraight({
                 className='aspect-video border-none shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]'
               >
                 <Image
+                  unoptimized
                   as={NextImage}
                   width={300}
                   isBlurred

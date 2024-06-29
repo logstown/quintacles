@@ -138,6 +138,7 @@ export function EditCoverImage() {
                     >
                       <CardBody className='p-0'>
                         <Image
+                          unoptimized
                           as={NextImage}
                           shadow='sm'
                           radius='lg'

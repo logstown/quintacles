@@ -72,6 +72,7 @@ export const CreateListItem = ({
         >
           <AddListIdx idx={itemOrder - 1} disabled={!!item}>
             <Image
+              unoptimized
               width={300}
               height={isEpisode ? 169 : 450}
               className={`object-cover ${isEpisode ? 'brightness-75' : ''} ${item ? '' : 'invisible'}`}
