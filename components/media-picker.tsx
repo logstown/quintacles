@@ -62,7 +62,7 @@ export default function MediaPicker({
     staleTime: Infinity,
   })
 
-  const onSelectionChange = (key: React.Key) => {
+  const onSelectionChange = (key: React.Key | null) => {
     if (onSelected) {
       const item = find(items, { tmdbId: Number(key) })
       onSelected(item)
