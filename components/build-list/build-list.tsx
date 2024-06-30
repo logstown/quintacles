@@ -42,7 +42,7 @@ export function BuildList({
     onError: e => console.log(e),
   })
 
-  const title = userListId ? 'Edit List' : 'Add Items'
+  const title = userListId ? 'Edit List' : ''
 
   const addListItem = async (item: ListItem) => {
     setListItems([...listItems, item])
@@ -83,18 +83,7 @@ export function BuildList({
           })}
         </ReorderGroupResponsive>
       </CardBody>
-      <CardFooter className='mt-2 justify-end gap-4'>
-        {!userListId && (
-          <Button
-            href={`/create/criteria/${mediaTypes[restrictions.mediaType].urlPlural}`}
-            as={Link}
-            className={isSavePending ? 'invisible' : ''}
-            startContent={<ArrowLeft size={15} />}
-            variant='faded'
-          >
-            Criteria
-          </Button>
-        )}
+      <CardFooter className='mt-2 justify-end'>
         <Button
           isDisabled={listItems.length !== 5}
           color='primary'

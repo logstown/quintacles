@@ -80,7 +80,7 @@ export function EpisodePicker({
           isClearable
           label='Search Episodes'
           labelPlacement='outside'
-          variant='bordered'
+          variant='faded'
           value={search}
           className='min-w-[200px] max-w-[400px] flex-1'
           onValueChange={setSearch}
@@ -88,7 +88,7 @@ export function EpisodePicker({
         <div className='flex gap-4'>
           <Select
             label='Season'
-            variant='bordered'
+            variant='faded'
             labelPlacement='outside'
             placeholder='Select an animal'
             selectedKeys={[season]}
@@ -103,7 +103,7 @@ export function EpisodePicker({
           </Select>
           <Select
             label='Sort By'
-            variant='bordered'
+            variant='faded'
             labelPlacement='outside'
             selectedKeys={[sortEpsBy]}
             className='w-40'

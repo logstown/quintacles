@@ -8,6 +8,7 @@ import { find } from 'lodash'
 import { mediaTypeArr } from '@/lib/mediaTypes'
 import { MediaType } from '@prisma/client'
 import { getRestrictionsFromParams } from '@/lib/server-functions'
+import { CriteriaBreadcrumbs } from '../../criteria/_components/CriteriaBreadcrumbs'
 
 export default async function BuildListPage({
   params: { mediaTypePlural },
@@ -52,5 +53,12 @@ export default async function BuildListPage({
     episodeData = await getEpisodeData(restrictions.episodesTvShowId!)
   }
 
-  return <BuildList restrictions={restrictions} episodeData={episodeData} />
+  return (
+    <>
+      <div className='mb-10'>
+        <CriteriaBreadcrumbs mediaType={restrictions.mediaType} isAddItems />
+      </div>
+      <BuildList restrictions={restrictions} episodeData={episodeData} />
+    </>
+  )
 }

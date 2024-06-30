@@ -2,6 +2,7 @@ import { Suggestions } from '@/components/build-list/Suggestions'
 import prisma from '@/lib/db'
 import { currentUser } from '@clerk/nextjs/server'
 import { MediaType } from '@prisma/client'
+import { CriteriaBreadcrumbs } from '../_components/CriteriaBreadcrumbs'
 
 export default async function TvEpisodeCriteriaPage() {
   const user = await currentUser()
@@ -33,13 +34,15 @@ export default async function TvEpisodeCriteriaPage() {
   const tvShowIds = restrictions.map(r => r.EpisodesTvShow.id)
 
   return (
-    <div className='mx-auto flex flex-col gap-6'>
-      <h1 className='text-xl sm:text-2xl'>Choose Episodes TV Show</h1>
+    <>
+      <div className='mb-10'>
+        <CriteriaBreadcrumbs mediaType={MediaType.TvEpisode} />
+      </div>
       <Suggestions
         isForEpisodes={true}
         mediaIds={tvShowIds}
         restrictions={{ mediaType: MediaType.TvShow }}
       />
-    </div>
+    </>
   )
 }

@@ -23,34 +23,29 @@ export function MovieTvCriteriaCard({ mediaType }: { mediaType: MediaType }) {
   }
 
   return (
-    <div className='flex flex-col items-stretch gap-6'>
-      <h1 className='ml-6 text-xl sm:text-2xl'>
-        What kind of {mediaTypes[mediaType].plural}?
-      </h1>
-      <Card className='w-fit p-4' shadow='lg'>
-        <CardHeader className='border-b-1'>
-          <ListTitle mediaType={mediaType}>
-            <ListTitleBase restrictions={restrictions} />
-          </ListTitle>
-        </CardHeader>
-        <CardBody className='rounded-xl sm:p-10'>
-          <MovieTvCriteria
-            restrictions={restrictions}
-            onRestrictionsChange={setRestrictions}
-          />
-        </CardBody>
-        <CardFooter className='mt-2 justify-end'>
-          <Button
-            size='lg'
-            color='primary'
-            onClick={goToList}
-            endContent={<ArrowRight size={20} />}
-            variant='shadow'
-          >
-            Build list
-          </Button>
-        </CardFooter>
-      </Card>
-    </div>
+    <Card className='w-fit p-4' shadow='lg'>
+      <CardHeader className='border-b-1'>
+        <ListTitle mediaType={mediaType}>
+          <ListTitleBase restrictions={restrictions} />
+        </ListTitle>
+      </CardHeader>
+      <CardBody className='rounded-xl sm:p-10'>
+        <MovieTvCriteria
+          restrictions={restrictions}
+          onRestrictionsChange={setRestrictions}
+        />
+      </CardBody>
+      <CardFooter className='mt-2 justify-end'>
+        <Button
+          size='lg'
+          color='primary'
+          onClick={goToList}
+          endContent={<ArrowRight size={20} />}
+          variant='shadow'
+        >
+          Build list
+        </Button>
+      </CardFooter>
+    </Card>
   )
 }
