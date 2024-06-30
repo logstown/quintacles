@@ -81,7 +81,7 @@ export const CreateListItem = ({
             />
           </AddListIdx>
           {isEpisode && !!item && (
-            <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] justify-center overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
+            <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
               <p className='text-left text-tiny text-white/80'>{item.name}</p>
             </CardFooter>
           )}

@@ -109,6 +109,7 @@ export async function getRestrictionsFromParams({
           id: tmdbShow.id,
           name: tmdbShow.name,
           posterPath: tmdbShow.poster_path,
+          backdropPath: tmdbShow.backdrop_path,
         }
       }
     } catch (e) {}

@@ -136,6 +136,7 @@ function createOrConnectUserToList(
     id: 0,
     name: '',
     posterPath: null,
+    backdropPath: null,
   }
 
   decade = decade ?? 0

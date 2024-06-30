@@ -28,6 +28,7 @@ export function EpisodeChoice({
 
   const selectEpisode = () => {
     const item = convertMediaItem(episode, MediaType.TvEpisode)
+    item.backdropPath = item.backdropPath ?? backDropFallBack
     onItemSelected(item)
   }
   return (

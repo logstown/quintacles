@@ -122,9 +122,10 @@ model Person {
 }
 
 model TvShowLite {
-  id         Int     @id @unique
-  name       String
-  posterPath String?
+  id           Int     @id @unique
+  name         String
+  backdropPath String?
+  posterPath   String?
 
   retrictions Restrictions[]
 }

@@ -133,7 +133,7 @@ export function EpisodePicker({
           const idx = findIndex(listItems, { tmdbId: episode.id })
           return (
             <EpisodeChoice
-              backDropFallBack={tvShow.posterPath ?? ''}
+              backDropFallBack={tvShow.backdropPath ?? ''}
               key={episode.id}
               onItemSelected={onItemSelected}
               episode={episode}
