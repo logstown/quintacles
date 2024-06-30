@@ -16,35 +16,30 @@ import Link from 'next/link'
 export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
   return (
     <Dropdown>
-      <NavbarItem>
-        <DropdownTrigger>
-          {isSmall ? (
-            <Button isIconOnly size='sm' variant='flat'>
-              <ChevronDown strokeWidth={1.3} size={20} />
-            </Button>
-          ) : (
-            <Button
-              disableRipple
-              endContent={<ChevronDown strokeWidth={1.3} size={20} />}
-              variant='light'
-            >
-              Browse
-            </Button>
-          )}
-        </DropdownTrigger>
-      </NavbarItem>
-      <DropdownMenu aria-label='ACME features'>
+      <DropdownTrigger>
+        {isSmall ? (
+          <Button isIconOnly size='sm' variant='flat'>
+            <ChevronDown strokeWidth={1.3} size={20} />
+          </Button>
+        ) : (
+          <Button
+            disableRipple
+            endContent={<ChevronDown strokeWidth={1.3} size={20} />}
+            variant='flat'
+            color='primary'
+          >
+            Browse
+          </Button>
+        )}
+      </DropdownTrigger>
+      <DropdownMenu aria-label='ACME features' variant='shadow' color='primary'>
         {mediaTypeArrForLists.map(type => {
           const mediaTypeIconSmaller = cloneElement(type.icon, {
             size: 18,
           })
           return (
             <DropdownItem
-              startContent={
-                <span className='mr-1 text-foreground-500'>
-                  {mediaTypeIconSmaller}
-                </span>
-              }
+              startContent={<span className='mr-1'>{mediaTypeIconSmaller}</span>}
               as={Link}
               className='capitalize text-foreground'
               key={type.urlPlural}

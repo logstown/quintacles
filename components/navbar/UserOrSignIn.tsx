@@ -1,16 +1,94 @@
 'use client'
 
-import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { SignInButton, SignOutButton, SignUpButton, useUser } from '@clerk/nextjs'
+import { Avatar } from '@nextui-org/avatar'
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  DropdownSection,
+} from '@nextui-org/dropdown'
+import { ListIcon, LogOutIcon, PlusIcon, UserIcon } from 'lucide-react'
+import Link from 'next/link'
 
 export function UserOrSignIn() {
+  const { user, isSignedIn } = useUser()
+
   return (
-    <>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton appearance={{ elements: { avatarBox: 'h-10 w-10' } }} />
-      </SignedIn>
-    </>
+    <Dropdown placement='bottom-end'>
+      <DropdownTrigger>
+        <Avatar
+          isBordered
+          as='button'
+          className='transition-transform'
+          color='secondary'
+          name={user?.fullName ?? user?.username ?? ''}
+          src={user?.imageUrl}
+        />
+      </DropdownTrigger>
+      {isSignedIn ? (
+        <DropdownMenu aria-label='Profile Actions' variant='shadow'>
+          <DropdownSection showDivider>
+            <DropdownItem
+              key='create'
+              textValue='Create List'
+              color='primary'
+              as={Link}
+              startContent={<PlusIcon size={20} className='mr-1' />}
+              href='/create/criteria'
+            >
+              Create List
+            </DropdownItem>
+            <DropdownItem
+              key='your-lists'
+              textValue='Your Lists'
+              color='secondary'
+              as={Link}
+              startContent={<ListIcon size={20} className='mr-1' />}
+              href={`/user/${user.username}`}
+            >
+              Your Lists
+            </DropdownItem>
+          </DropdownSection>
+          <DropdownSection>
+            <DropdownItem
+              key='profile'
+              className='h-14 items-start gap-2'
+              textValue='Profile'
+              startContent={<UserIcon size={20} className='mr-1' />}
+              description={`Signed in as @${user.username}`}
+              as={Link}
+              href='/user-profile'
+            >
+              Account
+            </DropdownItem>
+            <DropdownItem
+              key='logout'
+              textValue='Sign Out'
+              color='danger'
+              startContent={<LogOutIcon size={20} className='mr-1' />}
+            >
+              <SignOutButton>
+                <button className='w-full text-left'>Sign Out</button>
+              </SignOutButton>
+            </DropdownItem>
+          </DropdownSection>
+        </DropdownMenu>
+      ) : (
+        <DropdownMenu>
+          <DropdownItem textValue='sign in' key='sign_in' color='primary'>
+            <SignInButton>
+              <button className='w-full text-left'>Sign In</button>
+            </SignInButton>
+          </DropdownItem>
+          <DropdownItem textValue='sign up' key='sign_up'>
+            <SignUpButton>
+              <button className='w-full text-left'>Sign Up</button>
+            </SignUpButton>
+          </DropdownItem>
+        </DropdownMenu>
+      )}
+    </Dropdown>
   )
 }

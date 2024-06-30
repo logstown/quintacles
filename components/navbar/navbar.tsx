@@ -1,13 +1,11 @@
 import {
   Navbar as NextUINavbar,
   NavbarContent,
-  NavbarBrand,
   NavbarItem,
 } from '@nextui-org/navbar'
 import NextLink from 'next/link'
 
 import { ThemeSwitch } from '@/components/theme-switch'
-import { CreateListButton } from './create-list-button'
 import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { RandomListButton } from './random-list-button'
@@ -35,12 +33,9 @@ async function getRandomList() {
 export const Navbar = () => {
   return (
     <NextUINavbar maxWidth='xl' position='sticky' className='shadow-md'>
-      <NavbarContent
-        className='basis-1/5 gap-4 sm:basis-full sm:gap-8'
-        justify='start'
-      >
-        <NavbarBrand as='li' className='max-w-fit gap-3'>
-          <NextLink className='flex items-center justify-start gap-2' href='/'>
+      <NavbarContent className='sm:gap-8' justify='start'>
+        <NavbarItem className='shrink-0'>
+          <NextLink href='/' className='flex items-center gap-3'>
             <NextImage
               alt='octopus'
               width='65'
@@ -50,43 +45,18 @@ export const Navbar = () => {
             />
             <p className='hidden text-xl font-semibold sm:block'>Quintacles</p>
           </NextLink>
-        </NavbarBrand>
-        <div className='md:hidden'>
-          <BrowseDropdown isSmall />
-        </div>
-        <div className='hidden md:flex'>
-          <BrowseDropdown />
-        </div>
-      </NavbarContent>
-
-      <NavbarContent
-        className='hidden basis-1/5 sm:flex sm:basis-full'
-        justify='end'
-      >
+        </NavbarItem>
         <NavbarItem>
-          <div className='md:hidden'>
-            <CreateListButton isSmall />
-          </div>
-          <div className='hidden md:flex'>
-            <CreateListButton />
-          </div>
+          <BrowseDropdown />
         </NavbarItem>
         <NavbarItem>
           <form action={getRandomList}>
             <RandomListButton />
           </form>
         </NavbarItem>
-        <NavbarItem className='hidden gap-2 sm:flex'>
-          <ThemeSwitch />
-        </NavbarItem>
-        <UserOrSignIn />
       </NavbarContent>
 
-      <NavbarContent className='basis-1 pl-4 sm:hidden' justify='end'>
-        <CreateListButton isSmall />
-        <form action={getRandomList}>
-          <RandomListButton />
-        </form>
+      <NavbarContent className='gap-6 pl-4' justify='end'>
         <ThemeSwitch />
         <UserOrSignIn />
         {/* <NavbarMenuToggle /> */}
