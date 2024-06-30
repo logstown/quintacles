@@ -59,7 +59,7 @@ export default function MediaPicker({
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     refetchOnReconnect: false,
-    staleTime: Infinity,
+    staleTime: Infinity, // TODO this probably isn't great
   })
 
   const onSelectionChange = (key: React.Key | null) => {

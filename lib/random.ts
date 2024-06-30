@@ -60,7 +60,7 @@ export const getDecades = (): Decade[] => {
 
 export const getTmdbImageUrl = (path?: string | null, size?: string): string => {
   if (!path) {
-    return ''
+    return '/movieBackdrop.jpeg' // TODO need a better default image
   }
   return `https://image.tmdb.org/t/p/${size ?? 'w300'}${path}`
 }

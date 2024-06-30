@@ -5,11 +5,10 @@ make adjustor for cover image
 metadata
 
 Friends test:
-Search suggestions:
+Need to fix epsisode list overflow title
+Search suggestions
    -layout shift when searching
-   - need minimum characters
 Need a place to access current user's page
-remove image optimization
 episode search 
   - placeholder image takes up full height (poster)
   - after choosing episode, poster image does not appear in list

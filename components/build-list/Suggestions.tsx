@@ -47,9 +47,10 @@ export function Suggestions({
   }
 
   const fetchSuggestions = async ({ pageParam }: { pageParam: any }) => {
-    const data = debouncedSearchText
-      ? await getSearchRestults()
-      : await getSuggestions(pageParam, restrictions)
+    const data =
+      debouncedSearchText.length >= 3
+        ? await getSearchRestults()
+        : await getSuggestions(pageParam, restrictions)
 
     const suggestions = data.results
       .filter((x: any) => !mediaIds?.includes(x.id))
