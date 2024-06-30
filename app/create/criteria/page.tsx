@@ -10,6 +10,7 @@ const CreateCriteriaPage = () => {
         {mediaTypeArrForLists.map(mediaType => (
           <Button
             size='lg'
+            key={mediaType.key}
             color='primary'
             variant='shadow'
             className='p-8 text-xl'
