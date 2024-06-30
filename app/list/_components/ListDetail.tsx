@@ -97,7 +97,7 @@ export async function ListDetail(props: ListDetailProps) {
       <div className='mx-auto mt-4 flex max-w-screen-2xl flex-col items-center gap-16 md:mt-8'>
         {listItemsReverse.map((item, i) => (
           <div
-            className='group mx-4 flex flex-col items-stretch rounded-xl shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] lg:mx-0 lg:w-full lg:flex-row'
+            className='group mx-4 flex max-w-screen-sm flex-col items-stretch rounded-xl shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] lg:mx-0 lg:w-full lg:max-w-none lg:flex-row'
             style={{
               backgroundColor: item.bgColor,
             }}

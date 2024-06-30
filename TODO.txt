@@ -9,9 +9,6 @@ Need to fix epsisode list overflow title
 Search suggestions
    -layout shift when searching
 Need a place to access current user's page
-episode search 
-  - placeholder image takes up full height (poster)
-  - after choosing episode, poster image does not appear in list
 
 Nice to haves:
 better surprise me... go back to clickable restriction buttons
