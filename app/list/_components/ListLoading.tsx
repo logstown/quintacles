@@ -5,7 +5,7 @@ export default function ListLoading() {
   return (
     <main>
       <div className='mx-8 mb-8 flex flex-col items-center gap-4'>
-        <Skeleton className='w-[600px] rounded-lg text-center text-4xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl'>
+        <Skeleton className='w-[60%] rounded-lg text-center text-5xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl'>
           dummy
         </Skeleton>
         <div className='flex flex-none items-center gap-3'>
@@ -17,13 +17,12 @@ export default function ListLoading() {
           </div>
         </div>
       </div>
-      <div className='flex max-w-screen-2xl flex-col items-stretch gap-10'>
+      <div className='flex max-w-screen-2xl flex-col items-center gap-10'>
         {arr.map(i => (
-          <Skeleton className='rounded-xl' key={i}>
-            <div className='aspect-[672/587] w-full lg:aspect-[26.66666/9]'>
-              dummy
-            </div>
-          </Skeleton>
+          <Skeleton
+            className='aspect-[672/587] w-full max-w-screen-sm rounded-xl lg:aspect-[26.66666/9] lg:w-full lg:max-w-none'
+            key={i}
+          />
         ))}
       </div>
     </main>
