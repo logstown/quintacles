@@ -82,7 +82,9 @@ export function UserListCard({
           )}
         </UserListLink>
       </CardBody>
-      <CardFooter className='flex items-center justify-center gap-5 sm:justify-end'>
+      <CardFooter
+        className={`flex items-center justify-center gap-5 ${isEpisodes ? '' : 'sm:justify-end'}`}
+      >
         <div className='mr-1'>
           <UserTime
             excludeUser={false}
