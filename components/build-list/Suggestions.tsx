@@ -125,7 +125,7 @@ export function Suggestions({
       {status === 'pending' ? (
         <div className='suggestions-grid sm:suggestions-larger w-full'>
           {range(20).map(i => (
-            <Skeleton className='rounded-xl'>
+            <Skeleton key={i} className='rounded-xl'>
               <Image
                 unoptimized
                 as={NextImage}
