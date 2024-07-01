@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </Providers>
         <SpeedInsights />
-        {/* <Analytics /> */}
+        <Analytics />
       </body>
     </html>
   )
