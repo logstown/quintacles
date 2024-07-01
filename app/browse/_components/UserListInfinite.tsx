@@ -10,6 +10,7 @@ import { Spinner } from '@nextui-org/spinner'
 import React from 'react'
 import { userListQueryServer } from '@/app/actions'
 import { UserListsWrapper } from '@/components/user-list/UserListsWrapper'
+import { UserListSkeleton } from '@/components/user-list/UserListSkeleton'
 
 export function UserListInfinite({
   // initialData,
@@ -25,6 +26,8 @@ export function UserListInfinite({
   exactMatch: boolean
 }) {
   const [ref, inView] = useInView()
+
+  const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
 
   const {
     data,
@@ -73,10 +76,7 @@ export function UserListInfinite({
         <p>Error: {error.message}</p>
       ) : (
         <>
-          <UserListsWrapper
-            isBrowse={true}
-            isEpisodes={restrictions.mediaType === MediaType.TvEpisode}
-          >
+          <UserListsWrapper isBrowse={true} isEpisodes={isEpisodes}>
             {data?.pages.map((group, i) => (
               <React.Fragment key={i}>
                 {group.lists.map(list => (
@@ -99,12 +99,11 @@ export function UserListInfinite({
                 ))}
               </React.Fragment>
             ))}
+            {isPending &&
+              [1, 2, 3].map(i => (
+                <UserListSkeleton key={i} isEpisodes={isEpisodes} />
+              ))}
           </UserListsWrapper>
-          {isPending && (
-            <div className='mt-14 flex justify-center'>
-              <Spinner size='lg' className='ml-10' />
-            </div>
-          )}
           {!isPending && (hasNextPage || (isFetching && !isFetchingNextPage)) && (
             <div className='mt-14 flex justify-center'>
               <Spinner ref={ref} size='lg' className='ml-10' />

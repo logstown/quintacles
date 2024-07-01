@@ -9,14 +9,16 @@ export function UserListSkeleton({ isEpisodes }: { isEpisodes: boolean }) {
         <Skeleton className='rounded-lg'>
           <div className='flex w-full items-baseline gap-3 truncate'>
             <h2
-              className={`font-semibold ${isEpisodes ? 'text-2xl tracking-tight' : 'text-2xl sm:text-4xl'}`}
+              className={`text-2xl font-semibold ${isEpisodes ? '' : 'sm:text-4xl'}`}
             >
               Dummy Title Time
             </h2>
           </div>
         </Skeleton>
       </CardHeader>
-      <CardBody className={`overflow-visible ${isEpisodes ? 'pt-0' : 'pb-2 pt-1'}`}>
+      <CardBody
+        className={`overflow-visible ${isEpisodes ? 'pt-0' : 'px-1 pb-2 pt-1 sm:px-3'}`}
+      >
         {isEpisodes ? <BackdropCollageStraight /> : <PosterCollageStraight />}
       </CardBody>
       <CardFooter className='flex justify-end'>

@@ -435,7 +435,7 @@ export function BackdropCollageStraight({
       {backdrops.map((lite, i) => (
         <React.Fragment key={i}>
           {isSkeleton ? (
-            <Skeleton className='aspect-video w-[300px] rounded-xl' />
+            <Skeleton className='aspect-video w-[245px] rounded-xl' />
           ) : (
             <div className='flex items-center gap-4'>
               <MediaRank>{i + 1}</MediaRank>
