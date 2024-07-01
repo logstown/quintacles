@@ -1,15 +1,16 @@
 import 'server-only'
 
-import { find, pickBy } from 'lodash'
-import { CreateListSearchParams, RestrictionsUI } from './models'
+import { find, pickBy, reject } from 'lodash'
+import { CreateListSearchParams, EpisodeData, RestrictionsUI } from './models'
 import { MediaType, Prisma } from '@prisma/client'
 import prisma from './db'
 import { redirect } from 'next/navigation'
-import { TvShow, TmdbPerson } from './TmdbModels'
-import { getMediaItem } from './TmdbService'
+import { TvShow, TmdbPerson, TvEpisode, Season } from './TmdbModels'
+import { getMediaItem, getTvSeason } from './TmdbService'
 import { getGenres } from './genres'
 import { mediaTypes } from './mediaTypes'
 import { getDecades, getSlug } from './random'
+import { flow, map, sortBy, uniq } from 'lodash/fp'
 
 export async function userListQuery({
   userId,
@@ -158,4 +159,36 @@ export async function getRestrictionsFromParams({
       Person,
     }
   }
+}
+
+const fetchAllEpisodes = async (
+  showId: number,
+  seasonNum: number,
+): Promise<TvEpisode[]> => {
+  const season = (await getTvSeason(showId, seasonNum)) as Season & {
+    success: boolean
+  }
+
+  if (season.success === false) {
+    return []
+  } else {
+    const episodes = reject(
+      season.episodes,
+      ep => new Date(ep.air_date) > new Date(),
+    )
+    const nextSeasonEps = await fetchAllEpisodes(showId, seasonNum + 1)
+    return [...episodes, ...nextSeasonEps]
+  }
+}
+
+export const getEpisodeData = async (tvShowId: number): Promise<EpisodeData> => {
+  const allEpisodes = await fetchAllEpisodes(tvShowId, 1)
+  const seasons = flow(
+    map('season_number'),
+    map(x => x.toString()),
+    uniq,
+    sortBy(x => Number(x)),
+  )(allEpisodes)
+
+  return { allEpisodes, seasons }
 }

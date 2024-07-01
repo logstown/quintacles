@@ -1,13 +1,13 @@
 import { currentUser } from '@clerk/nextjs/server'
-import { CreateListSearchParams } from '@/lib/models'
+import { CreateListSearchParams, EpisodeData } from '@/lib/models'
 import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { BuildList } from '@/components/build-list/build-list'
-import { EpisodeData, getEpisodeData, getSlug } from '@/lib/random'
+import { getSlug } from '@/lib/random'
 import { find } from 'lodash'
 import { mediaTypeArr } from '@/lib/mediaTypes'
 import { MediaType } from '@prisma/client'
-import { getRestrictionsFromParams } from '@/lib/server-functions'
+import { getEpisodeData, getRestrictionsFromParams } from '@/lib/server-functions'
 import { CriteriaBreadcrumbs } from '../../criteria/_components/CriteriaBreadcrumbs'
 
 export default async function BuildListPage({

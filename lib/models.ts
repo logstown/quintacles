@@ -1,4 +1,5 @@
 import { MediaType, Person, TvShowLite } from '@prisma/client'
+import { TvEpisode } from './TmdbModels'
 
 export type Genre = {
   id: number
@@ -32,3 +33,8 @@ export interface CreateListSearchParams {
 }
 
 export type UserListSortBy = 'lastUserAddedAt' | 'users'
+
+export interface EpisodeData {
+  allEpisodes: TvEpisode[]
+  seasons: string[]
+}

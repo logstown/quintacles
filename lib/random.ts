@@ -1,10 +1,7 @@
-import { range, reject } from 'lodash'
+import { range } from 'lodash'
 import { Decade, RestrictionsUI } from './models'
 import { ListItem, MediaType } from '@prisma/client'
 import { mediaTypes } from './mediaTypes'
-import { getTvSeason } from './TmdbService'
-import { Season, TvEpisode } from './TmdbModels'
-import { flow, map, sortBy, uniq } from 'lodash/fp'
 import { getListTitle } from '@/components/list-title-base'
 import slug from 'slug'
 
@@ -139,43 +136,6 @@ export const convertMediaItem = (
         genreIds: [],
       }
   }
-}
-
-const fetchAllEpisodes = async (
-  showId: number,
-  seasonNum: number,
-): Promise<TvEpisode[]> => {
-  const season = (await getTvSeason(showId, seasonNum)) as Season & {
-    success: boolean
-  }
-
-  if (season.success === false) {
-    return []
-  } else {
-    const episodes = reject(
-      season.episodes,
-      ep => new Date(ep.air_date) > new Date(),
-    )
-    const nextSeasonEps = await fetchAllEpisodes(showId, seasonNum + 1)
-    return [...episodes, ...nextSeasonEps]
-  }
-}
-
-export interface EpisodeData {
-  allEpisodes: TvEpisode[]
-  seasons: string[]
-}
-
-export const getEpisodeData = async (tvShowId: number): Promise<EpisodeData> => {
-  const allEpisodes = await fetchAllEpisodes(tvShowId, 1)
-  const seasons = flow(
-    map('season_number'),
-    map(x => x.toString()),
-    uniq,
-    sortBy(x => Number(x)),
-  )(allEpisodes)
-
-  return { allEpisodes, seasons }
 }
 
 export const getSlug = (restrictions: RestrictionsUI): string => {

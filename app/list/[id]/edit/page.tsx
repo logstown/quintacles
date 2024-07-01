@@ -1,6 +1,6 @@
 import { BuildList } from '@/components/build-list/build-list'
 import prisma from '@/lib/db'
-import { getEpisodeData } from '@/lib/random'
+import { getEpisodeData } from '@/lib/server-functions'
 import { currentUser } from '@clerk/nextjs/server'
 import { MediaType } from '@prisma/client'
 import { redirect } from 'next/navigation'
