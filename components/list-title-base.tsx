@@ -2,7 +2,6 @@ import { replace, trim } from 'lodash'
 import { useMemo } from 'react'
 import { getGenreById } from '../lib/genres'
 import { mediaTypes } from '../lib/mediaTypes'
-import { MediaType } from '@prisma/client'
 import { RestrictionsUI } from '@/lib/models'
 
 export const getListTitle = (
@@ -68,7 +67,12 @@ export function ListTitleBase({
 
   return (
     <>
-      {tvShow && <span className={includeMediaType ? 'italic' : ''}>{tvShow}</span>}{' '}
+      {tvShow && (
+        <span className={includeMediaType ? 'mr-2 italic' : 'truncate'}>
+          {tvShow}
+        </span>
+      )}
+      {'  '}
       {partialTitle}
     </>
   )

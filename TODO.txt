@@ -5,9 +5,6 @@ make adjustor for cover image
 metadata
 
 Friends test:
-Need to fix epsisode list overflow title
-Search suggestions
-   -layout shift when searching
 
 Nice to haves:
 better surprise me... go back to clickable restriction buttons

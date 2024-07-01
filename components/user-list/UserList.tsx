@@ -10,8 +10,6 @@ import { ListTitleBase } from '../list-title-base'
 import { Divider } from '@nextui-org/divider'
 import { UserListButtons } from '../UserListButtons'
 import { UserListLink } from './UserListLink'
-import { getGenreById } from '@/lib/genres'
-import { cloneElement } from 'react'
 import { GenreIcon } from './GenreIcon'
 
 export function UserListCard({
@@ -62,7 +60,7 @@ export function UserListCard({
                 </div>
               )}
               <div
-                className={`flex items-center gap-3 text-2xl font-semibold ${isEpisodes ? '' : 'sm:text-4xl'}`}
+                className={`flex items-center gap-4 text-2xl font-semibold ${isEpisodes ? 'max-w-[267px]' : 'sm:text-4xl'}`}
               >
                 <GenreIcon genreId={restrictions.genreId} />
                 <ListTitleBase restrictions={restrictions} />
