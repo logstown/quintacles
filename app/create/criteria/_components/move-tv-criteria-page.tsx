@@ -9,7 +9,7 @@ export function MovieTvCriteriaBuild({ mediaType }: { mediaType: MediaType }) {
   return (
     <>
       <CriteriaBreadcrumbs mediaType={mediaType} />
-      <div className='mt-10 flex flex-col items-center gap-16'>
+      <div className='flex flex-col items-center gap-16'>
         <MovieTvCriteriaCard mediaType={mediaType} />
         <div className='flex items-center justify-center gap-10'>
           <p className='text-lg'>or</p>

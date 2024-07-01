@@ -12,7 +12,7 @@ export function CriteriaBreadcrumbs({
   isAddItems?: boolean
 }) {
   return (
-    <Breadcrumbs size='lg' variant='solid' underline='hover'>
+    <Breadcrumbs size='lg' variant='solid' underline='hover' className='mb-6'>
       <BreadcrumbItem href='/create/criteria'>Create List</BreadcrumbItem>
       <BreadcrumbItem href={`/create/criteria/${mediaTypes[mediaType].urlPlural}`}>
         {mediaTypes[mediaType].plural}

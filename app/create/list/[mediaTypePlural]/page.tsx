@@ -55,9 +55,7 @@ export default async function BuildListPage({
 
   return (
     <>
-      <div className='mb-10'>
-        <CriteriaBreadcrumbs mediaType={restrictions.mediaType} isAddItems />
-      </div>
+      <CriteriaBreadcrumbs mediaType={restrictions.mediaType} isAddItems />
       <BuildList restrictions={restrictions} episodeData={episodeData} />
     </>
   )

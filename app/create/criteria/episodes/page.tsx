@@ -35,9 +35,7 @@ export default async function TvEpisodeCriteriaPage() {
 
   return (
     <>
-      <div className='mb-10'>
-        <CriteriaBreadcrumbs mediaType={MediaType.TvEpisode} />
-      </div>
+      <CriteriaBreadcrumbs mediaType={MediaType.TvEpisode} />
       <Suggestions
         isForEpisodes={true}
         mediaIds={tvShowIds}

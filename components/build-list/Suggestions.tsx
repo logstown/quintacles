@@ -2,7 +2,7 @@
 
 import { InfoIcon, SearchIcon } from 'lucide-react'
 import { useEffect } from 'react'
-import { findIndex, intersection } from 'lodash'
+import { findIndex, intersection, range } from 'lodash'
 import { convertMediaItem } from '../../lib/random'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import React from 'react'
@@ -17,6 +17,9 @@ import { Spinner } from '@nextui-org/spinner'
 import { Input } from '@nextui-org/input'
 import { useRouter } from 'next/navigation'
 import { TmdbGenres } from '@/lib/TmdbModels'
+import { Skeleton } from '@nextui-org/skeleton'
+import { Image } from '@nextui-org/image'
+import NextImage from 'next/image'
 
 export function Suggestions({
   onItemSelected,
@@ -120,8 +123,19 @@ export function Suggestions({
         />
       </div>
       {status === 'pending' ? (
-        <div className='flex justify-center'>
-          <Spinner size='lg' />
+        <div className='suggestions-grid sm:suggestions-larger w-full'>
+          {range(20).map(i => (
+            <Skeleton className='rounded-xl'>
+              <Image
+                unoptimized
+                as={NextImage}
+                width={300}
+                height={450}
+                src='/dummyPoster.jpeg'
+                alt='NextUI hero Image'
+              />
+            </Skeleton>
+          ))}
         </div>
       ) : status === 'error' ? (
         <p>Error: {error.message}</p>
