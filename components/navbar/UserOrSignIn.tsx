@@ -32,7 +32,6 @@ export function UserOrSignIn() {
           <DropdownSection showDivider>
             <DropdownItem
               key='create'
-              textValue='Create List'
               color='primary'
               as={Link}
               startContent={<PlusIcon size={20} className='mr-1' />}
@@ -42,7 +41,6 @@ export function UserOrSignIn() {
             </DropdownItem>
             <DropdownItem
               key='your-lists'
-              textValue='Your Lists'
               color='secondary'
               as={Link}
               startContent={<ListIcon size={20} className='mr-1' />}
@@ -55,7 +53,6 @@ export function UserOrSignIn() {
             <DropdownItem
               key='profile'
               className='h-14 items-start gap-2'
-              textValue='Profile'
               startContent={<UserIcon size={20} className='mr-1' />}
               description={`Signed in as @${user.username}`}
               as={Link}
@@ -65,7 +62,6 @@ export function UserOrSignIn() {
             </DropdownItem>
             <DropdownItem
               key='logout'
-              textValue='Sign Out'
               color='danger'
               startContent={<LogOutIcon size={20} className='mr-1' />}
             >
@@ -77,12 +73,12 @@ export function UserOrSignIn() {
         </DropdownMenu>
       ) : (
         <DropdownMenu>
-          <DropdownItem textValue='sign in' key='sign_in' color='primary'>
+          <DropdownItem key='sign_in' color='primary'>
             <SignInButton>
               <button className='w-full text-left'>Sign In</button>
             </SignInButton>
           </DropdownItem>
-          <DropdownItem textValue='sign up' key='sign_up'>
+          <DropdownItem key='sign_up'>
             <SignUpButton>
               <button className='w-full text-left'>Sign Up</button>
             </SignUpButton>

@@ -8,7 +8,7 @@ import { getTmdbImageUrl } from '@/lib/random'
 import { Divider } from '@nextui-org/divider'
 import { Image } from '@nextui-org/image'
 import NextImage from 'next/image'
-import { ListItem, MediaType } from '@prisma/client'
+import { MediaType } from '@prisma/client'
 import { format } from 'date-fns'
 import { clamp, includes } from 'lodash'
 import Vibrant from 'node-vibrant'
@@ -103,7 +103,7 @@ export async function ListDetail(props: ListDetailProps) {
             }}
             key={item.tmdbId}
           >
-            <div className='order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pt-10 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-10 xl:gap-12'>
+            <div className='order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pt-10 sm:shadow-none md:px-14 lg:w-1/3 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-10 xl:gap-12'>
               <div className='text-neutral-300'>
                 <div className='flex items-start gap-4'>
                   <h1 className='text-xl font-bold underline underline-offset-4 sm:text-xl sm:font-normal sm:underline-offset-8 md:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
@@ -147,7 +147,7 @@ export async function ListDetail(props: ListDetailProps) {
                 </div>
               </div>
             </div>
-            <div className='relative flex w-full items-center lg:w-3/5'>
+            <div className='relative flex w-full items-center lg:w-2/3'>
               <NextImage
                 unoptimized
                 className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right aspect-video rounded-xl object-cover'
