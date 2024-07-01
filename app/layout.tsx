@@ -79,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </footer>
           </div>
         </Providers>
-        {/* <SpeedInsights /> */}
+        <SpeedInsights />
         {/* <Analytics /> */}
       </body>
     </html>
