@@ -14,7 +14,7 @@ export function GenreIcon({ genreId }: { genreId?: number }) {
       className: 'h-[1em] w-[1em] text-foreground-600',
       strokeWidth: 1.75,
     })
-  }, [genreId, getGenreById, cloneElement])
+  }, [genreId])
 
   return icon
 }
