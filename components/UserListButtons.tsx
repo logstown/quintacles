@@ -40,6 +40,7 @@ export function UserListButtons({
             size={isSmall ? 'md' : 'lg'}
             href={userListUrl}
             as={Link}
+            prefetch={!!user}
             isIconOnly
             className='text-foreground-400'
             aria-label='add'
