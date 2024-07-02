@@ -431,7 +431,7 @@ export function BackdropCollageStraight({
   const backdrops = isSkeleton ? Array(5).fill(0) : backdropLites
 
   return (
-    <div className='flex flex-col gap-8'>
+    <div className='flex flex-col gap-6'>
       {backdrops.map((lite, i) => (
         <React.Fragment key={i}>
           {isSkeleton ? (
@@ -453,8 +453,8 @@ export function BackdropCollageStraight({
                   src={getTmdbImageUrl(lite.backdropPath, 'w300')}
                   alt='NextUI hero Image'
                 />
-                <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] overflow-hidden rounded-large border-1 border-white/20 py-1 text-white/80 shadow-md'>
-                  <p>{lite.name}</p>
+                <CardFooter className='absolute bottom-0 z-10 overflow-hidden bg-slate-900/50 py-2 text-sm text-neutral-200'>
+                  {lite.name}
                 </CardFooter>
               </Card>
             </div>
