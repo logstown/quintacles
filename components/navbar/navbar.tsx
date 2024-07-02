@@ -33,7 +33,7 @@ async function getRandomList() {
 export const Navbar = () => {
   return (
     <NextUINavbar maxWidth='xl' position='sticky' className='shadow-md'>
-      <NavbarContent className='sm:gap-8' justify='start'>
+      <NavbarContent className='sm:gap-6' justify='start'>
         <NavbarItem className='shrink-0'>
           <NextLink href='/' className='flex items-center gap-3'>
             <NextImage
@@ -46,6 +46,9 @@ export const Navbar = () => {
             <p className='hidden text-xl font-semibold sm:block'>Quintacles</p>
           </NextLink>
         </NavbarItem>
+      </NavbarContent>
+
+      <NavbarContent className='gap-6 pl-4' justify='end'>
         <NavbarItem>
           <BrowseDropdown />
         </NavbarItem>
@@ -54,9 +57,6 @@ export const Navbar = () => {
             <RandomListButton />
           </form>
         </NavbarItem>
-      </NavbarContent>
-
-      <NavbarContent className='gap-6 pl-4' justify='end'>
         <ThemeSwitch />
         <UserOrSignIn />
         {/* <NavbarMenuToggle /> */}
