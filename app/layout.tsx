@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head />
       <body
         className={clsx(
-          'min-h-screen overflow-y-scroll bg-background font-sans antialiased',
+          'min-h-screen overflow-y-scroll font-sans antialiased dark:bg-background',
           fontSans.variable,
         )}
       >
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className='relative flex h-screen flex-col'>
             <Navbar />
             {/* <main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'></main> */}
-            <main className='bg-gradient-radial flex-grow from-foreground-200 to-background px-4 py-16'>
+            <main className='dark:bg-gradient-radial flex-grow bg-[rgba(255,255,255,0.2)] bg-[url("/paper-1.png")] from-foreground-200 to-background px-4 py-16 bg-blend-lighten'>
               {children}
             </main>
             <footer className='flex w-full flex-wrap items-center justify-evenly gap-3 p-3'>
