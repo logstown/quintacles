@@ -54,11 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className='whitespace-nowrap text-tiny sm:text-base'>
                 © quintacles.com 2024
               </div>
-              <div className='text-tiny'>
-                This website uses the TMDB API but is not endorsed or certified by
-                TMDB.
-              </div>
-              <div className='flex gap-8'>
+              <div className='flex gap-8 sm:gap-20'>
                 <Link
                   href='mailto:ljoecks@gmail.com'
                   as={NextLink}
