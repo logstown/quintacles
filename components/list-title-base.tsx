@@ -68,9 +68,7 @@ export function ListTitleBase({
   return (
     <>
       {tvShow && (
-        <span className={includeMediaType ? 'mr-2 italic' : 'truncate'}>
-          {tvShow}
-        </span>
+        <span className={includeMediaType ? 'mr-2 italic' : ''}>{tvShow}</span>
       )}
       {'  '}
       {partialTitle}

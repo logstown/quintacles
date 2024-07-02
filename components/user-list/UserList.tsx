@@ -11,6 +11,9 @@ import { Divider } from '@nextui-org/divider'
 import { UserListButtons } from '../UserListButtons'
 import { UserListLink } from './UserListLink'
 import { GenreIcon } from './GenreIcon'
+import { ListTitle } from '@/app/create/criteria/_components/list-title'
+import { cloneElement } from 'react'
+import { mediaTypes } from '@/lib/mediaTypes'
 
 export function UserListCard({
   restrictions,
@@ -36,6 +39,10 @@ export function UserListCard({
   const { Person, mediaType } = restrictions
   const isEpisodes = mediaType === MediaType.TvEpisode
   const usernames = users.map(u => u.username)
+  const mediaTypeIcon = cloneElement(mediaTypes[mediaType].icon, {
+    strokeWidth: 1.75,
+    className: 'h-[1em] w-[1em]',
+  })
 
   return (
     <Card
@@ -48,7 +55,7 @@ export function UserListCard({
         <Link href={getUserListsUrl(restrictions, 'browse')} color='foreground'>
           <CardHeader className={`${isEpisodes ? '' : 'py-3 md:py-6'} pl-4`}>
             <div
-              className={`flex w-full items-center gap-6 truncate ${isEpisodes ? 'justify-center' : ''}`}
+              className={`flex w-full items-center gap-6 ${isEpisodes ? 'justify-center' : ''}`}
             >
               {!!Person?.id && (
                 <div className='pl-1'>
@@ -60,10 +67,16 @@ export function UserListCard({
                 </div>
               )}
               <div
-                className={`flex items-center gap-4 text-2xl font-semibold ${isEpisodes ? 'max-w-[267px]' : 'sm:text-4xl'}`}
+                className={`flex items-center gap-3 text-2xl font-semibold tracking-tight sm:gap-5 ${isEpisodes ? 'max-w-[267px]' : 'sm:text-3xl md:text-4xl lg:text-5xl'}`}
               >
-                <GenreIcon genreId={restrictions.genreId} />
-                <ListTitleBase restrictions={restrictions} />
+                {!isEpisodes && !Person?.id && (
+                  <div className='text-foreground-500'>{mediaTypeIcon}</div>
+                )}
+                <div
+                  className={`${mediaType === MediaType.TvShow ? 'mt-1' : ''} ${isEpisodes ? 'truncate' : ''}`}
+                >
+                  <ListTitleBase restrictions={restrictions} />
+                </div>
               </div>
             </div>
           </CardHeader>
