@@ -126,15 +126,8 @@ export async function ListDetail(props: ListDetailProps) {
                       </h1>
                     </Link>
                     {isEpisodes && (
-                      <h3 className='flex flex-col items-baseline gap-1 sm:flex-row sm:gap-4 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
+                      <h3 className='flex flex-col items-baseline gap-1 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
                         Season {item.seasonNum} · Episode {item.episodeNum}
-                        <Divider
-                          className='hidden h-4 sm:block lg:h-3 xl:h-4'
-                          orientation='vertical'
-                          style={{
-                            backgroundColor: item.textColor,
-                          }}
-                        />
                         <p className='text-tiny sm:text-sm md:text-base lg:text-tiny xl:text-base'>
                           {format(new Date(item.date), 'MMM d, yyyy')}
                         </p>
