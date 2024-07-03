@@ -106,7 +106,7 @@ export function Suggestions({
   }
 
   return (
-    <div className='flex flex-col items-center gap-8'>
+    <div className='mx-auto flex max-w-screen-lg flex-col items-center gap-8'>
       <div>
         <h2 className='text-2xl'>
           {debouncedSearchText ? 'Search' : 'Search or choose from suggestions:'}

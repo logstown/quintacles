@@ -24,7 +24,7 @@ export default async function Home() {
   return (
     <>
       <div className='mx-auto flex max-w-screen-lg flex-col items-center justify-around p-10 md:flex-row'>
-        <div>
+        <div className='drop-shadow-2xl'>
           <div className='flex flex-wrap items-center justify-center gap-2'>
             <NextImage
               unoptimized
@@ -46,12 +46,11 @@ export default async function Home() {
           </div>
         </div>
         <Button
-          className='bg-gradient-to-br from-primary-500 to-secondary-500 text-white md:rounded-3xl md:p-10 md:text-2xl'
+          className='bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
           size='lg'
           as={Link}
           href='/create/criteria'
           startContent={<PlusIcon />}
-          variant='shadow'
         >
           Create List
         </Button>
