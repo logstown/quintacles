@@ -73,7 +73,7 @@ export function UserListCard({
                   <div className='text-foreground-500'>{mediaTypeIcon}</div>
                 )}
                 <div
-                  className={`${mediaType === MediaType.TvShow ? 'mt-1' : ''} ${isEpisodes ? 'truncate' : ''}`}
+                  className={`${mediaType === MediaType.TvShow ? 'mt-1' : ''} ${isEpisodes ? 'truncate' : 'drop-shadow-2xl'}`}
                 >
                   <ListTitleBase restrictions={restrictions} />
                 </div>
