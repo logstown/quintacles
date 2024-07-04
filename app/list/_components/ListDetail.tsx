@@ -15,11 +15,15 @@ import Vibrant from 'node-vibrant'
 import Link from 'next/link'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { Tooltip } from '@nextui-org/tooltip'
+import { unstable_cache } from 'next/cache'
 
 type ListDetailProps = { id: number } | { username: string; slug: string }
 
 export async function ListDetail(props: ListDetailProps) {
-  const { userList, userListUsers, userAddedAt } = await getUserListData(props)
+  const { userList, userListUsers, userAddedAt } = await unstable_cache(
+    () => getUserListData(props),
+    [`${(props as any).username}-${(props as any).slug}`],
+  )()
 
   if (!userList || !userAddedAt) {
     return <NotFoundPage />
@@ -110,12 +114,7 @@ export async function ListDetail(props: ListDetailProps) {
                   <h1 className='text-xl font-bold underline underline-offset-4 sm:text-xl sm:font-normal sm:underline-offset-8 md:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
                     {5 - i}
                   </h1>
-                  <div
-                    className='flex flex-col gap-2 sm:gap-3 lg:gap-2 xl:gap-3'
-                    style={{
-                      color: item.textColor,
-                    }}
-                  >
+                  <div className='flex flex-col gap-2 text-neutral-50 sm:gap-3 lg:gap-2 xl:gap-3'>
                     <Link href={item.tmdbHref} target='_blank'>
                       <Tooltip content={item.name} delay={1000}>
                         <h1 className='line-clamp-4 text-balance text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
