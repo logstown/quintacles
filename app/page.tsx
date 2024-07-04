@@ -19,7 +19,7 @@ export default async function Home() {
 
   // console.log(deal)
 
-  const words = ['Movies', 'Shows', 'Episodes']
+  const words = ['Movies', 'TV Shows', 'TV Episodes']
 
   return (
     <>
@@ -34,14 +34,16 @@ export default async function Home() {
               height='150'
               src='/octopus.png'
             />
-            <h1 className='bg-gradient-to-br from-secondary-500 to-primary-500 bg-clip-text text-5xl font-bold capitalize text-transparent md:text-7xl'>
+            <h1 className='bg-gradient-to-br from-secondary-600 to-primary-600 bg-clip-text text-5xl font-bold capitalize text-transparent md:text-7xl'>
               Quintacles
             </h1>
           </div>
           <div className='flex items-center justify-center pt-5'>
-            <div className='h-16 w-[450px] pl-16 text-2xl font-normal text-foreground-600 md:pl-6 md:text-4xl'>
-              Your Top Five
-              <FlipWords words={words} />
+            <div className='h-16 w-[500px] pl-24 text-2xl text-foreground-600 md:pl-6 md:text-4xl'>
+              Your top five
+              <span className='font-bold'>
+                <FlipWords words={words} />
+              </span>
             </div>
           </div>
         </div>
