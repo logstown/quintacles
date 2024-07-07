@@ -24,13 +24,13 @@ export default async function Home() {
 
   return (
     <>
-      <div className='absolute left-[40%] top-[40%]'>
+      {/* <div className='absolute left-[40%] top-[40%]'>
         <BlurryBlob
           className='opacity-20'
           firstBlobColor='bg-primary-400'
           secondBlobColor='bg-secondary-400'
         />
-      </div>
+      </div> */}
       <div className='mx-auto flex max-w-screen-lg flex-col items-center justify-around p-10 md:flex-row'>
         <div className='drop-shadow-2xl'>
           <div className='flex flex-wrap items-center justify-center gap-2'>

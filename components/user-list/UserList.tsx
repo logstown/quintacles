@@ -67,7 +67,7 @@ export function UserListCard({
                 </div>
               )}
               <div
-                className={`flex items-center gap-3 text-2xl font-semibold tracking-tight sm:gap-5 ${isEpisodes ? 'max-w-[267px]' : 'sm:text-3xl md:text-4xl lg:text-5xl'}`}
+                className={`flex items-center gap-3 text-2xl font-semibold tracking-tight sm:gap-5 ${isEpisodes ? 'max-w-[267px]' : 'sm:text-3xl md:text-4xl'}`}
               >
                 {!isEpisodes && !Person?.id && (
                   <div className='text-foreground-500'>{mediaTypeIcon}</div>
