@@ -1,6 +1,7 @@
 import { MediaTypeUserLists } from '@/components/MediaTypeUserLists'
 import BlurryBlob from '@/components/animata/background/blurry-blob'
 import { FlipWords } from '@/components/flip-words'
+import { auth } from '@clerk/nextjs/server'
 import { Button } from '@nextui-org/button'
 import { PlusIcon } from 'lucide-react'
 import NextImage from 'next/image'
@@ -21,10 +22,11 @@ export default async function Home() {
   // console.log(deal)
 
   const words = ['Movies', 'TV Shows', 'Episodes']
+  const { userId } = auth()
 
   return (
     <>
-      <div className='absolute left-[40%] top-[40%] hidden sm:block'>
+      <div className='absolute left-[40%] top-72 hidden sm:block'>
         <BlurryBlob
           className='opacity-20'
           firstBlobColor='bg-primary-400'
@@ -60,6 +62,7 @@ export default async function Home() {
           className='bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
           size='lg'
           as={Link}
+          prefetch={!!userId}
           href='/create/criteria'
           startContent={<PlusIcon />}
         >
