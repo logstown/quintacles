@@ -49,8 +49,11 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className='gap-6 pl-4' justify='end'>
-        <NavbarItem>
+        <NavbarItem className='hidden md:list-item'>
           <BrowseDropdown />
+        </NavbarItem>
+        <NavbarItem className='md:hidden'>
+          <BrowseDropdown isSmall />
         </NavbarItem>
         <NavbarItem>
           <form action={getRandomList}>

@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDown, Rows3Icon } from 'lucide-react'
+import { ChevronDown, ListIcon } from 'lucide-react'
 import { mediaTypeArrForLists } from '../../lib/mediaTypes'
 import { Button } from '@nextui-org/button'
 import {
@@ -9,7 +9,6 @@ import {
   DropdownMenu,
   DropdownItem,
 } from '@nextui-org/dropdown'
-import { NavbarItem } from '@nextui-org/navbar'
 import { cloneElement } from 'react'
 import Link from 'next/link'
 
@@ -18,8 +17,8 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
     <Dropdown>
       <DropdownTrigger>
         {isSmall ? (
-          <Button isIconOnly size='sm' variant='flat'>
-            <ChevronDown strokeWidth={1.3} size={20} />
+          <Button isIconOnly size='sm' variant='flat' color='primary' disableRipple>
+            <ListIcon strokeWidth={1.3} size={20} />
           </Button>
         ) : (
           <Button
