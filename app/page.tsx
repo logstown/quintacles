@@ -20,17 +20,17 @@ export default async function Home() {
 
   // console.log(deal)
 
-  const words = ['Movies', 'TV Shows', 'TV Episodes']
+  const words = ['Movies', 'TV Shows', 'Episodes']
 
   return (
     <>
-      {/* <div className='absolute left-[40%] top-[40%]'>
+      <div className='absolute left-[40%] top-[40%] hidden sm:block'>
         <BlurryBlob
           className='opacity-20'
           firstBlobColor='bg-primary-400'
           secondBlobColor='bg-secondary-400'
         />
-      </div> */}
+      </div>
       <div className='mx-auto flex max-w-screen-lg flex-col items-center justify-around p-10 md:flex-row'>
         <div className='drop-shadow-2xl'>
           <div className='flex flex-wrap items-center justify-center gap-2'>
@@ -46,9 +46,10 @@ export default async function Home() {
               Quintacles
             </h1>
           </div>
-          <div className='flex items-center justify-center pt-5'>
-            <div className='h-16 w-[500px] pl-24 text-2xl text-foreground-600 md:pl-6 md:text-4xl'>
+          <div className='mb-8 flex items-center justify-center pt-5 sm:mb-0'>
+            <div className='h-16 text-2xl text-foreground-600 sm:w-[400px] sm:pl-14 md:w-[500px] md:pl-6 md:text-4xl'>
               Your top five
+              <br className='sm:hidden' />
               <span className='font-bold'>
                 <FlipWords words={words} />
               </span>
