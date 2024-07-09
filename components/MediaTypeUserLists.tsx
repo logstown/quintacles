@@ -19,10 +19,10 @@ export function MediaTypeUserLists({
         return (
           <div
             key={mediaType.key}
-            className={`flex flex-col gap-6 md:gap-10 ${isEpisodes ? '' : 'max-w-screen-lg'}`}
+            className={`flex flex-col gap-4 sm:gap-6 ${isEpisodes ? '' : 'max-w-screen-lg'}`}
           >
             <h1 className='pl-4 font-bold capitalize md:text-2xl'>
-              <span className='text-foreground-400'>Latest </span>
+              <span className='text-foreground-400'>Recent </span>
               {mediaTypes[mediaType.key].display}
             </h1>
             <Suspense

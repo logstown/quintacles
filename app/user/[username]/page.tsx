@@ -18,9 +18,7 @@ export default async function UserPage({
     where: { username },
     include: {
       _count: {
-        select: {
-          userLists: true,
-        },
+        select: { userLists: true },
       },
     },
   })

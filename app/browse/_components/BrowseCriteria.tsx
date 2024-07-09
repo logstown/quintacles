@@ -143,7 +143,7 @@ export function BrowseCriteria({
               color='primary'
             >
               <SelectItem key='lastUserAddedAt' value='lastUserAddedAt'>
-                Latest
+                Recent
               </SelectItem>
               <SelectItem key='users' value='users'>
                 Popular
