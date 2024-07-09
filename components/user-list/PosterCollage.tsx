@@ -453,7 +453,7 @@ export function BackdropCollageStraight({
                   src={getTmdbImageUrl(lite.backdropPath, 'w300')}
                   alt='NextUI hero Image'
                 />
-                <CardFooter className='absolute bottom-0 z-10 overflow-hidden bg-slate-900/50 py-2 text-sm text-neutral-200'>
+                <CardFooter className='absolute bottom-0 z-10 overflow-hidden bg-slate-900/60 py-2 text-sm text-neutral-200'>
                   {lite.name}
                 </CardFooter>
               </Card>
