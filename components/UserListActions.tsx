@@ -38,7 +38,7 @@ export function UserListActions({
   const userListLink = useUserListLink(restrictions, usernames, userListId)
 
   const { mutate: deleteListUI, isPending: isDeletePending } = useMutation({
-    mutationFn: (onClose: () => void) => userDeletesList(userListId),
+    mutationFn: (onClose: () => void) => userDeletesList(userListId, restrictions),
     onSuccess: async (data, onClose) => {
       onClose()
     },

@@ -83,8 +83,19 @@ export async function userListQuery({
           },
         },
       }),
-    [`${userId}-${slug}-${sortBy}-${pageSize}-${pageNum}`],
-    { revalidate: 30 },
+    [
+      'userlist-query',
+      userId ?? '',
+      slug,
+      sortBy,
+      exactMatch.toString(),
+      pageSize.toString(),
+      pageNum.toString(),
+    ],
+    {
+      revalidate: 60 * 5,
+      tags: ['userlist-query', `user-mediaType-${userId}-${restrictions.mediaType}`],
+    },
   )()
 
   return lists.map(list => ({

@@ -10,7 +10,7 @@ import { userListQuery } from '@/lib/server-functions'
 import { User, currentUser } from '@clerk/nextjs/server'
 import { ListItem, MediaType, PrismaPromise, UserList } from '@prisma/client'
 import { some } from 'lodash'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 export async function surpriseMe(mediaType: MediaType) {
@@ -20,20 +20,25 @@ export async function surpriseMe(mediaType: MediaType) {
     throw new Error('User not found')
   }
 
-  const userRestrictionsArr = await prisma.restrictions.findMany({
-    where: {
-      userLists: {
-        some: {
-          users: {
+  const userRestrictionsArr = await unstable_cache(
+    () =>
+      prisma.restrictions.findMany({
+        where: {
+          userLists: {
             some: {
-              userId: user.id,
+              users: {
+                some: {
+                  userId: user.id,
+                },
+              },
             },
           },
+          mediaType,
         },
-      },
-      mediaType,
-    },
-  })
+      }),
+    ['user-restrictions', user.id, mediaType],
+    { tags: [`user-mediaType-${user.id}-${mediaType}`] },
+  )()
 
   const { results: popularPeople } =
     mediaType === MediaType.Movie ? await getPopularPeople(1) : { results: [] }
@@ -296,6 +301,8 @@ export async function createOrUpdateUserList({
     revalidatePath(`/list/${createdOrUpdatedList.id}`)
   }
 
+  revalidateTag(`user-mediaType-${user.id}-${restrictions.mediaType}`)
+
   redirect(`/user/${user.username}/list/${slug}`)
 }
 
@@ -311,7 +318,10 @@ function removeUserFromList(userListId: number, userId: string): PrismaPromise<a
   })
 }
 
-export async function userDeletesList(userListId: number) {
+export async function userDeletesList(
+  userListId: number,
+  restrictions: RestrictionsUI,
+) {
   const user = await currentUser()
 
   if (!user) {
@@ -319,8 +329,13 @@ export async function userDeletesList(userListId: number) {
   }
 
   await removeUserFromList(userListId, user.id)
+
+  const slug = getSlug(restrictions)
+  revalidatePath(`/user/${user.username}/list/${slug}`)
+  revalidatePath(`/list/${userListId}`)
+  revalidateTag(`user-mediaType-${user.id}-${restrictions.mediaType}`)
+
   redirect('/') // works but could be better ux
-  // TODO revalidate more
 }
 
 export async function updateUserCoverImage(coverImagePath: string) {
