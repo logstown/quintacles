@@ -277,16 +277,25 @@ export async function createOrUpdateUserList({
     !!userListId,
   )
 
+  let createdOrUpdatedList
+  const slug = getSlug(restrictions)
+
   if (userListId) {
-    await prisma.$transaction([
+    ;[, createdOrUpdatedList] = await prisma.$transaction([
       removeUserFromList(userListId, user.id),
       createUpdateOperation,
     ])
+
+    revalidatePath(`/user/${user.username}/list/${slug}`)
+    revalidatePath(`/list/${userListId}`)
   } else {
-    await createUpdateOperation
+    createdOrUpdatedList = await createUpdateOperation
   }
 
-  const slug = getSlug(restrictions)
+  if (createdOrUpdatedList.createdAt !== createdOrUpdatedList.lastUserAddedAt) {
+    revalidatePath(`/list/${createdOrUpdatedList.id}`)
+  }
+
   redirect(`/user/${user.username}/list/${slug}`)
 }
 

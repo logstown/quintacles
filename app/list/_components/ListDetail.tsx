@@ -20,10 +20,7 @@ import { unstable_cache } from 'next/cache'
 type ListDetailProps = { id: number } | { username: string; slug: string }
 
 export async function ListDetail(props: ListDetailProps) {
-  const { userList, userListUsers, userAddedAt } = await unstable_cache(
-    () => getUserListData(props),
-    [`${(props as any).username}-${(props as any).slug}`],
-  )()
+  const { userList, userListUsers, userAddedAt } = await getUserListData(props)
 
   if (!userList || !userAddedAt) {
     return <NotFoundPage />
@@ -114,7 +111,10 @@ export async function ListDetail(props: ListDetailProps) {
                   <h1 className='text-xl font-bold underline underline-offset-4 sm:text-xl sm:font-normal sm:underline-offset-8 md:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
                     {5 - i}
                   </h1>
-                  <div className='flex flex-col gap-2 text-neutral-50 sm:gap-3 lg:gap-2 xl:gap-3'>
+                  <div
+                    className='flex flex-col gap-2 sm:gap-3 lg:gap-2 xl:gap-3'
+                    style={{ color: item.textColor }}
+                  >
                     <Link href={item.tmdbHref} target='_blank'>
                       <Tooltip content={item.name} delay={1000}>
                         <h1 className='line-clamp-4 text-balance text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
@@ -216,18 +216,25 @@ async function getUserListData(props: ListDetailProps) {
   }
 
   if (isForUser) {
-    const userOnUserList = await prisma.usersOnUserLists.findUnique({
-      where: {
-        userRestrictionsByUsername: {
-          username: props.username,
-          restrictionsSlug: props.slug,
+    const prismaFn = () =>
+      prisma.usersOnUserLists.findUnique({
+        where: {
+          userRestrictionsByUsername: {
+            username: props.username,
+            restrictionsSlug: props.slug,
+          },
         },
-      },
-      include: {
-        UserList: { include },
-        User: true,
-      },
-    })
+        include: {
+          UserList: { include },
+          User: true,
+        },
+      })
+
+    const userOnUserList = await unstable_cache(prismaFn, [
+      'user-list',
+      props.username,
+      props.slug,
+    ])()
 
     return {
       userList: userOnUserList?.UserList,
@@ -235,15 +242,21 @@ async function getUserListData(props: ListDetailProps) {
       userAddedAt: userOnUserList?.userAddedAt,
     }
   } else {
-    const userList = await prisma.userList.findUnique({
-      where: { id: props.id },
-      include: {
-        ...include,
-        users: {
-          include: { User: true },
+    const prismaFn = () =>
+      prisma.userList.findUnique({
+        where: { id: props.id },
+        include: {
+          ...include,
+          users: {
+            include: { User: true },
+          },
         },
-      },
-    })
+      })
+
+    const userList = await unstable_cache(prismaFn, [
+      'generic-list',
+      props.id.toString(),
+    ])()
 
     return {
       userList,
