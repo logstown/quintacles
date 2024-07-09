@@ -48,11 +48,10 @@ export function EditCoverImage() {
       return filtered
     },
     enabled: debouncedSearchText.length >= 3,
-    // TODO: uncomment these options
-    // refetchOnWindowFocus: false,
-    // refetchOnMount: false,
-    // refetchOnReconnect: false,
-    // staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    staleTime: 1000 * 60 * 60 * 48,
   })
 
   const { mutate: save, isPending: isSavePending } = useMutation({

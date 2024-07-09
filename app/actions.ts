@@ -260,6 +260,14 @@ function createOrConnectUserToList(
   })
 }
 
+function removeOrphanedUserLists() {
+  return prisma.userList.deleteMany({
+    where: {
+      users: { none: {} },
+    },
+  })
+}
+
 export async function createOrUpdateUserList({
   restrictions,
   listItems,
@@ -291,6 +299,8 @@ export async function createOrUpdateUserList({
       createUpdateOperation,
     ])
 
+    removeOrphanedUserLists()
+
     revalidatePath(`/user/${user.username}/list/${slug}`)
     revalidatePath(`/list/${userListId}`)
   } else {
@@ -306,7 +316,6 @@ export async function createOrUpdateUserList({
   redirect(`/user/${user.username}/list/${slug}`)
 }
 
-// TODO: this will leave an orphaned list if the last user is removed
 function removeUserFromList(userListId: number, userId: string): PrismaPromise<any> {
   return prisma.usersOnUserLists.delete({
     where: {
@@ -329,6 +338,7 @@ export async function userDeletesList(
   }
 
   await removeUserFromList(userListId, user.id)
+  removeOrphanedUserLists()
 
   const slug = getSlug(restrictions)
   revalidatePath(`/user/${user.username}/list/${slug}`)
