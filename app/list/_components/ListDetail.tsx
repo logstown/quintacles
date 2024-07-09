@@ -15,6 +15,7 @@ import Vibrant from 'node-vibrant'
 import Link from 'next/link'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { Tooltip } from '@nextui-org/tooltip'
+import { unstable_cache } from 'next/cache'
 
 type ListDetailProps = { id: number } | { username: string; slug: string }
 
@@ -112,9 +113,7 @@ export async function ListDetail(props: ListDetailProps) {
                   </h1>
                   <div
                     className='flex flex-col gap-2 sm:gap-3 lg:gap-2 xl:gap-3'
-                    style={{
-                      color: item.textColor,
-                    }}
+                    style={{ color: item.textColor }}
                   >
                     <Link href={item.tmdbHref} target='_blank'>
                       <Tooltip content={item.name} delay={1000}>
@@ -217,18 +216,25 @@ async function getUserListData(props: ListDetailProps) {
   }
 
   if (isForUser) {
-    const userOnUserList = await prisma.usersOnUserLists.findUnique({
-      where: {
-        userRestrictionsByUsername: {
-          username: props.username,
-          restrictionsSlug: props.slug,
+    const prismaFn = () =>
+      prisma.usersOnUserLists.findUnique({
+        where: {
+          userRestrictionsByUsername: {
+            username: props.username,
+            restrictionsSlug: props.slug,
+          },
         },
-      },
-      include: {
-        UserList: { include },
-        User: true,
-      },
-    })
+        include: {
+          UserList: { include },
+          User: true,
+        },
+      })
+
+    const userOnUserList = await unstable_cache(prismaFn, [
+      'user-list',
+      props.username,
+      props.slug,
+    ])()
 
     return {
       userList: userOnUserList?.UserList,
@@ -236,15 +242,21 @@ async function getUserListData(props: ListDetailProps) {
       userAddedAt: userOnUserList?.userAddedAt,
     }
   } else {
-    const userList = await prisma.userList.findUnique({
-      where: { id: props.id },
-      include: {
-        ...include,
-        users: {
-          include: { User: true },
+    const prismaFn = () =>
+      prisma.userList.findUnique({
+        where: { id: props.id },
+        include: {
+          ...include,
+          users: {
+            include: { User: true },
+          },
         },
-      },
-    })
+      })
+
+    const userList = await unstable_cache(prismaFn, [
+      'generic-list',
+      props.id.toString(),
+    ])()
 
     return {
       userList,

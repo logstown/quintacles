@@ -11,6 +11,7 @@ import { getGenres } from './genres'
 import { mediaTypes } from './mediaTypes'
 import { getDecades, getSlug } from './random'
 import { flow, map, sortBy, uniq } from 'lodash/fp'
+import { unstable_cache } from 'next/cache'
 
 export async function userListQuery({
   userId,
@@ -53,33 +54,49 @@ export async function userListQuery({
     },
   }
 
-  const lists = await prisma.userList.findMany({
-    where: {
-      users,
-      Restrictions,
-    },
-    take: pageSize,
-    skip: pageNum * pageSize,
-    orderBy,
-    include: {
-      users: {
-        include: {
-          User: true,
+  const lists = await unstable_cache(
+    async () =>
+      prisma.userList.findMany({
+        where: {
+          users,
+          Restrictions,
         },
-      },
-      item1: itemSelect,
-      item2: itemSelect,
-      item3: itemSelect,
-      item4: itemSelect,
-      item5: itemSelect,
-      Restrictions: {
+        take: pageSize,
+        skip: pageNum * pageSize,
+        orderBy,
         include: {
-          Person: true,
-          EpisodesTvShow: true,
+          users: {
+            include: {
+              User: true,
+            },
+          },
+          item1: itemSelect,
+          item2: itemSelect,
+          item3: itemSelect,
+          item4: itemSelect,
+          item5: itemSelect,
+          Restrictions: {
+            include: {
+              Person: true,
+              EpisodesTvShow: true,
+            },
+          },
         },
-      },
+      }),
+    [
+      'userlist-query',
+      userId ?? '',
+      slug,
+      sortBy,
+      exactMatch.toString(),
+      pageSize.toString(),
+      pageNum.toString(),
+    ],
+    {
+      revalidate: 60 * 5,
+      tags: ['userlist-query', `user-mediaType-${userId}-${restrictions.mediaType}`],
     },
-  })
+  )()
 
   return lists.map(list => ({
     ...list,
