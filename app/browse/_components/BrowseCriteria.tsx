@@ -131,12 +131,11 @@ export function BrowseCriteria({
               />
             ))}
           </Tabs>
-          <div className='flex items-baseline gap-12'>
+          <div className='flex items-end gap-12'>
             <Select
               label='Sort By'
               labelPlacement='outside'
               disallowEmptySelection={true}
-              size='lg'
               selectedKeys={[sortBy]}
               onChange={setSortByFromPicker}
               className='w-32 shrink-0'

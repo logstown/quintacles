@@ -299,7 +299,7 @@ export async function createOrUpdateUserList({
       createUpdateOperation,
     ])
 
-    removeOrphanedUserLists()
+    await removeOrphanedUserLists()
 
     revalidatePath(`/user/${user.username}/list/${slug}`)
     revalidatePath(`/list/${userListId}`)
@@ -338,7 +338,7 @@ export async function userDeletesList(
   }
 
   await removeUserFromList(userListId, user.id)
-  removeOrphanedUserLists()
+  await removeOrphanedUserLists()
 
   const slug = getSlug(restrictions)
   revalidatePath(`/user/${user.username}/list/${slug}`)
