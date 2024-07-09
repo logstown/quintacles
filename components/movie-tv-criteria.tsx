@@ -49,7 +49,6 @@ export function MovieTvCriteria({
   }
 
   const setMoviePersonFromPicker = (item: any | undefined) => {
-    console.log(item)
     const Person = item
       ? {
           id: item.tmdbId,

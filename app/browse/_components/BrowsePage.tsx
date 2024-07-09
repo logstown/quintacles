@@ -87,7 +87,7 @@ export default async function BrowsePage({
           exactMatchFromParent={exactMatch}
           user={user}
         />
-        <div className={`flex w-full flex-col items-center gap-10`}>
+        <div className={`flex w-full flex-col gap-10`}>
           {exactMatch && (
             // <div className='sticky top-16 z-30 flex w-full justify-center bg-background'>  TODO: Fix this
             <ListTitle mediaType={restrictions.mediaType}>

@@ -1,6 +1,5 @@
 GO live:
 Handle Errors (error.tsx)
-cache prisma calls
 make adjustor for cover image
 metadata
 
@@ -10,8 +9,6 @@ Nice to haves:
 better surprise me... go back to clickable restriction buttons
 add framer motion animations
 notifications for when users make the same list
-launch list modal from user screen and home page
-make cron job to delete orphaned lists
 
 
 ideas:
