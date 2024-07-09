@@ -83,7 +83,6 @@ export async function ListDetail(props: ListDetailProps) {
           <div className='flex flex-wrap items-center justify-center space-x-4'>
             <UserTime
               users={userListUsers}
-              actualUserCount={userList._count.users}
               lastUserAddedAt={userAddedAt}
               userListId={userList.id}
             />
@@ -206,9 +205,6 @@ async function getUserListData(props: ListDetailProps) {
     item3: true,
     item4: true,
     item5: true,
-    _count: {
-      select: { users: true },
-    },
     Restrictions: {
       include: {
         Person: true,
