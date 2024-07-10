@@ -40,7 +40,7 @@ export async function ListDetail(props: ListDetailProps) {
     userList.item5,
   ]
     .map(async item => {
-      let bgColor = 'black'
+      let bgColor = '#2e2609'
       let rgb = [0, 0, 0]
       let textColor = 'white'
       let backdropUrl = '/movieBackdrop.jpeg'
@@ -172,7 +172,7 @@ export async function ListDetail(props: ListDetailProps) {
                 height={720}
               />
               {!includes(item.backdropUrl, 'tmdb') && (
-                <div className='absolute left-20 z-20'>
+                <div className='absolute left-1/4 z-20 max-w-[100px] sm:max-w-none'>
                   <Image
                     unoptimized
                     isBlurred
