@@ -98,17 +98,19 @@ export async function ListDetail(props: ListDetailProps) {
                 Restrictions={restrictions}
               />
               {isForUser && (
-                <Button
-                  as={Link}
-                  href={`/list/${userList.id}`}
-                  size='lg'
-                  isIconOnly
-                  className='text-foreground-400'
-                  aria-label='add'
-                  variant='light'
-                >
-                  <UsersIcon />
-                </Button>
+                <Tooltip content='View all list users'>
+                  <Button
+                    as={Link}
+                    href={`/list/${userList.id}`}
+                    size='lg'
+                    isIconOnly
+                    className='text-foreground-400'
+                    aria-label='add'
+                    variant='light'
+                  >
+                    <UsersIcon />
+                  </Button>
+                </Tooltip>
               )}
             </div>
           </div>

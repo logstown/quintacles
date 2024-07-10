@@ -35,7 +35,7 @@ export function UserListButtons({
           userListId={userListId}
         />
       ) : (
-        <Tooltip content='Create similar list'>
+        <Tooltip content='Create this list!'>
           <Button
             size={isSmall ? 'md' : 'lg'}
             href={userListUrl}
