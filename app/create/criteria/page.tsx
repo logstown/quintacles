@@ -5,8 +5,8 @@ import { cloneElement } from 'react'
 
 const CreateCriteriaPage = () => {
   return (
-    <div className='flex h-full flex-col items-center justify-center gap-8'>
-      <h1 className='mb-8 text-center text-6xl font-semibold drop-shadow-2xl'>
+    <div className='flex h-full flex-col items-center justify-center gap-20'>
+      <h1 className='text-center text-5xl font-semibold drop-shadow-2xl sm:text-7xl'>
         Create List
       </h1>
       <div className='flex w-full max-w-screen-md flex-col justify-evenly gap-6 sm:flex-row sm:gap-0'>

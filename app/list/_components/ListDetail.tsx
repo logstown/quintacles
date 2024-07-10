@@ -1,4 +1,3 @@
-import NotFoundPage from '@/components/404'
 import { ItemOverview } from '@/components/ItemOverview'
 import { UserListButtons } from '@/components/UserListButtons'
 import { UserTime } from '@/components/UserTime'
@@ -16,6 +15,9 @@ import Link from 'next/link'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { Tooltip } from '@nextui-org/tooltip'
 import { unstable_cache } from 'next/cache'
+import { notFound } from 'next/navigation'
+import { Button } from '@nextui-org/button'
+import { UsersIcon } from 'lucide-react'
 
 type ListDetailProps = { id: number } | { username: string; slug: string }
 
@@ -23,11 +25,12 @@ export async function ListDetail(props: ListDetailProps) {
   const { userList, userListUsers, userAddedAt } = await getUserListData(props)
 
   if (!userList || !userAddedAt) {
-    return <NotFoundPage />
+    notFound()
   }
 
   const { Restrictions: restrictions } = userList
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
+  const isForUser = 'username' in props
 
   const listItemPromises = [
     userList.item1,
@@ -80,18 +83,34 @@ export async function ListDetail(props: ListDetailProps) {
           <ListTitleBase restrictions={restrictions} includeMediaType={true} />
         </h1>
         <div className='flex flex-col items-center gap-2'>
-          <div className='flex flex-wrap items-center justify-center space-x-4'>
+          <div className='flex flex-wrap items-center justify-center space-x-6'>
             <UserTime
+              size='lg'
               users={userListUsers}
               lastUserAddedAt={userAddedAt}
               userListId={userList.id}
             />
             <Divider className='h-6' orientation='vertical' />
-            <UserListButtons
-              userListId={userList.id}
-              usernames={userListUsers.map(user => user.username)}
-              Restrictions={restrictions}
-            />
+            <div className='flex space-x-2'>
+              <UserListButtons
+                userListId={userList.id}
+                usernames={userListUsers.map(user => user.username)}
+                Restrictions={restrictions}
+              />
+              {isForUser && (
+                <Button
+                  as={Link}
+                  href={`/list/${userList.id}`}
+                  size='lg'
+                  isIconOnly
+                  className='text-foreground-400'
+                  aria-label='add'
+                  variant='light'
+                >
+                  <UsersIcon />
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -104,7 +123,7 @@ export async function ListDetail(props: ListDetailProps) {
             }}
             key={item.tmdbId}
           >
-            <div className='order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pt-10 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-10 xl:gap-12'>
+            <div className='order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pb-14 sm:pt-14 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-10 xl:gap-12'>
               <div className='text-neutral-300'>
                 <div className='flex items-start gap-4'>
                   <h1 className='text-xl font-bold underline underline-offset-4 sm:text-xl sm:font-normal sm:underline-offset-8 md:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
@@ -127,7 +146,7 @@ export async function ListDetail(props: ListDetailProps) {
                       </Tooltip>
                     </Link>
                     {isEpisodes && (
-                      <h3 className='flex flex-col items-baseline gap-1 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
+                      <h3 className='flex flex-col flex-wrap items-baseline sm:flex-row sm:gap-4 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
                         <p className='font-semibold'>
                           Season {item.seasonNum} · Episode {item.episodeNum}
                         </p>
