@@ -125,39 +125,34 @@ export async function ListDetail(props: ListDetailProps) {
             }}
             key={item.tmdbId}
           >
-            <div className='order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pb-14 sm:pt-14 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-10 xl:gap-12'>
+            <div className='order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pb-14 sm:pt-14 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pl-10 lg:pt-0 xl:gap-12'>
               <div className='text-neutral-300'>
-                <div className='flex items-start gap-4'>
-                  <h1 className='text-xl font-bold underline underline-offset-4 sm:text-xl sm:font-normal sm:underline-offset-8 md:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
-                    {5 - i}
-                  </h1>
-                  <div
-                    className='flex flex-col gap-2 sm:gap-3 lg:gap-2 xl:gap-3'
-                    style={{ color: item.textColor }}
-                  >
-                    <Link href={item.tmdbHref} target='_blank'>
-                      <Tooltip content={item.name} delay={1000}>
-                        <h1 className='line-clamp-4 text-balance pb-1 text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
-                          {item.name}{' '}
-                          {!isEpisodes && (
-                            <small className='text-[50%] font-medium'>
-                              ({new Date(item.date).getFullYear()})
-                            </small>
-                          )}
-                        </h1>
-                      </Tooltip>
-                    </Link>
-                    {isEpisodes && (
-                      <h3 className='flex flex-col flex-wrap items-baseline sm:flex-row sm:gap-4 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
-                        <p className='font-semibold'>
-                          Season {item.seasonNum} · Episode {item.episodeNum}
-                        </p>
-                        <p className='text-tiny sm:text-sm md:text-base lg:text-tiny xl:text-base'>
-                          {format(new Date(item.date), 'MMM d, yyyy')}
-                        </p>
-                      </h3>
-                    )}
-                  </div>
+                <div
+                  className='flex flex-col gap-2 sm:gap-3 lg:gap-2 xl:gap-3'
+                  style={{ color: item.textColor }}
+                >
+                  <Link href={item.tmdbHref} target='_blank'>
+                    <Tooltip content={item.name} delay={1000}>
+                      <h1 className='line-clamp-4 text-balance pb-1 text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
+                        {item.name}{' '}
+                        {!isEpisodes && (
+                          <small className='text-[50%] font-medium'>
+                            ({new Date(item.date).getFullYear()})
+                          </small>
+                        )}
+                      </h1>
+                    </Tooltip>
+                  </Link>
+                  {isEpisodes && (
+                    <h3 className='flex flex-col flex-wrap items-baseline sm:flex-row sm:gap-4 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
+                      <p className='font-semibold'>
+                        Season {item.seasonNum} · Episode {item.episodeNum}
+                      </p>
+                      <p className='text-tiny sm:text-sm md:text-base lg:text-tiny xl:text-base'>
+                        {format(new Date(item.date), 'MMM d, yyyy')}
+                      </p>
+                    </h3>
+                  )}
                 </div>
                 <div className='mt-6 font-light xl:text-lg 2xl:text-xl'>
                   <ItemOverview overview={item.overview ?? ''} />
@@ -165,9 +160,12 @@ export async function ListDetail(props: ListDetailProps) {
               </div>
             </div>
             <div className='relative flex w-full items-center lg:w-3/5'>
+              <p className='absolute -left-8 z-40 bg-gradient-to-r from-neutral-50 to-transparent bg-clip-text text-[650px] text-transparent drop-shadow-2xl'>
+                {5 - i}
+              </p>
               <NextImage
                 unoptimized
-                className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right aspect-video rounded-xl object-cover'
+                className='fade-img-down lg:fade-img-right aspect-video rounded-xl object-cover'
                 src={item.backdropUrl}
                 alt='Robot Group'
                 width={1280}
