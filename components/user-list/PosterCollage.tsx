@@ -20,7 +20,7 @@ export function PosterCollageGallery({
       <Image
         className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
         key={posterPaths[0]}
-        alt='bullcrap'
+        alt='poster'
         height={500}
         width={startingWidth}
         src={getTmdbImageUrl(posterPaths[0], 'w300')}
@@ -29,7 +29,7 @@ export function PosterCollageGallery({
         <Image
           className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
           key={posterPaths[1]}
-          alt='bullcrap'
+          alt='poster'
           height={500}
           width={startingWidth * 0.6 - 12}
           src={getTmdbImageUrl(posterPaths[1], 'w300')}
@@ -38,7 +38,7 @@ export function PosterCollageGallery({
           <Image
             className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
             key={posterPaths[2]}
-            alt='bullcrap'
+            alt='poster'
             height={500}
             width={startingWidth * 0.4 - 3}
             src={getTmdbImageUrl(posterPaths[2], 'w300')}
@@ -47,7 +47,7 @@ export function PosterCollageGallery({
             <Image
               className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
               key={posterPaths[3]}
-              alt='bullcrap'
+              alt='poster'
               height={500}
               width={startingWidth * 0.2 - 2}
               src={getTmdbImageUrl(posterPaths[3], 'w300')}
@@ -55,7 +55,7 @@ export function PosterCollageGallery({
             <Image
               className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
               key={posterPaths[4]}
-              alt='bullcrap'
+              alt='poster'
               height={500}
               width={startingWidth * 0.2 - 2}
               src={getTmdbImageUrl(posterPaths[4], 'w300')}
@@ -80,7 +80,7 @@ export function PosterItem({
     <Image
       className='rounded-xl border-2 border-zinc-300 drop-shadow-xl'
       height={height}
-      alt='bullcrap'
+      alt='poster'
       style={{ minWidth: `${width}px`, height: `${height}px` }}
       width={width}
       src={getTmdbImageUrl(posterPath, 'w185')}
@@ -218,7 +218,7 @@ export function PosterCollageBigFirstRightGrid({
             wrapper: i == 0 ? 'col-span-2 row-span-2 p-2' : 'p-2',
           }}
           className='rounded-xl border-2 border-zinc-300 drop-shadow-xl'
-          alt='bullcrap'
+          alt='poster'
           src={getTmdbImageUrl(p.posterPath, 'w342')}
         />
       ))}
@@ -240,7 +240,7 @@ export function PosterCollageBigFirstDown({
       <Image
         className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
         key={posters[0].tmdbId}
-        alt='bullcrap'
+        alt='poster'
         height={500}
         width={startingWidth}
         src={getTmdbImageUrl(posters[0].posterPath, 'w300')}
@@ -250,7 +250,7 @@ export function PosterCollageBigFirstDown({
           <Image
             className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
             key={posters[1].tmdbId}
-            alt='bullcrap'
+            alt='poster'
             height={500}
             width={startingWidth / 2}
             src={getTmdbImageUrl(posters[1].posterPath, 'w300')}
@@ -258,7 +258,7 @@ export function PosterCollageBigFirstDown({
           <Image
             className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
             key={posters[2].tmdbId}
-            alt='bullcrap'
+            alt='poster'
             height={500}
             width={startingWidth / 2}
             src={getTmdbImageUrl(posters[2].posterPath, 'w300')}
@@ -268,7 +268,7 @@ export function PosterCollageBigFirstDown({
           <Image
             className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
             key={posters[3].tmdbId}
-            alt='bullcrap'
+            alt='poster'
             height={500}
             width={startingWidth / 2}
             src={getTmdbImageUrl(posters[3].posterPath, 'w300')}
@@ -276,7 +276,7 @@ export function PosterCollageBigFirstDown({
           <Image
             className='rounded-xl border-2 border-zinc-300 drop-shadow-lg'
             key={posters[4].tmdbId}
-            alt='bullcrap'
+            alt='poster'
             height={500}
             width={startingWidth / 2}
             src={getTmdbImageUrl(posters[4].posterPath, 'w300')}
@@ -336,7 +336,7 @@ export function BackdropCard({
       <Image
         className='object-cover'
         key={item.tmdbId}
-        alt='bullcrap'
+        alt='poster'
         height={500}
         width={width}
         src={getTmdbImageUrl(item.backdropPath, 'w780')}
@@ -368,7 +368,7 @@ export function PosterCollageCardDec({
             }}
             className='absolute rounded-xl border-2 border-zinc-300 drop-shadow-lg'
             key={poster.tmdbId}
-            alt='bullcrap'
+            alt='poster'
             height={500}
             width={startingWidth}
             src={getTmdbImageUrl(poster.posterPath, 'w300')}
@@ -397,7 +397,7 @@ export function PosterCollageStraight({
         <div key={i} className='flex flex-col items-center gap-2'>
           {isSkeleton ? (
             <Skeleton className='rounded-xl'>
-              <img alt='bullcrap' src='/dummyPoster.jpeg' />
+              <img alt='poster' src='/dummyPoster.jpeg' />
             </Skeleton>
           ) : (
             <Image
@@ -407,7 +407,7 @@ export function PosterCollageStraight({
               width={342}
               height={513}
               className='aspect-[2/3] rounded-md object-cover shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
-              alt='bullcrap'
+              alt={`${lite.name} poster`}
               src={getTmdbImageUrl(lite.posterPath, 'w342')}
             />
           )}
@@ -451,7 +451,7 @@ export function BackdropCollageStraight({
                   height={169}
                   className='max-w-[245px] object-cover brightness-90'
                   src={getTmdbImageUrl(lite.backdropPath, 'w300')}
-                  alt='NextUI hero Image'
+                  alt={`${lite.name} still`}
                 />
                 <CardFooter className='absolute bottom-0 z-10 overflow-hidden bg-slate-900/60 py-2 text-sm text-neutral-200'>
                   {lite.name}

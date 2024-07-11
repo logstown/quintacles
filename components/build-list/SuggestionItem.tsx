@@ -42,7 +42,7 @@ export function SuggestionItem({
               width={300}
               height={450}
               src={getTmdbImageUrl(item.posterPath, 'w300')}
-              alt='NextUI hero Image'
+              alt={`${item.name} poster`}
             />
           ) : (
             <div className='flex h-full w-full flex-col items-center justify-center rounded-md bg-slate-300 p-4'>

@@ -61,7 +61,7 @@ export function EpisodeChoice({
               as={NextImage}
               width={300}
               height={169}
-              alt={episode.name}
+              alt={episode.name + ' still'}
               src={getTmdbImageUrl(episode.still_path ?? backDropFallBack, 'w300')}
             />
           </AddListIdx>

@@ -4,7 +4,7 @@ export function UserCoverImage({ coverImagePath }: { coverImagePath: string }) {
   return (
     <img
       src={coverImagePath}
-      alt='cover'
+      alt='user cover image'
       className='h-80 w-full rounded-t-xl object-cover'
     />
   )

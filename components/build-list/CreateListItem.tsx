@@ -77,7 +77,7 @@ export const CreateListItem = ({
               height={isEpisode ? 169 : 450}
               className={`object-cover ${isEpisode ? 'brightness-75' : ''} ${item ? '' : 'invisible'}`}
               src={imgSrc}
-              alt='NextUI hero Image'
+              alt={`${item?.name} image`}
             />
           </AddListIdx>
           {isEpisode && !!item && (

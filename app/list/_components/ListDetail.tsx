@@ -169,7 +169,7 @@ export async function ListDetail(props: ListDetailProps) {
                 unoptimized
                 className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right aspect-video rounded-xl object-cover'
                 src={item.backdropUrl}
-                alt='Robot Group'
+                alt={`${item.name} backdrop`}
                 width={1280}
                 height={720}
               />
@@ -178,7 +178,7 @@ export async function ListDetail(props: ListDetailProps) {
                   <Image
                     unoptimized
                     isBlurred
-                    alt='dude'
+                    alt={`${item.name} poster`}
                     as={NextImage}
                     height={277.5}
                     width={185}

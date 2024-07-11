@@ -37,8 +37,7 @@ export default async function Home() {
         <div className='drop-shadow-2xl'>
           <div className='flex flex-wrap items-center justify-center gap-2'>
             <NextImage
-              unoptimized
-              alt='octopus'
+              alt='quintopus'
               width='150'
               className='w-[100px] md:w-[150px]'
               height='150'

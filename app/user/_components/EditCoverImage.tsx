@@ -143,7 +143,7 @@ export function EditCoverImage() {
                           radius='lg'
                           width={300}
                           height={169}
-                          alt={item.title || item.name}
+                          alt={(item.title || item.name) + ' backdrop'}
                           className='w-full rounded-none object-cover'
                           src={getTmdbImageUrl(item.backdrop_path, 'w300')}
                         />

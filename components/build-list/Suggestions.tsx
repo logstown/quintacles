@@ -132,7 +132,7 @@ export function Suggestions({
                 width={300}
                 height={450}
                 src='/dummyPoster.jpeg'
-                alt='NextUI hero Image'
+                alt='dummy poster'
               />
             </Skeleton>
           ))}
