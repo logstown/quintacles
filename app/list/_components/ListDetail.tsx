@@ -160,7 +160,7 @@ export async function ListDetail(props: ListDetailProps) {
               </div>
             </div>
             <div className='relative flex w-full items-center lg:w-3/5'>
-              <p className='absolute -left-8 z-40 bg-gradient-to-r from-neutral-50 to-transparent bg-clip-text text-[650px] text-transparent drop-shadow-2xl'>
+              <p className='absolute z-40 bg-gradient-to-r from-white to-transparent bg-clip-text text-[200px] text-transparent drop-shadow-2xl sm:text-[400px] xl:text-[550px]'>
                 {5 - i}
               </p>
               <NextImage
