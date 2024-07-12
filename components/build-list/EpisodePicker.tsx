@@ -3,7 +3,7 @@
 import { TvEpisode } from '../../lib/TmdbModels'
 import { useMemo, useState } from 'react'
 import { filter, flow, orderBy, take } from 'lodash/fp'
-import { words, findIndex } from 'lodash'
+import { findIndex } from 'lodash'
 import { EpisodeChoice } from './EpisodeChoice'
 import { SearchIcon } from 'lucide-react'
 import { ListItem, TvShowLite } from '@prisma/client'
@@ -13,8 +13,7 @@ import { Select, SelectItem } from '@nextui-org/select'
 import { EpisodeData } from '@/lib/models'
 
 const doesWordStartIncludeTerm = (term: string, str: string): boolean => {
-  const strWords = words(str)
-  return strWords.some(w => w.toLowerCase().startsWith(term.toLowerCase()))
+  return str.toLowerCase().includes(term.toLowerCase())
 }
 
 enum SortBy {
