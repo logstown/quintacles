@@ -93,7 +93,7 @@ export async function userListQuery({
       pageNum.toString(),
     ],
     {
-      revalidate: 60 * 5,
+      revalidate: 30,
       tags: ['userlist-query', `user-mediaType-${userId}-${restrictions.mediaType}`],
     },
   )()
