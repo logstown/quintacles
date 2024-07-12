@@ -13,3 +13,4 @@ notifications for when users make the same list
 
 ideas:
 allow anyone to edit any list to create their own
+allow users to change out posters and backdrops

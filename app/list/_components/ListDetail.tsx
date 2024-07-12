@@ -149,8 +149,10 @@ export async function ListDetail(props: ListDetailProps) {
                     </Link>
                     {isEpisodes && (
                       <h3 className='flex flex-col flex-wrap items-baseline sm:flex-row sm:gap-4 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
-                        <p className='font-semibold'>
-                          Season {item.seasonNum} · Episode {item.episodeNum}
+                        <p>
+                          Season <span className='font-bold'>{item.seasonNum}</span>{' '}
+                          · Episode{' '}
+                          <span className='font-bold'>{item.episodeNum}</span>
                         </p>
                         <p className='text-tiny sm:text-sm md:text-base lg:text-tiny xl:text-base'>
                           {format(new Date(item.date), 'MMM d, yyyy')}
