@@ -99,7 +99,7 @@ export function Suggestions({
   const suggestionSelected = (item: ListItem) => {
     if (onItemSelected) {
       onItemSelected(item)
-      setSearchText('')
+      setTimeout(() => setSearchText(''), 2000)
     } else {
       router.push(`/create/list/episodes?episodesTvShowId=${item.tmdbId}`)
     }

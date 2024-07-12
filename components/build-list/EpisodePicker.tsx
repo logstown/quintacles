@@ -67,8 +67,14 @@ export function EpisodePicker({
       setSortEpsBy(SortBy.EpisodeOrder.toString())
     }
   }
+
   const handleSortEpsByChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortEpsBy(e.target.value)
+  }
+
+  const onEpisodeSelected = (item: ListItem) => {
+    onItemSelected(item)
+    setTimeout(() => setSearch(''), 2000)
   }
 
   return (
@@ -134,7 +140,7 @@ export function EpisodePicker({
             <EpisodeChoice
               backDropFallBack={tvShow.backdropPath ?? ''}
               key={episode.id}
-              onItemSelected={onItemSelected}
+              onItemSelected={onEpisodeSelected}
               episode={episode}
               idx={idx}
               isUnselectable={listItems?.length === 5}
