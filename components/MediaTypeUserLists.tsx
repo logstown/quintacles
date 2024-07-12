@@ -36,7 +36,7 @@ export function MediaTypeUserLists({
                 variant='light'
                 as={Link}
                 className='m-6'
-                href={`/create/criteriia/${mediaTypes[mediaType.key].urlPlural}`}
+                href={`/create/criteria/${mediaTypes[mediaType.key].urlPlural}`}
                 endContent={<PlusIcon size={15} />}
               >
                 Create

@@ -3,12 +3,13 @@
 import { useState } from 'react'
 import { getTmdbImageUrl } from '../../lib/random'
 import { ListItem } from '@prisma/client'
-import { Card, CardFooter } from '@nextui-org/card'
+import { Card } from '@nextui-org/card'
 import Image from 'next/image'
 import { Button } from '@nextui-org/button'
 import { AddListIdx } from './AddListIdx'
 import { XIcon } from 'lucide-react'
 import { Tooltip } from '@nextui-org/tooltip'
+import { EpisodeThumbnailFooter } from '../EpisodeThumbnailFooter'
 
 export const CreateListItem = ({
   item,
@@ -81,9 +82,7 @@ export const CreateListItem = ({
             />
           </AddListIdx>
           {isEpisode && !!item && (
-            <CardFooter className='absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
-              <p className='text-left text-tiny text-white/80'>{item.name}</p>
-            </CardFooter>
+            <EpisodeThumbnailFooter>{item.name}</EpisodeThumbnailFooter>
           )}
         </Card>
       </Tooltip>

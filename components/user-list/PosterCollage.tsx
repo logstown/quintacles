@@ -5,6 +5,7 @@ import { Card, CardFooter } from '@nextui-org/card'
 import NextImage from 'next/image'
 import { Skeleton } from '@nextui-org/skeleton'
 import React from 'react'
+import { EpisodeThumbnailFooter } from '../EpisodeThumbnailFooter'
 
 export function PosterCollageGallery({
   posterPaths,
@@ -453,9 +454,7 @@ export function BackdropCollageStraight({
                   src={getTmdbImageUrl(lite.backdropPath, 'w300')}
                   alt={`${lite.name} still`}
                 />
-                <CardFooter className='absolute bottom-0 z-10 overflow-hidden bg-slate-900/60 py-2 text-sm text-neutral-200'>
-                  {lite.name}
-                </CardFooter>
+                <EpisodeThumbnailFooter>{lite.name}</EpisodeThumbnailFooter>
               </Card>
             </div>
           )}
