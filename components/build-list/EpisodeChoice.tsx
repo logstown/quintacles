@@ -49,7 +49,7 @@ export function EpisodeChoice({
             {format(new Date(episode.air_date), 'MMM d, yyyy')}
           </div>
         </div>
-        <div className='mt-1 max-w-[263px] truncate font-semibold tracking-tight'>
+        <div className='mt-1 max-w-[263px] truncate font-bold tracking-tight'>
           {episode.name}
         </div>
       </CardHeader>
@@ -65,7 +65,7 @@ export function EpisodeChoice({
               src={getTmdbImageUrl(episode.still_path ?? backDropFallBack, 'w300')}
             />
           </AddListIdx>
-          <div className='flex flex-1 px-3 text-tiny'>
+          <div className='flex flex-1 px-3 text-sm'>
             <ItemOverview overview={episode.overview} />
           </div>
         </div>

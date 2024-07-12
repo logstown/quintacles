@@ -43,7 +43,7 @@ export default async function Home() {
               height='150'
               src='/octopus.png'
             />
-            <h1 className='bg-gradient-to-br from-secondary-600 to-primary-600 bg-clip-text text-5xl font-bold capitalize text-transparent md:text-7xl'>
+            <h1 className='bg-gradient-to-br from-secondary-600 to-primary-600 bg-clip-text text-5xl font-extrabold capitalize text-transparent md:text-7xl'>
               Quintacles
             </h1>
           </div>

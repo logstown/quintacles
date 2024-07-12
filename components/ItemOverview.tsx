@@ -1,25 +1,23 @@
 'use client'
 
+import { smallFont } from '@/config/fonts'
 import { Link } from '@nextui-org/link'
 import React from 'react'
 import { useLayoutEffect, useState } from 'react'
 
 export function ItemOverview({ overview }: { overview: string }) {
   const ref = React.useRef(null)
-  const { isTruncated, isShowingMore, toggleIsShowingMore } =
-    useTruncatedElement({
-      ref,
-    })
+  const { isTruncated, isShowingMore, toggleIsShowingMore } = useTruncatedElement({
+    ref,
+  })
 
   return (
     <>
       {overview ? (
-        <div>
+        <div className={smallFont.className}>
           <p
             ref={ref}
-            className={
-              isShowingMore ? 'text-pretty' : 'line-clamp-4 text-pretty'
-            }
+            className={isShowingMore ? 'text-pretty' : 'line-clamp-4 text-pretty'}
           >
             {overview}
           </p>
