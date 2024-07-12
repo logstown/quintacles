@@ -1,4 +1,4 @@
-import { currentUser } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs/server'
 import { CreateListSearchParams, EpisodeData } from '@/lib/models'
 import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
@@ -22,9 +22,9 @@ export default async function BuildListPage({
     redirect('/')
   }
 
-  const user = await currentUser()
+  const { userId } = auth()
 
-  if (!user) {
+  if (!userId) {
     throw new Error('User not found')
   }
 
@@ -33,13 +33,13 @@ export default async function BuildListPage({
     searchParams,
   })
 
-  const slug = getSlug(restrictions)
+  const restrictionsSlug = getSlug(restrictions)
 
   const dupe = await prisma.usersOnUserLists.findUnique({
     where: {
       userRestrictionsById: {
-        userId: user.id,
-        restrictionsSlug: slug,
+        userId,
+        restrictionsSlug,
       },
     },
   })

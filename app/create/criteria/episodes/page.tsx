@@ -1,14 +1,14 @@
 import { Suggestions } from '@/components/build-list/Suggestions'
 import prisma from '@/lib/db'
-import { currentUser } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs/server'
 import { MediaType } from '@prisma/client'
 import { CriteriaBreadcrumbs } from '../_components/CriteriaBreadcrumbs'
 import { unstable_cache } from 'next/cache'
 
 export default async function TvEpisodeCriteriaPage() {
-  const user = await currentUser()
+  const { userId } = auth()
 
-  if (!user) {
+  if (!userId) {
     throw new Error('User not found')
   }
 
@@ -20,7 +20,7 @@ export default async function TvEpisodeCriteriaPage() {
           userLists: {
             some: {
               users: {
-                some: { userId: user.id },
+                some: { userId },
               },
             },
           },
@@ -33,8 +33,8 @@ export default async function TvEpisodeCriteriaPage() {
           },
         },
       }),
-    ['episodes-restrictions', user.id, MediaType.TvEpisode],
-    { tags: [`user-mediaType-${user.id}-${MediaType.TvEpisode}`] },
+    ['episodes-restrictions', userId, MediaType.TvEpisode],
+    { tags: [`user-mediaType-${userId}-${MediaType.TvEpisode}`] },
   )()
 
   const tvShowIds = restrictions.map(r => r.EpisodesTvShow.id)

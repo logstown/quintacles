@@ -5,7 +5,7 @@ import { CalendarIcon } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { EditCoverImage } from '../_components/EditCoverImage'
 import { getTmdbImageUrl } from '@/lib/random'
-import { currentUser } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs/server'
 import { UserCoverImage } from '../_components/UserCoverImage'
 import { MediaTypeUserLists } from '@/components/MediaTypeUserLists'
 
@@ -14,7 +14,7 @@ export default async function UserPage({
 }: {
   params: { username: string }
 }) {
-  const profilePromise = prisma.user.findUnique({
+  const profile = await prisma.user.findUnique({
     where: { username },
     include: {
       _count: {
@@ -23,13 +23,11 @@ export default async function UserPage({
     },
   })
 
-  const [profile, user] = await Promise.all([profilePromise, currentUser()])
-
   if (!profile) {
     redirect('/')
   }
 
-  const isCurrentUser = user?.id === profile.id
+  const { userId } = auth()
 
   const coverImageSrc =
     profile.coverImagePath === '/movieBackdrop.jpeg'
@@ -49,7 +47,7 @@ export default async function UserPage({
             src={profile.photoURL ?? undefined}
             className='absolute -bottom-[60px] left-0 right-0 ml-auto mr-auto min-h-32 min-w-32 text-large md:left-20 md:right-auto'
           />
-          {isCurrentUser && (
+          {userId === profile.id && (
             <div className='absolute bottom-5 right-5'>
               <EditCoverImage />
             </div>

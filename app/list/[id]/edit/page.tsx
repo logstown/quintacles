@@ -1,18 +1,18 @@
 import { BuildList } from '@/components/build-list/build-list'
 import prisma from '@/lib/db'
 import { getEpisodeData } from '@/lib/server-functions'
-import { currentUser } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs/server'
 import { MediaType } from '@prisma/client'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 export default async function EditListPage({
   params: { id },
 }: {
   params: { id: string }
 }) {
-  const user = await currentUser()
+  const { userId } = auth()
 
-  if (!user) {
+  if (!userId) {
     redirect(`/list/${id}`)
   }
 
@@ -20,7 +20,7 @@ export default async function EditListPage({
     where: {
       id: Number(id),
       users: {
-        some: { userId: user.id },
+        some: { userId },
       },
     },
     include: {
@@ -39,7 +39,7 @@ export default async function EditListPage({
   })
 
   if (!list) {
-    redirect(`/list/${id}`)
+    notFound()
   }
 
   const episodeData =

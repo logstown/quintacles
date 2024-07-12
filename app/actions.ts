@@ -7,16 +7,16 @@ import { getGenres } from '@/lib/genres'
 import { Decade, Genre, RestrictionsUI } from '@/lib/models'
 import { getDecades, getSlug, getUserListsUrl } from '@/lib/random'
 import { userListQuery } from '@/lib/server-functions'
-import { User, currentUser } from '@clerk/nextjs/server'
+import { User, auth, currentUser } from '@clerk/nextjs/server'
 import { ListItem, MediaType, PrismaPromise, UserList } from '@prisma/client'
 import { some } from 'lodash'
 import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 export async function surpriseMe(mediaType: MediaType) {
-  const user = await currentUser()
+  const { userId } = auth()
 
-  if (!user) {
+  if (!userId) {
     throw new Error('User not found')
   }
 
@@ -27,17 +27,15 @@ export async function surpriseMe(mediaType: MediaType) {
           userLists: {
             some: {
               users: {
-                some: {
-                  userId: user.id,
-                },
+                some: { userId },
               },
             },
           },
           mediaType,
         },
       }),
-    ['user-restrictions', user.id, mediaType],
-    { tags: [`user-mediaType-${user.id}-${mediaType}`] },
+    ['user-restrictions', userId, mediaType],
+    { tags: [`user-mediaType-${userId}-${mediaType}`] },
   )()
 
   const { results: popularPeople } =
