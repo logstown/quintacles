@@ -1,7 +1,7 @@
 'use client'
 
 import { SaveIcon } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { reject } from 'lodash'
 import { ListItem, MediaType } from '@prisma/client'
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
@@ -17,20 +17,26 @@ import { createOrUpdateUserList } from '@/app/actions'
 import { Reorder } from 'framer-motion'
 import { BackgroundGradient } from '../background-gradient'
 import { ReorderGroupResponsive } from './ReorderGroupResponsive'
+import { SeasonPicker } from './SeasonPicker'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
+import { mediaTypes } from '@/lib/mediaTypes'
 
 export function BuildList({
   restrictions,
   listItemsToEdit,
   userListId,
   episodeData,
+  seasons,
 }: {
   restrictions: RestrictionsUI
   listItemsToEdit?: ListItem[]
   userListId?: number
   episodeData?: EpisodeData
+  seasons?: ListItem[]
 }) {
+  const router = useRouter()
   const [listItems, setListItems] = useState<ListItem[]>(listItemsToEdit ?? [])
-
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
 
   const { mutate: save, isPending: isSavePending } = useMutation({
@@ -38,6 +44,13 @@ export function BuildList({
       createOrUpdateUserList({ restrictions, listItems, userListId }),
     onError: e => console.log(e),
   })
+
+  useEffect(() => {
+    if (seasons && seasons.length < 5) {
+      toast.warning('Tv show needs at least 5 seasons to create a list')
+      router.replace(`/create/criteria/${mediaTypes[MediaType.TvSeason].urlPlural}`)
+    }
+  }, [seasons])
 
   const title = userListId ? 'Edit List' : ''
 
@@ -115,6 +128,12 @@ export function BuildList({
             onItemSelected={addListItem}
             listItems={listItems}
             episodeData={episodeData}
+          />
+        ) : restrictions.mediaType === MediaType.TvSeason ? (
+          <SeasonPicker
+            seasons={seasons ?? []}
+            onItemSelected={addListItem}
+            listItems={listItems}
           />
         ) : (
           <Suggestions

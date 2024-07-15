@@ -9,7 +9,7 @@ import React from 'react'
 import { SuggestionItem } from './SuggestionItem'
 import { useDebounce, useScrollAfter5Items } from '../../lib/hooks'
 import { mediaTypes } from '../../lib/mediaTypes'
-import { ListItem } from '@prisma/client'
+import { ListItem, MediaType } from '@prisma/client'
 import { getSuggestions } from '@/app/actions'
 import { RestrictionsUI } from '@/lib/models'
 import { useInView } from 'react-intersection-observer'
@@ -26,13 +26,15 @@ export function Suggestions({
   restrictions,
   listItems,
   mediaIds,
-  isForEpisodes,
+  isForTvShowSelection,
+  isForSeasons,
 }: {
   onItemSelected?: (item: ListItem) => void
   restrictions: RestrictionsUI
   listItems?: ListItem[]
   mediaIds?: number[]
-  isForEpisodes?: boolean
+  isForTvShowSelection?: boolean
+  isForSeasons?: boolean
 }) {
   const router = useRouter()
   const [ref, inView] = useInView()
@@ -58,7 +60,7 @@ export function Suggestions({
     const suggestions = data.results
       .filter((x: any) => !mediaIds?.includes(x.id))
       .filter((x: any) =>
-        isForEpisodes
+        isForTvShowSelection
           ? intersection(x.genre_ids, tvGenresToExclude).length === 0
           : true,
       )
@@ -101,7 +103,13 @@ export function Suggestions({
       onItemSelected(item)
       setTimeout(() => setSearchText(''), 2000)
     } else {
-      router.push(`/create/list/episodes?episodesTvShowId=${item.tmdbId}`)
+      isForSeasons
+        ? router.push(
+            `/create/list/${mediaTypes[MediaType.TvSeason].urlPlural}?episodesTvShowId=${item.tmdbId}`,
+          )
+        : router.push(
+            `/create/list/${mediaTypes[MediaType.TvEpisode].urlPlural}?episodesTvShowId=${item.tmdbId}`,
+          )
     }
   }
 

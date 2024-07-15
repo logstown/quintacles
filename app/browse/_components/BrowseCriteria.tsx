@@ -112,7 +112,7 @@ export function BrowseCriteria({
   }
 
   return (
-    <Card className='w-full p-6'>
+    <Card className='w-full p-3 sm:p-6'>
       <CardBody className='flex flex-col items-center gap-10'>
         <div className='flex w-full flex-col items-center justify-center gap-8 md:flex-row md:items-baseline md:gap-12'>
           <Tabs
