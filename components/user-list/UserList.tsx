@@ -10,6 +10,8 @@ import { ListTitleBase } from '../list-title-base'
 import { Divider } from '@nextui-org/divider'
 import { UserListButtons } from '../UserListButtons'
 import { UserListLink } from './UserListLink'
+import { GenreIcon } from './GenreIcon'
+import { ListTitle } from '@/app/create/criteria/_components/list-title'
 import { cloneElement } from 'react'
 import { mediaTypes } from '@/lib/mediaTypes'
 
@@ -65,7 +67,7 @@ export function UserListCard({
                 </div>
               )}
               <div
-                className={`flex items-center gap-3 text-2xl font-bold tracking-tight sm:gap-5 ${isEpisodes ? 'max-w-[267px]' : 'sm:text-3xl md:text-4xl'}`}
+                className={`flex items-center gap-3 text-2xl font-semibold tracking-tight sm:gap-5 ${isEpisodes ? 'max-w-[267px]' : 'sm:text-3xl md:text-4xl'}`}
               >
                 {!isEpisodes && !Person?.id && (
                   <div className='text-foreground-500'>{mediaTypeIcon}</div>

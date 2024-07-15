@@ -1,4 +1,3 @@
-import BlurryBlob from '@/components/animata/background/blurry-blob'
 import { mediaTypeArrForLists, mediaTypes } from '@/lib/mediaTypes'
 import { Button } from '@nextui-org/button'
 import Link from 'next/link'
@@ -6,14 +5,7 @@ import { cloneElement } from 'react'
 
 const CreateCriteriaPage = () => {
   return (
-    <div className='relative flex h-full flex-col items-center justify-center gap-20'>
-      <div className='absolute left-[40%] top-1/2 hidden sm:block'>
-        <BlurryBlob
-          className='opacity-20'
-          firstBlobColor='bg-primary-400'
-          secondBlobColor='bg-secondary-400'
-        />
-      </div>
+    <div className='flex h-full flex-col items-center justify-center gap-20'>
       <h1 className='text-center text-5xl font-semibold drop-shadow-2xl sm:text-7xl'>
         Create List
       </h1>

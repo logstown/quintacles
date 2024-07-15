@@ -37,7 +37,7 @@ export const Navbar = () => {
         <NavbarItem className='shrink-0'>
           <NextLink href='/' className='flex items-center gap-3'>
             <NextImage alt='quintopus' width='65' height='65' src='/octopus.png' />
-            <p className='hidden text-xl font-bold sm:block'>Quintacles</p>
+            <p className='hidden text-xl font-semibold sm:block'>Quintacles</p>
           </NextLink>
         </NavbarItem>
       </NavbarContent>

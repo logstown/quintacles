@@ -24,7 +24,7 @@ export function MediaTypeUserLists({
             key={mediaType.key}
             className={`flex flex-col gap-2 sm:gap-4 ${isEpisodes ? '' : 'max-w-screen-lg'}`}
           >
-            <div className='flex items-baseline gap-6'>
+            <div className='flex items-baseline gap-2'>
               <h1 className='pl-4 font-bold capitalize md:text-2xl'>
                 <span className='text-foreground-400'>Recent </span>
                 {mediaTypes[mediaType.key].display}
@@ -35,6 +35,7 @@ export function MediaTypeUserLists({
                 radius='lg'
                 variant='light'
                 as={Link}
+                className='m-6'
                 href={`/create/criteria/${mediaTypes[mediaType.key].urlPlural}`}
                 endContent={<PlusIcon size={15} />}
               >
