@@ -18,6 +18,7 @@ import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { Button } from '@nextui-org/button'
 import { UsersIcon } from 'lucide-react'
+import { getImageStuff } from '@/lib/TmdbService'
 
 type ListDetailProps = { id: number } | { username: string; slug: string }
 
@@ -30,7 +31,11 @@ export async function ListDetail(props: ListDetailProps) {
 
   const { Restrictions: restrictions } = userList
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
+  const isSeasons = restrictions.mediaType === MediaType.TvSeason
   const isForUser = 'username' in props
+
+  // const deal = await getImageStuff()
+  // console.log(deal)
 
   const listItemPromises = [
     userList.item1,
@@ -45,17 +50,16 @@ export async function ListDetail(props: ListDetailProps) {
       let textColor = 'white'
       let backdropUrl = '/movieBackdrop.jpeg'
 
-      if (item.backdropPath) {
-        const { vibrantSize, bgSize } = isEpisodes
-          ? { vibrantSize: 'original', bgSize: 'original' }
-          : { vibrantSize: 'w300', bgSize: 'w1280' }
+      if (item.backdropPath || (isSeasons && item.posterPath)) {
+        const { vibrantSize, bgSize } = getSizes(restrictions.mediaType)
+        const bigImagePath = isSeasons ? item.posterPath : item.backdropPath
         const color = await Vibrant.from(
-          getTmdbImageUrl(item.backdropPath, vibrantSize),
+          getTmdbImageUrl(bigImagePath, vibrantSize),
         ).getPalette()
         bgColor = getBetterHSL(color.DarkMuted?.hsl, 0, 25) ?? bgColor
         rgb = color.DarkMuted?.rgb ?? rgb
         textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
-        backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
+        backdropUrl = getTmdbImageUrl(bigImagePath, bgSize)
       }
 
       const baseUrl = `https://www.themoviedb.org`
@@ -162,7 +166,7 @@ export async function ListDetail(props: ListDetailProps) {
                   </div>
                 </div>
                 <div className={`mt-6 font-light xl:text-lg 2xl:text-xl`}>
-                  <ItemOverview overview={item.overview ?? ''} />
+                  <ItemOverview omitNoOverview overview={item.overview ?? ''} />
                 </div>
               </div>
             </div>
@@ -208,6 +212,17 @@ export async function ListDetail(props: ListDetailProps) {
       </div>
     </div>
   )
+}
+
+const getSizes = (mediaType: MediaType): { vibrantSize: string; bgSize: string } => {
+  switch (mediaType) {
+    case MediaType.TvEpisode:
+      return { vibrantSize: 'original', bgSize: 'original' }
+    case MediaType.TvSeason:
+      return { vibrantSize: 'w342', bgSize: 'original' }
+    default:
+      return { vibrantSize: 'w300', bgSize: 'w1280' }
+  }
 }
 
 const getBetterHSL = (
