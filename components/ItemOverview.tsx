@@ -5,13 +5,7 @@ import { Link } from '@nextui-org/link'
 import React from 'react'
 import { useLayoutEffect, useState } from 'react'
 
-export function ItemOverview({
-  overview,
-  omitNoOverview,
-}: {
-  overview: string
-  omitNoOverview?: boolean
-}) {
+export function ItemOverview({ overview }: { overview: string }) {
   const ref = React.useRef(null)
   const { isTruncated, isShowingMore, toggleIsShowingMore } = useTruncatedElement({
     ref,
@@ -37,11 +31,9 @@ export function ItemOverview({
           )}
         </div>
       ) : (
-        !omitNoOverview && (
-          <em className='flex items-center justify-center text-foreground-400'>
-            No Overview
-          </em>
-        )
+        <em className='flex items-center justify-center text-foreground-400'>
+          No Overview
+        </em>
       )}
     </>
   )
