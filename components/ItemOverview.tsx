@@ -6,10 +6,9 @@ import { useLayoutEffect, useState } from 'react'
 
 export function ItemOverview({ overview }: { overview: string }) {
   const ref = React.useRef(null)
-  const { isTruncated, isShowingMore, toggleIsShowingMore } =
-    useTruncatedElement({
-      ref,
-    })
+  const { isTruncated, isShowingMore, toggleIsShowingMore } = useTruncatedElement({
+    ref,
+  })
 
   return (
     <>
@@ -17,9 +16,7 @@ export function ItemOverview({ overview }: { overview: string }) {
         <div>
           <p
             ref={ref}
-            className={
-              isShowingMore ? 'text-pretty' : 'line-clamp-4 text-pretty'
-            }
+            className={isShowingMore ? 'text-pretty' : 'line-clamp-4 text-pretty'}
           >
             {overview}
           </p>

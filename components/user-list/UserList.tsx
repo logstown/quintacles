@@ -10,8 +10,6 @@ import { ListTitleBase } from '../list-title-base'
 import { Divider } from '@nextui-org/divider'
 import { UserListButtons } from '../UserListButtons'
 import { UserListLink } from './UserListLink'
-import { GenreIcon } from './GenreIcon'
-import { ListTitle } from '@/app/create/criteria/_components/list-title'
 import { cloneElement } from 'react'
 import { mediaTypes } from '@/lib/mediaTypes'
 

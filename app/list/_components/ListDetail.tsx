@@ -141,7 +141,7 @@ export async function ListDetail(props: ListDetailProps) {
                           {item.name}{' '}
                           {!isEpisodes && (
                             <small className='text-[50%] font-medium'>
-                              ({new Date(item.date).getFullYear()})
+                              {new Date(item.date).getFullYear()}
                             </small>
                           )}
                         </h1>

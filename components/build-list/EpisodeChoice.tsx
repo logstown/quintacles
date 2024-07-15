@@ -65,7 +65,7 @@ export function EpisodeChoice({
               src={getTmdbImageUrl(episode.still_path ?? backDropFallBack, 'w300')}
             />
           </AddListIdx>
-          <div className='flex flex-1 px-3 text-tiny'>
+          <div className='flex flex-1 px-3 text-sm'>
             <ItemOverview overview={episode.overview} />
           </div>
         </div>
