@@ -160,7 +160,8 @@ export function BrowseCriteria({
         </div>
         {showCriteria && (
           <div className='flex flex-wrap items-baseline justify-center gap-4 sm:gap-8'>
-            {restrictions.mediaType === MediaType.TvEpisode ? (
+            {restrictions.mediaType === MediaType.TvEpisode ||
+            restrictions.mediaType === MediaType.TvSeason ? (
               <MediaPicker
                 labelExcludesSelect={true}
                 size='lg'

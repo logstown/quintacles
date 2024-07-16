@@ -162,7 +162,7 @@ export async function ListDetail(props: ListDetailProps) {
                   </div>
                 </div>
                 <div className={`mt-6 font-light xl:text-lg 2xl:text-xl`}>
-                  <ItemOverview overview={item.overview ?? ''} />
+                  <ItemOverview omitNoOverview overview={item.overview ?? ''} />
                 </div>
               </div>
             </div>
