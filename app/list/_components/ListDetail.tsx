@@ -79,7 +79,7 @@ export async function ListDetail(props: ListDetailProps) {
   return (
     <div>
       <div className='flex flex-col items-center gap-4 px-8 md:gap-8 md:px-12'>
-        <h1 className='text-center text-5xl font-bold capitalize tracking-tight drop-shadow-2xl sm:text-6xl lg:text-7xl'>
+        <h1 className='text-center text-5xl font-semibold capitalize tracking-tight drop-shadow-2xl sm:text-6xl lg:text-7xl'>
           <ListTitleBase restrictions={restrictions} includeMediaType={true} />
         </h1>
         <div className='flex flex-col items-center gap-2'>
@@ -141,7 +141,7 @@ export async function ListDetail(props: ListDetailProps) {
                           {item.name}{' '}
                           {!isEpisodes && (
                             <small className='text-[50%] font-medium'>
-                              ({new Date(item.date).getFullYear()})
+                              {new Date(item.date).getFullYear()}
                             </small>
                           )}
                         </h1>

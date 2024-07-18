@@ -49,7 +49,7 @@ export function EpisodeChoice({
             {format(new Date(episode.air_date), 'MMM d, yyyy')}
           </div>
         </div>
-        <div className='mt-1 max-w-[263px] truncate font-bold tracking-tight'>
+        <div className='mt-1 max-w-[263px] truncate font-semibold tracking-tight'>
           {episode.name}
         </div>
       </CardHeader>
