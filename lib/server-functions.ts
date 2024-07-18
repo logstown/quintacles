@@ -1,15 +1,20 @@
 import 'server-only'
 
 import { find, pickBy, reject } from 'lodash'
-import { CreateListSearchParams, EpisodeData, RestrictionsUI } from './models'
+import {
+  CreateListSearchParams,
+  EpisodeData,
+  RestrictionsUI,
+  TvShowLiteUI,
+} from './models'
 import { MediaType, Prisma } from '@prisma/client'
 import prisma from './db'
 import { redirect } from 'next/navigation'
-import { TvShow, TmdbPerson, TvEpisode, Season } from './TmdbModels'
+import { TmdbPerson, TvEpisode, Season, TvShowDetails } from './TmdbModels'
 import { getMediaItem, getTvSeason } from './TmdbService'
 import { getGenres } from './genres'
 import { mediaTypes } from './mediaTypes'
-import { getDecades, getSlug } from './random'
+import { convertMediaItem, getDecades, getSlug } from './random'
 import { flow, map, sortBy, uniq } from 'lodash/fp'
 import { unstable_cache } from 'next/cache'
 
@@ -113,14 +118,14 @@ export async function getRestrictionsFromParams({
 }): Promise<RestrictionsUI> {
   'server only'
 
-  if (mediaType === MediaType.TvEpisode) {
+  if (mediaType === MediaType.TvEpisode || mediaType === MediaType.TvSeason) {
     const tvShowId = Number(searchParams.episodesTvShowId)
     let EpisodesTvShow
     try {
       const tmdbShow = (await getMediaItem(
         mediaTypes[MediaType.TvShow].key,
         tvShowId,
-      )) as TvShow
+      )) as TvShowDetails
 
       if (tmdbShow) {
         EpisodesTvShow = {
@@ -128,6 +133,15 @@ export async function getRestrictionsFromParams({
           name: tmdbShow.name,
           posterPath: tmdbShow.poster_path,
           backdropPath: tmdbShow.backdrop_path,
+        } as TvShowLiteUI
+
+        if (mediaType === MediaType.TvSeason) {
+          EpisodesTvShow.seasons = tmdbShow.seasons
+            .filter(season => season.season_number > 0)
+            .filter(
+              season => season.air_date && new Date(season.air_date) < new Date(),
+            )
+            .map(season => convertMediaItem(season, mediaType))
         }
       }
     } catch (e) {}
@@ -138,7 +152,7 @@ export async function getRestrictionsFromParams({
     }
 
     return {
-      mediaType: MediaType.TvEpisode,
+      mediaType,
       episodesTvShowId: EpisodesTvShow.id,
       EpisodesTvShow,
     }

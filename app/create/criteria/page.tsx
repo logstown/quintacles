@@ -9,7 +9,7 @@ const CreateCriteriaPage = () => {
       <h1 className='text-center text-5xl font-semibold drop-shadow-2xl sm:text-7xl'>
         Create List
       </h1>
-      <div className='flex w-full max-w-screen-md flex-col justify-evenly gap-6 sm:flex-row sm:gap-0'>
+      <div className='flex w-full max-w-screen-lg flex-col justify-evenly gap-6 sm:flex-row sm:gap-0'>
         {mediaTypeArrForLists.map(mediaType => {
           const icon = cloneElement(mediaType.icon, { size: 30 })
           return (

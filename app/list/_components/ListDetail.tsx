@@ -12,12 +12,13 @@ import { format } from 'date-fns'
 import { clamp, includes } from 'lodash'
 import Vibrant from 'node-vibrant'
 import Link from 'next/link'
-import { mediaTypes } from '@/lib/mediaTypes'
 import { Tooltip } from '@nextui-org/tooltip'
 import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { Button } from '@nextui-org/button'
 import { UsersIcon } from 'lucide-react'
+import { ListItemLink } from './ListItemLink'
+import { getImageStuff } from '@/lib/TmdbService'
 
 type ListDetailProps = { id: number } | { username: string; slug: string }
 
@@ -30,6 +31,7 @@ export async function ListDetail(props: ListDetailProps) {
 
   const { Restrictions: restrictions } = userList
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
+  const isSeasons = restrictions.mediaType === MediaType.TvSeason
   const isForUser = 'username' in props
 
   const listItemPromises = [
@@ -45,23 +47,20 @@ export async function ListDetail(props: ListDetailProps) {
       let textColor = 'white'
       let backdropUrl = '/movieBackdrop.jpeg'
 
-      if (item.backdropPath) {
+      if (item.backdropPath || (isSeasons && item.posterPath)) {
         const { vibrantSize, bgSize } = isEpisodes
           ? { vibrantSize: 'original', bgSize: 'original' }
           : { vibrantSize: 'w300', bgSize: 'w1280' }
         const color = await Vibrant.from(
-          getTmdbImageUrl(item.backdropPath, vibrantSize),
+          getTmdbImageUrl(item.backdropPath ?? item.posterPath, vibrantSize),
         ).getPalette()
         bgColor = getBetterHSL(color.DarkMuted?.hsl, 0, 25) ?? bgColor
         rgb = color.DarkMuted?.rgb ?? rgb
+        // if (!isSeasons) {
         textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
+        // }
         backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
       }
-
-      const baseUrl = `https://www.themoviedb.org`
-      const tmdbHref = isEpisodes
-        ? `${baseUrl}/${mediaTypes[MediaType.TvShow].url}/${restrictions.EpisodesTvShow.id}/season/${item.seasonNum}/episode/${item.episodeNum}`
-        : `${baseUrl}/${mediaTypes[restrictions.mediaType].url}/${item.tmdbId}`
 
       return {
         ...item,
@@ -69,7 +68,6 @@ export async function ListDetail(props: ListDetailProps) {
         rgb,
         textColor,
         backdropUrl,
-        tmdbHref,
       }
     })
     .reverse()
@@ -135,7 +133,11 @@ export async function ListDetail(props: ListDetailProps) {
                     className='flex flex-col gap-2 sm:gap-3 lg:gap-2 xl:gap-3'
                     style={{ color: item.textColor }}
                   >
-                    <Link href={item.tmdbHref} target='_blank'>
+                    <ListItemLink
+                      mediaType={restrictions.mediaType}
+                      tvShowId={restrictions.EpisodesTvShow.id}
+                      item={item}
+                    >
                       <Tooltip content={item.name} delay={1000}>
                         <h1 className='line-clamp-4 text-balance pb-1 text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
                           {item.name}{' '}
@@ -146,7 +148,7 @@ export async function ListDetail(props: ListDetailProps) {
                           )}
                         </h1>
                       </Tooltip>
-                    </Link>
+                    </ListItemLink>
                     {isEpisodes && (
                       <h3 className='flex flex-col flex-wrap items-baseline sm:flex-row sm:gap-4 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
                         <p>
@@ -161,8 +163,8 @@ export async function ListDetail(props: ListDetailProps) {
                     )}
                   </div>
                 </div>
-                <div className='mt-6 font-light xl:text-lg 2xl:text-xl'>
-                  <ItemOverview overview={item.overview ?? ''} />
+                <div className={`mt-6 font-light xl:text-lg 2xl:text-xl`}>
+                  <ItemOverview omitNoOverview overview={item.overview ?? ''} />
                 </div>
               </div>
             </div>
@@ -176,15 +178,15 @@ export async function ListDetail(props: ListDetailProps) {
                 height={720}
               />
               {!includes(item.backdropUrl, 'tmdb') && (
-                <div className='absolute left-1/4 z-20 max-w-[100px] sm:max-w-none'>
+                <div className='absolute left-1/4 z-20 max-w-[100px] sm:max-w-[185px] 2xl:max-w-[300px]'>
                   <Image
                     unoptimized
                     isBlurred
                     alt={`${item.name} poster`}
                     as={NextImage}
-                    height={277.5}
-                    width={185}
-                    src={getTmdbImageUrl(item.posterPath, 'w185')}
+                    height={513}
+                    width={342}
+                    src={getTmdbImageUrl(item.posterPath, 'w342')}
                   />
                 </div>
               )}

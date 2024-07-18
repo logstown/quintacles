@@ -1,6 +1,12 @@
 import { MediaType } from '@prisma/client'
 import { reject } from 'lodash'
-import { FilmIcon, GalleryVerticalEndIcon, TvIcon, UserIcon } from 'lucide-react'
+import {
+  FilmIcon,
+  GalleryHorizontalEndIcon,
+  GalleryVerticalEndIcon,
+  TvIcon,
+  UserIcon,
+} from 'lucide-react'
 import React from 'react'
 
 type MediaTypeData = {
@@ -31,6 +37,14 @@ export const mediaTypes: MediaTypeData = {
     plural: 'Shows',
     icon: <TvIcon />,
     key: MediaType.TvShow,
+  },
+  [MediaType.TvSeason]: {
+    url: 'season',
+    display: 'Season',
+    urlPlural: 'seasons',
+    plural: 'Seasons',
+    icon: <GalleryHorizontalEndIcon />,
+    key: MediaType.TvSeason,
   },
   [MediaType.TvEpisode]: {
     url: 'episode',

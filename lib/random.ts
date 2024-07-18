@@ -123,6 +123,18 @@ export const convertMediaItem = (
         posterPath: null,
         genreIds: [],
       }
+    case MediaType.TvSeason:
+      return {
+        ...listItem,
+        name,
+        date: air_date,
+        backdropPath: null,
+        seasonNum: season_number,
+        episodeNum: null,
+        overview,
+        posterPath: poster_path,
+        genreIds: [],
+      }
     case MediaType.Person:
       return {
         ...listItem,

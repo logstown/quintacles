@@ -4,7 +4,7 @@ import prisma from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { BuildList } from '@/components/build-list/build-list'
 import { getSlug } from '@/lib/random'
-import { find } from 'lodash'
+import { cloneDeep, find } from 'lodash'
 import { mediaTypeArr } from '@/lib/mediaTypes'
 import { MediaType } from '@prisma/client'
 import { getEpisodeData, getRestrictionsFromParams } from '@/lib/server-functions'
@@ -32,6 +32,8 @@ export default async function BuildListPage({
     mediaType: mediaTypeObj.key,
     searchParams,
   })
+  const seasons = cloneDeep(restrictions.EpisodesTvShow?.seasons)
+  delete restrictions.EpisodesTvShow?.seasons
 
   const restrictionsSlug = getSlug(restrictions)
 
@@ -56,7 +58,11 @@ export default async function BuildListPage({
   return (
     <>
       <CriteriaBreadcrumbs mediaType={restrictions.mediaType} isAddItems />
-      <BuildList restrictions={restrictions} episodeData={episodeData} />
+      <BuildList
+        seasons={seasons}
+        restrictions={restrictions}
+        episodeData={episodeData}
+      />
     </>
   )
 }

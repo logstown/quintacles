@@ -31,6 +31,7 @@ enum MediaType {
   Movie
   TvShow
   TvEpisode
+  TvSeason
   Person
 }
 
