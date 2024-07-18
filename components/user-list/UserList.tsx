@@ -7,7 +7,6 @@ import { RestrictionsUI } from '@/lib/models'
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
 import Link from 'next/link'
 import { ListTitleBase } from '../list-title-base'
-import { Divider } from '@nextui-org/divider'
 import { UserListButtons } from '../UserListButtons'
 import { UserListLink } from './UserListLink'
 import { cloneElement } from 'react'
@@ -45,15 +44,21 @@ export function UserListCard({
   return (
     <Card
       shadow='lg'
-      className={`w-fit overflow-visible p-0 dark:outline-foreground-100 ${isEpisodes ? 'sm:p-3' : 'sm:px-4 sm:py-2'}`}
+      className={`w-fit overflow-visible p-0 dark:outline-foreground-100 ${isEpisodes ? 'sm:p-3' : 'sm:px-5 sm:pb-6 sm:pt-2'}`}
     >
       {excludeTitle ? (
         <div className='w-full p-4'></div>
       ) : (
-        <Link href={getUserListsUrl(restrictions, 'browse')} color='foreground'>
-          <CardHeader className={`${isEpisodes ? '' : 'py-3 md:py-6'} pl-4`}>
-            <div
-              className={`flex w-full items-center gap-6 ${isEpisodes ? 'justify-center' : ''}`}
+        <CardHeader
+          className={`${isEpisodes ? 'justify-center' : 'justify-between py-3 md:py-6'} pl-4`}
+        >
+          <div
+            className={`flex items-center gap-2 sm:items-baseline ${isEpisodes ? 'justify-center' : 'sm:gap-4'}`}
+          >
+            <Link
+              href={getUserListsUrl(restrictions, 'browse')}
+              color='foreground'
+              className={`flex w-full items-center gap-2 sm:gap-4`}
             >
               {!!Person?.id && (
                 <div className='pl-1'>
@@ -65,7 +70,7 @@ export function UserListCard({
                 </div>
               )}
               <div
-                className={`flex items-center gap-3 text-2xl font-semibold tracking-tight sm:gap-5 ${isEpisodes ? 'max-w-[267px]' : 'sm:text-3xl md:text-4xl'}`}
+                className={`flex items-center gap-2 font-semibold tracking-tight sm:gap-3 ${isEpisodes ? 'max-w-[267px] text-2xl' : 'text-xl sm:text-3xl md:text-4xl'}`}
               >
                 {!isEpisodes && !Person?.id && (
                   <div className='text-foreground-500'>{mediaTypeIcon}</div>
@@ -76,9 +81,25 @@ export function UserListCard({
                   <ListTitleBase restrictions={restrictions} />
                 </div>
               </div>
-            </div>
-          </CardHeader>
-        </Link>
+            </Link>
+            {!isEpisodes && (
+              <UserListButtons
+                isSmall
+                userListId={id}
+                Restrictions={restrictions}
+                usernames={usernames}
+              />
+            )}
+          </div>
+          {!isEpisodes && (
+            <UserTime
+              excludeUser={false}
+              users={users}
+              lastUserAddedAt={lastUserAddedAt}
+              size='sm'
+            />
+          )}
+        </CardHeader>
       )}
       <CardBody
         className={`overflow-visible ${isEpisodes ? 'pt-0' : 'px-1 pb-2 pt-1 sm:px-3'}`}
@@ -91,25 +112,22 @@ export function UserListCard({
           )}
         </UserListLink>
       </CardBody>
-      <CardFooter
-        className={`flex items-center justify-center gap-5 ${isEpisodes ? '' : 'sm:justify-end'}`}
-      >
-        <div className='mr-1'>
+      {isEpisodes && (
+        <CardFooter className='flex justify-center gap-6'>
+          <UserListButtons
+            isSmall
+            userListId={id}
+            Restrictions={restrictions}
+            usernames={usernames}
+          />
           <UserTime
-            excludeUser={false}
+            excludeUser={excludeUser}
             users={users}
             lastUserAddedAt={lastUserAddedAt}
             size='sm'
           />
-        </div>
-        <Divider className='h-5' orientation='vertical' />
-        <UserListButtons
-          isSmall
-          userListId={id}
-          Restrictions={restrictions}
-          usernames={usernames}
-        />
-      </CardFooter>
+        </CardFooter>
+      )}
     </Card>
   )
 }

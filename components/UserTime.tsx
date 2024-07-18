@@ -1,10 +1,8 @@
 import { formatDistanceToNowStrict } from 'date-fns'
 import { random } from 'lodash'
 import { User } from '@prisma/client'
-import { Avatar, AvatarGroup } from '@nextui-org/avatar'
+import { AvatarGroup } from '@nextui-org/avatar'
 import { UserTimeAvatar } from './UserTimeAvatar'
-import Link from 'next/link'
-
 export function UserTime({
   users,
   lastUserAddedAt,
@@ -25,7 +23,7 @@ export function UserTime({
 
   return (
     <div
-      className={`flex items-center gap-4 ${usersToDisplay.length > 1 ? 'ml-2' : ''}`}
+      className={`flex items-center gap-2 sm:gap-4 ${usersToDisplay.length > 1 ? 'ml-2' : ''}`}
     >
       {!excludeUser && !!usersToDisplay.length && (
         <>
@@ -42,7 +40,7 @@ export function UserTime({
       )}
       {users.length > 5 && <p>·</p>}
       <p
-        className={`text-tiny text-foreground-400 ${size === 'sm' ? '' : 'sm:text-base'}`}
+        className={`whitespace-nowrap text-tiny text-foreground-400 ${size === 'sm' ? '' : 'sm:text-base'}`}
       >
         {formatDistanceToNowStrict(lastUserAddedAt)}
       </p>

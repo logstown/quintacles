@@ -55,7 +55,7 @@ export function UserListActions({
         <DropdownTrigger>
           <Button
             isIconOnly
-            size={isSmall ? 'md' : 'lg'}
+            size={isSmall ? 'sm' : 'lg'}
             className='text-foreground-400'
             aria-label='add'
             variant='light'

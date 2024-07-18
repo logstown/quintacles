@@ -21,7 +21,7 @@ export function UserListButtons({
   isSmall?: boolean
 }) {
   const { user } = useUser()
-  const iconSize = isSmall ? 24 : 28
+  const iconSize = isSmall ? 20 : 28
   const userListUrl = useUserListUrl(Restrictions)
   const doesListBelongToUser = user && usernames.includes(user.username ?? '')
 
@@ -37,7 +37,7 @@ export function UserListButtons({
       ) : (
         <Tooltip content='Create this list!'>
           <Button
-            size={isSmall ? 'md' : 'lg'}
+            size={isSmall ? 'sm' : 'lg'}
             href={userListUrl}
             as={Link}
             prefetch={!!user}
