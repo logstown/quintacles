@@ -38,14 +38,6 @@ export const mediaTypes: MediaTypeData = {
     icon: <TvIcon />,
     key: MediaType.TvShow,
   },
-  [MediaType.TvEpisode]: {
-    url: 'episode',
-    display: 'Episode',
-    urlPlural: 'episodes',
-    plural: 'Episodes',
-    icon: <GalleryVerticalEndIcon />,
-    key: MediaType.TvEpisode,
-  },
   [MediaType.TvSeason]: {
     url: 'season',
     display: 'Season',
@@ -53,6 +45,14 @@ export const mediaTypes: MediaTypeData = {
     plural: 'Seasons',
     icon: <GalleryHorizontalEndIcon />,
     key: MediaType.TvSeason,
+  },
+  [MediaType.TvEpisode]: {
+    url: 'episode',
+    display: 'Episode',
+    urlPlural: 'episodes',
+    plural: 'Episodes',
+    icon: <GalleryVerticalEndIcon />,
+    key: MediaType.TvEpisode,
   },
   [MediaType.Person]: {
     url: 'person',
