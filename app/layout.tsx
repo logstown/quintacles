@@ -12,7 +12,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Toaster } from 'sonner'
 import NextLink from 'next/link'
-import { MailIcon, ScrollTextIcon } from 'lucide-react'
+import { MailIcon, MessageCircleIcon, ScrollTextIcon } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: {
@@ -62,6 +62,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 >
                   <MailIcon size={20} className='mr-2 text-foreground-500' />
                   Contact
+                </Link>
+                <Link
+                  href='/feedback'
+                  as={NextLink}
+                  className='text-sm text-foreground'
+                >
+                  <MessageCircleIcon
+                    size={20}
+                    className='mr-2 text-foreground-500'
+                  />
+                  Feedback
                 </Link>
                 <Link
                   href='/credits'
