@@ -54,6 +54,7 @@ export function UserListCard({
         >
           {!excludeTitle && (
             <Link
+              scroll={false}
               href={getUserListsUrl(restrictions, 'browse')}
               color='foreground'
               className={`flex w-full items-center gap-2 sm:gap-4`}
