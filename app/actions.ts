@@ -260,9 +260,7 @@ function createOrConnectUserToList(
 
 function removeOrphanedUserLists() {
   return prisma.userList.deleteMany({
-    where: {
-      users: { none: {} },
-    },
+    where: { users: { none: {} } },
   })
 }
 
