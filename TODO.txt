@@ -2,6 +2,7 @@ GO live:
 Handle Errors (error.tsx)
 make adjustor for cover image
 metadata
+cover image editor
 
 Friends test:
 
