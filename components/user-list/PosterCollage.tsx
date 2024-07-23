@@ -407,7 +407,7 @@ export function PosterCollageStraight({
               isBlurred
               width={342}
               height={513}
-              className='aspect-[2/3] rounded-md object-cover shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
+              className='aspect-[2/3] max-h-[264px] rounded-md object-cover shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
               alt={`${lite.name} poster`}
               src={getTmdbImageUrl(lite.posterPath, 'w342')}
             />
