@@ -46,15 +46,13 @@ export function UserListCard({
       shadow='lg'
       className={`w-fit overflow-visible p-0 dark:outline-foreground-100 ${isEpisodes ? 'sm:p-3' : 'sm:px-5 sm:pb-6 sm:pt-2'}`}
     >
-      {excludeTitle ? (
-        <div className='w-full p-4'></div>
-      ) : (
-        <CardHeader
-          className={`${isEpisodes ? 'justify-center' : 'justify-between py-3 md:py-6'} pl-4`}
+      <CardHeader
+        className={`${isEpisodes ? 'justify-center' : 'justify-between py-3 md:py-6'} pl-4`}
+      >
+        <div
+          className={`flex items-center gap-2 sm:items-baseline ${isEpisodes ? 'justify-center' : 'sm:gap-4'}`}
         >
-          <div
-            className={`flex items-center gap-2 sm:items-baseline ${isEpisodes ? 'justify-center' : 'sm:gap-4'}`}
-          >
+          {!excludeTitle && (
             <Link
               href={getUserListsUrl(restrictions, 'browse')}
               color='foreground'
@@ -82,25 +80,25 @@ export function UserListCard({
                 </div>
               </div>
             </Link>
-            {!isEpisodes && (
-              <UserListButtons
-                isSmall
-                userListId={id}
-                Restrictions={restrictions}
-                usernames={usernames}
-              />
-            )}
-          </div>
+          )}
           {!isEpisodes && (
-            <UserTime
-              excludeUser={false}
-              users={users}
-              lastUserAddedAt={lastUserAddedAt}
-              size='sm'
+            <UserListButtons
+              isSmall
+              userListId={id}
+              Restrictions={restrictions}
+              usernames={usernames}
             />
           )}
-        </CardHeader>
-      )}
+        </div>
+        {!isEpisodes && (
+          <UserTime
+            excludeUser={false}
+            users={users}
+            lastUserAddedAt={lastUserAddedAt}
+            size='sm'
+          />
+        )}
+      </CardHeader>
       <CardBody
         className={`overflow-visible ${isEpisodes ? 'pt-0' : 'px-1 pb-2 pt-1 sm:px-3'}`}
       >
