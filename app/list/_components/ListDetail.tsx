@@ -142,7 +142,7 @@ export async function ListDetail(props: ListDetailProps) {
                         <h1 className='line-clamp-4 text-balance pb-1 text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
                           {item.name}{' '}
                           {!isEpisodes && (
-                            <small className='text-[50%] font-medium'>
+                            <small className='text-[40%] font-medium'>
                               {new Date(item.date).getFullYear()}
                             </small>
                           )}

@@ -21,6 +21,7 @@ import copy from 'clipboard-copy'
 import { toast } from 'sonner'
 import { useUserListLink } from '@/lib/hooks'
 import { RestrictionsUI } from '@/lib/models'
+import { Tooltip } from '@nextui-org/tooltip'
 
 export function UserListActions({
   userListId,
@@ -34,7 +35,8 @@ export function UserListActions({
   usernames: string[]
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const iconSize = isSmall ? 24 : 28
+  const iconSize = isSmall ? 20 : 28
+
   const userListLink = useUserListLink(restrictions, usernames, userListId)
 
   const { mutate: deleteListUI, isPending: isDeletePending } = useMutation({
@@ -51,46 +53,51 @@ export function UserListActions({
 
   return (
     <>
-      <Dropdown>
-        <DropdownTrigger>
+      <div className='flex gap-2'>
+        <Tooltip content='Share'>
           <Button
-            isIconOnly
             size={isSmall ? 'sm' : 'lg'}
+            onPress={shareList}
+            isIconOnly
             className='text-foreground-400'
-            aria-label='add'
+            aria-label='share'
             variant='light'
           >
-            <EllipsisIcon size={iconSize} />
+            <ShareIcon size={iconSize} />
           </Button>
-        </DropdownTrigger>
-        <DropdownMenu aria-label='Static Actions'>
-          <DropdownItem
-            key='share'
-            startContent={<ShareIcon size={15} />}
-            className='text-primary'
-            color='primary'
-            onPress={shareList}
-          >
-            Share
-          </DropdownItem>
-          <DropdownItem
-            key='edit'
-            href={`/list/${userListId}/edit`}
-            startContent={<PencilIcon size={15} />}
-          >
-            Edit
-          </DropdownItem>
-          <DropdownItem
-            onPress={onOpen}
-            key='delete'
-            startContent={<TrashIcon size={15} />}
-            className='text-danger'
-            color='danger'
-          >
-            Delete
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+        </Tooltip>
+        <Dropdown>
+          <DropdownTrigger>
+            <Button
+              isIconOnly
+              size={isSmall ? 'sm' : 'lg'}
+              className='text-foreground-400'
+              aria-label='add'
+              variant='light'
+            >
+              <EllipsisIcon size={iconSize} />
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu aria-label='Static Actions'>
+            <DropdownItem
+              key='edit'
+              href={`/list/${userListId}/edit`}
+              startContent={<PencilIcon size={15} />}
+            >
+              Edit
+            </DropdownItem>
+            <DropdownItem
+              onPress={onOpen}
+              key='delete'
+              startContent={<TrashIcon size={15} />}
+              className='text-danger'
+              color='danger'
+            >
+              Delete
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
 
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>

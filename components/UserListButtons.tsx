@@ -3,7 +3,7 @@
 import { RestrictionsUI } from '@/lib/models'
 import { Button } from '@nextui-org/button'
 import { Tooltip } from '@nextui-org/tooltip'
-import { SquarePenIcon } from 'lucide-react'
+import { ListPlusIcon } from 'lucide-react'
 import { UserListActions } from './UserListActions'
 import Link from 'next/link'
 import { useUser } from '@clerk/nextjs'
@@ -46,7 +46,7 @@ export function UserListButtons({
             aria-label='add'
             variant='light'
           >
-            <SquarePenIcon size={iconSize} />
+            <ListPlusIcon size={iconSize} />
           </Button>
         </Tooltip>
       )}
