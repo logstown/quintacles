@@ -41,6 +41,7 @@ export function SuggestionItem({
               as={NextImage}
               width={300}
               height={450}
+              className='max-h-[262.5px]'
               src={getTmdbImageUrl(item.posterPath, 'w300')}
               alt={`${item.name} poster`}
             />
