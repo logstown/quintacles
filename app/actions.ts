@@ -383,3 +383,18 @@ export async function userListQueryServer({
     pageNum,
   })
 }
+
+export async function getRandomList() {
+  // const users = await prisma.userList.count()
+  // const foundUserList = await prisma.userList.findMany({
+  //   take: 1,
+  //   skip: Math.floor(Math.random() * (users - 1)),
+  // })
+
+  const results: any[] = await prisma.$queryRawUnsafe(
+    // DO NOT pass in or accept user input here
+    `SELECT * FROM "UserList" ORDER BY RANDOM() LIMIT 1;`,
+  )
+
+  redirect('/list/' + results[0].id)
+}

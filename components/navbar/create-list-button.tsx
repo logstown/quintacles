@@ -33,18 +33,14 @@ export function CreateListButton({ isSmall }: { isSmall?: boolean }) {
           </Button>
         )}
       </DropdownTrigger>
-      <DropdownMenu aria-label='Static Actions'>
+      <DropdownMenu aria-label='Static Actions' variant='shadow' color='primary'>
         {mediaTypeArrForLists.map(({ icon, urlPlural, plural }) => {
           const mediaTypeIconSmaller = cloneElement(icon, {
             size: 18,
           })
           return (
             <DropdownItem
-              startContent={
-                <span className='mr-1 text-foreground-600'>
-                  {mediaTypeIconSmaller}
-                </span>
-              }
+              startContent={<span className='mr-1'>{mediaTypeIconSmaller}</span>}
               className='capitalize text-foreground'
               as={Link}
               key={urlPlural}

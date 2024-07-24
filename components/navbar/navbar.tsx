@@ -6,29 +6,10 @@ import {
 import NextLink from 'next/link'
 
 import { ThemeSwitch } from '@/components/theme-switch'
-import prisma from '@/lib/db'
-import { redirect } from 'next/navigation'
-import { RandomListButton } from './random-list-button'
 import { BrowseDropdown } from './BrowseDropdown'
 import { UserOrSignIn } from './UserOrSignIn'
 import NextImage from 'next/image'
-
-async function getRandomList() {
-  'use server'
-
-  // const users = await prisma.userList.count()
-  // const foundUserList = await prisma.userList.findMany({
-  //   take: 1,
-  //   skip: Math.floor(Math.random() * (users - 1)),
-  // })
-
-  const results: any[] = await prisma.$queryRawUnsafe(
-    // DO NOT pass in or accept user input here
-    `SELECT * FROM "UserList" ORDER BY RANDOM() LIMIT 1;`,
-  )
-
-  redirect('/list/' + results[0].id)
-}
+import { CreateListButton } from './create-list-button'
 
 export const Navbar = () => {
   return (
@@ -42,17 +23,18 @@ export const Navbar = () => {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent className='gap-6 pl-4' justify='end'>
+      <NavbarContent className='gap-4 pl-4 md:gap-6' justify='end'>
+        <NavbarItem className='hidden md:list-item'>
+          <CreateListButton />
+        </NavbarItem>
+        <NavbarItem className='md:hidden'>
+          <CreateListButton isSmall />
+        </NavbarItem>
         <NavbarItem className='hidden md:list-item'>
           <BrowseDropdown />
         </NavbarItem>
         <NavbarItem className='md:hidden'>
           <BrowseDropdown isSmall />
-        </NavbarItem>
-        <NavbarItem>
-          <form action={getRandomList}>
-            <RandomListButton />
-          </form>
         </NavbarItem>
         <ThemeSwitch />
         <UserOrSignIn />
