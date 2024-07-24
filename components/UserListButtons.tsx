@@ -43,6 +43,7 @@ export function UserListButtons({
             prefetch={!!user}
             isIconOnly
             className='text-foreground-400'
+            color='primary'
             aria-label='add'
             variant='light'
           >

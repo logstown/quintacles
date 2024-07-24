@@ -80,38 +80,36 @@ export async function ListDetail(props: ListDetailProps) {
         <h1 className='text-center text-5xl font-semibold capitalize tracking-tight drop-shadow-2xl sm:text-6xl lg:text-7xl'>
           <ListTitleBase restrictions={restrictions} includeMediaType={true} />
         </h1>
-        <div className='flex flex-col items-center gap-2'>
-          <div className='flex flex-wrap items-center justify-center space-x-6'>
+        <div className='flex flex-wrap items-center justify-center space-x-6'>
+          <div className='flex items-center justify-center space-x-6'>
             <UserTime
               size='lg'
               users={userListUsers}
               lastUserAddedAt={userAddedAt}
               userListId={userList.id}
             />
-            <Divider className='h-6' orientation='vertical' />
-            <div className='flex space-x-2'>
-              <UserListButtons
-                userListId={userList.id}
-                usernames={userListUsers.map(user => user.username)}
-                Restrictions={restrictions}
-              />
-              {isForUser && (
-                <Tooltip content='View all list users'>
-                  <Button
-                    as={Link}
-                    href={`/list/${userList.id}`}
-                    size='lg'
-                    isIconOnly
-                    className='text-foreground-400'
-                    aria-label='add'
-                    variant='light'
-                  >
-                    <UsersIcon />
-                  </Button>
-                </Tooltip>
-              )}
-            </div>
+            {isForUser && (
+              <Tooltip content='View all list users'>
+                <Button
+                  as={Link}
+                  href={`/list/${userList.id}`}
+                  size='lg'
+                  isIconOnly
+                  className='text-foreground-400'
+                  aria-label='add'
+                  variant='light'
+                >
+                  <UsersIcon />
+                </Button>
+              </Tooltip>
+            )}
           </div>
+          <Divider className='hidden h-6 sm:block' orientation='vertical' />
+          <UserListButtons
+            userListId={userList.id}
+            usernames={userListUsers.map(user => user.username)}
+            Restrictions={restrictions}
+          />
         </div>
       </div>
       <div className='mx-auto mt-4 flex max-w-screen-2xl flex-col items-center gap-16 md:mt-8'>
