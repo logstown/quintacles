@@ -57,6 +57,7 @@ export function Suggestions({
         ? await getSearchRestults()
         : await getSuggestions(pageParam, restrictions)
 
+    console.log(data.results)
     const suggestions = data.results
       .filter((x: any) => !mediaIds?.includes(x.id))
       .filter((x: any) =>

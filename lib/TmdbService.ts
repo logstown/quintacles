@@ -72,7 +72,6 @@ export const getSuggestionsTmdb = async (
   }
 
   const url = `discover/${mediaTypes[mediaType].url}?${new URLSearchParams(params)}`
-
   return fetchFn(url)
 }
 

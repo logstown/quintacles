@@ -63,8 +63,6 @@ export function EpisodePicker({
 
     if (newSeason === 'All') {
       setSortEpsBy(SortBy.Popularity.toString())
-    } else {
-      setSortEpsBy(SortBy.EpisodeOrder.toString())
     }
   }
 
