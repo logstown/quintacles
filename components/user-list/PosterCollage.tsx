@@ -405,7 +405,7 @@ export function PosterCollageStraight({
               unoptimized
               as={NextImage}
               isBlurred
-              classNames={{ img: 'aspect-[2/3]' }}
+              classNames={{ img: 'max-h-[264px]' }}
               width={342}
               height={513}
               className='rounded-md object-cover shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
