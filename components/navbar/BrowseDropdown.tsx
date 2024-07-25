@@ -36,7 +36,7 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
     })
 
     return items
-  }, [mediaTypeArrForLists, setIsLoading])
+  }, [setIsLoading])
 
   const loadingSVG = (
     <svg

@@ -50,7 +50,7 @@ export function BuildList({
       toast.warning('Tv show needs at least 5 seasons to create a list')
       router.replace(`/create/criteria/${mediaTypes[MediaType.TvSeason].urlPlural}`)
     }
-  }, [seasons])
+  }, [seasons, router])
 
   const title = userListId ? 'Edit List' : ''
 

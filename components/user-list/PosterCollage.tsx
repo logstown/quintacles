@@ -156,6 +156,7 @@ export function PosterCollageStackedRight({
             zIndex: 5 - i + 10,
             left: i * 50,
           }}
+          alt='poster'
           src={getTmdbImageUrl(p, 'w185')}
         />
       ))}
