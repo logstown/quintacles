@@ -181,7 +181,11 @@ export async function ListDetail(props: ListDetailProps) {
                     unoptimized
                     isBlurred
                     alt={`${item.name} poster`}
-                    className='max-h-[150px] max-w-[100px] sm:max-h-[277.5px] sm:max-w-[185px] 2xl:max-h-[450px] 2xl:max-w-[300px]'
+                    classNames={{
+                      img: 'max-h-[150px] max-w-[100px] sm:max-h-[277.5px] sm:max-w-[185px] 2xl:max-h-[450px] 2xl:max-w-[300px]',
+                      blurredImg:
+                        'max-h-[150px] max-w-[100px] sm:max-h-[277.5px] sm:max-w-[185px] 2xl:max-h-[450px] 2xl:max-w-[300px]',
+                    }}
                     as={NextImage}
                     height={513}
                     width={342}
