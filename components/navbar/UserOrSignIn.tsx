@@ -31,29 +31,20 @@ export function UserOrSignIn() {
         <DropdownMenu aria-label='Profile Actions' variant='shadow'>
           <DropdownSection showDivider>
             <DropdownItem
-              key='create'
-              color='primary'
-              as={Link}
-              startContent={<PlusIcon size={20} className='mr-1' />}
-              href='/create/criteria'
-            >
-              Create List
-            </DropdownItem>
-            <DropdownItem
               key='your-lists'
-              color='secondary'
+              color='primary'
+              className='h-14'
               as={Link}
-              startContent={<ListIcon size={20} className='mr-1' />}
+              startContent={<ListIcon size={22} className='mr-1' />}
               href={`/user/${user.username}`}
             >
-              Your Lists
+              <span className='text-base'>My Lists</span>
             </DropdownItem>
           </DropdownSection>
           <DropdownSection>
             <DropdownItem
               key='profile'
               className='h-14 items-start gap-2'
-              startContent={<UserIcon size={20} className='mr-1' />}
               description={`Signed in as @${user.username}`}
               as={Link}
               href='/user-profile'

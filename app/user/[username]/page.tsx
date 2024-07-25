@@ -45,7 +45,7 @@ export default async function UserPage({
           <Avatar
             isBordered
             src={profile.photoURL ?? undefined}
-            className='absolute -bottom-[60px] left-0 right-0 ml-auto mr-auto min-h-32 min-w-32 text-large md:left-20 md:right-auto'
+            className='absolute -bottom-[62px] left-0 right-0 ml-auto mr-auto min-h-32 min-w-32 text-large md:left-20 md:right-auto'
           />
           {userId === profile.id && (
             <div className='absolute bottom-5 right-5'>
