@@ -176,7 +176,7 @@ export async function ListDetail(props: ListDetailProps) {
                 height={720}
               />
               {!includes(item.backdropUrl, 'tmdb') && (
-                <div className='absolute left-1/4 z-20 max-w-[100px] sm:max-w-[185px] 2xl:max-w-[300px]'>
+                <div className='absolute left-1/4 z-20 max-h-[150px] max-w-[100px] sm:max-h-[277.5px] sm:max-w-[185px] 2xl:max-h-[450px] 2xl:max-w-[300px]'>
                   <Image
                     unoptimized
                     isBlurred

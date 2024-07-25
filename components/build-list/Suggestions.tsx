@@ -140,6 +140,7 @@ export function Suggestions({
                 as={NextImage}
                 width={300}
                 height={450}
+                className='max-h-[262.5px]'
                 src='/dummyPoster.jpeg'
                 alt='dummy poster'
               />
