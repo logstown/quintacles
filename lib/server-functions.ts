@@ -14,7 +14,7 @@ import { TmdbPerson, TvEpisode, Season, TvShowDetails } from './TmdbModels'
 import { getMediaItem, getTvSeason } from './TmdbService'
 import { getGenres } from './genres'
 import { mediaTypes } from './mediaTypes'
-import { convertMediaItem, getDecades, getSlug } from './random'
+import { convertMediaItem, getSlug, getYears } from './random'
 import { flow, map, sortBy, uniq } from 'lodash/fp'
 import { unstable_cache } from 'next/cache'
 
@@ -158,11 +158,11 @@ export async function getRestrictionsFromParams({
     }
   } else {
     const mediaTypeGenres = getGenres(mediaType)
-    const decades = getDecades()
+    const years = getYears()
 
     const isLiveActionOnly = searchParams.isLiveActionOnly === 'true'
     const genre = find(mediaTypeGenres, { id: Number(searchParams.genreId) })
-    const decade = find(decades, { id: Number(searchParams.decade) })
+    const year = find(years, { id: Number(searchParams.year) })
     let Person
     if (mediaType === MediaType.Movie && searchParams.personId) {
       try {
@@ -182,7 +182,7 @@ export async function getRestrictionsFromParams({
     }
 
     return {
-      decade: decade?.id,
+      year: year?.id,
       genreId: genre?.id,
       isLiveActionOnly,
       mediaType,

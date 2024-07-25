@@ -80,15 +80,15 @@ model UsersOnUserLists {
 model Restrictions {
   slug             String    @id
   mediaType        MediaType
-  genreId          Int
-  decade           Int
-  isLiveActionOnly Boolean
+  genreId          Int       @default(0)
+  year             Int       @default(0)
+  isLiveActionOnly Boolean   @default(false)
 
   Person   Person @relation(fields: [personId], references: [id])
-  personId Int
+  personId Int    @default(0)
 
   EpisodesTvShow   TvShowLite @relation(fields: [episodesTvShowId], references: [id])
-  episodesTvShowId Int
+  episodesTvShowId Int        @default(0)
 
   userLists UserList[]
 }
