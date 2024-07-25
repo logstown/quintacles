@@ -1,7 +1,6 @@
 'use client'
 
 import { TmdbGenres } from '../lib/TmdbModels'
-import { getDecades } from '../lib/random'
 import { find } from 'lodash'
 import { MediaType } from '@prisma/client'
 import { useGenres } from '@/lib/hooks'
@@ -9,9 +8,11 @@ import { RestrictionsUI } from '@/lib/models'
 import { Autocomplete, AutocompleteItem } from '@nextui-org/autocomplete'
 import { Select, SelectItem } from '@nextui-org/select'
 import MediaPicker from './media-picker'
+import { getYears } from '@/lib/random'
+import { useMemo } from 'react'
 
 export function MovieTvCriteria({
-  restrictions: { decade, genreId, Person, personId, isLiveActionOnly, mediaType },
+  restrictions: { year, genreId, Person, personId, isLiveActionOnly, mediaType },
   onRestrictionsChange,
   isBrowse,
 }: {
@@ -19,16 +20,18 @@ export function MovieTvCriteria({
   onRestrictionsChange: (restrictions: RestrictionsUI) => void
   isBrowse?: boolean
 }) {
-  const decades = getDecades()
+  const years = useMemo(() => getYears(), [])
   const mediaTypeGenres = useGenres(mediaType)
 
-  const setDecadeFromPicker = (decadeId: React.Key | null) => {
-    const foundDecade = find(decades, { id: Number(decadeId) })
+  const setYearFromPicker = (yearId: React.Key | null) => {
+    const foundyear = find(years, { id: Number(yearId) })
+
+    console.log(foundyear)
 
     onRestrictionsChange({
       mediaType,
       genreId,
-      decade: foundDecade?.id,
+      year: foundyear?.id,
       isLiveActionOnly,
       personId,
       Person,
@@ -41,7 +44,7 @@ export function MovieTvCriteria({
     onRestrictionsChange({
       mediaType,
       genreId: foundGenre?.id,
-      decade,
+      year,
       isLiveActionOnly,
       personId,
       Person,
@@ -60,7 +63,7 @@ export function MovieTvCriteria({
     onRestrictionsChange({
       mediaType,
       genreId,
-      decade,
+      year,
       isLiveActionOnly,
       personId: Person?.id,
       Person,
@@ -75,7 +78,7 @@ export function MovieTvCriteria({
     onRestrictionsChange({
       mediaType,
       genreId,
-      decade,
+      year,
       isLiveActionOnly,
       personId,
       Person,
@@ -87,18 +90,18 @@ export function MovieTvCriteria({
       className={`${isBrowse ? 'justify-center' : ''} flex flex-wrap items-end gap-4 sm:gap-8`}
     >
       <Autocomplete
-        label='Decade'
+        label='Year(s)'
         variant='bordered'
         size='lg'
         labelPlacement='outside'
         className='w-36'
-        isClearable={!!decade && decade.toString() !== ''}
-        selectedKey={decade?.toString() ?? ''}
-        onSelectionChange={setDecadeFromPicker}
+        isClearable={!!year && year.toString() !== ''}
+        selectedKey={year?.toString() ?? ''}
+        onSelectionChange={setYearFromPicker}
         color='primary'
       >
-        {[{ id: '', name: 'Any' }, ...decades].map(decade => (
-          <AutocompleteItem key={decade.id}>{decade.name}</AutocompleteItem>
+        {[{ id: '', name: 'Any' }, ...years].map(yearChoice => (
+          <AutocompleteItem key={yearChoice.id}>{yearChoice.name}</AutocompleteItem>
         ))}
       </Autocomplete>
       {mediaType === MediaType.Movie && (

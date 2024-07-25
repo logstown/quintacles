@@ -1,5 +1,4 @@
-import { range } from 'lodash'
-import { Decade, RestrictionsUI } from './models'
+import { RestrictionsUI, Year } from './models'
 import { ListItem, MediaType } from '@prisma/client'
 import { mediaTypes } from './mediaTypes'
 import { getListTitle } from '@/components/list-title-base'
@@ -8,7 +7,7 @@ import slug from 'slug'
 export const getUserListsUrl = (
   {
     genreId,
-    decade,
+    year,
     isLiveActionOnly,
     personId,
     episodesTvShowId,
@@ -29,8 +28,8 @@ export const getUserListsUrl = (
   if (genreId) {
     params.genreId = genreId.toString()
   }
-  if (decade) {
-    params.decade = decade.toString()
+  if (year) {
+    params.year = year.toString()
   }
   if (isLiveActionOnly) {
     params.isLiveActionOnly = 'true'
@@ -49,10 +48,22 @@ export const getUserListsUrl = (
   return `${baseUrl}?${new URLSearchParams(params as Record<string, string>)}`
 }
 
-export const getDecades = (): Decade[] => {
-  return range(1930, 2030, 10)
-    .reverse()
-    .map(x => ({ id: x, name: `${x}s` }))
+export const getYears = (): Year[] => {
+  const years = []
+
+  for (let i = new Date().getFullYear(); i >= 1920; i--) {
+    const nextYear = i + 1
+    if (nextYear % 10 === 0) {
+      years.push({
+        id: nextYear + 0.5,
+        name: `${nextYear}s`,
+      })
+    }
+
+    years.push({ id: i, name: `${i} ` })
+  }
+
+  return years
 }
 
 export const getTmdbImageUrl = (path?: string | null, size?: string): string => {

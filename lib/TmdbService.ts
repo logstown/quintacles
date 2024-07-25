@@ -38,7 +38,7 @@ export const getPopular = async (
 
 export const getSuggestionsTmdb = async (
   pageNum: number,
-  { decade, personId, genreId, isLiveActionOnly, mediaType }: RestrictionsUI,
+  { year, personId, genreId, isLiveActionOnly, mediaType }: RestrictionsUI,
 ): Promise<MediaItemsResponse> => {
   let params: any = {
     page: pageNum.toString(),
@@ -55,15 +55,15 @@ export const getSuggestionsTmdb = async (
     params.with_people = personId.toString()
   }
 
-  if (decade) {
+  if (year) {
     const dateString =
       mediaType == MediaType.Movie ? 'primary_release_date' : 'air_date'
-    params[`${dateString}.gte`] = `${decade}-01-01`
-    const ninePlus = Number(decade) + 9
-    params[`${dateString}.lte`] = `${ninePlus}-12-31`
+    params[`${dateString}.gte`] = `${Math.floor(year)}-01-01`
+    const endYear = year % 1 === 0 ? Number(year) : Number(Math.floor(year)) + 9
+    params[`${dateString}.lte`] = `${endYear}-12-31`
 
     if (mediaType == MediaType.TvShow) {
-      params['first_air_date.lte'] = `${ninePlus}-12-31`
+      params['first_air_date.lte'] = `${endYear}-12-31`
     }
   }
 
@@ -72,6 +72,7 @@ export const getSuggestionsTmdb = async (
   }
 
   const url = `discover/${mediaTypes[mediaType].url}?${new URLSearchParams(params)}`
+  console.log(url)
   return fetchFn(url)
 }
 

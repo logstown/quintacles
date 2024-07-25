@@ -4,8 +4,8 @@ import { TmdbGenres, TmdbPerson } from '@/lib/TmdbModels'
 import { getPopularPeople, getSuggestionsTmdb } from '@/lib/TmdbService'
 import prisma from '@/lib/db'
 import { getGenres } from '@/lib/genres'
-import { Decade, Genre, RestrictionsUI } from '@/lib/models'
-import { getDecades, getSlug, getUserListsUrl } from '@/lib/random'
+import { Genre, RestrictionsUI, Year } from '@/lib/models'
+import { getSlug, getUserListsUrl, getYears } from '@/lib/random'
 import { userListQuery } from '@/lib/server-functions'
 import { User, auth, currentUser } from '@clerk/nextjs/server'
 import { ListItem, MediaType, PrismaPromise, UserList } from '@prisma/client'
@@ -40,7 +40,7 @@ export async function surpriseMe(mediaType: MediaType) {
 
   const { results: popularPeople } =
     mediaType === MediaType.Movie ? await getPopularPeople(1) : { results: [] }
-  const decades = getDecades()
+  const years = getYears()
   const genres = getGenres(mediaType)
 
   const getRandomInt = (max: number, min?: number): number => {
@@ -53,7 +53,7 @@ export async function surpriseMe(mediaType: MediaType) {
 
   const alreadyExists = (
     genre: Genre | undefined,
-    decade: Decade | undefined,
+    year: Year | undefined,
     moviePerson: TmdbPerson | undefined,
     isLiveActionOnly: boolean,
   ) =>
@@ -61,18 +61,18 @@ export async function surpriseMe(mediaType: MediaType) {
       userRestrictionsArr,
       restrictions =>
         restrictions.genreId === (genre?.id ?? 0) &&
-        restrictions.decade === (decade?.id ?? 0) &&
+        restrictions.year === (year?.id ?? 0) &&
         restrictions.personId === (moviePerson?.id ?? 0) &&
         restrictions.isLiveActionOnly === isLiveActionOnly,
     )
 
   let genre: Genre | undefined,
-    decade: Decade | undefined,
+    year: Year | undefined,
     moviePerson: TmdbPerson | undefined,
     isLiveActionOnly: boolean
   do {
     genre = undefined
-    decade = undefined
+    year = undefined
     moviePerson = undefined
     isLiveActionOnly = false
 
@@ -81,10 +81,10 @@ export async function surpriseMe(mediaType: MediaType) {
     }
 
     if (Math.random() <= 0.2) {
-      decade = decades[getRandomInt(decades.length)]
+      year = years[getRandomInt(years.length)]
     }
 
-    if (popularPeople.length && (!genre || !decade) && Math.random() <= 0.15) {
+    if (popularPeople.length && (!genre || !year) && Math.random() <= 0.15) {
       const { id, name, profile_path } =
         popularPeople[getRandomInt(popularPeople.length)]
       moviePerson = { id, name, profile_path }
@@ -94,15 +94,15 @@ export async function surpriseMe(mediaType: MediaType) {
       isLiveActionOnly = true
     }
   } while (
-    (!genre && !decade && !moviePerson && !isLiveActionOnly) ||
-    alreadyExists(genre, decade, moviePerson, isLiveActionOnly)
+    (!genre && !year && !moviePerson && !isLiveActionOnly) ||
+    alreadyExists(genre, year, moviePerson, isLiveActionOnly)
   )
 
   const buildURL = getUserListsUrl(
     {
       mediaType,
       genreId: genre?.id ?? 0,
-      decade: decade?.id ?? 0,
+      year: year?.id ?? 0,
       isLiveActionOnly,
       personId: moviePerson?.id ?? 0,
       episodesTvShowId: 0,
@@ -126,7 +126,7 @@ function createOrConnectUserToList(
   listItems: ListItem[],
   isUpdate = false,
 ): PrismaPromise<UserList> {
-  let { mediaType, decade, isLiveActionOnly, genreId, Person, EpisodesTvShow } =
+  let { mediaType, year, isLiveActionOnly, genreId, Person, EpisodesTvShow } =
     restrictions
 
   Person = Person ?? {
@@ -142,10 +142,6 @@ function createOrConnectUserToList(
     backdropPath: null,
   }
 
-  decade = decade ?? 0
-  genreId = genreId ?? 0
-  isLiveActionOnly = isLiveActionOnly ?? false
-
   const slug = getSlug(restrictions)
 
   const Restrictions = isUpdate
@@ -158,7 +154,7 @@ function createOrConnectUserToList(
           create: {
             slug,
             mediaType,
-            decade,
+            year,
             isLiveActionOnly,
             genreId,
             Person: {

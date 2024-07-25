@@ -8,7 +8,7 @@ export const getListTitle = (
   isDetailView: boolean = false,
   {
     mediaType,
-    decade,
+    year,
     Person,
     isLiveActionOnly,
     genreId,
@@ -19,8 +19,8 @@ export const getListTitle = (
 ): string => {
   let title = ''
 
-  if (decade) {
-    title += `${decade}s `
+  if (year) {
+    title += year % 1 !== 0 ? `${year - 0.5}s ` : `${year} `
   }
 
   if (Person) {

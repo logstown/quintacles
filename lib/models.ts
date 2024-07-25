@@ -8,7 +8,7 @@ export type Genre = {
   icon: React.ReactElement
 }
 
-export type Decade = {
+export type Year = {
   id: number
   name: string
 }
@@ -17,7 +17,7 @@ export type RestrictionsUI = {
   mediaType: MediaType
   isLiveActionOnly?: boolean
   genreId?: number
-  decade?: number
+  year?: number
   personId?: number
   Person?: Person
   episodesTvShowId?: number
@@ -26,7 +26,7 @@ export type RestrictionsUI = {
 
 export interface CreateListSearchParams {
   genreId?: string
-  decade?: string
+  year?: string
   personId?: string
   isLiveActionOnly?: string
   episodesTvShowId?: string
