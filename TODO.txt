@@ -7,7 +7,6 @@ cover image editor
 Friends test:
 
 Nice to haves:
-better surprise me... go back to clickable restriction buttons
 add framer motion animations
 notifications for when users make the same list
 
