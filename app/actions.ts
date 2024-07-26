@@ -392,5 +392,9 @@ export async function getRandomList() {
     `SELECT * FROM "UserList" ORDER BY RANDOM() LIMIT 1;`,
   )
 
+  if (!results.length) {
+    throw new Error('No lists found')
+  }
+
   redirect('/list/' + results[0].id)
 }
