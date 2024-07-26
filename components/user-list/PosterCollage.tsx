@@ -465,17 +465,14 @@ export function BackdropCollageStraight({
           ) : (
             <div className='flex items-center gap-4'>
               <MediaRank>{i + 1}</MediaRank>
-              <Card
-                isFooterBlurred
-                className='aspect-video border-none shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]'
-              >
+              <Card isFooterBlurred className='overflow-visible border-none'>
                 <Image
                   unoptimized
                   as={NextImage}
                   width={300}
                   isBlurred
                   height={169}
-                  className='max-w-[245px] object-cover brightness-90'
+                  className='aspect-video max-w-[245px] object-cover brightness-90'
                   src={getTmdbImageUrl(lite.backdropPath, 'w300')}
                   alt={`${lite.name} still`}
                 />
