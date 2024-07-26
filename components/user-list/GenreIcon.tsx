@@ -11,8 +11,8 @@ export function GenreIcon({ genreId }: { genreId?: number }) {
     if (!genre) return null
 
     return cloneElement(genre.icon, {
-      className: 'h-[1em] w-[1em] text-foreground-600',
-      strokeWidth: 1.75,
+      // className: 'h-[1em] w-[1em]',
+      // strokeWidth: 1.75,
     })
   }, [genreId])
 
