@@ -107,7 +107,10 @@ export function UserListCard({
           {isEpisodes ? (
             <BackdropCollageStraight backdropLites={listItemLites} />
           ) : (
-            <PosterCollageStraight posterLites={listItemLites} />
+            <PosterCollageStraight
+              isSeasons={mediaType === MediaType.TvSeason}
+              posterLites={listItemLites}
+            />
           )}
         </UserListLink>
       </CardBody>

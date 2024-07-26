@@ -383,12 +383,14 @@ export function PosterCollageCardDec({
 
 export function PosterCollageStraight({
   posterLites,
+  isSeasons,
 }: {
   posterLites?: {
     name: string
     posterPath: string | null
     backdropPath: string | null
   }[]
+  isSeasons?: boolean
 }) {
   const isSkeleton = !posterLites
   const posters = isSkeleton ? Array(5).fill(0) : posterLites
@@ -402,22 +404,43 @@ export function PosterCollageStraight({
               <img alt='poster' src='/dummyPoster.jpeg' />
             </Skeleton>
           ) : (
-            <Image
-              unoptimized
-              as={NextImage}
-              isBlurred
-              classNames={{ img: 'max-h-[264px]', blurredImg: 'max-h-[264px]' }}
-              width={342}
-              height={513}
-              className='rounded-md object-cover shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
-              alt={`${lite.name} poster`}
-              src={getTmdbImageUrl(lite.posterPath, 'w342')}
-            />
+            <MaybeSeasonFooter isSeasons={isSeasons} seasonName={lite.name}>
+              <Image
+                unoptimized
+                as={NextImage}
+                isBlurred
+                classNames={{ img: 'max-h-[264px]', blurredImg: 'max-h-[264px]' }}
+                width={342}
+                height={513}
+                className='rounded-md object-cover shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
+                alt={`${lite.name} poster`}
+                src={getTmdbImageUrl(lite.posterPath, 'w342')}
+              />
+            </MaybeSeasonFooter>
           )}
           <MediaRank>{i + 1}</MediaRank>
         </div>
       ))}
     </div>
+  )
+}
+
+function MaybeSeasonFooter({
+  children,
+  seasonName,
+  isSeasons,
+}: {
+  children: React.ReactNode
+  seasonName: string
+  isSeasons?: boolean
+}) {
+  return isSeasons ? (
+    <Card isFooterBlurred isBlurred className='overflow-visible'>
+      {children}
+      <EpisodeThumbnailFooter isSeasons>{seasonName}</EpisodeThumbnailFooter>
+    </Card>
+  ) : (
+    <>{children}</>
   )
 }
 
