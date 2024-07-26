@@ -111,10 +111,10 @@ export function UserListInfinite({
           )}
         </>
       )}
-      {/* {!data?.pages.length ||
+      {!data?.pages.length ||
         (data.pages[0].lists.length === 0 && (
           <em className='p-10 text-xl text-foreground-500'>Nothing yet</em>
-        ))} */}
+        ))}
     </>
   )
 }
