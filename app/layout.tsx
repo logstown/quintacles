@@ -32,13 +32,7 @@ export const viewport: Viewport = {
   ],
 }
 
-export default function RootLayout({
-  children,
-  modal,
-}: {
-  children: React.ReactNode
-  modal: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html suppressHydrationWarning lang='en'>
       <head />
@@ -91,7 +85,6 @@ export default function RootLayout({
               </div>
             </footer>
           </div>
-          {modal}
         </Providers>
         <SpeedInsights />
         <Analytics />
