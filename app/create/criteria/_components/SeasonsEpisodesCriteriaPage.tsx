@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 import { MediaType } from '@prisma/client'
 import { CriteriaBreadcrumbs } from '../_components/CriteriaBreadcrumbs'
 import { unstable_cache } from 'next/cache'
+import { PopularLists } from './PopularLists'
 
 export default async function SeasonsEpisodesCriteriaPage({
   mediaType,
@@ -44,6 +45,9 @@ export default async function SeasonsEpisodesCriteriaPage({
   return (
     <>
       <CriteriaBreadcrumbs mediaType={mediaType} />
+      <div className='mb-10 flex justify-center'>
+        <PopularLists mediaType={mediaType} />
+      </div>
       <Suggestions
         isForSeasons={mediaType === MediaType.TvSeason}
         isForTvShowSelection
