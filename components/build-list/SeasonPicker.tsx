@@ -1,3 +1,5 @@
+'use client'
+
 import { ListItem } from '@prisma/client'
 import { findIndex } from 'lodash'
 import { Card, CardBody } from '@nextui-org/card'
@@ -6,6 +8,7 @@ import { Image } from '@nextui-org/image'
 import { AddListIdx } from './AddListIdx'
 import NextImage from 'next/image'
 import { getTmdbImageUrl } from '@/lib/random'
+import { useScrollAfter5Items } from '@/lib/hooks'
 
 export function SeasonPicker({
   onItemSelected,
@@ -17,6 +20,8 @@ export function SeasonPicker({
   seasons: ListItem[]
 }) {
   const isUnselectable = listItems?.length === 5
+
+  useScrollAfter5Items(listItems?.length)
 
   return (
     <>
