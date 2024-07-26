@@ -54,7 +54,6 @@ export function UserListCard({
         >
           {!excludeTitle && (
             <Link
-              prefetch={false}
               scroll={false}
               href={getUserListsUrl(restrictions, 'browse')}
               color='foreground'
