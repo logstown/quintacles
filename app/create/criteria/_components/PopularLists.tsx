@@ -44,6 +44,7 @@ export async function PopularLists({ mediaType }: { mediaType: MediaType }) {
           <div className='flex flex-wrap justify-evenly'>
             {listTypes.map(listType => (
               <Button
+                key={listType.slug}
                 variant='flat'
                 color='primary'
                 size='lg'

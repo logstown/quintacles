@@ -1,11 +1,10 @@
 import { MediaType } from '@prisma/client'
 import { MovieTvCriteriaCard } from './movie-tv-criteria-card'
-import { surpriseMe } from '@/app/actions'
 import { CriteriaBreadcrumbs } from './CriteriaBreadcrumbs'
 import { PopularLists } from './PopularLists'
 
-export function MovieTvCriteriaBuild({ mediaType }: { mediaType: MediaType }) {
-  const surpriseMeWithMediaType = surpriseMe.bind(null, mediaType)
+export function MovieTvCriteriaPage({ mediaType }: { mediaType: MediaType }) {
+  // const surpriseMeWithMediaType = surpriseMe.bind(null, mediaType)
   return (
     <>
       <CriteriaBreadcrumbs mediaType={mediaType} />

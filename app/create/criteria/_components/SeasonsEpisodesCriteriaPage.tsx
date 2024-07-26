@@ -5,7 +5,11 @@ import { MediaType } from '@prisma/client'
 import { CriteriaBreadcrumbs } from '../_components/CriteriaBreadcrumbs'
 import { unstable_cache } from 'next/cache'
 
-export default async function TvEpisodeCriteriaPage() {
+export default async function SeasonsEpisodesCriteriaPage({
+  mediaType,
+}: {
+  mediaType: MediaType
+}) {
   const { userId } = auth()
 
   if (!userId) {
@@ -16,7 +20,7 @@ export default async function TvEpisodeCriteriaPage() {
     () =>
       prisma.restrictions.findMany({
         where: {
-          mediaType: MediaType.TvEpisode,
+          mediaType,
           userLists: {
             some: {
               users: {
@@ -27,22 +31,21 @@ export default async function TvEpisodeCriteriaPage() {
         },
         select: {
           EpisodesTvShow: {
-            select: {
-              id: true,
-            },
+            select: { id: true },
           },
         },
       }),
-    ['episodes-restrictions', userId, MediaType.TvEpisode],
-    { tags: [`user-mediaType-${userId}-${MediaType.TvEpisode}`] },
+    ['episodes-restrictions', userId, mediaType],
+    { tags: [`user-mediaType-${userId}-${mediaType}`] },
   )()
 
   const tvShowIds = restrictions.map(r => r.EpisodesTvShow.id)
 
   return (
     <>
-      <CriteriaBreadcrumbs mediaType={MediaType.TvEpisode} />
+      <CriteriaBreadcrumbs mediaType={mediaType} />
       <Suggestions
+        isForSeasons={mediaType === MediaType.TvSeason}
         isForTvShowSelection
         mediaIds={tvShowIds}
         restrictions={{ mediaType: MediaType.TvShow }}
