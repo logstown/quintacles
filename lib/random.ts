@@ -55,7 +55,7 @@ export const getYears = (): Year[] => {
     const nextYear = i + 1
     if (nextYear % 10 === 0) {
       years.push({
-        id: nextYear + 0.5,
+        id: nextYear * 10,
         name: `${nextYear}s`,
       })
     }

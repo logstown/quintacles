@@ -20,7 +20,7 @@ export const getListTitle = (
   let title = ''
 
   if (year) {
-    title += year % 1 !== 0 ? `${year - 0.5}s ` : `${year} `
+    title += year > 10000 ? `${year / 10}s ` : `${year} `
   }
 
   if (Person) {

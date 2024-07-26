@@ -101,7 +101,11 @@ export function MovieTvCriteria({
         color='primary'
       >
         {[{ id: '', name: 'Any' }, ...years].map(yearChoice => (
-          <AutocompleteItem key={yearChoice.id}>{yearChoice.name}</AutocompleteItem>
+          <AutocompleteItem key={yearChoice.id}>
+            <span className={Number(yearChoice.id) > 10000 ? 'font-bold' : ''}>
+              {yearChoice.name}
+            </span>
+          </AutocompleteItem>
         ))}
       </Autocomplete>
       {mediaType === MediaType.Movie && (

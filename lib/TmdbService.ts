@@ -58,8 +58,9 @@ export const getSuggestionsTmdb = async (
   if (year) {
     const dateString =
       mediaType == MediaType.Movie ? 'primary_release_date' : 'air_date'
-    params[`${dateString}.gte`] = `${Math.floor(year)}-01-01`
-    const endYear = year % 1 === 0 ? Number(year) : Number(Math.floor(year)) + 9
+    const startYear = year > 10000 ? year / 10 : year
+    params[`${dateString}.gte`] = `${startYear}-01-01`
+    const endYear = year > 10000 ? startYear + 9 : startYear
     params[`${dateString}.lte`] = `${endYear}-12-31`
 
     if (mediaType == MediaType.TvShow) {
