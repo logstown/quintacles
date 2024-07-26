@@ -139,11 +139,12 @@ export async function ListDetail(props: ListDetailProps) {
                       <Tooltip content={item.name} delay={1000}>
                         <h1 className='line-clamp-4 text-balance pb-1 text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
                           {item.name}{' '}
-                          {!isEpisodes && (
-                            <small className='text-[40%] font-medium'>
-                              {new Date(item.date).getFullYear()}
-                            </small>
-                          )}
+                          {!isEpisodes &&
+                            (!restrictions.year || restrictions.year > 10000) && (
+                              <small className='text-[40%] font-medium'>
+                                {new Date(item.date).getFullYear()}
+                              </small>
+                            )}
                         </h1>
                       </Tooltip>
                     </ListItemLink>

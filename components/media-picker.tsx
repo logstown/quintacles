@@ -104,6 +104,7 @@ export default function MediaPicker({
           <AutocompleteItem
             key={item.tmdbId}
             className='capitalize'
+            textValue={item.name}
             startContent={
               <Avatar
                 size='lg'

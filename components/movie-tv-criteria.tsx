@@ -101,7 +101,7 @@ export function MovieTvCriteria({
         color='primary'
       >
         {[{ id: '', name: 'Any' }, ...years].map(yearChoice => (
-          <AutocompleteItem key={yearChoice.id}>
+          <AutocompleteItem key={yearChoice.id} textValue={yearChoice.name}>
             <span className={Number(yearChoice.id) > 10000 ? 'font-bold' : ''}>
               {yearChoice.name}
             </span>
