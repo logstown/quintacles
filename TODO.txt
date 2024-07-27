@@ -3,6 +3,7 @@ Handle Errors (error.tsx)
 make adjustor for cover image
 metadata
 cover image editor
+cascade delete restrictions when deleting userlist - maybe
 
 Friends test:
 

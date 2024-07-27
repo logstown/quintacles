@@ -49,7 +49,7 @@ export default async function SeasonsEpisodesCriteriaPage({
         <PopularLists mediaType={mediaType} />
       </div>
       <Suggestions
-        isForSeasons={mediaType === MediaType.TvSeason}
+        mediaType={mediaType}
         isForTvShowSelection
         mediaIds={tvShowIds}
         restrictions={{ mediaType: MediaType.TvShow }}

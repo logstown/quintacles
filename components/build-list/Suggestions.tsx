@@ -2,7 +2,7 @@
 
 import { InfoIcon, SearchIcon } from 'lucide-react'
 import { useEffect } from 'react'
-import { findIndex, intersection, range } from 'lodash'
+import { findIndex, intersection, range, some } from 'lodash'
 import { convertMediaItem } from '../../lib/random'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import React from 'react'
@@ -22,19 +22,21 @@ import { Image } from '@nextui-org/image'
 import NextImage from 'next/image'
 
 export function Suggestions({
-  onItemSelected,
+  addListItem,
+  removeFromList,
   restrictions,
   listItems,
   mediaIds,
   isForTvShowSelection,
-  isForSeasons,
+  mediaType,
 }: {
-  onItemSelected?: (item: ListItem) => void
+  addListItem?: (item: ListItem) => void
+  removeFromList?: (item: ListItem) => void
   restrictions: RestrictionsUI
   listItems?: ListItem[]
   mediaIds?: number[]
   isForTvShowSelection?: boolean
-  isForSeasons?: boolean
+  mediaType?: MediaType
 }) {
   const router = useRouter()
   const [ref, inView] = useInView()
@@ -57,7 +59,6 @@ export function Suggestions({
         ? await getSearchRestults()
         : await getSuggestions(pageParam, restrictions)
 
-    console.log(data.results)
     const suggestions = data.results
       .filter((x: any) => !mediaIds?.includes(x.id))
       .filter((x: any) =>
@@ -100,17 +101,17 @@ export function Suggestions({
   useScrollAfter5Items(listItems?.length)
 
   const suggestionSelected = (item: ListItem) => {
-    if (onItemSelected) {
-      onItemSelected(item)
-      setTimeout(() => setSearchText(''), 2000)
-    } else {
-      isForSeasons
-        ? router.push(
-            `/create/list/${mediaTypes[MediaType.TvSeason].urlPlural}?episodesTvShowId=${item.tmdbId}`,
-          )
-        : router.push(
-            `/create/list/${mediaTypes[MediaType.TvEpisode].urlPlural}?episodesTvShowId=${item.tmdbId}`,
-          )
+    if (addListItem && removeFromList) {
+      if (some(listItems, { tmdbId: item.tmdbId })) {
+        removeFromList(item)
+      } else {
+        addListItem(item)
+        setTimeout(() => setSearchText(''), 2000)
+      }
+    } else if (mediaType) {
+      router.push(
+        `/create/list/${mediaTypes[mediaType].urlPlural}?episodesTvShowId=${item.tmdbId}`,
+      )
     }
   }
 
@@ -163,7 +164,6 @@ export function Suggestions({
                       idx={idx}
                       onItemSelected={suggestionSelected}
                       mediaTypeIcon={mediaTypes[restrictions.mediaType].icon}
-                      isUnselectable={listItems?.length === 5}
                     />
                   )
                 })}

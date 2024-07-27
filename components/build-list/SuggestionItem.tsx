@@ -9,32 +9,30 @@ import { Image } from '@nextui-org/image'
 export function SuggestionItem({
   item,
   idx,
-  isUnselectable,
   onItemSelected,
   mediaTypeIcon,
 }: {
   item: ListItem
   idx: number
-  isUnselectable?: boolean
   onItemSelected: (item: ListItem) => void
   mediaTypeIcon: React.ReactElement
 }) {
   const isChosen = idx >= 0
 
   return (
-    <AddListIdx idx={idx}>
-      <Tooltip
-        content={`${item.name} (${new Date(item.date).getFullYear()})`}
-        placement='bottom'
-        isDisabled={!item.posterPath}
-        delay={1000}
+    <Tooltip
+      content={`${item.name} (${new Date(item.date).getFullYear()})`}
+      placement='bottom'
+      isDisabled={!item.posterPath}
+      delay={1000}
+    >
+      <Card
+        isPressable
+        isDisabled={isChosen}
+        onPress={() => onItemSelected(item)}
+        className={`h-full w-full justify-center shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${idx < 0 ? 'hover:z-10 hover:scale-110 hover:shadow-lg' : ''} ${isChosen ? 'cursor-pointer' : ''}`}
       >
-        <Card
-          isPressable
-          isDisabled={isChosen}
-          onPress={() => !isChosen && !isUnselectable && onItemSelected(item)}
-          className={`h-full w-full justify-center shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${!isChosen && !isUnselectable ? 'hover:z-10 hover:scale-110 hover:shadow-lg' : ''} ${isUnselectable ? 'cursor-auto' : ''}`}
-        >
+        <AddListIdx idx={idx}>
           {item.posterPath ? (
             <Image
               unoptimized
@@ -52,8 +50,8 @@ export function SuggestionItem({
               <p>{item.date && `(${new Date(item.date).getFullYear()})`}</p>
             </div>
           )}
-        </Card>
-      </Tooltip>
-    </AddListIdx>
+        </AddListIdx>
+      </Card>
+    </Tooltip>
   )
 }

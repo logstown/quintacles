@@ -137,7 +137,8 @@ export function BuildList({
           />
         ) : (
           <Suggestions
-            onItemSelected={addListItem}
+            removeFromList={removeFromList}
+            addListItem={addListItem}
             listItems={listItems}
             restrictions={restrictions}
           />
