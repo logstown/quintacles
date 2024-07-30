@@ -16,11 +16,12 @@ export async function generateMetadata({
     return {}
   }
 
-  const title = `Top 5 ${getListTitle(true, userList.Restrictions, true)}`
+  const title = `Top Five ${getListTitle(true, userList.Restrictions, true)}`
   const description = `by ${userListUsers.map(user => `@${user.username}`).join(', ')}`
 
   return {
     title,
+    description,
     openGraph: {
       title,
       description,
@@ -53,7 +54,7 @@ export async function generateMetadata({
       title,
       description,
       // siteId: '1467726470533754880',
-      // creator: '@nextjs',
+      creator: '@logstaa',
       // creatorId: '1467726470533754880',
       images: [
         getTmdbImageUrl(userList.item5.backdropPath, 'w780'),
