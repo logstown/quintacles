@@ -50,6 +50,11 @@ import { getTmdbImageUrl } from '@/lib/random'
 //   }
 // }
 
+export const metadata = {
+  title: 'LISTTT',
+  metadataBase: new URL('https://www.quintacles.com/'),
+}
+
 export default async function ListPage({
   params: { id },
 }: {
