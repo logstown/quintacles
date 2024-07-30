@@ -226,7 +226,7 @@ const getBetterHSL = (
   return `hsl(${hsl[0] * 360}, ${hsl[1] * 100}%, ${trans}%)`
 }
 
-async function getUserListData(props: ListDetailProps) {
+export async function getUserListData(props: ListDetailProps) {
   const isForUser = 'username' in props
   const include = {
     item1: true,
