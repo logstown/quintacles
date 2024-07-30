@@ -25,6 +25,9 @@ type ListDetailProps = { id: number } | { username: string; slug: string }
 export async function ListDetail(props: ListDetailProps) {
   const { userList, userListUsers, userAddedAt } = await getUserListData(props)
 
+  // const deal = await getImageStuff()
+  // console.log(deal)
+
   if (!userList || !userAddedAt) {
     notFound()
   }
