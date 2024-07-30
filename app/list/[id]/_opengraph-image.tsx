@@ -77,9 +77,11 @@ export default async function Image({ params: { id } }: { params: { id: string }
         }}
       >
         {items.map(item => (
-          <img
+          <NextImage
             key={item.tmdbId}
             src={getTmdbImageUrl(item.posterPath, 'w92')}
+            width={92}
+            height={138}
             alt={item.name}
           />
         ))}
