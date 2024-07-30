@@ -28,19 +28,19 @@ export async function generateMetadata({
       siteName: 'Quintacles',
       images: [
         {
-          url: getTmdbImageUrl(userList.item5.posterPath, 'w342'), // Must be an absolute URL
+          url: getTmdbImageUrl(userList.item5.backdropPath, 'w300'), // Must be an absolute URL
         },
         {
-          url: getTmdbImageUrl(userList.item4.posterPath, 'w342'), // Must be an absolute URL
+          url: getTmdbImageUrl(userList.item4.backdropPath, 'w300'), // Must be an absolute URL
         },
         {
-          url: getTmdbImageUrl(userList.item3.posterPath, 'w342'), // Must be an absolute URL
+          url: getTmdbImageUrl(userList.item3.backdropPath, 'w300'), // Must be an absolute URL
         },
         {
-          url: getTmdbImageUrl(userList.item2.posterPath, 'w342'), // Must be an absolute URL
+          url: getTmdbImageUrl(userList.item2.backdropPath, 'w300'), // Must be an absolute URL
         },
         {
-          url: getTmdbImageUrl(userList.item1.posterPath, 'w342'), // Must be an absolute URL
+          url: getTmdbImageUrl(userList.item1.backdropPath, 'w300'), // Must be an absolute URL
         },
       ],
       locale: 'en_US',
@@ -56,11 +56,11 @@ export async function generateMetadata({
       // creator: '@nextjs',
       // creatorId: '1467726470533754880',
       images: [
-        getTmdbImageUrl(userList.item5.posterPath, 'w342'),
-        getTmdbImageUrl(userList.item4.posterPath, 'w342'),
-        getTmdbImageUrl(userList.item3.posterPath, 'w342'),
-        getTmdbImageUrl(userList.item2.posterPath, 'w342'),
-        getTmdbImageUrl(userList.item1.posterPath, 'w342'),
+        getTmdbImageUrl(userList.item5.backdropPath, 'w300'),
+        getTmdbImageUrl(userList.item4.backdropPath, 'w300'),
+        getTmdbImageUrl(userList.item3.backdropPath, 'w300'),
+        getTmdbImageUrl(userList.item2.backdropPath, 'w300'),
+        getTmdbImageUrl(userList.item1.backdropPath, 'w300'),
       ], // Must be an absolute URL
     },
   }
