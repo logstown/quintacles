@@ -47,6 +47,21 @@ export async function generateMetadata({
       publishedTime: userAddedAt as unknown as string,
       authors: userListUsers.map(user => user.username),
     },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: `by ${userListUsers.map(user => user.username).join(', ')}`,
+      // siteId: '1467726470533754880',
+      // creator: '@nextjs',
+      // creatorId: '1467726470533754880',
+      images: [
+        getTmdbImageUrl(userList.item1.posterPath, 'w342'),
+        getTmdbImageUrl(userList.item2.posterPath, 'w342'),
+        getTmdbImageUrl(userList.item3.posterPath, 'w342'),
+        getTmdbImageUrl(userList.item4.posterPath, 'w342'),
+        getTmdbImageUrl(userList.item5.posterPath, 'w342'),
+      ], // Must be an absolute URL
+    },
   }
 }
 
