@@ -44,8 +44,11 @@ export default async function Image({ params: { id } }: { params: { id: string }
       AND "u"."mediaType"= "l5"."mediaType")
       WHERE "u"."id"= 11;`
 
+  console.log(rows)
+
   //   const title = getListTitle(true, userList.Restrictions, true)
-  const posterPaths = values(rows) as unknown as string[]
+  const posterPaths = values(rows[0]) as unknown as string[]
+  console.log(posterPaths)
 
   //   return {
   //     title,
