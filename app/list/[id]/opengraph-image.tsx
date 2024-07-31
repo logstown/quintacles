@@ -26,42 +26,48 @@ export default async function Image({ params: { id } }: { params: { id: string }
     return {}
   }
 
-  console.log(userList)
+  // console.log(userList)
 
-  const { rows } =
-    await sql`SELECT "l"."posterPath" as p1, "l2"."posterPath" as p2,  "l3"."posterPath" as p3,  "l4"."posterPath" as p4,  "l5"."posterPath" as p5, 
-      "r".* as restrictions, 
-      "t"."name" as tvShowName
-      FROM "UserList" "u"
-      JOIN "ListItem" "l"
-      ON ("u"."item1Id"= "l"."tmdbId"
-      AND "u"."mediaType"= "l"."mediaType")
-      JOIN "ListItem" "l2"
-      ON ("u"."item2Id"= "l2"."tmdbId"
-      AND "u"."mediaType"= "l2"."mediaType")
-      JOIN "ListItem" "l3"
-      ON ("u"."item3Id"= "l3"."tmdbId"
-      AND "u"."mediaType"= "l3"."mediaType")
-      JOIN "ListItem" "l4"
-      ON ("u"."item4Id"= "l4"."tmdbId"
-      AND "u"."mediaType"= "l4"."mediaType")
-      JOIN "ListItem" "l5"
-      ON ("u"."item5Id"= "l5"."tmdbId"
-      AND "u"."mediaType"= "l5"."mediaType")
-      JOIN "Restrictions" "r"
-      ON ("u"."restrictionsSlug"= "r"."slug")
-      JOIN "TvShowLite" "t"
-      ON ("r"."episodesTvShowId"= "t"."id")
-      JOIN "Person" "p"
-      ON ("r"."personId"= "p"."id")
-      WHERE "u"."id"= ${id};`
+  // const { rows } =
+  //   await sql`SELECT "l"."posterPath" as p1, "l2"."posterPath" as p2,  "l3"."posterPath" as p3,  "l4"."posterPath" as p4,  "l5"."posterPath" as p5,
+  //     "r".* as restrictions,
+  //     "t"."name" as tvShowName
+  //     FROM "UserList" "u"
+  //     JOIN "ListItem" "l"
+  //     ON ("u"."item1Id"= "l"."tmdbId"
+  //     AND "u"."mediaType"= "l"."mediaType")
+  //     JOIN "ListItem" "l2"
+  //     ON ("u"."item2Id"= "l2"."tmdbId"
+  //     AND "u"."mediaType"= "l2"."mediaType")
+  //     JOIN "ListItem" "l3"
+  //     ON ("u"."item3Id"= "l3"."tmdbId"
+  //     AND "u"."mediaType"= "l3"."mediaType")
+  //     JOIN "ListItem" "l4"
+  //     ON ("u"."item4Id"= "l4"."tmdbId"
+  //     AND "u"."mediaType"= "l4"."mediaType")
+  //     JOIN "ListItem" "l5"
+  //     ON ("u"."item5Id"= "l5"."tmdbId"
+  //     AND "u"."mediaType"= "l5"."mediaType")
+  //     JOIN "Restrictions" "r"
+  //     ON ("u"."restrictionsSlug"= "r"."slug")
+  //     JOIN "TvShowLite" "t"
+  //     ON ("r"."episodesTvShowId"= "t"."id")
+  //     JOIN "Person" "p"
+  //     ON ("r"."personId"= "p"."id")
+  //     WHERE "u"."id"= ${id};`
 
-  const obj = rows[0]
-  console.log(obj)
+  // const obj = rows[0]
+  // console.log(obj)
 
-  const posterPaths = [obj.p1, obj.p2, obj.p3, obj.p4, obj.p5]
-  const restrictions = omit(obj, ['p1', 'p2', 'p3', 'p4', 'p5'])
-  const title = getListTitle(true, restrictions as RestrictionsUI, true)
+  const posterPaths = [
+    userList.item1.posterPath,
+    userList.item2.posterPath,
+    userList.item3.posterPath,
+    userList.item4.posterPath,
+    userList.item5.posterPath,
+  ]
+  // const restrictions = omit(obj, ['p1', 'p2', 'p3', 'p4', 'p5'])
+  const title = getListTitle(true, userList.Restrictions, true)
 
   // console.log(restrictions)
 
@@ -118,7 +124,7 @@ export default async function Image({ params: { id } }: { params: { id: string }
             justifyContent: 'center',
           }}
         >
-          {posterPaths.map((path: string) => (
+          {posterPaths.map(path => (
             <img
               key={path}
               src={getTmdbImageUrl(path, 'w92', true)}
