@@ -4,9 +4,11 @@ import { getListTitle } from '@/components/list-title-base'
 import NextImage from 'next/image'
 import { getTmdbImageUrl } from '@/lib/random'
 import { sql } from '@vercel/postgres'
-import { values } from 'lodash'
+import { omit, rest, values } from 'lodash'
+import { Metadata } from 'next'
+import { RestrictionsUI } from '@/lib/models'
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 
 export const alt = 'About Acme'
 export const size = {
@@ -16,16 +18,20 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image({ params: { id } }: { params: { id: string } }) {
-  // const { userList, userListUsers, userAddedAt } = await getUserListData({
-  //   id: Number(id),
-  // })
+  const { userList, userListUsers, userAddedAt } = await getUserListData({
+    id: Number(id),
+  })
 
-  // if (!userList || !userListUsers || !userAddedAt) {
-  //   return {}
-  // }
+  if (!userList || !userListUsers || !userAddedAt) {
+    return {}
+  }
+
+  console.log(userList)
 
   const { rows } =
-    await sql`SELECT "l"."posterPath" as p1, "l2"."posterPath" as p2,  "l3"."posterPath" as p3,  "l4"."posterPath" as p4,  "l5"."posterPath" as p5
+    await sql`SELECT "l"."posterPath" as p1, "l2"."posterPath" as p2,  "l3"."posterPath" as p3,  "l4"."posterPath" as p4,  "l5"."posterPath" as p5, 
+      "r".* as restrictions, 
+      "t"."name" as tvShowName
       FROM "UserList" "u"
       JOIN "ListItem" "l"
       ON ("u"."item1Id"= "l"."tmdbId"
@@ -42,13 +48,22 @@ export default async function Image({ params: { id } }: { params: { id: string }
       JOIN "ListItem" "l5"
       ON ("u"."item5Id"= "l5"."tmdbId"
       AND "u"."mediaType"= "l5"."mediaType")
-      WHERE "u"."id"= 11;`
+      JOIN "Restrictions" "r"
+      ON ("u"."restrictionsSlug"= "r"."slug")
+      JOIN "TvShowLite" "t"
+      ON ("r"."episodesTvShowId"= "t"."id")
+      JOIN "Person" "p"
+      ON ("r"."personId"= "p"."id")
+      WHERE "u"."id"= ${id};`
 
-  console.log(rows)
+  const obj = rows[0]
+  console.log(obj)
 
-  //   const title = getListTitle(true, userList.Restrictions, true)
-  const posterPaths = values(rows[0]) as unknown as string[]
-  console.log(posterPaths)
+  const posterPaths = [obj.p1, obj.p2, obj.p3, obj.p4, obj.p5]
+  const restrictions = omit(obj, ['p1', 'p2', 'p3', 'p4', 'p5'])
+  const title = getListTitle(true, restrictions as RestrictionsUI, true)
+
+  // console.log(restrictions)
 
   //   return {
   //     title,
@@ -85,25 +100,33 @@ export default async function Image({ params: { id } }: { params: { id: string }
     (
       <div
         style={{
-          fontSize: 48,
+          fontSize: 28,
           background: 'white',
           width: '100%',
           height: '100%',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          gap: 2,
-          justifyContent: 'center',
         }}
       >
-        {posterPaths.map((path: string) => (
-          <NextImage
-            key={path}
-            src={getTmdbImageUrl(path, 'w92')}
-            width={92}
-            height={138}
-            alt='poster'
-          />
-        ))}
+        <h1>Top Five {title}</h1>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            justifyContent: 'center',
+          }}
+        >
+          {posterPaths.map((path: string) => (
+            <img
+              key={path}
+              src={getTmdbImageUrl(path, 'w92', true)}
+              style={{ width: '18%', borderRadius: '12px' }}
+              alt='poster'
+            />
+          ))}
+        </div>
       </div>
     ),
     {

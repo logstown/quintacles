@@ -66,9 +66,14 @@ export const getYears = (): Year[] => {
   return years
 }
 
-export const getTmdbImageUrl = (path?: string | null, size?: string): string => {
+export const getTmdbImageUrl = (
+  path?: string | null,
+  size?: string,
+  isForOG?: boolean,
+): string => {
   if (!path) {
-    return '/movieBackdrop.jpeg'
+    const movieBackdrop = '/movieBackdrop.jpeg'
+    return isForOG ? `https://quintacles.com${movieBackdrop}` : movieBackdrop
   }
   return `https://image.tmdb.org/t/p/${size ?? 'w300'}${path}`
 }
