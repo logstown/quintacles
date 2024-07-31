@@ -3,6 +3,8 @@ import { getUserListData } from '../_components/ListDetail'
 import { getListTitle } from '@/components/list-title-base'
 import NextImage from 'next/image'
 import { getTmdbImageUrl } from '@/lib/random'
+import { sql } from '@vercel/postgres'
+import { values } from 'lodash'
 
 export const runtime = 'edge'
 
@@ -14,22 +16,36 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image({ params: { id } }: { params: { id: string } }) {
-  const { userList, userListUsers, userAddedAt } = await getUserListData({
-    id: Number(id),
-  })
+  // const { userList, userListUsers, userAddedAt } = await getUserListData({
+  //   id: Number(id),
+  // })
 
-  if (!userList || !userListUsers || !userAddedAt) {
-    return {}
-  }
+  // if (!userList || !userListUsers || !userAddedAt) {
+  //   return {}
+  // }
+
+  const { rows } =
+    await sql`SELECT "l"."posterPath" as p1, "l2"."posterPath" as p2,  "l3"."posterPath" as p3,  "l4"."posterPath" as p4,  "l5"."posterPath" as p5
+      FROM "UserList" "u"
+      JOIN "ListItem" "l"
+      ON ("u"."item1Id"= "l"."tmdbId"
+      AND "u"."mediaType"= "l"."mediaType")
+      JOIN "ListItem" "l2"
+      ON ("u"."item2Id"= "l2"."tmdbId"
+      AND "u"."mediaType"= "l2"."mediaType")
+      JOIN "ListItem" "l3"
+      ON ("u"."item3Id"= "l3"."tmdbId"
+      AND "u"."mediaType"= "l3"."mediaType")
+      JOIN "ListItem" "l4"
+      ON ("u"."item4Id"= "l4"."tmdbId"
+      AND "u"."mediaType"= "l4"."mediaType")
+      JOIN "ListItem" "l5"
+      ON ("u"."item5Id"= "l5"."tmdbId"
+      AND "u"."mediaType"= "l5"."mediaType")
+      WHERE "u"."id"= 11;`
 
   //   const title = getListTitle(true, userList.Restrictions, true)
-  const items = [
-    userList.item1,
-    userList.item2,
-    userList.item3,
-    userList.item4,
-    userList.item5,
-  ]
+  const posterPaths = values(rows) as unknown as string[]
 
   //   return {
   //     title,
@@ -76,13 +92,13 @@ export default async function Image({ params: { id } }: { params: { id: string }
           justifyContent: 'center',
         }}
       >
-        {items.map(item => (
+        {posterPaths.map((path: string) => (
           <NextImage
-            key={item.tmdbId}
-            src={getTmdbImageUrl(item.posterPath, 'w92')}
+            key={path}
+            src={getTmdbImageUrl(path, 'w92')}
             width={92}
             height={138}
-            alt={item.name}
+            alt='poster'
           />
         ))}
       </div>
