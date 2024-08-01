@@ -23,7 +23,7 @@ export const getListTitle = (
     title += year > 10000 ? `${year / 10}s ` : `${year} `
   }
 
-  if (Person) {
+  if (Person?.name) {
     title += `${Person.name} `
   }
 
@@ -39,7 +39,7 @@ export const getListTitle = (
     title += 'Top Five '
   }
 
-  if (isForSlug && EpisodesTvShow) {
+  if (isForSlug && EpisodesTvShow?.name) {
     title += `${EpisodesTvShow.name} `
   }
 

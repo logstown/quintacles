@@ -20,7 +20,7 @@ import { UsersIcon } from 'lucide-react'
 import { ListItemLink } from './ListItemLink'
 import { getImageStuff } from '@/lib/TmdbService'
 
-type ListDetailProps = { id: number } | { username: string; slug: string }
+export type ListDetailProps = { id: number } | { username: string; slug: string }
 
 export async function ListDetail(props: ListDetailProps) {
   const { userList, userListUsers, userAddedAt } = await getUserListData(props)
