@@ -4,8 +4,6 @@ import { Link } from '@nextui-org/link'
 import clsx from 'clsx'
 
 import { Providers } from './providers'
-
-import { siteConfig } from '@/config/site'
 import { fontSans } from '@/config/fonts'
 import { Navbar } from '@/components/navbar/navbar'
 import { Analytics } from '@vercel/analytics/react'
@@ -19,7 +17,7 @@ export const metadata: Metadata = {
     default: 'Quintacles',
     template: `%s - Quintacles`,
   },
-  description: siteConfig.description,
+  description: 'Your top five movies, tv shows and more',
   icons: {
     icon: '/favicon.ico',
   },
