@@ -1,3 +1,10 @@
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Feedback',
+  description: 'Tell me what you think!',
+}
+
 export default function Feedback() {
   return (
     <div className='flex justify-center'>

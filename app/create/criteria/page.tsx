@@ -3,6 +3,11 @@ import { Button } from '@nextui-org/button'
 import Link from 'next/link'
 import { cloneElement } from 'react'
 
+export const metadata = {
+  title: 'Create List',
+  description: 'Create a list of movies, TV shows, seasons, or episodes.',
+}
+
 const CreateCriteriaPage = () => {
   return (
     <div className='flex flex-col items-center gap-20 pt-16'>
