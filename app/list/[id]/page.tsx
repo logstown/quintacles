@@ -1,69 +1,24 @@
 import { Metadata } from 'next'
 import { getUserListData, ListDetail } from '../_components/ListDetail'
 import { getListTitle } from '@/components/list-title-base'
-import { getTmdbImageUrl } from '@/lib/random'
 
-// export async function generateMetadata({
-//   params: { id },
-// }: {
-//   params: { id: number }
-// }): Promise<Metadata> {
-//   const { userList, userListUsers, userAddedAt } = await getUserListData({
-//     id: Number(id),
-//   })
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: number }
+}): Promise<Metadata> {
+  const { userList } = await getUserListData({
+    id: Number(id),
+  })
 
-//   if (!userList || !userListUsers || !userAddedAt) {
-//     return {}
-//   }
+  if (!userList) {
+    return {}
+  }
 
-//   const title = `Top Five ${getListTitle(true, userList.Restrictions, true)}`
-//   const description = `by ${userListUsers.map(user => `@${user.username}`).join(', ')}`
+  const title = `Top Five ${getListTitle(true, userList.Restrictions, true)}`
 
-//   return {
-//     title,
-//     description,
-//     openGraph: {
-//       title,
-//       description,
-//       url: 'https://quintacles.com/',
-//       siteName: 'Quintacles',
-//       images: [
-//         {
-//           url: getTmdbImageUrl(userList.item5.backdropPath, 'w780'),
-//         },
-//         {
-//           url: getTmdbImageUrl(userList.item4.backdropPath, 'w780'),
-//         },
-//         {
-//           url: getTmdbImageUrl(userList.item3.backdropPath, 'w780'),
-//         },
-//         {
-//           url: getTmdbImageUrl(userList.item2.backdropPath, 'w780'),
-//         },
-//         {
-//           url: getTmdbImageUrl(userList.item1.backdropPath, 'w780'),
-//         },
-//       ],
-//       locale: 'en_US',
-//       type: 'article',
-//       publishedTime: userAddedAt as unknown as string,
-//       authors: userListUsers.map(user => user.username),
-//     },
-//     twitter: {
-//       card: 'summary_large_image',
-//       title,
-//       description,
-//       creator: '@logstaa',
-//       images: [
-//         getTmdbImageUrl(userList.item5.backdropPath, 'w780'),
-//         getTmdbImageUrl(userList.item4.backdropPath, 'w780'),
-//         getTmdbImageUrl(userList.item3.backdropPath, 'w780'),
-//         getTmdbImageUrl(userList.item2.backdropPath, 'w780'),
-//         getTmdbImageUrl(userList.item1.backdropPath, 'w780'),
-//       ],
-//     },
-//   }
-// }
+  return { title }
+}
 
 export default async function ListPage({
   params: { id },
