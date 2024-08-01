@@ -5,6 +5,10 @@ import { auth } from '@clerk/nextjs/server'
 import { MediaType } from '@prisma/client'
 import { notFound, redirect } from 'next/navigation'
 
+export const metadata = {
+  title: 'Edit List',
+}
+
 export default async function EditListPage({
   params: { id },
 }: {
