@@ -15,7 +15,7 @@ import { MailIcon, MessageCircleIcon, ScrollTextIcon } from 'lucide-react'
 export const metadata: Metadata = {
   title: {
     default: 'Quintacles',
-    template: `%s - Quintacles`,
+    template: `%s`,
   },
   description: 'Your top five movies, tv shows and more',
   icons: {
