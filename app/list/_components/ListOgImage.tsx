@@ -50,7 +50,7 @@ export async function ListOgImage(
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  width: '18.5%',
+                  width: '18%',
                 }}
               >
                 <img
