@@ -32,7 +32,7 @@ export async function ListOgImage(
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'flex-end',
         }}
       >
         {userList.Restrictions.mediaType === MediaType.TvShow ||
@@ -40,6 +40,7 @@ export async function ListOgImage(
           <div
             style={{
               display: 'flex',
+              paddingBottom: '50px',
               gap: 10,
             }}
           >

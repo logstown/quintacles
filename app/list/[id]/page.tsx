@@ -7,7 +7,7 @@ export async function generateMetadata({
 }: {
   params: { id: string }
 }): Promise<Metadata> {
-  const { userList } = await getUserListData({
+  const { userList, userListUsers } = await getUserListData({
     id: Number(id),
   })
 
@@ -16,8 +16,9 @@ export async function generateMetadata({
   }
 
   const title = `Top Five ${getListTitle(true, userList.Restrictions, true)}`
+  const description = `by ${userListUsers.map(user => `@${user.username}`).join(', ')}`
 
-  return { title }
+  return { title, description }
 }
 
 export default async function ListPage({
