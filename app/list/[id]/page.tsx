@@ -5,7 +5,7 @@ import { getListTitle } from '@/components/list-title-base'
 export async function generateMetadata({
   params: { id },
 }: {
-  params: { id: number }
+  params: { id: string }
 }): Promise<Metadata> {
   const { userList } = await getUserListData({
     id: Number(id),

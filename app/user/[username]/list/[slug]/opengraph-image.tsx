@@ -1,8 +1,8 @@
 import { ImageResponse } from 'next/og'
-import { getUserListData } from '../_components/ListDetail'
 import { getTmdbImageUrl } from '@/lib/random'
 import React from 'react'
 import { MediaType } from '@prisma/client'
+import { getUserListData } from '@/app/list/_components/ListDetail'
 
 // export const runtime = 'edge'
 
@@ -13,10 +13,12 @@ export const size = {
 }
 export const contentType = 'image/png'
 
-export default async function Image({ params: { id } }: { params: { id: string } }) {
-  const { userList } = await getUserListData({
-    id: Number(id),
-  })
+export default async function Image({
+  params,
+}: {
+  params: { username: string; slug: string }
+}) {
+  const { userList } = await getUserListData(params)
 
   if (!userList) {
     return {}
@@ -49,9 +51,7 @@ export default async function Image({ params: { id } }: { params: { id: string }
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
               gap: 10,
-              justifyContent: 'center',
             }}
           >
             {posterPaths.map((path, i) => (
