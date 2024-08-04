@@ -19,7 +19,7 @@ const CreditsPage: React.FC = () => {
             alt='tmdb logo'
             unoptimized
           />
-          This website uses the The Movie Database (TMDB) API but is not endorsed or
+          This website uses The Movie Database (TMDB) API but is not endorsed or
           certified by TMDB.
         </li>
       </ul>
