@@ -10,6 +10,7 @@ import { UserCoverImage } from '../_components/UserCoverImage'
 import { MediaTypeUserLists } from '@/components/MediaTypeUserLists'
 import { Metadata } from 'next'
 import { cache } from 'react'
+import { Skeleton } from '@nextui-org/skeleton'
 
 function getUserProfile(username: string) {
   return prisma.user.findUnique({
@@ -35,7 +36,7 @@ export async function generateMetadata({
     return {}
   }
 
-  const title = profile.displayName ?? profile.username
+  const title = `${profile.displayName ?? profile.username} - Quintacles`
   const description = `@${profile.username} has ${profile._count.userLists} list${
     profile._count.userLists > 1 ? 's' : ''
   }`
