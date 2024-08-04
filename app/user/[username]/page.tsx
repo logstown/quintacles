@@ -8,13 +8,11 @@ import { getTmdbImageUrl } from '@/lib/random'
 import { auth } from '@clerk/nextjs/server'
 import { UserCoverImage } from '../_components/UserCoverImage'
 import { MediaTypeUserLists } from '@/components/MediaTypeUserLists'
+import { Metadata } from 'next'
+import { cache } from 'react'
 
-export default async function UserPage({
-  params: { username },
-}: {
-  params: { username: string }
-}) {
-  const profile = await prisma.user.findUnique({
+function getUserProfile(username: string) {
+  return prisma.user.findUnique({
     where: { username },
     include: {
       _count: {
@@ -22,6 +20,54 @@ export default async function UserPage({
       },
     },
   })
+}
+
+const cachedProfile = cache(getUserProfile)
+
+export async function generateMetadata({
+  params: { username },
+}: {
+  params: { username: string }
+}): Promise<Metadata> {
+  const profile = await cachedProfile(username)
+
+  if (!profile) {
+    return {}
+  }
+
+  const title = profile.displayName ?? profile.username
+  const description = `${profile._count.userLists} list${
+    profile._count.userLists > 1 ? 's' : ''
+  }`
+  const images = [profile.photoURL ?? '']
+
+  return {
+    title,
+    description,
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+      images,
+    },
+    openGraph: {
+      type: 'profile',
+      username: profile.username,
+      title,
+      description,
+      images,
+      url: `https://www.quintacles.com/user/${profile.username}`,
+      siteName: 'Quintacles',
+    },
+  }
+}
+
+export default async function UserPage({
+  params: { username },
+}: {
+  params: { username: string }
+}) {
+  const profile = await cachedProfile(username)
 
   if (!profile) {
     redirect('/')

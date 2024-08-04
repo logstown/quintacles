@@ -1,6 +1,10 @@
 import BrowsePage from '@/app/browse/_components/BrowsePage'
 import { CreateListSearchParams } from '@/lib/models'
 
+export const metadata = {
+  title: 'User Lists',
+}
+
 export default async function UserMediaTypeLists({
   params,
   searchParams,
