@@ -36,10 +36,9 @@ export async function generateMetadata({
   }
 
   const title = profile.displayName ?? profile.username
-  const description = `${profile._count.userLists} list${
+  const description = `@${profile.username} has ${profile._count.userLists} list${
     profile._count.userLists > 1 ? 's' : ''
   }`
-  const images = [profile.photoURL ?? '']
 
   return {
     title,
@@ -48,14 +47,14 @@ export async function generateMetadata({
       card: 'summary',
       title,
       description,
-      images,
+      images: [profile.photoURL ?? ''],
     },
     openGraph: {
       type: 'profile',
       username: profile.username,
       title,
       description,
-      images,
+      images: [{ url: profile.photoURL ?? '', height: 200, width: 200 }],
       url: `https://www.quintacles.com/user/${profile.username}`,
       siteName: 'Quintacles',
     },
