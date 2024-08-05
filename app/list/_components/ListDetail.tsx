@@ -59,9 +59,7 @@ export async function ListDetail(props: ListDetailProps) {
         ).getPalette()
         bgColor = getBetterHSL(color.DarkMuted?.hsl, 0, 25) ?? bgColor
         rgb = color.DarkMuted?.rgb ?? rgb
-        // if (!isSeasons) {
-        textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
-        // }
+        textColor = getBetterHSL(color.LightMuted?.hsl, 75, 100) ?? textColor // TODO: this used to be LightVibrant
         backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
       }
 
@@ -143,7 +141,9 @@ export async function ListDetail(props: ListDetailProps) {
                         <h1 className='line-clamp-4 text-balance pb-1 text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
                           {item.name}{' '}
                           {!isEpisodes &&
-                            (!restrictions.year || restrictions.year > 10000) && (
+                            (restrictions.mediaType === MediaType.TvShow ||
+                              !restrictions.year ||
+                              restrictions.year > 10000) && (
                               <small className='text-[40%] font-medium'>
                                 {new Date(item.date).getFullYear()}
                               </small>
