@@ -30,17 +30,14 @@ export function SuggestionItem({
         isPressable
         isDisabled={isChosen}
         onPress={() => onItemSelected(item)}
-        className={`h-full w-full justify-center shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${idx < 0 ? 'hover:z-10 hover:scale-110 hover:shadow-lg' : ''} ${isChosen ? 'cursor-pointer' : ''}`}
+        className={`justify-center shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${idx < 0 ? 'hover:z-10 hover:scale-110 hover:shadow-lg' : ''} ${isChosen ? 'cursor-pointer' : ''}`}
       >
         <AddListIdx idx={idx}>
           {item.posterPath ? (
+            // TODO: add NextImage back maybe
             <Image
-              unoptimized
-              as={NextImage}
               width={300}
-              height={450}
-              className='max-h-[262.5px]'
-              src={getTmdbImageUrl(item.posterPath, 'w300')}
+              src={getTmdbImageUrl(item.posterPath, 'w342')}
               alt={`${item.name} poster`}
             />
           ) : (

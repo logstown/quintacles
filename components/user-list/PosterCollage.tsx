@@ -404,13 +404,10 @@ export function PosterCollageStraight({
             </Skeleton>
           ) : (
             <MaybeSeasonFooter isSeasons={isSeasons} seasonName={lite.name}>
+              {/* TODO: add NextImage back maybe */}
               <Image
-                unoptimized
-                as={NextImage}
                 isBlurred
-                classNames={{ img: 'max-h-[264px]', blurredImg: 'max-h-[264px]' }}
-                width={342}
-                height={513}
+                width={176}
                 className='rounded-md object-cover shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
                 alt={`${lite.name} poster`}
                 src={getTmdbImageUrl(lite.posterPath, 'w342')}
