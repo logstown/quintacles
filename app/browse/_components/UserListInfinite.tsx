@@ -42,7 +42,14 @@ export function UserListInfinite({
     status,
   } = useInfiniteQuery({
     // initialData,
-    queryKey: ['userLists', restrictions, sortBy, exactMatch, userId],
+    queryKey: [
+      'userLists',
+      restrictions,
+      userListIdToExclude,
+      sortBy,
+      exactMatch,
+      userId,
+    ],
     queryFn: async ({ pageParam }) => {
       const lists = await userListQueryServer({
         userId,
