@@ -80,7 +80,7 @@ export async function ListDetail(props: ListDetailProps) {
 
   return (
     <div>
-      <div className='flex flex-col items-center gap-4 px-8 md:gap-8 md:px-12'>
+      <div className='flex flex-col items-center gap-8 px-8 md:px-12'>
         <h1 className='text-center text-5xl font-semibold capitalize tracking-tight drop-shadow-2xl sm:text-6xl lg:text-7xl'>
           <ListTitleBase restrictions={restrictions} includeMediaType={true} />
         </h1>
@@ -120,7 +120,7 @@ export async function ListDetail(props: ListDetailProps) {
           )}
         </div>
       </div>
-      <div className='mx-auto mt-4 flex max-w-screen-2xl flex-col items-center gap-16 md:mt-8'>
+      <div className='mx-auto mt-8 flex max-w-screen-2xl flex-col items-center gap-16'>
         {listItemsReverse.map((item, i) => (
           <div
             className='group mx-4 flex max-w-screen-sm flex-col items-stretch rounded-xl shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] lg:mx-0 lg:w-full lg:max-w-none lg:flex-row'
@@ -223,7 +223,7 @@ export async function ListDetail(props: ListDetailProps) {
         ))}
       </div>
       {!isCurrentUsersList && (
-        <div className='mt-16 flex justify-center'>
+        <div className='mt-20 flex justify-center'>
           <Button
             className='bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
             size='lg'

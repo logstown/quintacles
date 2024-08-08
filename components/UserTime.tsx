@@ -20,6 +20,7 @@ export function UserTime({
     users.length <= 5
       ? users
       : [1, 2, 3, 4, 5].map(i => users[random(0, users.length - 1)])
+  const userAddedDistanceToNow = formatDistanceToNowStrict(lastUserAddedAt)
 
   return (
     <div
@@ -28,22 +29,28 @@ export function UserTime({
       {!excludeUser && !!usersToDisplay.length && (
         <>
           {usersToDisplay.length === 1 ? (
-            <UserTimeAvatar user={usersToDisplay[0]} size={size} />
+            <UserTimeAvatar
+              user={usersToDisplay[0]}
+              userAddedDistanceToNow={userAddedDistanceToNow}
+              size={size}
+            />
           ) : (
-            <AvatarGroup total={users.length - 5}>
-              {usersToDisplay.map((user, i) => (
-                <UserTimeAvatar key={i} user={user} size={size} />
-              ))}
-            </AvatarGroup>
+            <>
+              <AvatarGroup total={users.length - 5}>
+                {usersToDisplay.map((user, i) => (
+                  <UserTimeAvatar key={i} user={user} size={size} />
+                ))}
+              </AvatarGroup>
+              {users.length > 5 && <p>·</p>}
+              <p
+                className={`whitespace-nowrap text-tiny text-foreground-400 ${size === 'sm' ? '' : 'sm:text-base'}`}
+              >
+                {userAddedDistanceToNow}
+              </p>
+            </>
           )}
         </>
       )}
-      {users.length > 5 && <p>·</p>}
-      <p
-        className={`whitespace-nowrap text-tiny text-foreground-400 ${size === 'sm' ? '' : 'sm:text-base'}`}
-      >
-        {formatDistanceToNowStrict(lastUserAddedAt)}
-      </p>
     </div>
   )
 }
