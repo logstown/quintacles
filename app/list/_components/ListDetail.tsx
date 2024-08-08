@@ -3,23 +3,23 @@ import { UserListButtons } from '@/components/UserListButtons'
 import { UserTime } from '@/components/UserTime'
 import { ListTitleBase } from '@/components/list-title-base'
 import prisma from '@/lib/db'
-import { getTmdbImageUrl } from '@/lib/random'
+import { getTmdbImageUrl, getUserListsUrl } from '@/lib/random'
 import { Divider } from '@nextui-org/divider'
 import { Image } from '@nextui-org/image'
 import NextImage from 'next/image'
 import { MediaType } from '@prisma/client'
 import { format } from 'date-fns'
-import { clamp, includes } from 'lodash'
+import { clamp, includes, some } from 'lodash'
 import Vibrant from 'node-vibrant'
 import Link from 'next/link'
 import { Tooltip } from '@nextui-org/tooltip'
 import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { Button } from '@nextui-org/button'
-import { UsersIcon } from 'lucide-react'
+import { PlusIcon, UsersIcon } from 'lucide-react'
 import { ListItemLink } from './ListItemLink'
-import { getImageStuff } from '@/lib/TmdbService'
 import { UserListInfinite } from '@/app/browse/_components/UserListInfinite'
+import { auth } from '@clerk/nextjs/server'
 
 export type ListDetailProps = { id: number } | { username: string; slug: string }
 
@@ -37,6 +37,8 @@ export async function ListDetail(props: ListDetailProps) {
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
   const isSeasons = restrictions.mediaType === MediaType.TvSeason
   const isForUser = 'username' in props
+  const currentUserId = auth().userId
+  const isCurrentUsersList = some(userListUsers, { id: currentUserId })
 
   const listItemPromises = [
     userList.item1,
@@ -106,12 +108,16 @@ export async function ListDetail(props: ListDetailProps) {
               </Tooltip>
             )}
           </div>
-          <Divider className='hidden h-6 sm:block' orientation='vertical' />
-          <UserListButtons
-            userListId={userList.id}
-            usernames={userListUsers.map(user => user.username)}
-            Restrictions={restrictions}
-          />
+          {isCurrentUsersList && (
+            <>
+              <Divider className='hidden h-6 sm:block' orientation='vertical' />
+              <UserListButtons
+                userListId={userList.id}
+                usernames={userListUsers.map(user => user.username)}
+                Restrictions={restrictions}
+              />
+            </>
+          )}
         </div>
       </div>
       <div className='mx-auto mt-4 flex max-w-screen-2xl flex-col items-center gap-16 md:mt-8'>
@@ -216,7 +222,21 @@ export async function ListDetail(props: ListDetailProps) {
           </div>
         ))}
       </div>
-      <div className='mx-auto mt-10 max-w-screen-lg'>
+      {!isCurrentUsersList && (
+        <div className='mt-16 flex justify-center'>
+          <Button
+            className='bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
+            size='lg'
+            as={Link}
+            prefetch={!!currentUserId}
+            href={getUserListsUrl(restrictions)}
+            startContent={<PlusIcon />}
+          >
+            Create this list
+          </Button>
+        </div>
+      )}
+      <div className='mx-auto mt-16 max-w-screen-lg'>
         <h3 className='p-6 text-2xl'>
           More{' '}
           <span className='font-bold'>
