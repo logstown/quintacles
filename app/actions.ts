@@ -358,6 +358,7 @@ export async function updateUserCoverImage(coverImagePath: string) {
 export async function userListQueryServer({
   userId,
   restrictions,
+  userListIdToExclude,
   sortBy,
   exactMatch,
   pageNum,
@@ -365,6 +366,7 @@ export async function userListQueryServer({
 }: {
   userId?: string
   restrictions: RestrictionsUI
+  userListIdToExclude?: number
   sortBy: 'lastUserAddedAt' | 'users'
   exactMatch: boolean
   pageNum: number
@@ -373,6 +375,7 @@ export async function userListQueryServer({
   return userListQuery({
     userId,
     restrictions,
+    userListIdToExclude,
     sortBy,
     exactMatch,
     pageSize,

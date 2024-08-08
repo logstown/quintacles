@@ -19,6 +19,7 @@ import { Button } from '@nextui-org/button'
 import { UsersIcon } from 'lucide-react'
 import { ListItemLink } from './ListItemLink'
 import { getImageStuff } from '@/lib/TmdbService'
+import { UserListInfinite } from '@/app/browse/_components/UserListInfinite'
 
 export type ListDetailProps = { id: number } | { username: string; slug: string }
 
@@ -214,6 +215,21 @@ export async function ListDetail(props: ListDetailProps) {
             </div>
           </div>
         ))}
+      </div>
+      <div className='mx-auto mt-10 max-w-screen-lg'>
+        <h3 className='p-6 text-2xl'>
+          More{' '}
+          <span className='font-bold'>
+            <ListTitleBase restrictions={restrictions} />
+          </span>{' '}
+          Lists...
+        </h3>
+        <UserListInfinite
+          restrictions={restrictions}
+          userListIdToExclude={userList.id}
+          sortBy='users'
+          exactMatch={true}
+        />
       </div>
     </div>
   )

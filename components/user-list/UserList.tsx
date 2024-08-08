@@ -20,6 +20,7 @@ export function UserListCard({
   users,
   excludeUser,
   excludeTitle,
+  linkIsHardReload,
 }: {
   restrictions: RestrictionsUI
   id: number
@@ -32,6 +33,7 @@ export function UserListCard({
   lastUserAddedAt: Date
   excludeUser?: boolean
   excludeTitle?: boolean
+  linkIsHardReload?: boolean
 }) {
   const { Person, mediaType } = restrictions
   const isEpisodes = mediaType === MediaType.TvEpisode
@@ -44,7 +46,7 @@ export function UserListCard({
   return (
     <Card
       shadow='lg'
-      className={`w-fit overflow-visible p-0 dark:outline-foreground-100 ${isEpisodes ? 'sm:p-3' : 'sm:px-5 sm:pb-6 sm:pt-2'}`}
+      className={`w-fit overflow-visible p-0 dark:bg-black dark:outline-foreground-100 ${isEpisodes ? 'sm:p-3' : 'sm:px-5 sm:pb-6 sm:pt-2'}`}
     >
       <CardHeader
         className={`${isEpisodes ? 'justify-center' : 'justify-between py-3 md:py-6'} pl-4`}
@@ -53,42 +55,44 @@ export function UserListCard({
           className={`flex items-center gap-2 sm:items-baseline ${isEpisodes ? 'justify-center' : 'sm:gap-4'}`}
         >
           {!excludeTitle && (
-            <Link
-              scroll={false}
-              href={getUserListsUrl(restrictions, 'browse')}
-              color='foreground'
-              className={`flex w-full items-center gap-2 sm:gap-4`}
-            >
-              {!!Person?.id && (
-                <div className='pl-1'>
-                  <UserListIcon
-                    mediaType={mediaType}
-                    personPath={Person.profilePath}
-                    useMediaIcon={false}
-                  />
-                </div>
-              )}
-              <div
-                className={`flex items-center gap-2 font-semibold tracking-tight sm:gap-3 ${isEpisodes ? 'max-w-[267px] text-2xl' : 'text-xl sm:text-3xl md:text-4xl'}`}
+            <>
+              <Link
+                scroll={false}
+                href={getUserListsUrl(restrictions, 'browse')}
+                color='foreground'
+                className={`flex w-full items-center gap-2 sm:gap-4`}
               >
-                {!isEpisodes && !Person?.id && (
-                  <div className='text-foreground-500'>{mediaTypeIcon}</div>
+                {!!Person?.id && (
+                  <div className='pl-1'>
+                    <UserListIcon
+                      mediaType={mediaType}
+                      personPath={Person.profilePath}
+                      useMediaIcon={false}
+                    />
+                  </div>
                 )}
                 <div
-                  className={`${mediaType === MediaType.TvShow ? 'mt-1' : ''} ${isEpisodes ? 'truncate' : 'drop-shadow-2xl'}`}
+                  className={`flex items-center gap-2 font-semibold tracking-tight sm:gap-3 ${isEpisodes ? 'max-w-[267px] text-2xl' : 'text-xl sm:text-3xl md:text-4xl'}`}
                 >
-                  <ListTitleBase restrictions={restrictions} />
+                  {!isEpisodes && !Person?.id && (
+                    <div className='text-foreground-500'>{mediaTypeIcon}</div>
+                  )}
+                  <div
+                    className={`${mediaType === MediaType.TvShow ? 'mt-1' : ''} ${isEpisodes ? 'truncate' : 'drop-shadow-2xl'}`}
+                  >
+                    <ListTitleBase restrictions={restrictions} />
+                  </div>
                 </div>
-              </div>
-            </Link>
-          )}
-          {!isEpisodes && (
-            <UserListButtons
-              isSmall
-              userListId={id}
-              Restrictions={restrictions}
-              usernames={usernames}
-            />
+              </Link>
+              {!isEpisodes && (
+                <UserListButtons
+                  isSmall
+                  userListId={id}
+                  Restrictions={restrictions}
+                  usernames={usernames}
+                />
+              )}
+            </>
           )}
         </div>
         {!isEpisodes && (
@@ -103,7 +107,12 @@ export function UserListCard({
       <CardBody
         className={`overflow-visible ${isEpisodes ? 'pt-0' : 'px-1 pb-2 pt-1 sm:px-3'}`}
       >
-        <UserListLink listId={id} restrictions={restrictions} usernames={usernames}>
+        <UserListLink
+          isHardReload={linkIsHardReload}
+          listId={id}
+          restrictions={restrictions}
+          usernames={usernames}
+        >
           {isEpisodes ? (
             <BackdropCollageStraight backdropLites={listItemLites} />
           ) : (

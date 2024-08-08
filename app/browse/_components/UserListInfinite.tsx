@@ -15,12 +15,14 @@ import { UserListSkeleton } from '@/components/user-list/UserListSkeleton'
 export function UserListInfinite({
   // initialData,
   restrictions,
+  userListIdToExclude,
   userId,
   sortBy,
   exactMatch = false,
 }: {
   // initialData: any
   restrictions: RestrictionsUI
+  userListIdToExclude?: number
   sortBy: 'lastUserAddedAt' | 'users'
   userId?: string
   exactMatch: boolean
@@ -45,6 +47,7 @@ export function UserListInfinite({
       const lists = await userListQueryServer({
         userId,
         restrictions,
+        userListIdToExclude,
         sortBy,
         exactMatch,
         pageSize: 5,
@@ -95,6 +98,7 @@ export function UserListInfinite({
                     excludeUser={!!userId}
                     excludeTitle={exactMatch}
                     lastUserAddedAt={list.lastUserAddedAt}
+                    linkIsHardReload={!!userListIdToExclude}
                   />
                 ))}
               </React.Fragment>

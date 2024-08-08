@@ -2,7 +2,6 @@ GO live:
 Handle Errors (error.tsx)
 make adjustor for cover image
 cascade delete restrictions when deleting userlist - maybe
-need to add year back in for tv shows by year, (since they can be different than year chosen)
 
 Friends test:
 

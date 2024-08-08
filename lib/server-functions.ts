@@ -22,11 +22,13 @@ export async function userListQuery({
   userId,
   exactMatch = false,
   restrictions,
+  userListIdToExclude,
   sortBy = 'lastUserAddedAt',
   pageSize = 5,
   pageNum = 1,
 }: {
   restrictions: RestrictionsUI
+  userListIdToExclude?: number
   userId?: string
   exactMatch?: boolean
   sortBy: 'lastUserAddedAt' | 'users'
@@ -65,6 +67,7 @@ export async function userListQuery({
         where: {
           users,
           Restrictions,
+          id: { not: userListIdToExclude },
         },
         take: pageSize,
         skip: pageNum * pageSize,
@@ -92,6 +95,7 @@ export async function userListQuery({
       'userlist-query',
       userId ?? '',
       slug,
+      userListIdToExclude?.toString() ?? '',
       sortBy,
       exactMatch.toString(),
       pageSize.toString(),

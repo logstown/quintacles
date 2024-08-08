@@ -10,15 +10,21 @@ export function UserListLink({
   listId,
   restrictions,
   usernames,
+  isHardReload,
 }: {
   children: ReactNode
   listId: number
   restrictions: RestrictionsUI
   usernames: string[]
+  isHardReload?: boolean
 }) {
   const href = useUserListLink(restrictions, usernames, listId)
 
-  return (
+  return isHardReload ? (
+    <div className='cursor-pointer' onClick={() => location.assign(href)}>
+      {children}
+    </div>
+  ) : (
     <Link href={href} color='foreground'>
       {children}
     </Link>
