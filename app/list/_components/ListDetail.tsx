@@ -57,7 +57,7 @@ export async function ListDetail(props: ListDetailProps) {
         const color = await Vibrant.from(
           getTmdbImageUrl(item.backdropPath ?? item.posterPath, vibrantSize),
         ).getPalette()
-        bgColor = getBetterHSL(color.DarkMuted?.hsl, 0, 25) ?? bgColor
+        bgColor = getBetterHSL(color.Muted?.hsl, 0, 25) ?? bgColor
         rgb = color.DarkMuted?.rgb ?? rgb
         textColor = getBetterHSL(color.LightMuted?.hsl, 75, 100) ?? textColor // TODO: this used to be LightVibrant
         backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
@@ -129,7 +129,7 @@ export async function ListDetail(props: ListDetailProps) {
                     {5 - i}
                   </h1>
                   <div
-                    className='flex flex-col gap-2 sm:gap-3 lg:gap-2 xl:gap-3'
+                    className='flex flex-col gap-1 md:gap-2 lg:gap-1 xl:gap-2'
                     style={{ color: item.textColor }}
                   >
                     <ListItemLink
