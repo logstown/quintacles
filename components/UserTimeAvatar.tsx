@@ -2,7 +2,6 @@ import { Tooltip } from '@nextui-org/tooltip'
 import { User } from '@prisma/client'
 import { User as UserAvatar } from '@nextui-org/user'
 import Link from 'next/link'
-import { formatDistanceToNowStrict } from 'date-fns'
 
 export function UserTimeAvatar({
   user,
@@ -16,10 +15,7 @@ export function UserTimeAvatar({
   const shouldDisplayName = userAddedDistanceToNow && size === 'lg'
   const nameToDisplay = user?.displayName ?? `@${user?.username}`
   return (
-    <Tooltip
-      placement='left'
-      content={shouldDisplayName ? `@${user?.username}` : nameToDisplay}
-    >
+    <Tooltip content={shouldDisplayName ? `@${user?.username}` : nameToDisplay}>
       <Link href={`/user/${user?.username}`}>
         <UserAvatar
           className='transition-transform'

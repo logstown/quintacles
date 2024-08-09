@@ -129,7 +129,7 @@ export async function ListDetail(props: ListDetailProps) {
             }}
             key={item.tmdbId}
           >
-            <div className='order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pb-14 sm:pt-14 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-10 xl:gap-12'>
+            <div className='order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pb-14 sm:pt-14 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-11 xl:gap-12'>
               <div className='text-neutral-300'>
                 <div className='flex items-start gap-4'>
                   <h1 className='text-xl font-bold underline underline-offset-4 sm:text-xl sm:font-normal sm:underline-offset-8 md:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
@@ -240,7 +240,7 @@ export async function ListDetail(props: ListDetailProps) {
         <h3 className='p-6 text-2xl'>
           More{' '}
           <span className='font-bold'>
-            <ListTitleBase restrictions={restrictions} />
+            <ListTitleBase restrictions={restrictions} includeMediaType />
           </span>{' '}
           Lists...
         </h3>

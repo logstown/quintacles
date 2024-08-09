@@ -22,6 +22,7 @@ import { toast } from 'sonner'
 import { useUserListLink } from '@/lib/hooks'
 import { RestrictionsUI } from '@/lib/models'
 import { Tooltip } from '@nextui-org/tooltip'
+import Link from 'next/link'
 
 export function UserListActions({
   userListId,
@@ -81,6 +82,7 @@ export function UserListActions({
           <DropdownMenu aria-label='Static Actions'>
             <DropdownItem
               key='edit'
+              as={Link}
               href={`/list/${userListId}/edit`}
               startContent={<PencilIcon size={15} />}
             >

@@ -20,6 +20,7 @@ export function UserListLink({
 }) {
   const href = useUserListLink(restrictions, usernames, listId)
 
+  //TODO: Hard reload kinda sucks
   return isHardReload ? (
     <div className='cursor-pointer' onClick={() => location.assign(href)}>
       {children}
