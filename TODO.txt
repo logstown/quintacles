@@ -3,7 +3,6 @@ Handle Errors (error.tsx)
 make adjustor for cover image
 cascade delete restrictions when deleting userlist - maybe
 something weird with metadata title when navigating back to homepage
-dropdownitem does a hard reload now for some reason
 
 Friends test:
 

@@ -62,7 +62,7 @@ export async function ListDetail(props: ListDetailProps) {
         ).getPalette()
         bgColor = getBetterHSL(color.Muted?.hsl, 0, 25) ?? bgColor
         rgb = color.DarkMuted?.rgb ?? rgb
-        textColor = getBetterHSL(color.LightMuted?.hsl, 75, 100) ?? textColor // TODO: this used to be LightVibrant
+        textColor = getBetterHSL(color.Vibrant?.hsl, 75, 100) ?? textColor // TODO: this used to be LightVibrant
         backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
       }
 
