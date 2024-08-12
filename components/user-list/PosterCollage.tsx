@@ -431,7 +431,8 @@ function MaybeSeasonFooter({
   isSeasons?: boolean
 }) {
   return isSeasons ? (
-    <Card isFooterBlurred isBlurred className='overflow-visible'>
+    // Added aspect css. Could be trouble
+    <Card isFooterBlurred isBlurred className='aspect-[2/3] overflow-visible'>
       {children}
       <EpisodeThumbnailFooter isSeasons>{seasonName}</EpisodeThumbnailFooter>
     </Card>
