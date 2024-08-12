@@ -4,10 +4,16 @@ import { FlipWords } from '@/components/flip-words'
 import { auth } from '@clerk/nextjs/server'
 import { Button } from '@nextui-org/button'
 import { PlusIcon } from 'lucide-react'
+import { Metadata } from 'next'
 import NextImage from 'next/image'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Quintacles',
+  description: 'Your top five!',
+}
 
 export default async function Home() {
   // const deal = await prisma.listItem.findMany({

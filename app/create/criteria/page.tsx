@@ -1,9 +1,10 @@
 import { mediaTypeArrForLists, mediaTypes } from '@/lib/mediaTypes'
 import { Button } from '@nextui-org/button'
+import { Metadata } from 'next'
 import Link from 'next/link'
 import { cloneElement } from 'react'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Create List',
   description: 'Create a list of movies, TV shows, seasons, or episodes.',
 }
