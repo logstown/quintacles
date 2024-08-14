@@ -241,8 +241,7 @@ export async function ListDetail(props: ListDetailProps) {
           More{' '}
           <span className='font-bold'>
             <ListTitleBase restrictions={restrictions} includeMediaType />
-          </span>{' '}
-          Lists...
+          </span>
         </h3>
         <UserListInfinite
           restrictions={restrictions}

@@ -51,50 +51,48 @@ export function UserListCard({
       <CardHeader
         className={`${isEpisodes ? 'justify-center' : 'justify-between py-3 md:py-6'} pl-4`}
       >
-        <div
-          className={`flex items-center gap-2 sm:items-baseline ${isEpisodes ? 'justify-center' : 'sm:gap-4'}`}
-        >
-          {!excludeTitle && (
-            <>
-              <Link
-                scroll={false}
-                href={getUserListsUrl(restrictions, 'browse')}
-                color='foreground'
-                className={`flex w-full items-center gap-2 sm:gap-4`}
+        {!excludeTitle && (
+          <div
+            className={`flex items-center gap-2 sm:items-baseline ${isEpisodes ? 'justify-center' : 'sm:gap-4'}`}
+          >
+            <Link
+              scroll={false}
+              href={getUserListsUrl(restrictions, 'browse')}
+              color='foreground'
+              className={`flex w-full items-center gap-2 sm:gap-4`}
+            >
+              {!!Person?.id && (
+                <div className='pl-1'>
+                  <UserListIcon
+                    mediaType={mediaType}
+                    personPath={Person.profilePath}
+                    useMediaIcon={false}
+                  />
+                </div>
+              )}
+              <div
+                className={`flex items-center gap-2 font-semibold tracking-tight sm:gap-3 ${isEpisodes ? 'max-w-[267px] text-2xl' : 'text-xl sm:text-3xl md:text-4xl'}`}
               >
-                {!!Person?.id && (
-                  <div className='pl-1'>
-                    <UserListIcon
-                      mediaType={mediaType}
-                      personPath={Person.profilePath}
-                      useMediaIcon={false}
-                    />
-                  </div>
+                {!isEpisodes && !Person?.id && (
+                  <div className='text-foreground-500'>{mediaTypeIcon}</div>
                 )}
                 <div
-                  className={`flex items-center gap-2 font-semibold tracking-tight sm:gap-3 ${isEpisodes ? 'max-w-[267px] text-2xl' : 'text-xl sm:text-3xl md:text-4xl'}`}
+                  className={`${mediaType === MediaType.TvShow ? 'mt-1' : ''} ${isEpisodes ? 'truncate' : 'drop-shadow-2xl'}`}
                 >
-                  {!isEpisodes && !Person?.id && (
-                    <div className='text-foreground-500'>{mediaTypeIcon}</div>
-                  )}
-                  <div
-                    className={`${mediaType === MediaType.TvShow ? 'mt-1' : ''} ${isEpisodes ? 'truncate' : 'drop-shadow-2xl'}`}
-                  >
-                    <ListTitleBase restrictions={restrictions} />
-                  </div>
+                  <ListTitleBase restrictions={restrictions} />
                 </div>
-              </Link>
-              {!isEpisodes && (
-                <UserListButtons
-                  isSmall
-                  userListId={id}
-                  Restrictions={restrictions}
-                  usernames={usernames}
-                />
-              )}
-            </>
-          )}
-        </div>
+              </div>
+            </Link>
+            {!isEpisodes && (
+              <UserListButtons
+                isSmall
+                userListId={id}
+                Restrictions={restrictions}
+                usernames={usernames}
+              />
+            )}
+          </div>
+        )}
         {!isEpisodes && (
           <UserTime
             excludeUser={false}
