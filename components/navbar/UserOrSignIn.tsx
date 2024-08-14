@@ -22,7 +22,7 @@ export function UserOrSignIn() {
           isBordered
           as='button'
           className='transition-transform'
-          color='secondary'
+          color='primary'
           name={user?.fullName ?? user?.username ?? ''}
           src={user?.imageUrl}
         />
