@@ -13,8 +13,8 @@ import { CreateListButton } from './create-list-button'
 
 export const Navbar = () => {
   return (
-    // TODO: this used to be position sticky
-    <NextUINavbar maxWidth='xl' position='static' className='shadow-md'>
+    // TODO: this needs to be position static for the browse exact to work
+    <NextUINavbar maxWidth='xl' position='sticky' className='shadow-md'>
       <NavbarContent className='sm:gap-6' justify='start'>
         <NavbarItem className='shrink-0'>
           <NextLink href='/' className='flex items-center gap-3'>
