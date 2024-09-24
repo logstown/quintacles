@@ -29,6 +29,7 @@ export function UserTimeAvatar({
           description={userAddedDistanceToNow ?? ''}
           avatarProps={{
             size,
+            className: 'flex-shrink-0',
             showFallback: true,
             src: user?.photoURL ?? undefined,
           }}
