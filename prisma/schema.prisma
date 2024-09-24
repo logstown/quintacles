@@ -90,6 +90,9 @@ model Restrictions {
   EpisodesTvShow   TvShowLite @relation(fields: [episodesTvShowId], references: [id])
   episodesTvShowId Int        @default(0)
 
+  Network   Network @relation(fields: [networkId], references: [id])
+  networkId Int     @default(0)
+
   userLists UserList[]
 }
 
@@ -129,4 +132,12 @@ model TvShowLite {
   posterPath   String?
 
   retrictions Restrictions[]
+}
+
+model Network {
+  id       Int     @id @unique
+  name     String
+  logoPath String?
+
+  restrictions Restrictions[]
 }
