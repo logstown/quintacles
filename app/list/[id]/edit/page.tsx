@@ -37,6 +37,7 @@ export default async function EditListPage({
         include: {
           Person: true,
           EpisodesTvShow: true,
+          Network: true,
         },
       },
     },

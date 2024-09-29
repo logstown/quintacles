@@ -9,6 +9,7 @@ import {
   TmdbPerson,
   PopularPeople,
   Season,
+  TmdbNetwork,
 } from './TmdbModels'
 import { mediaTypes } from './mediaTypes'
 import { RestrictionsUI } from './models'
@@ -38,7 +39,14 @@ export const getPopular = async (
 
 export const getSuggestionsTmdb = async (
   pageNum: number,
-  { year, personId, genreId, isLiveActionOnly, mediaType }: RestrictionsUI,
+  {
+    year,
+    personId,
+    genreId,
+    isLiveActionOnly,
+    mediaType,
+    networkId,
+  }: RestrictionsUI,
 ): Promise<MediaItemsResponse> => {
   let params: any = {
     page: pageNum.toString(),
@@ -53,6 +61,10 @@ export const getSuggestionsTmdb = async (
 
   if (personId) {
     params.with_people = personId.toString()
+  }
+
+  if (networkId) {
+    params.with_networks = networkId.toString()
   }
 
   if (year) {
@@ -97,6 +109,10 @@ export const getMediaItem = async (
 ): Promise<TvShow | Movie | TmdbPerson> => {
   const url = `${mediaTypes[mediaType].url}/${id}?language=en-US`
   return fetchFn(url)
+}
+
+export const getNetwork = async (id: number): Promise<TmdbNetwork> => {
+  return fetchFn(`network/${id}`)
 }
 
 export const searchMedia = async (

@@ -118,6 +118,15 @@ export interface AllGenres {
   tv: TmdbGenre[]
 }
 
+export interface TmdbNetwork {
+  headquarters: string
+  homepage: string
+  id: number
+  logo_path: string
+  name: string
+  origin_country: string
+}
+
 export enum TmdbGenres {
   Action = 28,
   Adventure = 12,

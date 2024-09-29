@@ -1,4 +1,4 @@
-import { ListItem, MediaType, Person, TvShowLite } from '@prisma/client'
+import { ListItem, MediaType, Network, Person, TvShowLite } from '@prisma/client'
 import { TvEpisode } from './TmdbModels'
 
 export type Genre = {
@@ -22,6 +22,8 @@ export type RestrictionsUI = {
   Person?: Person
   episodesTvShowId?: number
   EpisodesTvShow?: TvShowLiteUI
+  networkId?: number
+  Network?: Network
 }
 
 export interface CreateListSearchParams {
@@ -30,6 +32,7 @@ export interface CreateListSearchParams {
   personId?: string
   isLiveActionOnly?: string
   episodesTvShowId?: string
+  networkId?: string
 }
 
 export type UserListSortBy = 'lastUserAddedAt' | 'users'

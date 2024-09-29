@@ -126,8 +126,15 @@ function createOrConnectUserToList(
   listItems: ListItem[],
   isUpdate = false,
 ): PrismaPromise<UserList> {
-  let { mediaType, year, isLiveActionOnly, genreId, Person, EpisodesTvShow } =
-    restrictions
+  let {
+    mediaType,
+    year,
+    isLiveActionOnly,
+    genreId,
+    Person,
+    EpisodesTvShow,
+    Network,
+  } = restrictions
 
   Person = Person ?? {
     id: 0,
@@ -140,6 +147,12 @@ function createOrConnectUserToList(
     name: '',
     posterPath: null,
     backdropPath: null,
+  }
+
+  Network = Network ?? {
+    id: 0,
+    name: '',
+    logoPath: null,
   }
 
   const slug = getSlug(restrictions)
@@ -161,6 +174,12 @@ function createOrConnectUserToList(
               connectOrCreate: {
                 where: { id: Person.id },
                 create: Person,
+              },
+            },
+            Network: {
+              connectOrCreate: {
+                where: { id: Network.id },
+                create: Network,
               },
             },
             EpisodesTvShow: {

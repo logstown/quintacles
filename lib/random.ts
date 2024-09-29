@@ -11,6 +11,7 @@ export const getUserListsUrl = (
     isLiveActionOnly,
     personId,
     episodesTvShowId,
+    networkId,
     mediaType,
   }: RestrictionsUI,
   page: 'build' | 'browse' = 'build',
@@ -39,6 +40,9 @@ export const getUserListsUrl = (
   }
   if (episodesTvShowId) {
     params.episodesTvShowId = episodesTvShowId.toString()
+  }
+  if (networkId) {
+    params.networkId = networkId.toString()
   }
 
   if (page == 'browse' && mediaType !== MediaType.TvEpisode) {

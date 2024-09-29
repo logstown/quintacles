@@ -36,6 +36,7 @@ export async function PopularLists({ mediaType }: { mediaType: MediaType }) {
         include: {
           Person: true,
           EpisodesTvShow: true,
+          Network: true,
         },
         take: 5,
       }),

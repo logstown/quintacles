@@ -60,9 +60,9 @@ export async function ListDetail(props: ListDetailProps) {
         const color = await Vibrant.from(
           getTmdbImageUrl(item.backdropPath ?? item.posterPath, vibrantSize),
         ).getPalette()
-        bgColor = getBetterHSL(color.Muted?.hsl, 0, 25) ?? bgColor
+        bgColor = getBetterHSL(color.DarkVibrant?.hsl, 0, 25) ?? bgColor
         rgb = color.DarkMuted?.rgb ?? rgb
-        textColor = getBetterHSL(color.Vibrant?.hsl, 75, 100) ?? textColor // TODO: this used to be LightVibrant
+        textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
         backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
       }
 
@@ -120,7 +120,7 @@ export async function ListDetail(props: ListDetailProps) {
           )}
         </div>
       </div>
-      <div className='mx-auto mt-8 flex max-w-screen-2xl flex-col items-center gap-16'>
+      <div className='mx-auto mt-8 flex max-w-screen-2xl flex-col items-center gap-20'>
         {listItemsReverse.map((item, i) => (
           <div
             className='group mx-4 flex max-w-screen-sm flex-col items-stretch rounded-xl shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] lg:mx-0 lg:w-full lg:max-w-none lg:flex-row'
@@ -145,7 +145,7 @@ export async function ListDetail(props: ListDetailProps) {
                       item={item}
                     >
                       <Tooltip content={item.name} delay={1000}>
-                        <h1 className='line-clamp-4 text-balance pb-1 text-3xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
+                        <h1 className='line-clamp-4 text-balance pb-1 text-3xl font-extrabold leading-none tracking-tight drop-shadow-2xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
                           {item.name}{' '}
                           {!isEpisodes &&
                             (restrictions.mediaType === MediaType.TvShow ||
@@ -276,6 +276,7 @@ export async function getUserListData(props: ListDetailProps) {
       include: {
         Person: true,
         EpisodesTvShow: true,
+        Network: true,
       },
     },
   }

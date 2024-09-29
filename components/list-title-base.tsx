@@ -14,6 +14,7 @@ export const getListTitle = (
     genreId,
     episodesTvShowId,
     EpisodesTvShow,
+    Network,
   }: RestrictionsUI,
   isForSlug?: boolean,
 ): string => {
@@ -29,6 +30,10 @@ export const getListTitle = (
 
   if (isLiveActionOnly) {
     title += 'Live-Action '
+  }
+
+  if (Network?.name) {
+    title += `${Network.name} `
   }
 
   if (genreId) {

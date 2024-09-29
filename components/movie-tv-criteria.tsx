@@ -1,7 +1,7 @@
 'use client'
 
 import { TmdbGenres } from '../lib/TmdbModels'
-import { find } from 'lodash'
+import { find, take } from 'lodash'
 import { MediaType } from '@prisma/client'
 import { useGenres } from '@/lib/hooks'
 import { RestrictionsUI } from '@/lib/models'
@@ -9,10 +9,20 @@ import { Autocomplete, AutocompleteItem } from '@nextui-org/autocomplete'
 import { Select, SelectItem } from '@nextui-org/select'
 import MediaPicker from './media-picker'
 import { getYears } from '@/lib/random'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
+import { networks } from '@/lib/networks'
 
 export function MovieTvCriteria({
-  restrictions: { year, genreId, Person, personId, isLiveActionOnly, mediaType },
+  restrictions: {
+    year,
+    genreId,
+    Person,
+    personId,
+    isLiveActionOnly,
+    mediaType,
+    networkId,
+    Network,
+  },
   onRestrictionsChange,
   isBrowse,
 }: {
@@ -22,16 +32,45 @@ export function MovieTvCriteria({
 }) {
   const years = useMemo(() => getYears(), [])
   const mediaTypeGenres = useGenres(mediaType)
+  const [networkSearch, setNetworkSearch] = useState('')
+
+  const filteredNetworks = useMemo(() => {
+    if (networkSearch.length < 2) {
+      return []
+    } else {
+      const filtered = networks.filter(x =>
+        x.name.toLowerCase().includes(networkSearch.toLowerCase()),
+      )
+
+      return take(filtered, 5)
+    }
+  }, [networkSearch])
 
   const setYearFromPicker = (yearId: React.Key | null) => {
     const foundyear = find(years, { id: Number(yearId) })
-
-    console.log(foundyear)
 
     onRestrictionsChange({
       mediaType,
       genreId,
       year: foundyear?.id,
+      isLiveActionOnly,
+      personId,
+      Person,
+      networkId,
+      Network,
+    })
+  }
+
+  const setNetworkFromPicker = (networkId: React.Key | null) => {
+    const Network = find(networks, { id: Number(networkId) })
+    setNetworkSearch(Network?.name ?? '')
+
+    onRestrictionsChange({
+      mediaType,
+      networkId: Network?.id,
+      Network,
+      genreId,
+      year,
       isLiveActionOnly,
       personId,
       Person,
@@ -48,6 +87,8 @@ export function MovieTvCriteria({
       isLiveActionOnly,
       personId,
       Person,
+      networkId,
+      Network,
     })
   }
 
@@ -67,6 +108,8 @@ export function MovieTvCriteria({
       isLiveActionOnly,
       personId: Person?.id,
       Person,
+      networkId,
+      Network,
     })
   }
 
@@ -82,6 +125,8 @@ export function MovieTvCriteria({
       isLiveActionOnly,
       personId,
       Person,
+      networkId,
+      Network,
     })
   }
 
@@ -136,6 +181,23 @@ export function MovieTvCriteria({
           No
         </SelectItem>
       </Select>
+      <Autocomplete
+        label='Network'
+        labelPlacement='outside'
+        size='lg'
+        variant='bordered'
+        inputValue={networkSearch}
+        onInputChange={setNetworkSearch}
+        className='w-60'
+        items={filteredNetworks}
+        menuTrigger='input'
+        isClearable={!!networkId && networkId.toString() !== ''}
+        selectedKey={networkId?.toString() ?? ''}
+        onSelectionChange={setNetworkFromPicker}
+        color='primary'
+      >
+        {item => <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>}
+      </Autocomplete>
       <Autocomplete
         label='Genre'
         labelPlacement='outside'

@@ -11,12 +11,13 @@ import { MediaType, Prisma } from '@prisma/client'
 import prisma from './db'
 import { redirect } from 'next/navigation'
 import { TmdbPerson, TvEpisode, Season, TvShowDetails } from './TmdbModels'
-import { getMediaItem, getTvSeason } from './TmdbService'
+import { getMediaItem, getNetwork, getTvSeason } from './TmdbService'
 import { getGenres } from './genres'
 import { mediaTypes } from './mediaTypes'
 import { convertMediaItem, getSlug, getYears } from './random'
 import { flow, map, sortBy, uniq } from 'lodash/fp'
 import { unstable_cache } from 'next/cache'
+import { networks } from './networks'
 
 export async function userListQuery({
   userId,
@@ -87,6 +88,7 @@ export async function userListQuery({
             include: {
               Person: true,
               EpisodesTvShow: true,
+              Network: true,
             },
           },
         },
@@ -167,6 +169,14 @@ export async function getRestrictionsFromParams({
     const isLiveActionOnly = searchParams.isLiveActionOnly === 'true'
     const genre = find(mediaTypeGenres, { id: Number(searchParams.genreId) })
     const year = find(years, { id: Number(searchParams.year) })
+    const Network = find(networks, { id: Number(searchParams.networkId) })
+    if (Network && mediaType === MediaType.TvShow) {
+      try {
+        const tmdbNetwork = await getNetwork(Network.id)
+        Network.logoPath = tmdbNetwork.logo_path
+      } catch (e) {}
+    }
+
     let Person
     if (mediaType === MediaType.Movie && searchParams.personId) {
       try {
@@ -188,6 +198,8 @@ export async function getRestrictionsFromParams({
     return {
       year: year?.id,
       genreId: genre?.id,
+      networkId: Network?.id,
+      Network,
       isLiveActionOnly,
       mediaType,
       personId: Person?.id,
