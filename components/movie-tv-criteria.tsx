@@ -181,23 +181,26 @@ export function MovieTvCriteria({
           No
         </SelectItem>
       </Select>
-      <Autocomplete
-        label='Network'
-        labelPlacement='outside'
-        size='lg'
-        variant='bordered'
-        inputValue={networkSearch}
-        onInputChange={setNetworkSearch}
-        className='w-60'
-        items={filteredNetworks}
-        menuTrigger='input'
-        isClearable={!!networkId && networkId.toString() !== ''}
-        selectedKey={networkId?.toString() ?? ''}
-        onSelectionChange={setNetworkFromPicker}
-        color='primary'
-      >
-        {item => <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>}
-      </Autocomplete>
+      {mediaType === MediaType.TvShow && (
+        <Autocomplete
+          label='Network'
+          labelPlacement='outside'
+          size='lg'
+          placeholder='Type to Search...'
+          variant='bordered'
+          inputValue={networkSearch}
+          onInputChange={setNetworkSearch}
+          className='w-60'
+          items={filteredNetworks}
+          menuTrigger='input'
+          isClearable={!!networkId && networkId.toString() !== ''}
+          selectedKey={networkId?.toString() ?? ''}
+          onSelectionChange={setNetworkFromPicker}
+          color='primary'
+        >
+          {item => <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>}
+        </Autocomplete>
+      )}
       <Autocomplete
         label='Genre'
         labelPlacement='outside'
