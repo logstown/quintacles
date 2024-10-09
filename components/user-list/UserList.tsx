@@ -55,7 +55,7 @@ export function UserListCard({
       )}
       <Card
         shadow='lg'
-        className={`w-fit overflow-visible p-0 dark:bg-black dark:outline-foreground-100 ${isEpisodes ? 'sm:p-3' : 'sm:px-5 sm:pb-6 sm:pt-2'}`}
+        className={`w-fit overflow-visible p-0 dark:bg-neutral-900 ${isEpisodes ? 'sm:p-3' : 'sm:px-5 sm:pb-6 sm:pt-2'}`}
       >
         <CardHeader
           className={`${isEpisodes ? 'justify-center' : 'justify-between py-3 md:py-6'} pl-4`}
