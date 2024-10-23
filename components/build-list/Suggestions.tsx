@@ -106,7 +106,7 @@ export function Suggestions({
         removeFromList(item)
       } else {
         addListItem(item)
-        setTimeout(() => setSearchText(''), 2000)
+        setTimeout(() => setSearchText(''), 1000)
       }
     } else if (mediaType) {
       router.push(
