@@ -86,6 +86,7 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
             <DropdownItem
               startContent={<span className='mr-1'>{type.icon}</span>}
               className='capitalize text-foreground'
+              textValue={type.text}
               key={type.text}
             >
               {/* TODO This isn't how dropdown links are down according to the doc, doesn't take up the full height of the li */}

@@ -40,6 +40,7 @@ export function CreateListButton({ isSmall }: { isSmall?: boolean }) {
           })
           return (
             <DropdownItem
+              textValue={plural}
               startContent={<span className='mr-1'>{mediaTypeIconSmaller}</span>}
               className='capitalize text-foreground'
               key={urlPlural}
