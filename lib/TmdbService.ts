@@ -10,6 +10,7 @@ import {
   PopularPeople,
   Season,
   TmdbNetwork,
+  ImagesResponse,
 } from './TmdbModels'
 import { mediaTypes } from './mediaTypes'
 import { RestrictionsUI } from './models'
@@ -130,6 +131,13 @@ export const getImageStuff = async (): Promise<any> => {
 
 export const getPopularPeople = async (page: number): Promise<PopularPeople> => {
   return fetchFn(`person/popular?page=${page}`)
+}
+
+export const getImages = async (
+  mediaType: MediaType,
+  id: number,
+): Promise<ImagesResponse> => {
+  return fetchFn(`${mediaTypes[mediaType].url}/${id}/images?language=en`)
 }
 
 export const getMeMore = async (

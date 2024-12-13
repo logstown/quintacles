@@ -20,6 +20,7 @@ import { PlusIcon, UsersIcon } from 'lucide-react'
 import { ListItemLink } from './ListItemLink'
 import { UserListInfinite } from '@/app/browse/_components/UserListInfinite'
 import { auth } from '@clerk/nextjs/server'
+import { getImages, getImageStuff } from '@/lib/TmdbService'
 
 export type ListDetailProps = { id: number } | { username: string; slug: string }
 
@@ -49,29 +50,37 @@ export async function ListDetail(props: ListDetailProps) {
   ]
     .map(async item => {
       let bgColor = '#2e2609'
-      let rgb = [0, 0, 0]
       let textColor = 'white'
       let backdropUrl = '/movieBackdrop.jpeg'
+      let logoPath
+
+      if (!isEpisodes && !isSeasons) {
+        const { logos } = await getImages(item.mediaType, item.tmdbId)
+        logoPath = logos[0] ? getTmdbImageUrl(logos[0].file_path, 'w500') : ''
+      }
 
       if (item.backdropPath || (isSeasons && item.posterPath)) {
         const { vibrantSize, bgSize } = isEpisodes
-          ? { vibrantSize: 'original', bgSize: 'original' }
+          ? { vibrantSize: 'original', bgSize: 'w1280' }
           : { vibrantSize: 'w300', bgSize: 'w1280' }
-        const color = await Vibrant.from(
-          getTmdbImageUrl(item.backdropPath ?? item.posterPath, vibrantSize),
-        ).getPalette()
-        bgColor = getBetterHSL(color.DarkVibrant?.hsl, 0, 25) ?? bgColor
-        rgb = color.DarkMuted?.rgb ?? rgb
-        textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
+
         backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
+
+        if (!logoPath) {
+          const color = await Vibrant.from(
+            getTmdbImageUrl(item.backdropPath ?? item.posterPath, vibrantSize),
+          ).getPalette()
+          bgColor = getBetterHSL(color.DarkVibrant?.hsl, 0, 25) ?? bgColor
+          textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
+        }
       }
 
       return {
         ...item,
         bgColor,
-        rgb,
         textColor,
         backdropUrl,
+        logoPath,
       }
     })
     .reverse()
@@ -120,32 +129,41 @@ export async function ListDetail(props: ListDetailProps) {
           )}
         </div>
       </div>
-      <div className='mx-auto mt-8 flex max-w-screen-2xl flex-col items-center gap-20'>
+      <div className='mx-auto mt-8 flex max-w-screen-xl flex-col items-center gap-20'>
         {listItemsReverse.map((item, i) => (
           <div
-            className='group mx-4 flex max-w-screen-sm flex-col items-stretch rounded-xl shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] lg:mx-0 lg:w-full lg:max-w-none lg:flex-row'
-            style={{
-              backgroundColor: item.bgColor,
-            }}
             key={item.tmdbId}
+            className='flex aspect-video w-full flex-col items-center justify-end rounded-xl bg-cover bg-center p-6 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] sm:p-16'
+            style={{
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9)),url(${item.backdropUrl})`,
+            }}
           >
-            <div className='order-last flex w-full items-center justify-center px-8 pb-10 pt-7 sm:gap-10 sm:pb-14 sm:pt-14 sm:shadow-none md:px-14 lg:w-2/5 lg:px-10 lg:pb-0 lg:pt-0 lg:group-odd:order-first lg:group-odd:pr-10 lg:group-even:pl-11 xl:gap-12'>
-              <div className='text-neutral-300'>
-                <div className='flex items-start gap-4'>
-                  <h1 className='text-xl font-bold underline underline-offset-4 sm:text-xl sm:font-normal sm:underline-offset-8 md:text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
-                    {5 - i}
-                  </h1>
-                  <div
-                    className='flex flex-col gap-1 md:gap-2 lg:gap-1 xl:gap-2'
-                    style={{ color: item.textColor }}
+            <div className='flex flex-col gap-6'>
+              <div
+                className={`flex gap-6 sm:gap-10 lg:gap-16 ${isEpisodes ? 'items-start' : `${item.logoPath ? 'items-center' : 'items-end'}`}`}
+              >
+                <h2
+                  className={`text-5xl font-extrabold !leading-[.8] tracking-tight text-neutral-100 drop-shadow-[0_1px_1px_white] lg:text-7xl`}
+                >
+                  {5 - i}
+                </h2>
+                <div
+                  style={{ color: item.textColor }}
+                  className='flex flex-col justify-center gap-2'
+                >
+                  <ListItemLink
+                    mediaType={restrictions.mediaType}
+                    tvShowId={restrictions.EpisodesTvShow.id}
+                    item={item}
                   >
-                    <ListItemLink
-                      mediaType={restrictions.mediaType}
-                      tvShowId={restrictions.EpisodesTvShow.id}
-                      item={item}
-                    >
-                      <Tooltip content={item.name} delay={1000}>
-                        <h1 className='line-clamp-4 text-balance pb-1 text-3xl font-extrabold leading-none tracking-tight drop-shadow-2xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl'>
+                    <Tooltip content={item.name} delay={1000}>
+                      {item.logoPath ? (
+                        <img
+                          className='max-w-[200px] sm:max-w-[400px]'
+                          src={item.logoPath}
+                        />
+                      ) : (
+                        <h1 className='line-clamp-4 overflow-visible whitespace-nowrap text-balance text-2xl font-extrabold leading-none tracking-tight drop-shadow-2xl sm:text-4xl md:text-5xl'>
                           {item.name}{' '}
                           {!isEpisodes &&
                             (restrictions.mediaType === MediaType.TvShow ||
@@ -156,68 +174,41 @@ export async function ListDetail(props: ListDetailProps) {
                               </small>
                             )}
                         </h1>
-                      </Tooltip>
-                    </ListItemLink>
-                    {isEpisodes && (
-                      <h3 className='flex flex-col flex-wrap items-baseline sm:flex-row sm:gap-4 sm:text-xl md:text-2xl lg:text-base xl:text-2xl'>
-                        <p>
-                          Season <span className='font-bold'>{item.seasonNum}</span>{' '}
-                          · Episode{' '}
-                          <span className='font-bold'>{item.episodeNum}</span>
-                        </p>
-                        <p className='text-tiny sm:text-sm md:text-base lg:text-tiny xl:text-base'>
-                          {format(new Date(item.date), 'MMM d, yyyy')}
-                        </p>
-                      </h3>
-                    )}
-                  </div>
+                      )}
+                    </Tooltip>
+                  </ListItemLink>
+                  {isEpisodes && (
+                    <h3 className='flex flex-col flex-wrap items-baseline sm:flex-row sm:gap-4 sm:text-xl md:text-2xl'>
+                      <p>
+                        Season <span className='font-bold'>{item.seasonNum}</span> ·
+                        Episode <span className='font-bold'>{item.episodeNum}</span>
+                      </p>
+                      <p className='text-tiny sm:text-sm md:text-base lg:text-tiny xl:text-base'>
+                        {format(new Date(item.date), 'MMM d, yyyy')}
+                      </p>
+                    </h3>
+                  )}
                 </div>
-                <div className={`mt-6 font-light xl:text-lg 2xl:text-xl`}>
-                  <ItemOverview omitNoOverview overview={item.overview ?? ''} />
-                </div>
-              </div>
-            </div>
-            <div className='relative flex w-full items-center lg:w-3/5'>
-              <NextImage
-                unoptimized
-                className='lg:group-odd:fade-img-left fade-img-down lg:group-even:fade-img-right aspect-video rounded-xl object-cover'
-                src={item.backdropUrl}
-                alt={`${item.name} backdrop`}
-                width={1280}
-                height={720}
-              />
-              {!includes(item.backdropUrl, 'tmdb') && (
-                <div className='absolute left-1/4 z-20'>
+                {!includes(item.backdropUrl, 'tmdb') && (
                   <Image
                     unoptimized
                     isBlurred
                     alt={`${item.name} poster`}
                     classNames={{
-                      img: 'max-h-[150px] max-w-[100px] sm:max-h-[277.5px] sm:max-w-[185px] 2xl:max-h-[450px] 2xl:max-w-[300px]',
+                      img: 'max-h-[150px] max-w-[100px] sm:max-h-[277.5px] sm:max-w-[185px]',
                       blurredImg:
-                        'max-h-[150px] max-w-[100px] sm:max-h-[277.5px] sm:max-w-[185px] 2xl:max-h-[450px] 2xl:max-w-[300px]',
+                        'max-h-[150px] max-w-[100px] sm:max-h-[277.5px] sm:max-w-[185px]',
                     }}
                     as={NextImage}
                     height={513}
                     width={342}
                     src={getTmdbImageUrl(item.posterPath, 'w342')}
                   />
-                </div>
-              )}
-              {/* {item.tagline && (
-                <div
-                  style={{
-                    background: `rgba(${item.rgb[0]}, ${item.rgb[1]}, ${item.rgb[2]}, .7)`
-                  }}
-                  className='absolute bottom-10 z-10 hidden max-w-[75%] overflow-hidden p-4 shadow-small lg:block lg:group-odd:right-10 lg:group-even:left-10'
-                >
-                  <p
-                    className={`text-2xl text-white/80 drop-shadow-lg ${dosis.className}`}
-                  >
-                    {item.tagline}
-                  </p>
-                </div>
-              )} */}
+                )}
+              </div>
+              <div className='max-w-prose font-light text-white xl:text-lg'>
+                <ItemOverview omitNoOverview overview={item.overview ?? ''} />
+              </div>
             </div>
           </div>
         ))}

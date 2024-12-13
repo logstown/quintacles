@@ -87,6 +87,7 @@ export interface TvShowsResponse extends PagedResults {
 export interface ImagesResponse extends TmdbItem {
   backdrops: TmdbImage[]
   posters: TmdbImage[]
+  logos: TmdbImage[]
 }
 
 export interface MediaItemsResponse extends PagedResults {
