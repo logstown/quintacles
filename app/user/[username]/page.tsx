@@ -25,11 +25,17 @@ function getUserProfile(username: string) {
 
 const cachedProfile = cache(getUserProfile)
 
-export async function generateMetadata({
-  params: { username },
-}: {
-  params: { username: string }
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ username: string }>
+  }
+): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    username
+  } = params;
+
   const profile = await cachedProfile(username)
 
   if (!profile) {
@@ -62,11 +68,17 @@ export async function generateMetadata({
   }
 }
 
-export default async function UserPage({
-  params: { username },
-}: {
-  params: { username: string }
-}) {
+export default async function UserPage(
+  props: {
+    params: Promise<{ username: string }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    username
+  } = params;
+
   const profile = await cachedProfile(username)
 
   if (!profile) {

@@ -6,11 +6,17 @@ import { MediaType } from '@prisma/client'
 import SeasonsEpisodesCriteriaPage from '../_components/SeasonsEpisodesCriteriaPage'
 import { Metadata } from 'next'
 
-export function generateMetadata({
-  params: { mediaTypePlural },
-}: {
-  params: { mediaTypePlural: string }
-}): Metadata {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ mediaTypePlural: string }>
+  }
+): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    mediaTypePlural
+  } = params;
+
   const metadata = { title: 'Create' }
   const mediaType = find(mediaTypeArr, { urlPlural: mediaTypePlural })
 
@@ -21,11 +27,17 @@ export function generateMetadata({
   return metadata
 }
 
-export default function CriteriaPage({
-  params: { mediaTypePlural },
-}: {
-  params: { mediaTypePlural: string }
-}) {
+export default async function CriteriaPage(
+  props: {
+    params: Promise<{ mediaTypePlural: string }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    mediaTypePlural
+  } = params;
+
   const mediaTypeObj = find(mediaTypeArr, { urlPlural: mediaTypePlural })
   if (!mediaTypeObj) {
     redirect('/')

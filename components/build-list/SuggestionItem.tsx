@@ -15,12 +15,12 @@ export function SuggestionItem({
   item: ListItem
   idx: number
   onItemSelected: (item: ListItem) => void
-  mediaTypeIcon: React.ReactElement
+  mediaTypeIcon: React.ReactElement<any>
 }) {
   const isChosen = idx >= 0
 
   return (
-    <Tooltip
+    (<Tooltip
       content={`${item.name} (${new Date(item.date).getFullYear()})`}
       placement='bottom'
       isDisabled={!item.posterPath}
@@ -35,11 +35,11 @@ export function SuggestionItem({
         <AddListIdx idx={idx}>
           {item.posterPath ? (
             // TODO: add NextImage back maybe
-            <Image
+            (<Image
               width={300}
               src={getTmdbImageUrl(item.posterPath, 'w342')}
               alt={`${item.name} poster`}
-            />
+            />)
           ) : (
             <div className='flex h-full w-full flex-col items-center justify-center rounded-md bg-slate-300 p-4'>
               <div className='mb-4'>{mediaTypeIcon}</div>
@@ -49,6 +49,6 @@ export function SuggestionItem({
           )}
         </AddListIdx>
       </Card>
-    </Tooltip>
-  )
+    </Tooltip>)
+  );
 }

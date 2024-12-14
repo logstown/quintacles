@@ -5,7 +5,7 @@ export type Genre = {
   id: number
   mediaTypes: MediaType[]
   name: string
-  icon: React.ReactElement
+  icon: React.ReactElement<any>
 }
 
 export type Year = {

@@ -2,11 +2,17 @@ import { Metadata } from 'next'
 import { getUserListData, ListDetail } from '../_components/ListDetail'
 import { getListTitle } from '@/components/list-title-base'
 
-export async function generateMetadata({
-  params: { id },
-}: {
-  params: { id: string }
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ id: string }>
+  }
+): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const { userList, userListUsers } = await getUserListData({
     id: Number(id),
   })
@@ -21,10 +27,16 @@ export async function generateMetadata({
   return { title, description }
 }
 
-export default async function ListPage({
-  params: { id },
-}: {
-  params: { id: string }
-}) {
+export default async function ListPage(
+  props: {
+    params: Promise<{ id: string }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   return <ListDetail id={Number(id)} />
 }

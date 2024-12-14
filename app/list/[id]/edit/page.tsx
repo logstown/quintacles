@@ -9,11 +9,17 @@ export const metadata = {
   title: 'Edit List',
 }
 
-export default async function EditListPage({
-  params: { id },
-}: {
-  params: { id: string }
-}) {
+export default async function EditListPage(
+  props: {
+    params: Promise<{ id: string }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const { userId } = auth()
 
   if (!userId) {

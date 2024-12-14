@@ -15,7 +15,7 @@ type MediaTypeData = {
     urlPlural: string
     display: string
     plural: string
-    icon: React.ReactElement
+    icon: React.ReactElement<any>
     key: MediaType
     excludeForLists?: boolean
   }

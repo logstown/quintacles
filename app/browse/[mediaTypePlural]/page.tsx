@@ -4,11 +4,17 @@ import { find } from 'lodash'
 import { mediaTypeArr } from '@/lib/mediaTypes'
 import { Metadata } from 'next'
 
-export function generateMetadata({
-  params: { mediaTypePlural },
-}: {
-  params: { mediaTypePlural: string }
-}): Metadata {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ mediaTypePlural: string }>
+  }
+): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    mediaTypePlural
+  } = params;
+
   const metadata = { title: 'Browse' }
   const mediaType = find(mediaTypeArr, { urlPlural: mediaTypePlural })
 
@@ -19,15 +25,16 @@ export function generateMetadata({
   return metadata
 }
 
-export default function BrowsePageBase({
-  params,
-  searchParams,
-}: {
-  params: { mediaTypePlural: string }
-  searchParams: CreateListSearchParams & {
-    sortBy: string
-    exactMatch: string
+export default async function BrowsePageBase(
+  props: {
+    params: Promise<{ mediaTypePlural: string }>
+    searchParams: Promise<CreateListSearchParams & {
+      sortBy: string
+      exactMatch: string
+    }>
   }
-}) {
+) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   return <BrowsePage searchParams={searchParams} params={params} />
 }
