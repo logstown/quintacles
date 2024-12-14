@@ -11,16 +11,12 @@ import { getEpisodeData, getRestrictionsFromParams } from '@/lib/server-function
 import { CriteriaBreadcrumbs } from '../../criteria/_components/CriteriaBreadcrumbs'
 import { Metadata } from 'next'
 
-export async function generateMetadata(
-  props: {
-    params: Promise<{ mediaTypePlural: string }>
-  }
-): Promise<Metadata> {
-  const params = await props.params;
+export async function generateMetadata(props: {
+  params: Promise<{ mediaTypePlural: string }>
+}): Promise<Metadata> {
+  const params = await props.params
 
-  const {
-    mediaTypePlural
-  } = params;
+  const { mediaTypePlural } = params
 
   const metadata = { title: 'Create' }
   const mediaType = find(mediaTypeArr, { urlPlural: mediaTypePlural })
@@ -32,25 +28,21 @@ export async function generateMetadata(
   return metadata
 }
 
-export default async function BuildListPage(
-  props: {
-    params: Promise<{ mediaTypePlural: string }>
-    searchParams: Promise<CreateListSearchParams>
-  }
-) {
-  const searchParams = await props.searchParams;
-  const params = await props.params;
+export default async function BuildListPage(props: {
+  params: Promise<{ mediaTypePlural: string }>
+  searchParams: Promise<CreateListSearchParams>
+}) {
+  const searchParams = await props.searchParams
+  const params = await props.params
 
-  const {
-    mediaTypePlural
-  } = params;
+  const { mediaTypePlural } = params
 
   const mediaTypeObj = find(mediaTypeArr, { urlPlural: mediaTypePlural })
   if (!mediaTypeObj) {
     redirect('/')
   }
 
-  const { userId } = auth()
+  const { userId } = await auth()
 
   if (!userId) {
     throw new Error('User not found')

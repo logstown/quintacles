@@ -28,7 +28,7 @@ export default async function Home() {
   // console.log(deal)
 
   const words = ['Movies', 'TV Shows', 'Episodes']
-  const { userId } = auth()
+  const { userId } = await auth()
 
   return (
     <>

@@ -38,7 +38,7 @@ export async function ListDetail(props: ListDetailProps) {
   const isEpisodes = restrictions.mediaType === MediaType.TvEpisode
   const isSeasons = restrictions.mediaType === MediaType.TvSeason
   const isForUser = 'username' in props
-  const currentUserId = auth().userId
+  const { userId: currentUserId } = await auth()
   const isCurrentUsersList = some(userListUsers, { id: currentUserId })
 
   const listItemPromises = [

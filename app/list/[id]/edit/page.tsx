@@ -9,18 +9,14 @@ export const metadata = {
   title: 'Edit List',
 }
 
-export default async function EditListPage(
-  props: {
-    params: Promise<{ id: string }>
-  }
-) {
-  const params = await props.params;
+export default async function EditListPage(props: {
+  params: Promise<{ id: string }>
+}) {
+  const params = await props.params
 
-  const {
-    id
-  } = params;
+  const { id } = params
 
-  const { userId } = auth()
+  const { userId } = await auth()
 
   if (!userId) {
     redirect(`/list/${id}`)

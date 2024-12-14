@@ -11,7 +11,7 @@ import { unstable_cache } from 'next/cache'
 import { mediaTypes } from '@/lib/mediaTypes'
 
 export async function PopularLists({ mediaType }: { mediaType: MediaType }) {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   if (!userId) {
     throw new Error('User not found')

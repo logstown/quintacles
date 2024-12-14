@@ -14,7 +14,7 @@ import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 export async function surpriseMe(mediaType: MediaType) {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   if (!userId) {
     throw new Error('User not found')

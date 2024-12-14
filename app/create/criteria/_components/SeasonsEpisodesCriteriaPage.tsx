@@ -11,7 +11,7 @@ export default async function SeasonsEpisodesCriteriaPage({
 }: {
   mediaType: MediaType
 }) {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   if (!userId) {
     throw new Error('User not found')

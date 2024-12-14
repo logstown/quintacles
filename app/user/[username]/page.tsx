@@ -25,16 +25,12 @@ function getUserProfile(username: string) {
 
 const cachedProfile = cache(getUserProfile)
 
-export async function generateMetadata(
-  props: {
-    params: Promise<{ username: string }>
-  }
-): Promise<Metadata> {
-  const params = await props.params;
+export async function generateMetadata(props: {
+  params: Promise<{ username: string }>
+}): Promise<Metadata> {
+  const params = await props.params
 
-  const {
-    username
-  } = params;
+  const { username } = params
 
   const profile = await cachedProfile(username)
 
@@ -68,16 +64,12 @@ export async function generateMetadata(
   }
 }
 
-export default async function UserPage(
-  props: {
-    params: Promise<{ username: string }>
-  }
-) {
-  const params = await props.params;
+export default async function UserPage(props: {
+  params: Promise<{ username: string }>
+}) {
+  const params = await props.params
 
-  const {
-    username
-  } = params;
+  const { username } = params
 
   const profile = await cachedProfile(username)
 
@@ -85,7 +77,7 @@ export default async function UserPage(
     redirect('/')
   }
 
-  const { userId } = auth()
+  const { userId } = await auth()
 
   const coverImageSrc =
     profile.coverImagePath === '/movieBackdrop.jpeg'
