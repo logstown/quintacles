@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Credits',
 }
 
-const CreditsPage: React.FC = () => {
+export default function CreditsPage() {
   return (
     <div className='container mx-auto max-w-screen-md'>
       <h1 className='mb-4 text-3xl font-bold'>Credits</h1>
@@ -28,4 +28,4 @@ const CreditsPage: React.FC = () => {
   )
 }
 
-export default CreditsPage
+// export default CreditsPage
