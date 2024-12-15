@@ -56,7 +56,8 @@ export async function ListDetail(props: ListDetailProps) {
 
       if (!isEpisodes && !isSeasons) {
         const { logos } = await getImages(item.mediaType, item.tmdbId)
-        logoPath = logos[0] ? getTmdbImageUrl(logos[0].file_path, 'w500') : ''
+        const logo = logos[0]
+        logoPath = logo ? getTmdbImageUrl(logo.file_path, 'w500') : ''
       }
 
       if (item.backdropPath || (isSeasons && item.posterPath)) {
@@ -133,14 +134,14 @@ export async function ListDetail(props: ListDetailProps) {
         {listItemsReverse.map((item, i) => (
           <div
             key={item.tmdbId}
-            className='flex aspect-video w-full flex-col items-center justify-end rounded-xl bg-cover bg-center p-6 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] sm:p-16'
+            className='flex aspect-video w-full flex-col items-center justify-end rounded-xl bg-cover bg-center p-6 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] lg:p-16'
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9)),url(${item.backdropUrl})`,
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 1)),url(${item.backdropUrl})`,
             }}
           >
-            <div className='flex flex-col gap-6'>
+            <div className='flex max-w-prose flex-col gap-6'>
               <div
-                className={`flex gap-6 sm:gap-10 lg:gap-16 ${isEpisodes ? 'items-start' : `${item.logoPath ? 'items-center' : 'items-end'}`}`}
+                className={`flex gap-6 sm:gap-10 lg:gap-12 ${isEpisodes ? 'items-start' : `${item.logoPath ? 'items-center' : 'items-end'}`}`}
               >
                 <h2
                   className={`text-5xl font-extrabold !leading-[.8] tracking-tight text-neutral-100 drop-shadow-[0_1px_1px_white] lg:text-7xl`}
@@ -149,7 +150,7 @@ export async function ListDetail(props: ListDetailProps) {
                 </h2>
                 <div
                   style={{ color: item.textColor }}
-                  className='flex flex-col justify-center gap-2'
+                  className='flex flex-col justify-center gap-3'
                 >
                   <ListItemLink
                     mediaType={restrictions.mediaType}
@@ -158,12 +159,9 @@ export async function ListDetail(props: ListDetailProps) {
                   >
                     <Tooltip content={item.name} delay={1000}>
                       {item.logoPath ? (
-                        <img
-                          className='max-w-[200px] sm:max-w-[400px]'
-                          src={item.logoPath}
-                        />
+                        <img className='' src={item.logoPath} />
                       ) : (
-                        <h1 className='line-clamp-4 overflow-visible whitespace-nowrap text-balance text-2xl font-extrabold leading-none tracking-tight drop-shadow-2xl sm:text-4xl md:text-5xl'>
+                        <h1 className='line-clamp-4 overflow-visible text-balance text-3xl font-extrabold !leading-[.8] tracking-tight drop-shadow-2xl sm:text-5xl'>
                           {item.name}{' '}
                           {!isEpisodes &&
                             (restrictions.mediaType === MediaType.TvShow ||
@@ -206,7 +204,7 @@ export async function ListDetail(props: ListDetailProps) {
                   />
                 )}
               </div>
-              <div className='max-w-prose font-light text-white xl:text-lg'>
+              <div className='text-sm font-light text-white sm:text-base xl:text-lg'>
                 <ItemOverview omitNoOverview overview={item.overview ?? ''} />
               </div>
             </div>
