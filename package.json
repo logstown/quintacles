@@ -59,7 +59,7 @@
     "server-only": "^0.0.1",
     "sharp": "^0.33.4",
     "slug": "^9.1.0",
-    "sonner": "^1.5.0",
+    "sonner": "^1.7.1",
     "svix": "^1.24.0",
     "tailwind-merge": "^2.3.0"
   },
