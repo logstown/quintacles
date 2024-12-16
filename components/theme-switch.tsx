@@ -45,9 +45,9 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className, classNames }) => 
         ),
       })}
     >
-      {/* <VisuallyHidden>
+      <VisuallyHidden>
         <input {...getInputProps()} />
-      </VisuallyHidden> */}
+      </VisuallyHidden>
       <div
         {...getWrapperProps()}
         className={slots.wrapper({
