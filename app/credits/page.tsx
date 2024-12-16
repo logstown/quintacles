@@ -1,9 +1,10 @@
+import { Metadata } from 'next'
 import Image from 'next/image'
 import React from 'react'
 
-// export const metadata: Metadata = {
-//   title: 'Credits',
-// }
+export const metadata: Metadata = {
+  title: 'Credits',
+}
 
 export default function CreditsPage() {
   return (
