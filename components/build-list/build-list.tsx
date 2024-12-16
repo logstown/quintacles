@@ -101,7 +101,7 @@ export function BuildList({
           variant='shadow'
           endContent={isSavePending ? '' : <SaveIcon size={20} />}
           isLoading={isSavePending}
-          onClick={() => save()}
+          onPress={() => save()}
         >
           {isSavePending ? 'Saving...' : 'Save'}
         </Button>

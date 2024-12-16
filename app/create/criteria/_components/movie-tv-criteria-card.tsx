@@ -40,7 +40,7 @@ export function MovieTvCriteriaCard({ mediaType }: { mediaType: MediaType }) {
           <Button
             size='lg'
             color='primary'
-            onClick={goToList}
+            onPress={goToList}
             endContent={<ArrowRight size={20} />}
             variant='shadow'
           >
