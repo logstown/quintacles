@@ -9,13 +9,19 @@ import {
   DropdownMenu,
   DropdownItem,
 } from '@nextui-org/dropdown'
-import { cloneElement, useMemo, useState } from 'react'
+import { cloneElement, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { getRandomList } from '@/app/actions'
 import { noop } from 'lodash'
+import { usePathname } from 'next/navigation'
 
 export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
   const [isLoading, setIsLoading] = useState(false)
+  const pathName = usePathname()
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [pathName])
 
   const dropdownItems = useMemo(() => {
     const items = mediaTypeArrForLists.map(type => ({
@@ -28,10 +34,9 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
       icon: <ShuffleIcon size={18} />,
       text: 'Random List',
       href: '',
-      onPress: async () => {
+      onPress: () => {
         setIsLoading(true)
-        await getRandomList()
-        setIsLoading(false)
+        getRandomList()
       },
     })
 
