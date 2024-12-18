@@ -130,11 +130,11 @@ export async function ListDetail(props: ListDetailProps) {
           )}
         </div>
       </div>
-      <div className='mx-auto mt-8 flex max-w-screen-xl flex-col items-center gap-20'>
+      <div className='mx-auto mt-8 flex max-w-screen-xl flex-col items-center gap-12 lg:gap-20'>
         {listItemsReverse.map((item, i) => (
           <div
             key={item.tmdbId}
-            className='flex aspect-video w-full flex-col items-center justify-end rounded-xl bg-cover bg-center p-6 pt-52 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] lg:p-16'
+            className='flex aspect-video w-full flex-col items-center justify-end rounded-xl bg-cover bg-center px-6 pb-6 pt-52 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] sm:px-16 sm:pb-16'
             style={{
               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 1)),url(${item.backdropUrl})`,
             }}
