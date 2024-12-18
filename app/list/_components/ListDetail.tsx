@@ -21,6 +21,7 @@ import { ListItemLink } from './ListItemLink'
 import { UserListInfinite } from '@/app/browse/_components/UserListInfinite'
 import { auth } from '@clerk/nextjs/server'
 import { getImages, getImageStuff } from '@/lib/TmdbService'
+import { UserListIcon } from '@/components/user-list/UserListIcon'
 
 export type ListDetailProps = { id: number } | { username: string; slug: string }
 
@@ -91,7 +92,14 @@ export async function ListDetail(props: ListDetailProps) {
   return (
     <div>
       <div className='flex flex-col items-center gap-8 px-8 md:px-12'>
-        <h1 className='text-center text-5xl font-semibold capitalize tracking-tight drop-shadow-2xl sm:text-6xl lg:text-7xl'>
+        <h1 className='flex items-center gap-8 text-center text-5xl font-semibold capitalize tracking-tight drop-shadow-2xl sm:text-6xl lg:text-7xl'>
+          {restrictions.Person?.profilePath && (
+            <UserListIcon
+              isLarge
+              mediaType={restrictions.mediaType}
+              personPath={restrictions.Person.profilePath}
+            />
+          )}
           <ListTitleBase restrictions={restrictions} includeMediaType={true} />
         </h1>
         <div className='flex flex-wrap items-center justify-center space-x-6'>

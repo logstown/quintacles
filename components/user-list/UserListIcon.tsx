@@ -8,10 +8,14 @@ export function UserListIcon({
   mediaType,
   personPath,
   useMediaIcon,
+  useFallback,
+  isLarge,
 }: {
   mediaType: MediaType
   personPath: string | null
   useMediaIcon?: boolean
+  useFallback?: boolean
+  isLarge?: boolean
 }) {
   const mediaTypeIconBig = cloneElement(mediaTypes[mediaType].icon, {
     size: 28,
@@ -27,8 +31,9 @@ export function UserListIcon({
         radius='sm'
         showFallback
         isBordered
+        className={isLarge ? 'h-22 w-22 text-large' : ''}
         color='default'
-        fallback={mediaTypeIconBig}
+        fallback={useFallback ? mediaTypeIconBig : undefined}
         classNames={{
           img: 'object-[0_-5px]',
         }}

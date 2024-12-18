@@ -76,7 +76,7 @@ export function UserListCard({
                       <UserListIcon
                         mediaType={mediaType}
                         personPath={Person.profilePath}
-                        useMediaIcon={false}
+                        useFallback
                       />
                     </div>
                   )}
