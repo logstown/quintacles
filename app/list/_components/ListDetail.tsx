@@ -226,7 +226,7 @@ export async function ListDetail(props: ListDetailProps) {
         </div>
       )}
       <div className='mx-auto mt-16 max-w-screen-lg'>
-        <h3 className='p-6 text-2xl'>
+        <h3 className='p-6 text-right text-2xl'>
           More{' '}
           <span className='font-bold'>
             <ListTitleBase restrictions={restrictions} includeMediaType />

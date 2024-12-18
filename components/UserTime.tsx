@@ -24,7 +24,7 @@ export function UserTime({
 
   return (
     <div
-      className={`flex items-center gap-2 sm:gap-4 ${usersToDisplay.length > 1 ? 'ml-2' : ''}`}
+      className={`flex items-center md:gap-4 ${usersToDisplay.length > 1 ? 'ml-2' : ''}`}
     >
       {!excludeUser && !!usersToDisplay.length && (
         <>

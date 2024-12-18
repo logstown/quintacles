@@ -21,9 +21,10 @@ export function UserTimeAvatar({
           className='transition-transform'
           isFocusable
           classNames={{
-            wrapper: shouldDisplayName ? 'pl-2' : '',
-            name: 'text-lg',
-            description: size === 'lg' ? 'text-sm' : 'text-xs',
+            wrapper: shouldDisplayName ? 'md:pl-2' : '',
+            base: 'gap-0 md:gap-2',
+            name: 'text-lg hidden md:inline',
+            description: `hidden md:inline ${size === 'lg' ? 'text-sm' : 'text-xs'}`,
           }}
           name={shouldDisplayName ? nameToDisplay : ''}
           description={userAddedDistanceToNow ?? ''}
