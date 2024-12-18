@@ -28,14 +28,14 @@ export function UserListIcon({
   return (
     <div className='relative'>
       <Avatar
-        radius='sm'
+        radius={isLarge ? 'lg' : 'sm'}
         showFallback
         isBordered
         className={isLarge ? 'h-22 w-22 text-large' : ''}
         color='default'
         fallback={useFallback ? mediaTypeIconBig : undefined}
         classNames={{
-          img: 'object-[0_-5px]',
+          img: isLarge ? '' : 'object-[0_-5px]',
         }}
         src={getTmdbImageUrl(personPath, 'w92')}
       />
