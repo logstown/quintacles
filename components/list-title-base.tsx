@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { getGenreById } from '../lib/genres'
 import { mediaTypes } from '../lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
+import { getTmdbImageUrl } from '@/lib/random'
 
 export const getListTitle = (
   isDetailView: boolean = false,
@@ -32,8 +33,11 @@ export const getListTitle = (
     title += 'Live-Action '
   }
 
-  if (Network?.name) {
-    title += `${Network.name} `
+  if (Network?.id) {
+    title +=
+      isForSlug || !isDetailView
+        ? `${Network.name} `
+        : `<img style="max-height: 100px;" src='${getTmdbImageUrl(Network.logoPath, 'w300')}'> `
   }
 
   if (genreId) {
@@ -76,7 +80,10 @@ export function ListTitleBase({
         <span className={includeMediaType ? 'mr-2 italic' : ''}>{tvShow}</span>
       )}
       {'  '}
-      {partialTitle}
+      <span
+        dangerouslySetInnerHTML={{ __html: partialTitle }}
+        className='flex items-baseline gap-6'
+      ></span>
     </>
   )
 }
