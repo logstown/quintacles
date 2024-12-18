@@ -47,6 +47,12 @@ export function Suggestions({
   const getSearchRestults = async () => {
     const res = await fetch(
       `/api/tmdb/search/?mediaType=${mediaTypes[restrictions.mediaType].url}&query=${debouncedSearchText}`,
+      {
+        cache: 'force-cache',
+        next: {
+          revalidate: 60 * 60 * 24,
+        },
+      },
     )
 
     const { data } = await res.json()

@@ -169,6 +169,10 @@ const fetchFn = async (urlFrag: string) => {
       Authorization:
         'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNzFiZDk2NWU0YTc1ZDY4YmYzMTBjZDQ5MDY3M2RjMyIsInN1YiI6IjU1NjY1ZDlhYzNhMzY4MTc0ZjAwMDNlNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.HRgaHMqbl1iN7E3VLuinS2zgjz9IRcJc6HyEqWin1ZU',
     },
+    cache: 'force-cache',
+    next: {
+      revalidate: 60 * 60 * 24,
+    },
   })
     .then(response => response.json())
     .catch(err => console.error(err))
