@@ -9,7 +9,7 @@ export function UserListsWrapper({
 }) {
   return (
     <div
-      className={`${isEpisodes ? `episode-list-grid ${isBrowse ? 'justify-center' : ''}` : 'flex flex-col gap-8 sm:gap-12 md:gap-16 lg:gap-20'}`}
+      className={`${isEpisodes ? `episode-list-grid ${isBrowse ? 'justify-center' : ''}` : 'flex flex-col gap-8 sm:gap-12 md:gap-16'}`}
     >
       {children}
     </div>
