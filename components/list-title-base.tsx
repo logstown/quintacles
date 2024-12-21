@@ -18,6 +18,7 @@ export const getListTitle = (
     Network,
   }: RestrictionsUI,
   isForSlug?: boolean,
+  tvShowLogoFilePath?: string,
 ): string => {
   let title = ''
 
@@ -37,7 +38,7 @@ export const getListTitle = (
     title +=
       isForSlug || !isDetailView
         ? `${Network.name} `
-        : `<img style="max-height: 100px;" src='${getTmdbImageUrl(Network.logoPath, 'w300')}'> `
+        : `<img style="max-height: 100px;" class="drop-shadow-2xl" src='${getTmdbImageUrl(Network.logoPath, 'w300')}'> `
   }
 
   if (genreId) {
@@ -48,8 +49,10 @@ export const getListTitle = (
     title += 'Top Five '
   }
 
-  if (isForSlug && EpisodesTvShow?.name) {
-    title += `${EpisodesTvShow.name} `
+  if (EpisodesTvShow?.name) {
+    title += tvShowLogoFilePath
+      ? `<img style="max-height: 100px;" class="drop-shadow-xl" src='${getTmdbImageUrl(tvShowLogoFilePath, 'w300')}'> `
+      : `${EpisodesTvShow.name} `
   }
 
   if (isDetailView) {
@@ -64,26 +67,20 @@ export const getListTitle = (
 export function ListTitleBase({
   restrictions,
   includeMediaType,
+  tvShowLogoFilePath,
 }: {
   restrictions: RestrictionsUI
   includeMediaType?: boolean
+  tvShowLogoFilePath?: string
 }) {
   const partialTitle = useMemo(() => {
-    return getListTitle(includeMediaType, restrictions)
+    return getListTitle(includeMediaType, restrictions, false, tvShowLogoFilePath)
   }, [restrictions, includeMediaType])
 
-  const tvShow = restrictions.EpisodesTvShow?.name
-
   return (
-    <>
-      {tvShow && (
-        <span className={includeMediaType ? 'mr-2 italic' : ''}>{tvShow}</span>
-      )}
-      {'  '}
-      <span
-        dangerouslySetInnerHTML={{ __html: partialTitle }}
-        className='flex flex-wrap items-baseline justify-center gap-6'
-      ></span>
-    </>
+    <span
+      dangerouslySetInnerHTML={{ __html: partialTitle }}
+      className='flex flex-wrap items-baseline justify-center gap-6'
+    ></span>
   )
 }

@@ -42,6 +42,15 @@ export async function ListDetail(props: ListDetailProps) {
   const { userId: currentUserId } = await auth()
   const isCurrentUsersList = some(userListUsers, { id: currentUserId })
 
+  let tvShowLogoFilePath
+  if (restrictions.EpisodesTvShow.id) {
+    const { logos } = await getImages(
+      MediaType.TvShow,
+      restrictions.EpisodesTvShow.id,
+    )
+    tvShowLogoFilePath = logos[0]?.file_path
+  }
+
   const listItemPromises = [
     userList.item1,
     userList.item2,
@@ -100,7 +109,11 @@ export async function ListDetail(props: ListDetailProps) {
               personPath={restrictions.Person.profilePath}
             />
           )}
-          <ListTitleBase restrictions={restrictions} includeMediaType={true} />
+          <ListTitleBase
+            restrictions={restrictions}
+            tvShowLogoFilePath={tvShowLogoFilePath}
+            includeMediaType={true}
+          />
         </h1>
         <div className='flex flex-wrap items-center justify-center space-x-6'>
           <div className='flex items-center justify-center space-x-6'>
@@ -138,13 +151,13 @@ export async function ListDetail(props: ListDetailProps) {
           )}
         </div>
       </div>
-      <div className='mx-auto mt-8 flex max-w-screen-xl flex-col items-center gap-12 sm:mt-16 lg:gap-20'>
+      <div className='mx-auto mt-8 flex max-w-screen-lg flex-col items-center gap-12 sm:mt-16 lg:gap-20'>
         {listItemsReverse.map((item, i) => (
           <div
             key={item.tmdbId}
             className='flex aspect-video w-full flex-col items-center justify-end rounded-xl bg-cover bg-center px-6 pb-6 pt-52 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] sm:px-16 sm:pb-16'
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 1)),url(${item.backdropUrl})`,
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)),url(${item.backdropUrl})`,
             }}
           >
             <div className='flex max-w-prose flex-col gap-6'>
@@ -167,7 +180,7 @@ export async function ListDetail(props: ListDetailProps) {
                   >
                     <Tooltip content={item.name} delay={1000}>
                       {item.logoPath ? (
-                        <img className='' src={item.logoPath} />
+                        <img className='drop-shadow-xl' src={item.logoPath} />
                       ) : (
                         <h1 className='line-clamp-4 overflow-visible text-balance text-3xl font-extrabold !leading-[.8] tracking-tight drop-shadow-2xl sm:text-5xl'>
                           {item.name}{' '}
@@ -212,7 +225,7 @@ export async function ListDetail(props: ListDetailProps) {
                   />
                 )}
               </div>
-              <div className='text-sm font-light text-white sm:text-base xl:text-lg'>
+              <div className='text-sm font-light text-white sm:text-base'>
                 <ItemOverview omitNoOverview overview={item.overview ?? ''} />
               </div>
             </div>
