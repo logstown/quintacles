@@ -22,7 +22,7 @@ export function ItemOverview({
         <div>
           <p
             ref={ref}
-            className={isShowingMore ? 'text-pretty' : 'line-clamp-4 text-pretty'}
+            className={`text-pretty text-justify ${isShowingMore ? '' : 'line-clamp-3'}`}
           >
             {overview}
           </p>
