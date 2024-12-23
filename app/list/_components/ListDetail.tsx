@@ -112,7 +112,7 @@ export async function ListDetail(props: ListDetailProps) {
           <ListTitleBase
             restrictions={restrictions}
             tvShowLogoFilePath={tvShowLogoFilePath}
-            includeMediaType={true}
+            includeMediaType
           />
         </h1>
         <div className='flex flex-wrap items-center justify-center space-x-6'>
@@ -247,18 +247,20 @@ export async function ListDetail(props: ListDetailProps) {
         </div>
       )}
       <div className='mx-auto mt-16 max-w-screen-lg'>
-        <h3 className={`p-6 text-2xl ${isEpisodes ? '' : 'text-rigth'}`}>
+        <h3 className={`p-6 text-2xl`}>
           More{' '}
           <span className='font-bold'>
             <ListTitleBase restrictions={restrictions} includeMediaType />
           </span>
         </h3>
-        <UserListInfinite
-          restrictions={restrictions}
-          userListIdToExclude={userList.id}
-          sortBy='users'
-          exactMatch={true}
-        />
+        <div className='flex justify-center'>
+          <UserListInfinite
+            restrictions={restrictions}
+            userListIdToExclude={userList.id}
+            sortBy='users'
+            exactMatch={true}
+          />
+        </div>
       </div>
     </div>
   )
