@@ -84,7 +84,7 @@ export function UserListInfinite({
     <>
       {status === 'error' ? (
         <p>Error: {error.message}</p>
-      ) : (
+      ) : data?.pages.length && data.pages[0].lists.length ? (
         <>
           <UserListsWrapper isBrowse={true} isEpisodes={isEpisodes}>
             {data?.pages.map((group, i) => (
@@ -121,11 +121,9 @@ export function UserListInfinite({
             </div>
           )}
         </>
+      ) : (
+        <em className='p-10 text-xl text-foreground-500'>Nothing yet</em>
       )}
-      {!data?.pages.length ||
-        (data.pages[0].lists.length === 0 && (
-          <em className='p-10 text-xl text-foreground-500'>Nothing yet</em>
-        ))}
     </>
   )
 }
