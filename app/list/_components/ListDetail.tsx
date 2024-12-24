@@ -165,7 +165,7 @@ export async function ListDetail(props: ListDetailProps) {
                 className={`flex gap-6 sm:gap-10 lg:gap-12 ${isEpisodes ? 'items-start' : `${item.logoPath ? 'items-center' : 'items-end'}`}`}
               >
                 <h2
-                  className={`text-5xl font-extrabold !leading-[.8] tracking-tight text-neutral-100 drop-shadow-[0_1px_1px_white] lg:text-7xl`}
+                  className={`text-5xl font-extrabold tracking-tight text-neutral-100 drop-shadow-[0_1px_1px_white] lg:text-7xl`}
                 >
                   {5 - i}
                 </h2>
@@ -182,7 +182,7 @@ export async function ListDetail(props: ListDetailProps) {
                       {item.logoPath ? (
                         <img className='drop-shadow-xl' src={item.logoPath} />
                       ) : (
-                        <h1 className='line-clamp-4 overflow-visible text-balance text-3xl font-extrabold !leading-[.8] tracking-tight drop-shadow-2xl sm:text-5xl'>
+                        <h1 className='line-clamp-4 overflow-visible text-balance text-3xl font-extrabold tracking-tight drop-shadow-2xl sm:text-5xl'>
                           {item.name}{' '}
                           {!isEpisodes &&
                             (restrictions.mediaType === MediaType.TvShow ||
