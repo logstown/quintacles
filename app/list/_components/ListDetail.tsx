@@ -9,7 +9,7 @@ import { Image } from '@nextui-org/image'
 import NextImage from 'next/image'
 import { MediaType } from '@prisma/client'
 import { format } from 'date-fns'
-import { clamp, includes, some } from 'lodash'
+import { clamp, find, includes, some } from 'lodash'
 import Vibrant from 'node-vibrant'
 import Link from 'next/link'
 import { Tooltip } from '@nextui-org/tooltip'
@@ -22,6 +22,7 @@ import { UserListInfinite } from '@/app/browse/_components/UserListInfinite'
 import { auth } from '@clerk/nextjs/server'
 import { getImages, getImageStuff } from '@/lib/TmdbService'
 import { UserListIcon } from '@/components/user-list/UserListIcon'
+import { alternateLogos } from '@/lib/alternate-logos'
 
 export type ListDetailProps = { id: number } | { username: string; slug: string }
 
@@ -44,11 +45,19 @@ export async function ListDetail(props: ListDetailProps) {
 
   let tvShowLogoFilePath
   if (restrictions.EpisodesTvShow.id) {
+    // console.log('restrictions.EpisodesTvShow.id', restrictions.EpisodesTvShow.id)
     const { logos } = await getImages(
       MediaType.TvShow,
       restrictions.EpisodesTvShow.id,
     )
-    tvShowLogoFilePath = logos[0]?.file_path
+
+    const alternateLogo = find(alternateLogos, {
+      isListTitle: true,
+      id: restrictions.EpisodesTvShow.id,
+      mediaType: MediaType.TvShow,
+    })
+    const idx = alternateLogo?.logoIdx ?? 0
+    tvShowLogoFilePath = logos[idx]?.file_path
   }
 
   const listItemPromises = [
@@ -66,7 +75,12 @@ export async function ListDetail(props: ListDetailProps) {
 
       if (!isEpisodes && !isSeasons) {
         const { logos } = await getImages(item.mediaType, item.tmdbId)
-        const logo = logos[0]
+        const alternateLogo = find(alternateLogos, {
+          isListTitle: false,
+          id: item.tmdbId,
+          mediaType: item.mediaType,
+        })
+        const logo = alternateLogo ? logos[alternateLogo.logoIdx] : logos[0]
         logoPath = logo ? getTmdbImageUrl(logo.file_path, 'w500') : ''
       }
 
