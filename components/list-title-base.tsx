@@ -19,6 +19,7 @@ export const getListTitle = (
   }: RestrictionsUI,
   isForSlug?: boolean,
   tvShowLogoFilePath?: string,
+  includeTopFive?: boolean,
 ): string => {
   let title = ''
 
@@ -45,7 +46,7 @@ export const getListTitle = (
     title += `${getGenreById(genreId)?.name} `
   }
 
-  if (!trim(title) && !episodesTvShowId) {
+  if (includeTopFive || (!trim(title) && !episodesTvShowId)) {
     title += 'Top Five '
   }
 
