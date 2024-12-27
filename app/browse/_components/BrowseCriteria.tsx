@@ -94,8 +94,10 @@ export function BrowseCriteria({
     setRestrictions(newRestrictions)
     const filteredRestrictions = omitBy(
       newRestrictions,
-      (value, key) => key === 'mediaType',
+      (value, key) => key === 'mediaType' || key === 'Network' || key === 'Person',
     )
+
+    console.log(filteredRestrictions)
     const pairs = map(filteredRestrictions, (value, key) => ({
       name: key,
       value: value?.toString(),
