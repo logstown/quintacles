@@ -1,13 +1,10 @@
 import { MediaTypeUserLists } from '@/components/MediaTypeUserLists'
 import BlurryBlob from '@/components/animata/background/blurry-blob'
 import { FlipWords } from '@/components/flip-words'
-import { auth } from '@clerk/nextjs/server'
-import { Button } from '@nextui-org/button'
-import { PlusIcon } from 'lucide-react'
 import { Metadata } from 'next'
 import NextImage from 'next/image'
-import Link from 'next/link'
-
+import { CreateButton } from './_components/CreateButton'
+import { Suspense } from 'react'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
@@ -15,7 +12,7 @@ export const metadata: Metadata = {
   description: 'Your top five!',
 }
 
-export default async function Home() {
+export default function Home() {
   // const deal = await prisma.listItem.findMany({
   //   take: 10,
   //   orderBy: {
@@ -28,7 +25,6 @@ export default async function Home() {
   // console.log(deal)
 
   const words = ['Movies', 'TV Shows', 'Episodes']
-  const { userId } = await auth()
 
   return (
     <>
@@ -63,16 +59,9 @@ export default async function Home() {
             </div>
           </div>
         </div>
-        <Button
-          className='bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
-          size='lg'
-          as={Link}
-          prefetch={!!userId}
-          href='/create/criteria'
-          startContent={<PlusIcon />}
-        >
-          Create List
-        </Button>
+        <Suspense fallback={<CreateButton isLoading />}>
+          <CreateButton />
+        </Suspense>
       </div>
       <MediaTypeUserLists />
     </>
