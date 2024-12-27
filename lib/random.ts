@@ -171,6 +171,6 @@ export const convertMediaItem = (
 }
 
 export const getSlug = (restrictions: RestrictionsUI): string => {
-  const title = getListTitle(true, restrictions, true)
+  const title = getListTitle({ restrictions, isDetailView: true, isForSlug: true })
   return slug(title)
 }

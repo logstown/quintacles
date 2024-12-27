@@ -4,10 +4,22 @@ import { getGenreById } from '../lib/genres'
 import { mediaTypes } from '../lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
 import { getTmdbImageUrl } from '@/lib/random'
+import { Restrictions } from '@prisma/client'
 
-export const getListTitle = (
-  isDetailView: boolean = false,
-  {
+export const getListTitle = ({
+  restrictions,
+  isDetailView,
+  isForSlug,
+  tvShowLogoFilePath,
+  includeTopFive,
+}: {
+  restrictions: RestrictionsUI
+  isDetailView?: boolean
+  isForSlug?: boolean
+  tvShowLogoFilePath?: string
+  includeTopFive?: boolean
+}): string => {
+  const {
     mediaType,
     year,
     Person,
@@ -16,11 +28,8 @@ export const getListTitle = (
     episodesTvShowId,
     EpisodesTvShow,
     Network,
-  }: RestrictionsUI,
-  isForSlug?: boolean,
-  tvShowLogoFilePath?: string,
-  includeTopFive?: boolean,
-): string => {
+  } = restrictions
+
   let title = ''
 
   if (year) {
@@ -65,6 +74,15 @@ export const getListTitle = (
   return title
 }
 
+export const getMetaDataListTitle = (restrictions: Restrictions): string => {
+  return getListTitle({
+    restrictions,
+    isDetailView: true,
+    isForSlug: true,
+    includeTopFive: true,
+  })
+}
+
 export function ListTitleBase({
   restrictions,
   includeMediaType,
@@ -75,7 +93,11 @@ export function ListTitleBase({
   tvShowLogoFilePath?: string
 }) {
   const partialTitle = useMemo(() => {
-    return getListTitle(includeMediaType, restrictions, false, tvShowLogoFilePath)
+    return getListTitle({
+      restrictions,
+      isDetailView: includeMediaType,
+      tvShowLogoFilePath,
+    })
   }, [restrictions, includeMediaType])
 
   return (

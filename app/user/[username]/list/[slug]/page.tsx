@@ -1,5 +1,5 @@
 import { getUserListData, ListDetail } from '@/app/list/_components/ListDetail'
-import { getListTitle } from '@/components/list-title-base'
+import { getMetaDataListTitle } from '@/components/list-title-base'
 import { Metadata } from 'next'
 
 export async function generateMetadata(props: {
@@ -12,7 +12,7 @@ export async function generateMetadata(props: {
     return {}
   }
 
-  const title = `${getListTitle(true, userList.Restrictions, true, '', true)} by @${params.username}`
+  const title = `${getMetaDataListTitle(userList.Restrictions)} by @${params.username}`
 
   return { title }
 }
