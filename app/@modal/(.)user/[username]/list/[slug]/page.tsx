@@ -1,20 +1,15 @@
 import { ListDetail } from '@/app/list/_components/ListDetail'
 
-export default async function ListModal(
-  props: {
-    params: Promise<{ username: string; slug: string }>
-  }
-) {
-  const params = await props.params;
+export default async function ListModal(props: {
+  params: Promise<{ username: string; slug: string }>
+}) {
+  const params = await props.params
 
-  const {
-    username,
-    slug
-  } = params;
+  const { username, slug } = params
 
   return (
     <div className='pt-10'>
-      <ListDetail username={username} slug={slug} />
+      <ListDetail username={username} slug={slug} isModal />
     </div>
   )
 }
