@@ -51,7 +51,6 @@ export async function ListDetail(props: ListDetailProps) {
 
   let tvShowLogoFilePath
   if (restrictions.EpisodesTvShow.id) {
-    // console.log('restrictions.EpisodesTvShow.id', restrictions.EpisodesTvShow.id)
     const { logos } = await getImages(
       MediaType.TvShow,
       restrictions.EpisodesTvShow.id,
@@ -253,9 +252,10 @@ export async function getUserListData(props: ListDetailProps) {
             restrictionsSlug: props.slug,
           },
         },
-        include: {
+        select: {
           UserList: { include },
           User: true,
+          userAddedAt: true,
         },
       })
 
@@ -277,7 +277,7 @@ export async function getUserListData(props: ListDetailProps) {
         include: {
           ...include,
           users: {
-            include: { User: true },
+            select: { User: true },
           },
         },
       })

@@ -57,8 +57,8 @@ export async function userListQuery({
   const itemSelect = {
     select: {
       name: true,
-      posterPath: true,
-      backdropPath: true,
+      posterPath: restrictions.mediaType !== MediaType.TvEpisode,
+      backdropPath: restrictions.mediaType === MediaType.TvEpisode,
     },
   }
 
@@ -75,7 +75,7 @@ export async function userListQuery({
         orderBy,
         include: {
           users: {
-            include: {
+            select: {
               User: true,
             },
           },
