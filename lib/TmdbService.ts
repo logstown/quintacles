@@ -162,12 +162,12 @@ export const getTvSeason = (showId: number, seasonNum: number): Promise<Season> 
 }
 
 const fetchFn = async (urlFrag: string) => {
+  const apiKey = process.env.TMDB_API_KEY
   return fetch(`https://api.themoviedb.org/3/${urlFrag}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNzFiZDk2NWU0YTc1ZDY4YmYzMTBjZDQ5MDY3M2RjMyIsInN1YiI6IjU1NjY1ZDlhYzNhMzY4MTc0ZjAwMDNlNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.HRgaHMqbl1iN7E3VLuinS2zgjz9IRcJc6HyEqWin1ZU',
+      Authorization: `Bearer ${apiKey}`,
     },
     cache: 'force-cache',
     next: {
