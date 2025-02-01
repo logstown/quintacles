@@ -25,7 +25,7 @@ export function ListDetailItem({
 }) {
   return (
     <div
-      className={`flex aspect-video w-full flex-col items-center justify-end bg-cover bg-center px-6 pb-6 pt-52 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] sm:px-16 sm:pb-16 ${isModal ? 'lg:rounded-xl' : 'rounded-xl'} `}
+      className={`flex aspect-video w-full flex-col items-center justify-end border border-neutral-800/50 bg-cover bg-center px-6 pb-6 pt-52 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] sm:px-16 sm:pb-16 ${isModal ? 'lg:rounded-xl' : 'rounded-xl'} `}
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)),url(${item.backdropUrl})`,
       }}
@@ -52,7 +52,7 @@ export function ListDetailItem({
                 {item.logoPath ? (
                   <img className='drop-shadow-xl' src={item.logoPath} />
                 ) : (
-                  <h1 className='line-clamp-4 overflow-visible text-balance text-4xl font-extrabold tracking-tight drop-shadow-2xl sm:text-5xl'>
+                  <span className='line-clamp-4 overflow-visible text-balance text-4xl font-extrabold tracking-tight drop-shadow-2xl sm:text-5xl'>
                     {item.name}{' '}
                     {!isEpisodes &&
                       (restrictions.mediaType === MediaType.TvShow ||
@@ -62,7 +62,7 @@ export function ListDetailItem({
                           {new Date(item.date).getFullYear()}
                         </small>
                       )}
-                  </h1>
+                  </span>
                 )}
               </Tooltip>
             </ListItemLink>
