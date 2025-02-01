@@ -12,7 +12,7 @@ export async function CreateButton({ isLoading }: { isLoading?: boolean }) {
 
   return (
     <Button
-      className='bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
+      className='bg-gradient-to-tr from-primary-600 via-primary-500 to-secondary-400 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
       size='lg'
       as={Link}
       isLoading={isLoading}

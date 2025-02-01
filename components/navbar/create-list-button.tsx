@@ -20,13 +20,13 @@ export function CreateListButton({ isSmall }: { isSmall?: boolean }) {
           <Button
             isIconOnly
             size='sm'
-            className='bg-gradient-to-tr from-primary-500 to-secondary-500 text-white shadow-lg'
+            className='bg-gradient-to-tr from-primary-600 via-primary-500 to-secondary-400 text-white shadow-lg'
           >
             {<PlusIcon strokeWidth={1.3} size={20} />}
           </Button>
         ) : (
           <Button
-            className='bg-gradient-to-tr from-primary-500 to-secondary-500 text-white shadow-lg'
+            className='bg-gradient-to-tr from-primary-600 via-primary-500 to-secondary-400 text-white shadow-lg'
             endContent={<ChevronDown strokeWidth={1.3} size={20} />}
           >
             Create List
