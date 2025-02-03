@@ -1,7 +1,7 @@
 'use client'
 
 import { TmdbGenres } from '../lib/TmdbModels'
-import { find, take } from 'lodash'
+import { find } from 'lodash'
 import { MediaType } from '@prisma/client'
 import { useGenres } from '@/lib/hooks'
 import { RestrictionsUI } from '@/lib/models'
@@ -9,8 +9,8 @@ import { Autocomplete, AutocompleteItem } from '@nextui-org/autocomplete'
 import { Select, SelectItem } from '@nextui-org/select'
 import MediaPicker from './media-picker'
 import { getYears } from '@/lib/random'
-import { useMemo, useState } from 'react'
-import { networks } from '@/lib/networks'
+import { useMemo } from 'react'
+import { NetworkPicker } from './NetworkPicker'
 
 export function MovieTvCriteria({
   restrictions: {
@@ -32,19 +32,6 @@ export function MovieTvCriteria({
 }) {
   const years = useMemo(() => getYears(), [])
   const mediaTypeGenres = useGenres(mediaType)
-  const [networkSearch, setNetworkSearch] = useState(Network?.name ?? '')
-
-  const filteredNetworks = useMemo(() => {
-    if (networkSearch.length < 2) {
-      return []
-    } else {
-      const filtered = networks.filter(x =>
-        x.name.toLowerCase().includes(networkSearch.toLowerCase()),
-      )
-
-      return take(filtered, 5)
-    }
-  }, [networkSearch])
 
   const setYearFromPicker = (yearId: React.Key | null) => {
     const foundyear = find(years, { id: Number(yearId) })
@@ -61,13 +48,10 @@ export function MovieTvCriteria({
     })
   }
 
-  const setNetworkFromPicker = (networkId: React.Key | null) => {
-    const Network = find(networks, { id: Number(networkId) })
-    setNetworkSearch(Network?.name ?? '')
-
+  const setNetworkFromPicker = (networkId?: number) => {
     onRestrictionsChange({
       mediaType,
-      networkId: Network?.id,
+      networkId,
       Network,
       genreId,
       year,
@@ -182,24 +166,11 @@ export function MovieTvCriteria({
         </SelectItem>
       </Select>
       {mediaType === MediaType.TvShow && (
-        <Autocomplete
-          label='Network'
-          labelPlacement='outside'
-          size='lg'
-          placeholder='Type to Search...'
-          variant='bordered'
-          inputValue={networkSearch}
-          onInputChange={setNetworkSearch}
-          className='w-60'
-          items={filteredNetworks}
-          menuTrigger='input'
-          isClearable={!!networkId && networkId.toString() !== ''}
-          selectedKey={networkId?.toString() ?? ''}
-          onSelectionChange={setNetworkFromPicker}
-          color='primary'
-        >
-          {item => <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>}
-        </Autocomplete>
+        <NetworkPicker
+          networkId={networkId}
+          setNetworkFromPicker={setNetworkFromPicker}
+          networkName={Network?.name}
+        />
       )}
       <Autocomplete
         label='Genre'
