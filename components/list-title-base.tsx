@@ -48,7 +48,7 @@ export const getListTitle = ({
     title +=
       isForSlug || !isDetailView
         ? `${Network.name} `
-        : `<img style="max-height: 100px;" class="drop-shadow-2xl dark:rounded-xl dark:bg-white dark:p-1" src='${getTmdbImageUrl(Network.logoPath, 'w300')}'> `
+        : `<img style="max-height: 150px;" class="drop-shadow-2xl dark:rounded-xl dark:bg-white dark:p-1" src='${getTmdbImageUrl(Network.logoPath, 'w300')}'> `
   }
 
   if (genreId) {
@@ -61,7 +61,7 @@ export const getListTitle = ({
 
   if (EpisodesTvShow?.name) {
     title += tvShowLogoFilePath
-      ? `<img style="max-height: 100px;" class="drop-shadow-xl" src='${getTmdbImageUrl(tvShowLogoFilePath, 'w300')}'> `
+      ? `<img style="max-height: 150px;" class="drop-shadow-xl" src='${getTmdbImageUrl(tvShowLogoFilePath, 'w300')}'> `
       : `${EpisodesTvShow.name} `
   }
 

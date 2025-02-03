@@ -120,7 +120,9 @@ export async function ListDetail(props: ListDetailProps) {
   return (
     <div>
       <div className='flex flex-col items-center gap-8 px-8 md:px-12'>
-        <h1 className='flex items-center gap-10 text-center text-5xl font-semibold capitalize tracking-tight drop-shadow-2xl sm:text-6xl lg:text-7xl'>
+        <h1
+          className={`flex items-center gap-10 text-center text-5xl font-semibold capitalize tracking-tight drop-shadow-2xl ${restrictions.networkId || tvShowLogoFilePath ? 'sm:text-5xl' : 'sm:text-7xl'}`}
+        >
           {restrictions.Person?.profilePath && (
             <UserListIcon
               isLarge
