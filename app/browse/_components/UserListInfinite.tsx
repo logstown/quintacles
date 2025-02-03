@@ -84,7 +84,7 @@ export function UserListInfinite({
     <>
       {status === 'error' ? (
         <p>Error: {error.message}</p>
-      ) : data?.pages.length && data.pages[0].lists.length ? (
+      ) : isPending || (data?.pages.length && data.pages[0].lists.length) ? (
         <>
           <UserListsWrapper isBrowse={true} isEpisodes={isEpisodes}>
             {data?.pages.map((group, i) => (

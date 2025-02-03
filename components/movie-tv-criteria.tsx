@@ -32,7 +32,7 @@ export function MovieTvCriteria({
 }) {
   const years = useMemo(() => getYears(), [])
   const mediaTypeGenres = useGenres(mediaType)
-  const [networkSearch, setNetworkSearch] = useState('')
+  const [networkSearch, setNetworkSearch] = useState(Network?.name ?? '')
 
   const filteredNetworks = useMemo(() => {
     if (networkSearch.length < 2) {

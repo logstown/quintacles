@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { find, pickBy, reject } from 'lodash'
+import { find, reject } from 'lodash'
 import {
   CreateListSearchParams,
   EpisodeData,
@@ -15,7 +15,7 @@ import { getMediaItem, getNetwork, getTvSeason } from './TmdbService'
 import { getGenres } from './genres'
 import { mediaTypes } from './mediaTypes'
 import { convertMediaItem, getSlug, getYears } from './random'
-import { flow, map, sortBy, uniq } from 'lodash/fp'
+import { flow, map, sortBy, uniq, omit, pickBy } from 'lodash/fp'
 import { unstable_cache } from 'next/cache'
 import { networks } from './networks'
 
@@ -45,7 +45,14 @@ export async function userListQuery({
       }
 
   const slug = getSlug(restrictions)
-  const Restrictions = exactMatch ? { slug } : { is: pickBy(restrictions, v => v) }
+  const Restrictions = exactMatch
+    ? { slug }
+    : {
+        is: flow(
+          omit(['Network', 'Person', 'EpisodesTvShow']),
+          pickBy(v => v),
+        )(restrictions),
+      }
 
   const orderBy =
     sortBy === 'lastUserAddedAt'
