@@ -34,9 +34,7 @@ export function ListDetailItem({
         <div
           className={`flex gap-6 sm:gap-10 lg:gap-12 ${isEpisodes ? 'items-start' : `${item.logoPath ? 'items-center' : 'items-end'}`}`}
         >
-          <h2
-            className={`text-5xl font-extrabold tracking-tight text-neutral-100 drop-shadow-[0_1px_1px_white] lg:text-7xl`}
-          >
+          <h2 className='text-9xl font-extrabold tracking-tight text-neutral-100 drop-shadow-[0_1px_1px_white]'>
             {5 - i}
           </h2>
           <div
