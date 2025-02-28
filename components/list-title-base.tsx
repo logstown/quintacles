@@ -103,7 +103,7 @@ export function ListTitleBase({
   return (
     <span
       dangerouslySetInnerHTML={{ __html: partialTitle }}
-      className='flex flex-col gap-6'
+      className='flex flex-col items-center gap-6'
     ></span>
   )
 }

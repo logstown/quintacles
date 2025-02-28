@@ -199,13 +199,17 @@ export async function ListDetail(props: ListDetailProps) {
         </div>
       )}
       <div className='mx-auto mt-16 max-w-screen-lg'>
-        <h3 className={`p-6 text-2xl`}>
-          More{' '}
-          <span className='font-bold'>
-            <ListTitleBase restrictions={restrictions} includeMediaType />
-          </span>
+        <h3 className='flex flex-col items-center justify-center gap-4 p-2 text-2xl lg:p-6 lg:text-4xl'>
+          <div className='font-bold text-foreground-400'>More</div>
+          <div className='font-semibold'>
+            <ListTitleBase
+              restrictions={restrictions}
+              tvShowLogoFilePath={tvShowLogoFilePath}
+              includeMediaType
+            />
+          </div>
         </h3>
-        <div className='flex justify-center'>
+        <div className='mt-6 flex justify-center'>
           <UserListInfinite
             restrictions={restrictions}
             userListIdToExclude={userList.id}
