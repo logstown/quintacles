@@ -79,4 +79,10 @@ export const alternateLogos: AlternateLogo[] = [
     id: 246,
     logoIdx: 5,
   },
+  {
+    isListTitle: false,
+    mediaType: MediaType.TvShow,
+    id: 60694,
+    logoIdx: 3,
+  },
 ]
