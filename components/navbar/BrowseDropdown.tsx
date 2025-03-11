@@ -93,11 +93,9 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
               className='capitalize text-foreground'
               textValue={type.text}
               key={type.text}
+              href={`/browse/${type.href}`}
             >
-              {/* TODO This isn't how dropdown links are down according to the doc, doesn't take up the full height of the li */}
-              <Link className='inline-block w-full' href={`/browse/${type.href}`}>
-                {type.text}
-              </Link>
+              {type.text}
             </DropdownItem>
           ) : (
             <DropdownItem

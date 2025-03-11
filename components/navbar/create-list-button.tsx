@@ -44,13 +44,9 @@ export function CreateListButton({ isSmall }: { isSmall?: boolean }) {
               startContent={<span className='mr-1'>{mediaTypeIconSmaller}</span>}
               className='capitalize text-foreground'
               key={urlPlural}
+              href={`/create/criteria/${urlPlural}`}
             >
-              <Link
-                className='inline-block w-full'
-                href={`/create/criteria/${urlPlural}`}
-              >
-                {plural}
-              </Link>
+              {plural}
             </DropdownItem>
           )
         })}
