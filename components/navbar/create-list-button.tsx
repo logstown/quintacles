@@ -10,7 +10,6 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from '@nextui-org/dropdown'
-import Link from 'next/link'
 
 export function CreateListButton({ isSmall }: { isSmall?: boolean }) {
   return (

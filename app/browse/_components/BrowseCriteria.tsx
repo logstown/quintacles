@@ -4,13 +4,14 @@ import MediaPicker from '@/components/media-picker'
 import { MovieTvCriteria } from '@/components/movie-tv-criteria'
 import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
+import { Button } from '@nextui-org/button'
 import { Card, CardBody } from '@nextui-org/card'
 import { Select, SelectItem } from '@nextui-org/select'
 import { Switch } from '@nextui-org/switch'
 import { Tab, Tabs } from '@nextui-org/tabs'
 import { ListItem, MediaType, User } from '@prisma/client'
 import { forEach, isEqual, map, omitBy } from 'lodash'
-import { SlidersHorizontalIcon } from 'lucide-react'
+import { ChevronDown, ChevronRight, SlidersHorizontalIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useState } from 'react'
@@ -150,14 +151,15 @@ export function BrowseCriteria({
                 Popular
               </SelectItem>
             </Select>
-            <Switch
-              isSelected={showCriteria}
-              onValueChange={setCriteria}
-              size='lg'
-              color='primary'
-            >
-              <SlidersHorizontalIcon />
-            </Switch>
+            <Button
+              className='px-2'
+              onPress={() => setCriteria(!showCriteria)}
+              startContent={<SlidersHorizontalIcon className='mr-2' />}
+              endContent={
+                showCriteria ? <ChevronDown size={16} /> : <ChevronRight size={16} />
+              }
+              variant='bordered'
+            ></Button>
           </div>
         </div>
         {showCriteria && (
