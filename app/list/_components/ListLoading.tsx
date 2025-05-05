@@ -18,7 +18,7 @@ export default function ListLoading() {
           </div>
         </div>
       </div>
-      <div className='mx-auto flex max-w-screen-lg flex-col items-center gap-10'>
+      <div className='mx-auto flex max-w-screen-md flex-col items-center gap-10'>
         {arr.map(i => (
           <Skeleton className='aspect-video w-full rounded-xl' key={i} />
         ))}
