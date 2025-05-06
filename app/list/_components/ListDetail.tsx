@@ -96,13 +96,12 @@ export async function ListDetail(props: ListDetailProps) {
 
         backdropUrl = getTmdbImageUrl(item.backdropPath, bgSize)
 
-        if (!logoPath) {
-          const color = await Vibrant.from(
-            getTmdbImageUrl(item.backdropPath ?? item.posterPath, vibrantSize),
-          ).getPalette()
-          bgColor = getBetterHSL(color.DarkVibrant?.hsl, 0, 25) ?? bgColor
-          textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
-        }
+        const color = await Vibrant.from(
+          getTmdbImageUrl(item.backdropPath ?? item.posterPath, vibrantSize),
+        ).getPalette()
+
+        textColor = getBetterHSL(color.LightVibrant?.hsl, 75, 100) ?? textColor
+        bgColor = getBetterHSL(color.DarkVibrant?.hsl, 0, 25) ?? bgColor
       }
 
       return {

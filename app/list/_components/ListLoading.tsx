@@ -1,4 +1,5 @@
 import { Skeleton } from '@nextui-org/skeleton'
+import { Fragment } from 'react'
 
 export default function ListLoading() {
   const arr = [1, 2, 3, 4, 5]
@@ -18,9 +19,12 @@ export default function ListLoading() {
           </div>
         </div>
       </div>
-      <div className='mx-auto flex max-w-screen-md flex-col items-center gap-10'>
+      <div className='mx-auto flex max-w-screen-md flex-col items-center'>
         {arr.map(i => (
-          <Skeleton className='aspect-video w-full rounded-xl' key={i} />
+          <Fragment key={i}>
+            <Skeleton className='aspect-video w-full rounded-xl' />
+            <Skeleton className='mb-10 h-64 w-full rounded-xl' />
+          </Fragment>
         ))}
       </div>
     </main>

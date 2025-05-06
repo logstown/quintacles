@@ -28,12 +28,12 @@ export function ListDetailItem({
       className={`w-full border border-neutral-800/50 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] ${isModal ? 'lg:rounded-xl' : 'rounded-xl'}`}
     >
       <div
-        className={`flex aspect-video w-full flex-col items-center justify-end bg-cover bg-center px-6 pb-8 sm:pb-16 ${isModal ? 'lg:rounded-t-xl' : 'rounded-t-xl'} `}
+        className={`flex aspect-video w-full flex-col items-center justify-end bg-cover bg-center px-6 ${isModal ? 'lg:rounded-t-xl' : 'rounded-t-xl'} `}
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),url(${item.backdropUrl})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), ${item.bgColor}),url(${item.backdropUrl})`,
         }}
       >
-        <div className='-mb-60 flex max-w-prose flex-col gap-6'>
+        <div className='-mb-52 flex max-w-prose flex-col gap-6'>
           <div
             className={`flex gap-6 sm:gap-10 lg:gap-12 ${item.logoPath ? 'items-center justify-center' : isEpisodes ? 'items-center' : 'items-end'}`}
           >
@@ -104,7 +104,8 @@ export function ListDetailItem({
         </div>
       </div>
       <div
-        className={`h-60 w-full bg-black ${isModal ? 'lg:rounded-b-xl' : 'rounded-b-xl'}`}
+        style={{ backgroundColor: item.bgColor }}
+        className={`h-64 w-full ${isModal ? 'lg:rounded-b-xl' : 'rounded-b-xl'}`}
       ></div>
     </div>
   )
