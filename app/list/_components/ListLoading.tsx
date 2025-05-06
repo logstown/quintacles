@@ -22,8 +22,8 @@ export default function ListLoading() {
       <div className='mx-auto flex max-w-screen-md flex-col items-center'>
         {arr.map(i => (
           <Fragment key={i}>
-            <Skeleton className='aspect-video w-full rounded-xl' />
-            <Skeleton className='mb-10 h-64 w-full rounded-xl' />
+            <Skeleton className='aspect-video w-full rounded-t-xl' />
+            <Skeleton className='mb-10 h-64 w-full rounded-b-xl' />
           </Fragment>
         ))}
       </div>
