@@ -55,8 +55,12 @@ export function EditCoverImage() {
   })
 
   const { mutate: save, isPending: isSavePending } = useMutation({
-    mutationFn: async (onClose: () => void) =>
-      updateUserCoverImage(selected.backdrop_path),
+    mutationFn: async (onClose: () => void) => {
+      console.log('selected', selected)
+      if (selected?.backdrop_path) {
+        return updateUserCoverImage(selected.backdrop_path)
+      }
+    },
     onError: e => console.log(e),
     onSuccess: async (data, onClose) => {
       setSelected(null)
