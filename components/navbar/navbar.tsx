@@ -1,8 +1,4 @@
-import {
-  Navbar as NextUINavbar,
-  NavbarContent,
-  NavbarItem,
-} from "@heroui/navbar"
+import { Navbar as HeroUINavbar, NavbarContent, NavbarItem } from '@heroui/navbar'
 import NextLink from 'next/link'
 
 import { ThemeSwitch } from '@/components/theme-switch'
@@ -14,7 +10,7 @@ import { CreateListButton } from './create-list-button'
 export const Navbar = () => {
   return (
     // TODO: this needs to be position static for the browse exact to work
-    <NextUINavbar
+    <HeroUINavbar
       maxWidth='xl'
       position='sticky'
       height='5rem'
@@ -74,6 +70,6 @@ export const Navbar = () => {
           })}
         </div>
       </NavbarMenu> */}
-    </NextUINavbar>
-  );
+    </HeroUINavbar>
+  )
 }
