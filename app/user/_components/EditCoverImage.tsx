@@ -1,9 +1,9 @@
 'use client'
 
 import { useDebounce } from '@/lib/hooks'
-import { Button } from '@nextui-org/button'
-import { Card, CardBody, CardFooter } from '@nextui-org/card'
-import { Input } from '@nextui-org/input'
+import { Button } from "@heroui/button"
+import { Card, CardBody, CardFooter } from "@heroui/card"
+import { Input } from "@heroui/input"
 import {
   Modal,
   ModalBody,
@@ -11,15 +11,15 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from '@nextui-org/modal'
-import { Image } from '@nextui-org/image'
+} from "@heroui/modal"
+import { Image } from "@heroui/image"
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { PencilIcon } from 'lucide-react'
 import { useState } from 'react'
 import { getTmdbImageUrl } from '@/lib/random'
 import { updateUserCoverImage } from '@/app/actions'
 import NextImage from 'next/image'
-import { Spinner } from '@nextui-org/spinner'
+import { Spinner } from "@heroui/spinner"
 
 export function EditCoverImage() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()

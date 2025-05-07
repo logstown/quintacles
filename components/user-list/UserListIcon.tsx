@@ -2,7 +2,7 @@ import { cloneElement } from 'react'
 import { getTmdbImageUrl } from '../../lib/random'
 import { mediaTypes } from '../../lib/mediaTypes'
 import { MediaType } from '@prisma/client'
-import { Avatar } from '@nextui-org/avatar'
+import { Avatar } from "@heroui/avatar"
 
 export function UserListIcon({
   mediaType,

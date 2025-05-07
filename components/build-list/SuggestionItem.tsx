@@ -1,10 +1,10 @@
 import { AddListIdx } from './AddListIdx'
 import { getTmdbImageUrl } from '../../lib/random'
 import { ListItem } from '@prisma/client'
-import { Card } from '@nextui-org/card'
-import { Tooltip } from '@nextui-org/tooltip'
+import { Card } from "@heroui/card"
+import { Tooltip } from "@heroui/tooltip"
 import NextImage from 'next/image'
-import { Image } from '@nextui-org/image'
+import { Image } from "@heroui/image"
 
 export function SuggestionItem({
   item,

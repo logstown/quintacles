@@ -1,7 +1,7 @@
 'use client'
 
 import { mediaTypes } from '@/lib/mediaTypes'
-import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/breadcrumbs'
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs"
 import { MediaType } from '@prisma/client'
 
 export function CriteriaBreadcrumbs({

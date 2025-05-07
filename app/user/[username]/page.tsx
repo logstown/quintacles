@@ -1,5 +1,5 @@
 import prisma from '@/lib/db'
-import { Avatar } from '@nextui-org/avatar'
+import { Avatar } from "@heroui/avatar"
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { redirect } from 'next/navigation'
@@ -10,7 +10,7 @@ import { UserCoverImage } from '../_components/UserCoverImage'
 import { MediaTypeUserLists } from '@/components/MediaTypeUserLists'
 import { Metadata } from 'next'
 import { cache } from 'react'
-import { Skeleton } from '@nextui-org/skeleton'
+import { Skeleton } from "@heroui/skeleton"
 
 function getUserProfile(username: string) {
   return prisma.user.findUnique({

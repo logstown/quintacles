@@ -3,12 +3,12 @@
 import { useState } from 'react'
 import { getTmdbImageUrl } from '../../lib/random'
 import { ListItem } from '@prisma/client'
-import { Card } from '@nextui-org/card'
+import { Card } from "@heroui/card"
 import Image from 'next/image'
-import { Button } from '@nextui-org/button'
+import { Button } from "@heroui/button"
 import { AddListIdx } from './AddListIdx'
 import { XIcon } from 'lucide-react'
-import { Tooltip } from '@nextui-org/tooltip'
+import { Tooltip } from "@heroui/tooltip"
 import { EpisodeThumbnailFooter } from '../EpisodeThumbnailFooter'
 
 export const CreateListItem = ({

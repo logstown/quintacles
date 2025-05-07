@@ -1,5 +1,5 @@
-import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card'
-import { Skeleton } from '@nextui-org/skeleton'
+import { Card, CardHeader, CardBody, CardFooter } from "@heroui/card"
+import { Skeleton } from "@heroui/skeleton"
 import { BackdropCollageStraight, PosterCollageStraight } from './PosterCollage'
 
 export function UserListSkeleton({ isEpisodes }: { isEpisodes: boolean }) {

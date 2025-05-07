@@ -1,5 +1,5 @@
 import { mediaTypeArrForLists, mediaTypes } from '@/lib/mediaTypes'
-import { Button } from '@nextui-org/button'
+import { Button } from "@heroui/button"
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { cloneElement } from 'react'

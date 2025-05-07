@@ -1,4 +1,4 @@
-import { Autocomplete, AutocompleteItem } from '@nextui-org/autocomplete'
+import { Autocomplete, AutocompleteItem } from "@heroui/autocomplete"
 import { useState, useMemo } from 'react'
 import { networks } from '@/lib/networks'
 import { take, find } from 'lodash'

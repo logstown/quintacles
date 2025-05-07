@@ -4,10 +4,10 @@ import { SaveIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { reject } from 'lodash'
 import { ListItem, MediaType } from '@prisma/client'
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card"
 import { ListTitle } from '../../app/create/criteria/_components/list-title'
 import { ListTitleBase } from '@/components/list-title-base'
-import { Button } from '@nextui-org/button'
+import { Button } from "@heroui/button"
 import { EpisodeData, RestrictionsUI } from '@/lib/models'
 import { useMutation } from '@tanstack/react-query'
 import { CreateListItem } from './CreateListItem'

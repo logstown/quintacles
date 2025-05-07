@@ -13,12 +13,12 @@ import { ListItem, MediaType } from '@prisma/client'
 import { getSuggestions } from '@/app/actions'
 import { RestrictionsUI } from '@/lib/models'
 import { useInView } from 'react-intersection-observer'
-import { Spinner } from '@nextui-org/spinner'
-import { Input } from '@nextui-org/input'
+import { Spinner } from "@heroui/spinner"
+import { Input } from "@heroui/input"
 import { useRouter } from 'next/navigation'
 import { TmdbGenres } from '@/lib/TmdbModels'
-import { Skeleton } from '@nextui-org/skeleton'
-import { Image } from '@nextui-org/image'
+import { Skeleton } from "@heroui/skeleton"
+import { Image } from "@heroui/image"
 import NextImage from 'next/image'
 
 export function Suggestions({

@@ -4,7 +4,7 @@ import { UserListIcon } from './UserListIcon'
 import { getUserListsUrl } from '../../lib/random'
 import { MediaType, User } from '@prisma/client'
 import { RestrictionsUI } from '@/lib/models'
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card"
 import Link from 'next/link'
 import { ListTitleBase } from '../list-title-base'
 import { UserListButtons } from '../UserListButtons'

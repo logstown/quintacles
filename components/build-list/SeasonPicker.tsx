@@ -2,9 +2,9 @@
 
 import { ListItem } from '@prisma/client'
 import { findIndex } from 'lodash'
-import { Card, CardBody } from '@nextui-org/card'
+import { Card, CardBody } from "@heroui/card"
 import { format } from 'date-fns'
-import { Image } from '@nextui-org/image'
+import { Image } from "@heroui/image"
 import { AddListIdx } from './AddListIdx'
 import NextImage from 'next/image'
 import { getTmdbImageUrl } from '@/lib/random'

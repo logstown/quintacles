@@ -2,7 +2,7 @@ import { UserListCard } from '@/components/user-list/UserList'
 import { UserListsWrapper } from '@/components/user-list/UserListsWrapper'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { userListQuery } from '@/lib/server-functions'
-import { Button } from '@nextui-org/button'
+import { Button } from "@heroui/button"
 import { MediaType } from '@prisma/client'
 import { ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'

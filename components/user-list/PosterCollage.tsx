@@ -1,8 +1,8 @@
 import { getTmdbImageUrl } from '../../lib/random'
-import { Image } from '@nextui-org/image'
-import { Card } from '@nextui-org/card'
+import { Image } from "@heroui/image"
+import { Card } from "@heroui/card"
 import NextImage from 'next/image'
-import { Skeleton } from '@nextui-org/skeleton'
+import { Skeleton } from "@heroui/skeleton"
 import React from 'react'
 import { EpisodeThumbnailFooter } from '../EpisodeThumbnailFooter'
 
@@ -432,13 +432,13 @@ function MaybeSeasonFooter({
 }) {
   return isSeasons ? (
     // Added aspect css. Could be trouble
-    <Card isFooterBlurred isBlurred className='aspect-[2/3] overflow-visible'>
+    (<Card isFooterBlurred isBlurred className='aspect-[2/3] overflow-visible'>
       {children}
       <EpisodeThumbnailFooter isSeasons>{seasonName}</EpisodeThumbnailFooter>
-    </Card>
+    </Card>)
   ) : (
     <>{children}</>
-  )
+  );
 }
 
 export function BackdropCollageStraight({

@@ -1,14 +1,14 @@
 'use client'
 
 import { SignInButton, SignOutButton, SignUpButton, useUser } from '@clerk/nextjs'
-import { Avatar } from '@nextui-org/avatar'
+import { Avatar } from "@heroui/avatar"
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
   DropdownSection,
-} from '@nextui-org/dropdown'
+} from "@heroui/dropdown"
 import { ListIcon, LogOutIcon, PlusIcon, UserIcon } from 'lucide-react'
 import Link from 'next/link'
 

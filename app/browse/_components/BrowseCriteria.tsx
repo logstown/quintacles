@@ -4,11 +4,11 @@ import MediaPicker from '@/components/media-picker'
 import { MovieTvCriteria } from '@/components/movie-tv-criteria'
 import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
-import { Button } from '@nextui-org/button'
-import { Card, CardBody } from '@nextui-org/card'
-import { Select, SelectItem } from '@nextui-org/select'
-import { Switch } from '@nextui-org/switch'
-import { Tab, Tabs } from '@nextui-org/tabs'
+import { Button } from "@heroui/button"
+import { Card, CardBody } from "@heroui/card"
+import { Select, SelectItem } from "@heroui/select"
+import { Switch } from "@heroui/switch"
+import { Tab, Tabs } from "@heroui/tabs"
 import { ListItem, MediaType, User } from '@prisma/client'
 import { forEach, isEqual, map, omitBy } from 'lodash'
 import { ChevronDown, ChevronRight, SlidersHorizontalIcon } from 'lucide-react'

@@ -1,4 +1,4 @@
-import { Skeleton } from '@nextui-org/skeleton'
+import { Skeleton } from "@heroui/skeleton"
 import { Fragment } from 'react'
 
 export default function ListLoading() {

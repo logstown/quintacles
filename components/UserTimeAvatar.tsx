@@ -1,6 +1,6 @@
-import { Tooltip } from '@nextui-org/tooltip'
+import { Tooltip } from "@heroui/tooltip"
 import { User } from '@prisma/client'
-import { User as UserAvatar } from '@nextui-org/user'
+import { User as UserAvatar } from "@heroui/user"
 import Link from 'next/link'
 
 export function UserTimeAvatar({

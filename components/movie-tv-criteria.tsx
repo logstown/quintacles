@@ -5,8 +5,8 @@ import { find } from 'lodash'
 import { MediaType } from '@prisma/client'
 import { useGenres } from '@/lib/hooks'
 import { RestrictionsUI } from '@/lib/models'
-import { Autocomplete, AutocompleteItem } from '@nextui-org/autocomplete'
-import { Select, SelectItem } from '@nextui-org/select'
+import { Autocomplete, AutocompleteItem } from "@heroui/autocomplete"
+import { Select, SelectItem } from "@heroui/select"
 import MediaPicker from './media-picker'
 import { getYears } from '@/lib/random'
 import { useMemo } from 'react'

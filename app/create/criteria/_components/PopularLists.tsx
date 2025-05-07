@@ -1,12 +1,12 @@
 import { MediaType, Prisma } from '@prisma/client'
 import prisma from '@/lib/db'
-import { Button } from '@nextui-org/button'
+import { Button } from "@heroui/button"
 import { ListTitleBase } from '@/components/list-title-base'
 import Link from 'next/link'
 import { getUserListsUrl } from '@/lib/random'
 import { auth } from '@clerk/nextjs/server'
 import { GenreIcon } from '@/components/user-list/GenreIcon'
-import { Card } from '@nextui-org/card'
+import { Card } from "@heroui/card"
 import { unstable_cache } from 'next/cache'
 import { mediaTypes } from '@/lib/mediaTypes'
 

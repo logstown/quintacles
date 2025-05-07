@@ -4,9 +4,9 @@ import { mediaTypes } from '../lib/mediaTypes'
 import { TmdbItem } from '../lib/TmdbModels'
 import { ListItem, MediaType } from '@prisma/client'
 import { useDebounce } from '@/lib/hooks'
-import { Autocomplete, AutocompleteItem } from '@nextui-org/autocomplete'
+import { Autocomplete, AutocompleteItem } from "@heroui/autocomplete"
 import { convertMediaItem, getTmdbImageUrl } from '@/lib/random'
-import { Avatar } from '@nextui-org/avatar'
+import { Avatar } from "@heroui/avatar"
 import { useQuery } from '@tanstack/react-query'
 
 export default function MediaPicker({

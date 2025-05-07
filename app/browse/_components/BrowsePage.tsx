@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation'
 import prisma from '@/lib/db'
 import { getRestrictionsFromParams } from '@/lib/server-functions'
 import Link from 'next/link'
-import { Avatar } from '@nextui-org/avatar'
+import { Avatar } from "@heroui/avatar"
 
 export default async function BrowsePage({
   searchParams,

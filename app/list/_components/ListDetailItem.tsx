@@ -1,10 +1,10 @@
-import { Tooltip } from '@nextui-org/tooltip'
+import { Tooltip } from "@heroui/tooltip"
 import { ListItemUI } from './ListDetail'
 import { ListItemLink } from './ListItemLink'
 import { MediaType } from '@prisma/client'
 import { format } from 'date-fns'
 import { includes } from 'lodash'
-import { Image } from '@nextui-org/image'
+import { Image } from "@heroui/image"
 import NextImage from 'next/image'
 import { getTmdbImageUrl } from '@/lib/random'
 import { ItemOverview } from '@/components/ItemOverview'

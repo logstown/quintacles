@@ -3,15 +3,15 @@ import { UserTime } from '@/components/UserTime'
 import { ListTitleBase } from '@/components/list-title-base'
 import prisma from '@/lib/db'
 import { getTmdbImageUrl, getUserListsUrl } from '@/lib/random'
-import { Divider } from '@nextui-org/divider'
+import { Divider } from "@heroui/divider"
 import { ListItem, MediaType } from '@prisma/client'
 import { clamp, find, some } from 'lodash'
 import Vibrant from 'node-vibrant'
 import Link from 'next/link'
-import { Tooltip } from '@nextui-org/tooltip'
+import { Tooltip } from "@heroui/tooltip"
 import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
-import { Button } from '@nextui-org/button'
+import { Button } from "@heroui/button"
 import { PlusIcon, UsersIcon } from 'lucide-react'
 import { UserListInfinite } from '@/app/browse/_components/UserListInfinite'
 import { auth } from '@clerk/nextjs/server'

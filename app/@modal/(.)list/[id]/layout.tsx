@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '@nextui-org/button'
-import { Modal, ModalBody, ModalContent, ModalFooter } from '@nextui-org/modal'
+import { Button } from "@heroui/button"
+import { Modal, ModalBody, ModalContent, ModalFooter } from "@heroui/modal"
 import { useRouter } from 'next/navigation'
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter()

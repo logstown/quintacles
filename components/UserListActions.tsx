@@ -8,20 +8,20 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from '@nextui-org/modal'
+} from "@heroui/modal"
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from '@nextui-org/dropdown'
-import { Button } from '@nextui-org/button'
+} from "@heroui/dropdown"
+import { Button } from "@heroui/button"
 import { userDeletesList } from '@/app/actions'
 import copy from 'clipboard-copy'
 import { toast } from 'sonner'
 import { useUserListLink } from '@/lib/hooks'
 import { RestrictionsUI } from '@/lib/models'
-import { Tooltip } from '@nextui-org/tooltip'
+import { Tooltip } from "@heroui/tooltip"
 import Link from 'next/link'
 
 export function UserListActions({

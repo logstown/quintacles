@@ -8,8 +8,8 @@ import { EpisodeChoice } from './EpisodeChoice'
 import { SearchIcon } from 'lucide-react'
 import { ListItem, TvShowLite } from '@prisma/client'
 import { useScrollAfter5Items } from '@/lib/hooks'
-import { Input } from '@nextui-org/input'
-import { Select, SelectItem } from '@nextui-org/select'
+import { Input } from "@heroui/input"
+import { Select, SelectItem } from "@heroui/select"
 import { EpisodeData } from '@/lib/models'
 
 const doesWordStartIncludeTerm = (term: string, str: string): boolean => {

@@ -3,13 +3,13 @@
 import { ChevronDown, PlusIcon } from 'lucide-react'
 import { mediaTypeArrForLists } from '../../lib/mediaTypes'
 import { cloneElement } from 'react'
-import { Button } from '@nextui-org/button'
+import { Button } from "@heroui/button"
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from '@nextui-org/dropdown'
+} from "@heroui/dropdown"
 
 export function CreateListButton({ isSmall }: { isSmall?: boolean }) {
   return (

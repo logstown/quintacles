@@ -1,7 +1,7 @@
 import { formatDistanceToNowStrict } from 'date-fns'
 import { random } from 'lodash'
 import { User } from '@prisma/client'
-import { AvatarGroup } from '@nextui-org/avatar'
+import { AvatarGroup } from "@heroui/avatar"
 import { UserTimeAvatar } from './UserTimeAvatar'
 export function UserTime({
   users,

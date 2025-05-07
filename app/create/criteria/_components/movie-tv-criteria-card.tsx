@@ -3,8 +3,8 @@
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { ListTitle } from './list-title'
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
-import { Button } from '@nextui-org/button'
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card"
+import { Button } from "@heroui/button"
 import { useRouter } from 'next/navigation'
 import { MediaType } from '@prisma/client'
 import { getUserListsUrl } from '@/lib/random'

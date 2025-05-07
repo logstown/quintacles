@@ -2,13 +2,13 @@
 
 import { ChevronDown, ListIcon, ShuffleIcon } from 'lucide-react'
 import { mediaTypeArrForLists } from '../../lib/mediaTypes'
-import { Button } from '@nextui-org/button'
+import { Button } from "@heroui/button"
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-} from '@nextui-org/dropdown'
+} from "@heroui/dropdown"
 import { cloneElement, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { getRandomList } from '@/app/actions'

@@ -4,9 +4,9 @@ import { ListItem, MediaType } from '@prisma/client'
 import { TvEpisode } from '../../lib/TmdbModels'
 import { convertMediaItem, getTmdbImageUrl } from '../../lib/random'
 import { AddListIdx } from './AddListIdx'
-import { Card, CardBody, CardHeader } from '@nextui-org/card'
-import { Image } from '@nextui-org/image'
-import { Divider } from '@nextui-org/divider'
+import { Card, CardBody, CardHeader } from "@heroui/card"
+import { Image } from "@heroui/image"
+import { Divider } from "@heroui/divider"
 import { format } from 'date-fns'
 import NextImage from 'next/image'
 import { ItemOverview } from '../ItemOverview'

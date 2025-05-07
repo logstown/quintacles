@@ -6,7 +6,7 @@ import { MediaType } from '@prisma/client'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { Spinner } from '@nextui-org/spinner'
+import { Spinner } from "@heroui/spinner"
 import React from 'react'
 import { userListQueryServer } from '@/app/actions'
 import { UserListsWrapper } from '@/components/user-list/UserListsWrapper'

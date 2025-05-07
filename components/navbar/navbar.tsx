@@ -2,7 +2,7 @@ import {
   Navbar as NextUINavbar,
   NavbarContent,
   NavbarItem,
-} from '@nextui-org/navbar'
+} from "@heroui/navbar"
 import NextLink from 'next/link'
 
 import { ThemeSwitch } from '@/components/theme-switch'
@@ -28,7 +28,6 @@ export const Navbar = () => {
           </NextLink>
         </NavbarItem>
       </NavbarContent>
-
       <NavbarContent className='gap-4 pl-4 md:gap-6' justify='end'>
         <NavbarItem className='hidden md:list-item'>
           <CreateListButton />
@@ -46,7 +45,6 @@ export const Navbar = () => {
         <UserOrSignIn />
         {/* <NavbarMenuToggle /> */}
       </NavbarContent>
-
       {/* <NavbarMenu>
         <div className='mx-4 mt-2 flex flex-col gap-2'>
           <NavbarMenuItem key='browse'>
@@ -77,5 +75,5 @@ export const Navbar = () => {
         </div>
       </NavbarMenu> */}
     </NextUINavbar>
-  )
+  );
 }
