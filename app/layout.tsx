@@ -48,7 +48,7 @@ export default function RootLayout({
       >
         <Toaster />
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
-          <div className='relative flex h-screen flex-col'>
+          <div className='relative flex flex-col'>
             <Navbar />
             {/* <main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'></main> */}
             <main className='flex-grow bg-gradient-radial from-primary-50 px-4 py-16 light:to-secondary-50 dark:to-black'>
