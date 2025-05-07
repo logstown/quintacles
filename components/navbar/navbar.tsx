@@ -12,7 +12,7 @@ export const Navbar = () => {
     // TODO: this needs to be position static for the browse exact to work
     <HeroUINavbar
       maxWidth='xl'
-      position='sticky'
+      shouldHideOnScroll
       height='5rem'
       className='shadow-md dark:bg-neutral-900'
     >
