@@ -8,8 +8,8 @@ import { EpisodeChoice } from './EpisodeChoice'
 import { SearchIcon } from 'lucide-react'
 import { ListItem, TvShowLite } from '@prisma/client'
 import { useScrollAfter5Items } from '@/lib/hooks'
-import { Input } from "@heroui/input"
-import { Select, SelectItem } from "@heroui/select"
+import { Input } from '@heroui/input'
+import { Select, SelectItem } from '@heroui/select'
 import { EpisodeData } from '@/lib/models'
 
 const doesWordStartIncludeTerm = (term: string, str: string): boolean => {
@@ -99,9 +99,7 @@ export function EpisodePicker({
             onChange={handleSeasonChange}
           >
             {['All', ...seasons].map(s => (
-              <SelectItem key={s} value={s}>
-                {s}
-              </SelectItem>
+              <SelectItem key={s}>{s}</SelectItem>
             ))}
           </Select>
           <Select
@@ -112,15 +110,8 @@ export function EpisodePicker({
             className='w-40'
             onChange={handleSortEpsByChange}
           >
-            <SelectItem key={SortBy.Popularity} value={SortBy.Popularity.toString()}>
-              Popular
-            </SelectItem>
-            <SelectItem
-              key={SortBy.EpisodeOrder}
-              value={SortBy.EpisodeOrder.toString()}
-            >
-              Episode Order
-            </SelectItem>
+            <SelectItem key={SortBy.Popularity}>Popular</SelectItem>
+            <SelectItem key={SortBy.EpisodeOrder}>Episode Order</SelectItem>
           </Select>
         </div>
       </div>

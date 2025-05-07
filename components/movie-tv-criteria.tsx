@@ -5,8 +5,8 @@ import { find } from 'lodash'
 import { MediaType } from '@prisma/client'
 import { useGenres } from '@/lib/hooks'
 import { RestrictionsUI } from '@/lib/models'
-import { Autocomplete, AutocompleteItem } from "@heroui/autocomplete"
-import { Select, SelectItem } from "@heroui/select"
+import { Autocomplete, AutocompleteItem } from '@heroui/autocomplete'
+import { Select, SelectItem } from '@heroui/select'
 import MediaPicker from './media-picker'
 import { getYears } from '@/lib/random'
 import { useMemo } from 'react'
@@ -158,12 +158,8 @@ export function MovieTvCriteria({
         color='primary'
         disabledKeys={Number(genreId) === TmdbGenres.Animation ? ['true'] : []}
       >
-        <SelectItem key='true' value='true'>
-          Yes
-        </SelectItem>
-        <SelectItem key='false' value='false'>
-          No
-        </SelectItem>
+        <SelectItem key='true'>Yes</SelectItem>
+        <SelectItem key='false'>No</SelectItem>
       </Select>
       {mediaType === MediaType.TvShow && (
         <NetworkPicker

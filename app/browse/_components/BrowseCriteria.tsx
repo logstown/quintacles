@@ -4,11 +4,11 @@ import MediaPicker from '@/components/media-picker'
 import { MovieTvCriteria } from '@/components/movie-tv-criteria'
 import { mediaTypeArrForLists } from '@/lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
-import { Button } from "@heroui/button"
-import { Card, CardBody } from "@heroui/card"
-import { Select, SelectItem } from "@heroui/select"
-import { Switch } from "@heroui/switch"
-import { Tab, Tabs } from "@heroui/tabs"
+import { Button } from '@heroui/button'
+import { Card, CardBody } from '@heroui/card'
+import { Select, SelectItem } from '@heroui/select'
+import { Switch } from '@heroui/switch'
+import { Tab, Tabs } from '@heroui/tabs'
 import { ListItem, MediaType, User } from '@prisma/client'
 import { forEach, isEqual, map, omitBy } from 'lodash'
 import { ChevronDown, ChevronRight, SlidersHorizontalIcon } from 'lucide-react'
@@ -144,12 +144,8 @@ export function BrowseCriteria({
               className='w-32 shrink-0'
               color='primary'
             >
-              <SelectItem key='lastUserAddedAt' value='lastUserAddedAt'>
-                Recent
-              </SelectItem>
-              <SelectItem key='users' value='users'>
-                Popular
-              </SelectItem>
+              <SelectItem key='lastUserAddedAt'>Recent</SelectItem>
+              <SelectItem key='users'>Popular</SelectItem>
             </Select>
             <Button
               className='px-2'
