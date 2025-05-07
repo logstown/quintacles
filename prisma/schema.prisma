@@ -70,7 +70,9 @@ model UsersOnUserLists {
   User     User     @relation(fields: [userId, username], references: [id, username])
   UserList UserList @relation(fields: [userListId, restrictionsSlug], references: [id, restrictionsSlug])
 
-  userAddedAt DateTime @default(now())
+  userAddedAt     DateTime @default(now())
+  customBackdrops String[] @default([])
+  customPosters   String[] @default([])
 
   @@id([userId, userListId])
   @@unique(name: "userRestrictionsById", [userId, restrictionsSlug])
