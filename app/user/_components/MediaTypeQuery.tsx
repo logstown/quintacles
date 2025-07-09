@@ -2,7 +2,7 @@ import { UserListCard } from '@/components/user-list/UserList'
 import { UserListsWrapper } from '@/components/user-list/UserListsWrapper'
 import { mediaTypes } from '@/lib/mediaTypes'
 import { userListQuery } from '@/lib/server-functions'
-import { Button } from "@heroui/button"
+import { Button } from '@heroui/button'
 import { MediaType } from '@prisma/client'
 import { ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
@@ -64,7 +64,9 @@ export async function MediaTypeQuery({
           </div>
         ))}
         {lists.length === 0 && (
-          <em className='p-10 text-xl text-foreground-500'>Nothing yet</em>
+          <em className='p-10 text-center text-xl text-foreground-500'>
+            Nothing yet
+          </em>
         )}
       </UserListsWrapper>
       {/* <div className='flex justify-end pr-4'></div> */}

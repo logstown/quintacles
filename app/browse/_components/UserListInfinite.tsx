@@ -6,7 +6,7 @@ import { MediaType } from '@prisma/client'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { Spinner } from "@heroui/spinner"
+import { Spinner } from '@heroui/spinner'
 import React from 'react'
 import { userListQueryServer } from '@/app/actions'
 import { UserListsWrapper } from '@/components/user-list/UserListsWrapper'
@@ -122,7 +122,7 @@ export function UserListInfinite({
           )}
         </>
       ) : (
-        <em className='p-10 text-xl text-foreground-500'>Nothing yet</em>
+        <em className='p-10 text-center text-xl text-foreground-500'>Nothing yet</em>
       )}
     </>
   )
