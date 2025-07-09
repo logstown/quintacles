@@ -59,6 +59,8 @@ model UserList {
 
   @@unique([id, restrictionsSlug])
   @@unique(name: "uniqueList", [item1Id, item2Id, item3Id, item4Id, item5Id, restrictionsSlug])
+  @@index([restrictionsSlug])
+  @@index([lastUserAddedAt])
 }
 
 model UsersOnUserLists {
@@ -75,6 +77,9 @@ model UsersOnUserLists {
   @@id([userId, userListId])
   @@unique(name: "userRestrictionsById", [userId, restrictionsSlug])
   @@unique(name: "userRestrictionsByUsername", [username, restrictionsSlug])
+  @@index([userId])
+  @@index([userListId])
+  @@index([restrictionsSlug])
 }
 
 model Restrictions {
@@ -94,6 +99,11 @@ model Restrictions {
   networkId Int     @default(0)
 
   userLists UserList[]
+
+  @@index([mediaType])
+  @@index([personId])
+  @@index([episodesTvShowId])
+  @@index([networkId])
 }
 
 model ListItem {
