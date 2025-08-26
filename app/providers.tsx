@@ -1,14 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { HeroUIProvider } from "@heroui/system"
+import { HeroUIProvider } from '@heroui/system'
 import { useRouter } from 'next/navigation'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { ThemeProviderProps } from 'next-themes/dist/types'
 import { ClerkProvider } from '@clerk/nextjs'
 import { QueryClient, QueryClientProvider, isServer } from '@tanstack/react-query'
 
-export interface ProvidersProps {
+interface ProvidersProps {
   children: React.ReactNode
   themeProps?: ThemeProviderProps
 }

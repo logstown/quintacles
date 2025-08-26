@@ -35,8 +35,6 @@ export interface CreateListSearchParams {
   networkId?: string
 }
 
-export type UserListSortBy = 'lastUserAddedAt' | 'users'
-
 export interface EpisodeData {
   allEpisodes: TvEpisode[]
   seasons: string[]
