@@ -56,7 +56,7 @@ export default function RootLayout({
             </main>
             <footer className='flex w-full flex-wrap items-center justify-evenly gap-3 p-3 dark:bg-neutral-900'>
               <div className='whitespace-nowrap text-tiny sm:text-base'>
-                © quintacles.com 2024
+                © quintacles.com 2025
               </div>
               <div className='flex gap-8 sm:gap-20'>
                 <Link
