@@ -1,10 +1,10 @@
-import { Tooltip } from "@heroui/tooltip"
+import { Tooltip } from '@heroui/tooltip'
 import { ListItemUI } from './ListDetail'
 import { ListItemLink } from './ListItemLink'
 import { MediaType } from '@prisma/client'
 import { format } from 'date-fns'
 import { includes } from 'lodash'
-import { Image } from "@heroui/image"
+import { Image } from '@heroui/image'
 import NextImage from 'next/image'
 import { getTmdbImageUrl } from '@/lib/random'
 import { ItemOverview } from '@/components/ItemOverview'
@@ -37,9 +37,6 @@ export function ListDetailItem({
           <div
             className={`flex gap-6 sm:gap-10 lg:gap-12 ${item.logoPath ? 'items-center justify-center' : isEpisodes ? 'items-center' : 'items-end'}`}
           >
-            <h2 className='text-7xl font-extrabold !leading-[.8] tracking-tight text-neutral-100 drop-shadow-[0_1px_1px_white] sm:text-9xl'>
-              {5 - i}
-            </h2>
             <div
               style={{ color: item.textColor }}
               className='flex flex-col justify-center gap-3'
@@ -51,7 +48,7 @@ export function ListDetailItem({
               >
                 <Tooltip content={item.name} delay={1000}>
                   {item.logoPath ? (
-                    <img className='max-h-48 drop-shadow-xl' src={item.logoPath} />
+                    <img className='max-h-56 drop-shadow-xl' src={item.logoPath} />
                   ) : (
                     <span
                       className={`line-clamp-4 overflow-visible text-balance text-4xl font-extrabold leading-none tracking-tight drop-shadow-2xl ${isEpisodes ? 'sm:text-5xl' : 'sm:text-6xl'}`}

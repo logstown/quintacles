@@ -86,7 +86,7 @@ export async function ListDetail(props: ListDetailProps) {
           mediaType: item.mediaType,
         })
         const logo = alternateLogo ? logos[alternateLogo.logoIdx] : logos[0]
-        logoPath = logo ? getTmdbImageUrl(logo.file_path, 'w500') : ''
+        logoPath = logo ? getTmdbImageUrl(logo.file_path, 'original') : ''
       }
 
       if (item.backdropPath || (isSeasons && item.posterPath)) {
