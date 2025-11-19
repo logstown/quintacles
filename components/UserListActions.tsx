@@ -8,20 +8,20 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from "@heroui/modal"
+} from '@heroui/modal'
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@heroui/dropdown"
-import { Button } from "@heroui/button"
+} from '@heroui/dropdown'
+import { Button } from '@heroui/button'
 import { userDeletesList } from '@/app/actions'
 import copy from 'clipboard-copy'
 import { toast } from 'sonner'
 import { useUserListLink } from '@/lib/hooks'
 import { RestrictionsUI } from '@/lib/models'
-import { Tooltip } from "@heroui/tooltip"
+import { Tooltip } from '@heroui/tooltip'
 import Link from 'next/link'
 
 export function UserListActions({
@@ -55,18 +55,6 @@ export function UserListActions({
   return (
     <>
       <div className='flex gap-2'>
-        <Tooltip content='Share'>
-          <Button
-            size={isSmall ? 'sm' : 'lg'}
-            onPress={shareList}
-            isIconOnly
-            className='text-foreground-400'
-            aria-label='share'
-            variant='light'
-          >
-            <ShareIcon size={iconSize} />
-          </Button>
-        </Tooltip>
         <Dropdown>
           <DropdownTrigger>
             <Button
@@ -80,6 +68,13 @@ export function UserListActions({
             </Button>
           </DropdownTrigger>
           <DropdownMenu aria-label='Static Actions'>
+            <DropdownItem
+              key='share'
+              onPress={shareList}
+              startContent={<ShareIcon size={15} />}
+            >
+              Share
+            </DropdownItem>
             <DropdownItem
               key='edit'
               as={Link}
