@@ -33,7 +33,7 @@ export function ListDetailItem({
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), ${item.bgColor}),url(${item.backdropUrl})`,
         }}
       >
-        <div className='-mb-52 flex max-w-prose flex-col gap-6'>
+        <div className='-mb-52 flex max-w-prose flex-col gap-6 sm:gap-10'>
           <div
             className={`flex gap-6 sm:gap-10 lg:gap-12 ${item.logoPath ? 'items-center justify-center' : isEpisodes ? 'items-center' : 'items-end'}`}
           >
@@ -95,7 +95,7 @@ export function ListDetailItem({
               />
             )}
           </div>
-          <div className='text-sm font-light text-white sm:text-base'>
+          <div className='font-light text-white sm:text-lg'>
             <ItemOverview omitNoOverview overview={item.overview ?? ''} />
           </div>
         </div>
