@@ -6,7 +6,7 @@ export default async function ListModal(props: { params: Promise<{ id: string }>
   const { id } = params
 
   return (
-    <div className='pt-10'>
+    <div className='pt-20'>
       <ListDetail id={Number(id)} isModal />
     </div>
   )

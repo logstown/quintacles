@@ -8,7 +8,7 @@ export default async function ListModal(props: {
   const { username, slug } = params
 
   return (
-    <div className='pt-10'>
+    <div className='pt-20'>
       <ListDetail username={username} slug={slug} isModal />
     </div>
   )

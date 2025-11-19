@@ -1,6 +1,6 @@
 'use client'
 
-import { Link } from "@heroui/link"
+import { Link } from '@heroui/link'
 import React from 'react'
 import { useLayoutEffect, useState } from 'react'
 
@@ -22,7 +22,7 @@ export function ItemOverview({
         <div>
           <p
             ref={ref}
-            className={`text-pretty text-justify ${isShowingMore ? '' : 'line-clamp-3'}`}
+            className={`text-pretty ${isShowingMore ? '' : 'line-clamp-3'}`}
           >
             {overview}
           </p>

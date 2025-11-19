@@ -25,8 +25,13 @@ export function ListDetailItem({
 }) {
   return (
     <div
-      className={`w-full border border-neutral-800/50 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] ${isModal ? 'lg:rounded-xl' : 'rounded-xl'}`}
+      className={`relative w-full border border-neutral-800/50 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] ${isModal ? 'lg:rounded-xl' : 'rounded-xl'}`}
     >
+      <div className='absolute -left-4 -top-4 z-10 flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-foreground-100 to-foreground-300 shadow-[0_4px_12px_rgba(0,0,0,0.4),0_0_0_2px_rgba(255,255,255,0.1)] sm:size-20'>
+        <span className='font-mono text-3xl font-extrabold leading-none tracking-tight text-foreground-900 sm:text-4xl'>
+          {5 - i}
+        </span>
+      </div>
       <div
         className={`flex aspect-video w-full flex-col items-center justify-end bg-cover bg-center px-6 ${isModal ? 'lg:rounded-t-xl' : 'rounded-t-xl'} `}
         style={{
@@ -39,7 +44,7 @@ export function ListDetailItem({
           >
             <div
               style={{ color: item.textColor }}
-              className='flex flex-col justify-center gap-3'
+              className='flex flex-col justify-center gap-3 truncate'
             >
               <ListItemLink
                 mediaType={restrictions.mediaType}
@@ -48,10 +53,13 @@ export function ListDetailItem({
               >
                 <Tooltip content={item.name} delay={1000}>
                   {item.logoPath ? (
-                    <img className='max-h-56 drop-shadow-xl' src={item.logoPath} />
+                    <img
+                      className='max-h-52 w-full drop-shadow-xl'
+                      src={item.logoPath}
+                    />
                   ) : (
                     <span
-                      className={`line-clamp-4 overflow-visible text-balance text-4xl font-extrabold leading-none tracking-tight drop-shadow-2xl ${isEpisodes ? 'sm:text-5xl' : 'sm:text-6xl'}`}
+                      className={`line-clamp-4 overflow-visible text-balance text-4xl font-extrabold leading-none tracking-tight drop-shadow-2xl sm:text-6xl`}
                     >
                       {item.name}{' '}
                       {!isEpisodes &&
