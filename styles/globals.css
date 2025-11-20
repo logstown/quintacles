@@ -1,35 +1,37 @@
 @import 'tailwindcss';
 @config '../tailwind.config.js';
 
-@layer utilities {
-  .fade-img-right {
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 75%, transparent 100%);
-  }
-
-  .fade-img-left {
-    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 75%, transparent 100%);
-  }
-
-  .fade-img-down {
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 75%, transparent 100%);
-  }
-
-  .suggestions-grid {
-    gap: 1rem;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit, 100px);
-  }
-
-  .suggestions-larger {
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, 175px);
-  }
-
-  .episode-list-grid {
-    gap: 1.5rem;
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(auto-fit, 320px);
-  }
+/* @utility foo {
+  @layer utilities { */
+@utility fade-img-right {
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 75%, transparent 100%);
 }
+
+@utility fade-img-left {
+  mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 75%, transparent 100%);
+}
+
+@utility fade-img-down {
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 75%, transparent 100%);
+}
+
+@utility suggestions-grid {
+  gap: 1rem;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 100px);
+}
+
+@utility suggestions-larger {
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, 175px);
+}
+
+@utility episode-list-grid {
+  gap: 1.5rem;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, 320px);
+}
+/* }
+} */
