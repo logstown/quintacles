@@ -50,8 +50,8 @@ export default function RootLayout({
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
           <div className='relative flex h-screen flex-col'>
             <Navbar />
-            {/* <main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'></main> */}
-            <main className='flex-grow bg-gradient-radial from-primary-50 px-4 py-16 light:to-secondary-50 dark:to-black'>
+            {/* <main className='container mx-auto max-w-7xl grow px-6 pt-16'></main> */}
+            <main className='grow bg-gradient-radial from-primary-50 px-4 py-16 light:to-secondary-50 dark:to-black'>
               {children}
             </main>
             <footer className='flex w-full flex-wrap items-center justify-evenly gap-3 p-3 dark:bg-neutral-900'>

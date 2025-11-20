@@ -28,14 +28,14 @@ export default function Home() {
 
   return (
     <>
-      <div className='absolute left-[40%] top-72 hidden sm:block'>
+      <div className='absolute top-72 left-[40%] hidden sm:block'>
         <BlurryBlob
           className='opacity-20'
           firstBlobColor='bg-primary-400'
           secondBlobColor='bg-secondary-400'
         />
       </div>
-      <div className='mx-auto flex max-w-screen-lg flex-col items-center justify-around p-10 md:flex-row'>
+      <div className='mx-auto flex max-w-(--breakpoint-lg) flex-col items-center justify-around p-10 md:flex-row'>
         <div className='drop-shadow-2xl'>
           <div className='flex flex-wrap items-center justify-center gap-2'>
             <NextImage
@@ -45,12 +45,12 @@ export default function Home() {
               height='150'
               src='/octopus.png'
             />
-            <h1 className='bg-gradient-to-br from-secondary-600 to-primary-600 bg-clip-text text-5xl font-bold capitalize text-transparent md:text-7xl'>
+            <h1 className='from-secondary-600 to-primary-600 bg-linear-to-br bg-clip-text text-5xl font-bold text-transparent capitalize md:text-7xl'>
               Quintacles
             </h1>
           </div>
           <div className='mb-8 flex items-center justify-center pt-5 sm:mb-0'>
-            <div className='h-16 text-2xl text-foreground-600 sm:w-[400px] sm:pl-14 md:w-[500px] md:pl-6 md:text-4xl'>
+            <div className='text-foreground-600 h-16 text-2xl sm:w-[400px] sm:pl-14 md:w-[500px] md:pl-6 md:text-4xl'>
               Your top five
               <br className='sm:hidden' />
               <span className='font-bold'>

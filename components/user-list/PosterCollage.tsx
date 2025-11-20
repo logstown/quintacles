@@ -182,7 +182,7 @@ import { EpisodeThumbnailFooter } from '../EpisodeThumbnailFooter'
 //           isFooterBlurred
 //           className='absolute'
 //         >
-//           {/* <CardFooter className='absolute right-3 top-3 z-30 ml-1 w-auto overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
+//           {/* <CardFooter className='absolute right-3 top-3 z-30 ml-1 w-auto overflow-hidden rounded-large border border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
 //             <p className='drop-drop-shadow-lg text-tiny text-white/80'>
 //               Here is an episode title now
 //             </p>
@@ -342,7 +342,7 @@ import { EpisodeThumbnailFooter } from '../EpisodeThumbnailFooter'
 //         width={width}
 //         src={getTmdbImageUrl(item.backdropPath, 'w780')}
 //       />
-//       <CardFooter className='absolute top-1 z-10 ml-1 w-auto overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
+//       <CardFooter className='absolute top-1 z-10 ml-1 w-auto overflow-hidden rounded-large border border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10'>
 //         <p className='drop-drop-shadow-lg text-tiny text-white/80'>{item.name}</p>
 //       </CardFooter>
 //     </Card>
@@ -408,7 +408,7 @@ export function PosterCollageStraight({
               <Image
                 isBlurred
                 width={176}
-                className='aspect-[2/3] rounded-md border-1 border-foreground-200 object-cover shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
+                className='aspect-2/3 rounded-md border border-foreground-200 object-cover shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] sm:rounded-xl'
                 alt={`${lite.name} poster`}
                 src={getTmdbImageUrl(lite.posterPath, 'w342')}
               />
@@ -432,7 +432,7 @@ function MaybeSeasonFooter({
 }) {
   return isSeasons ? (
     // Added aspect css. Could be trouble
-    (<Card isFooterBlurred isBlurred className='aspect-[2/3] overflow-visible'>
+    (<Card isFooterBlurred isBlurred className='aspect-2/3 overflow-visible'>
       {children}
       <EpisodeThumbnailFooter isSeasons>{seasonName}</EpisodeThumbnailFooter>
     </Card>)

@@ -46,7 +46,7 @@ export async function PopularLists({ mediaType }: { mediaType: MediaType }) {
 
   return (
     listTypes.length > 0 && (
-      <div className='w-full max-w-screen-lg'>
+      <div className='w-full max-w-(--breakpoint-lg)'>
         {mediaType === MediaType.Movie || mediaType === MediaType.TvShow ? (
           <h2 className='p-4 text-xl'>Choose a popular category:</h2>
         ) : (

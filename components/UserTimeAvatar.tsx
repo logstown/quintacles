@@ -1,6 +1,6 @@
-import { Tooltip } from "@heroui/tooltip"
+import { Tooltip } from '@heroui/tooltip'
 import { User } from '@prisma/client'
-import { User as UserAvatar } from "@heroui/user"
+import { User as UserAvatar } from '@heroui/user'
 import Link from 'next/link'
 
 export function UserTimeAvatar({
@@ -30,7 +30,7 @@ export function UserTimeAvatar({
           description={userAddedDistanceToNow ?? ''}
           avatarProps={{
             size,
-            className: 'flex-shrink-0',
+            className: 'shrink-0',
             showFallback: true,
             src: user?.photoURL ?? undefined,
           }}

@@ -86,7 +86,7 @@ export default async function UserPage(props: {
 
   return (
     <div className='pb-20'>
-      <div className='mx-auto max-w-screen-xl shadow-xl'>
+      <div className='mx-auto max-w-(--breakpoint-xl) shadow-xl'>
         <div className='relative'>
           <UserCoverImage coverImagePath={coverImageSrc} />
           <Avatar

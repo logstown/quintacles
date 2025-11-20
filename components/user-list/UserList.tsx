@@ -4,7 +4,7 @@ import { UserListIcon } from './UserListIcon'
 import { getUserListsUrl } from '../../lib/random'
 import { MediaType, User } from '@prisma/client'
 import { RestrictionsUI } from '@/lib/models'
-import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card"
+import { Card, CardBody, CardFooter, CardHeader } from '@heroui/card'
 import Link from 'next/link'
 import { ListTitleBase } from '../list-title-base'
 import { UserListButtons } from '../UserListButtons'
@@ -55,7 +55,7 @@ export function UserListCard({
       )}
       <Card
         shadow='lg'
-        className={`w-fit overflow-visible p-0 dark:bg-neutral-900 ${isEpisodes ? 'sm:p-3' : 'sm:px-5 sm:pb-6 sm:pt-2'}`}
+        className={`w-fit overflow-visible p-0 dark:bg-neutral-900 ${isEpisodes ? 'sm:p-3' : 'sm:px-5 sm:pt-2 sm:pb-6'}`}
       >
         <CardHeader
           className={`${isEpisodes ? 'justify-center' : 'justify-between py-3 md:py-6'} pl-4`}
@@ -114,7 +114,7 @@ export function UserListCard({
           )}
         </CardHeader>
         <CardBody
-          className={`overflow-visible ${isEpisodes ? 'pt-0' : 'px-1 pb-2 pt-1 sm:px-3'}`}
+          className={`overflow-visible ${isEpisodes ? 'pt-0' : 'px-1 pt-1 pb-2 sm:px-3'}`}
         >
           <UserListLink
             isHardReload={linkIsHardReload}

@@ -171,7 +171,7 @@ export async function ListDetail(props: ListDetailProps) {
           )}
         </div>
       </div>
-      <div className='mx-auto mt-8 flex max-w-screen-md flex-col items-center gap-12 sm:mt-16 lg:gap-20'>
+      <div className='mx-auto mt-8 flex max-w-(--breakpoint-md) flex-col items-center gap-12 sm:mt-16 lg:gap-20'>
         {listItemsReverse.map((item, i) => (
           <ListDetailItem
             key={item.tmdbId}
@@ -186,7 +186,7 @@ export async function ListDetail(props: ListDetailProps) {
       {!isCurrentUsersList && (
         <div className='mt-20 flex justify-center'>
           <Button
-            className='bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
+            className='bg-linear-to-br from-primary-500 to-secondary-500 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
             size='lg'
             as={Link}
             prefetch={!!currentUserId}
@@ -197,7 +197,7 @@ export async function ListDetail(props: ListDetailProps) {
           </Button>
         </div>
       )}
-      <div className='mx-auto mt-16 max-w-screen-lg'>
+      <div className='mx-auto mt-16 max-w-(--breakpoint-lg)'>
         <h3 className='flex flex-col items-center justify-center gap-4 p-2 text-2xl lg:p-6 lg:text-4xl'>
           <div className='font-bold text-foreground-400'>More</div>
           <div className='font-semibold'>

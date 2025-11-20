@@ -80,7 +80,7 @@ export default async function BrowsePage({
       ) : (
         <h1 className='text-6xl font-semibold'>Browse</h1>
       )}
-      <div className={`flex w-full max-w-screen-lg flex-col items-center gap-14`}>
+      <div className={`flex w-full max-w-(--breakpoint-lg) flex-col items-center gap-14`}>
         <BrowseCriteria
           restrictionsFromParent={restrictions}
           sortByFromParent={sortBy}

@@ -19,7 +19,7 @@ export default function ListLoading() {
           </div>
         </div>
       </div>
-      <div className='mx-auto flex max-w-screen-md flex-col items-center'>
+      <div className='mx-auto flex max-w-(--breakpoint-md) flex-col items-center'>
         {arr.map(i => (
           <Fragment key={i}>
             <Skeleton className='aspect-video w-full rounded-t-xl' />

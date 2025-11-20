@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function CreditsPage() {
   return (
-    <div className='container mx-auto max-w-screen-md'>
+    <div className='container mx-auto max-w-(--breakpoint-md)'>
       <h1 className='mb-4 text-3xl font-bold'>Credits</h1>
       <ul className='mt-16 sm:text-xl'>
         <li className='flex items-center gap-8'>

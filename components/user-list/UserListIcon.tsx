@@ -40,7 +40,7 @@ export function UserListIcon({
         src={getTmdbImageUrl(personPath, 'w92')}
       />
       {personPath && useMediaIcon && (
-        <div className='absolute -right-3 -top-3 rounded-md border-1 border-foreground-200 bg-foreground-200 p-1'>
+        <div className='absolute -right-3 -top-3 rounded-md border border-foreground-200 bg-foreground-200 p-1'>
           {mediaTypeIconSmall}
         </div>
       )}

@@ -15,14 +15,14 @@ export function MediaTypeUserLists({
   username?: string
 }) {
   return (
-    <div className='mx-auto mt-10 flex max-w-screen-lg flex-col gap-8 md:mt-16'>
+    <div className='mx-auto mt-10 flex max-w-(--breakpoint-lg) flex-col gap-8 md:mt-16'>
       {mediaTypeArrForLists.map(mediaType => {
         const isEpisodes = mediaType.key === MediaType.TvEpisode
 
         return (
           <div
             key={mediaType.key}
-            className={`flex flex-col gap-2 sm:gap-4 ${isEpisodes ? '' : 'max-w-screen-lg'}`}
+            className={`flex flex-col gap-2 sm:gap-4 ${isEpisodes ? '' : 'max-w-(--breakpoint-lg)'}`}
           >
             <div className='flex items-baseline gap-6'>
               <h1 className='pl-4 font-bold capitalize md:text-2xl'>

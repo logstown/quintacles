@@ -25,7 +25,7 @@ export function MovieTvCriteriaCard({ mediaType }: { mediaType: MediaType }) {
     <div>
       <h2 className='p-4 text-xl'>Create your own:</h2>
       <Card className='w-fit p-4' shadow='lg'>
-        <CardHeader className='border-b-1'>
+        <CardHeader className='border-b'>
           <ListTitle mediaType={mediaType}>
             <ListTitleBase restrictions={restrictions} />
           </ListTitle>
