@@ -128,7 +128,6 @@ export function BrowseCriteria({
             {mediaTypeArrForLists.map(mediaType => (
               <Tab
                 key={`${baseUrl}/${mediaType.urlPlural}`}
-                as={Link}
                 title={mediaType.plural}
                 href={`${baseUrl}/${mediaType.urlPlural}`}
               />

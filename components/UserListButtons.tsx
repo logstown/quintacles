@@ -1,8 +1,8 @@
 'use client'
 
 import { RestrictionsUI } from '@/lib/models'
-import { Button } from "@heroui/button"
-import { Tooltip } from "@heroui/tooltip"
+import { Button } from '@heroui/button'
+import { Tooltip } from '@heroui/tooltip'
 import { ListPlusIcon } from 'lucide-react'
 import { UserListActions } from './UserListActions'
 import Link from 'next/link'
@@ -39,7 +39,6 @@ export function UserListButtons({
           <Button
             size={isSmall ? 'sm' : 'lg'}
             href={userListUrl}
-            as={Link}
             prefetch={!!user}
             isIconOnly
             className='text-foreground-400'

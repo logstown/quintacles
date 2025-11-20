@@ -53,7 +53,6 @@ export async function MediaTypeQuery({
                 size='lg'
                 radius='lg'
                 variant='light'
-                as={Link}
                 className='m-6'
                 href={moreHref}
                 endContent={<ArrowRightIcon size={15} />}
@@ -64,7 +63,7 @@ export async function MediaTypeQuery({
           </div>
         ))}
         {lists.length === 0 && (
-          <em className='p-10 text-center text-xl text-foreground-500'>
+          <em className='text-foreground-500 p-10 text-center text-xl'>
             Nothing yet
           </em>
         )}

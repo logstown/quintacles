@@ -77,7 +77,6 @@ export function UserListActions({
             </DropdownItem>
             <DropdownItem
               key='edit'
-              as={Link}
               href={`/list/${userListId}/edit`}
               startContent={<PencilIcon size={15} />}
             >

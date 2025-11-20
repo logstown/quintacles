@@ -47,7 +47,7 @@
     "framer-motion": "^12.23.24",
     "lodash": "^4.17.21",
     "lucide-react": "^0.554.0",
-    "next": "^15.5.6",
+    "next": "16.0.3",
     "next-themes": "^0.4.6",
     "node-vibrant": "^3.2.1-alpha.1",
     "react": "19.2.0",
@@ -60,6 +60,8 @@
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.39.1",
     "@tanstack/eslint-plugin-query": "^5.91.2",
     "@types/eslint": "~8.56.12",
     "@types/eslint-config-prettier": "~6.11.3",
@@ -68,8 +70,8 @@
     "@types/react": "19.2.6",
     "@types/react-dom": "19.2.3",
     "@types/slug": "^5.0.9",
-    "eslint": "^8",
-    "eslint-config-next": "15.5.6",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "16.0.3",
     "eslint-config-prettier": "^9.1.2",
     "knip": "^5.70.1",
     "postcss": "^8",

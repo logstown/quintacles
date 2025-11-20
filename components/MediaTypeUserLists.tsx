@@ -3,7 +3,7 @@ import { MediaType } from '@prisma/client'
 import { Suspense } from 'react'
 import { UserListSkeleton } from './user-list/UserListSkeleton'
 import { MediaTypeQuery } from '@/app/user/_components/MediaTypeQuery'
-import { Button } from "@heroui/button"
+import { Button } from '@heroui/button'
 import Link from 'next/link'
 import { PlusIcon } from 'lucide-react'
 
@@ -35,7 +35,6 @@ export function MediaTypeUserLists({
                 radius='lg'
                 variant='light'
                 prefetch={!!userId}
-                as={Link}
                 href={`/create/criteria/${mediaTypes[mediaType.key].urlPlural}`}
                 endContent={<PlusIcon size={15} />}
               >

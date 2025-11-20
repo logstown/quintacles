@@ -120,7 +120,7 @@ export async function ListDetail(props: ListDetailProps) {
     <div>
       <div className='flex flex-col items-center gap-8 px-8 md:px-12'>
         <h1
-          className={`flex items-center gap-10 text-center text-5xl font-semibold capitalize tracking-tight drop-shadow-2xl ${restrictions.networkId || tvShowLogoFilePath ? 'sm:text-5xl' : 'sm:text-7xl'}`}
+          className={`flex items-center gap-10 text-center text-5xl font-semibold tracking-tight capitalize drop-shadow-2xl ${restrictions.networkId || tvShowLogoFilePath ? 'sm:text-5xl' : 'sm:text-7xl'}`}
         >
           {restrictions.Person?.profilePath && (
             <UserListIcon
@@ -146,7 +146,6 @@ export async function ListDetail(props: ListDetailProps) {
             {isForUser && (
               <Tooltip content='View all list users'>
                 <Button
-                  as={Link}
                   href={`/list/${userList.id}`}
                   size='lg'
                   isIconOnly
@@ -186,9 +185,8 @@ export async function ListDetail(props: ListDetailProps) {
       {!isCurrentUsersList && (
         <div className='mt-20 flex justify-center'>
           <Button
-            className='bg-linear-to-br from-primary-500 to-secondary-500 text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
+            className='from-primary-500 to-secondary-500 bg-linear-to-br text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
             size='lg'
-            as={Link}
             prefetch={!!currentUserId}
             href={getUserListsUrl(restrictions)}
             startContent={<PlusIcon />}
@@ -199,7 +197,7 @@ export async function ListDetail(props: ListDetailProps) {
       )}
       <div className='mx-auto mt-16 max-w-(--breakpoint-lg)'>
         <h3 className='flex flex-col items-center justify-center gap-4 p-2 text-2xl lg:p-6 lg:text-4xl'>
-          <div className='font-bold text-foreground-400'>More</div>
+          <div className='text-foreground-400 font-bold'>More</div>
           <div className='font-semibold'>
             <ListTitleBase
               restrictions={restrictions}

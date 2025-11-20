@@ -34,7 +34,6 @@ export function UserOrSignIn() {
               key='your-lists'
               color='primary'
               className='h-14'
-              as={Link}
               startContent={<ListIcon size={22} className='mr-1' />}
               href={`/user/${user.username}`}
             >
@@ -46,7 +45,6 @@ export function UserOrSignIn() {
               key='profile'
               className='h-14 items-start gap-2'
               description={`Signed in as @${user.username}`}
-              as={Link}
               href='/user-profile'
             >
               Account

@@ -1,12 +1,12 @@
 import { MediaType, Prisma } from '@prisma/client'
 import prisma from '@/lib/db'
-import { Button } from "@heroui/button"
+import { Button } from '@heroui/button'
 import { ListTitleBase } from '@/components/list-title-base'
 import Link from 'next/link'
 import { getUserListsUrl } from '@/lib/random'
 import { auth } from '@clerk/nextjs/server'
 import { GenreIcon } from '@/components/user-list/GenreIcon'
-import { Card } from "@heroui/card"
+import { Card } from '@heroui/card'
 import { unstable_cache } from 'next/cache'
 import { mediaTypes } from '@/lib/mediaTypes'
 
@@ -64,7 +64,6 @@ export async function PopularLists({ mediaType }: { mediaType: MediaType }) {
                 variant='flat'
                 color='primary'
                 size='lg'
-                as={Link}
                 className='p-8 text-xl'
                 endContent={<GenreIcon genreId={listType.genreId} />}
                 href={getUserListsUrl(listType)}
