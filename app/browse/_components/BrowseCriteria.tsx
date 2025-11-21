@@ -12,7 +12,7 @@ import { Tab, Tabs } from '@heroui/tabs'
 import { ListItem, MediaType, User } from '@prisma/client'
 import { forEach, isEqual, map, omitBy } from 'lodash'
 import { ChevronDown, ChevronRight, SlidersHorizontalIcon } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@heroui/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
@@ -129,6 +129,7 @@ export function BrowseCriteria({
               <Tab
                 key={`${baseUrl}/${mediaType.urlPlural}`}
                 title={mediaType.plural}
+                as={Link}
                 href={`${baseUrl}/${mediaType.urlPlural}`}
               />
             ))}
