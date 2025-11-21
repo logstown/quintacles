@@ -1,7 +1,7 @@
 import { mediaTypeArrForLists, mediaTypes } from '@/lib/mediaTypes'
 import { Button } from '@heroui/button'
 import { Metadata } from 'next'
-import Link from 'next/link'
+import { Link } from '@heroui/link'
 import { cloneElement } from 'react'
 
 export const metadata: Metadata = {
@@ -25,6 +25,7 @@ const CreateCriteriaPage = () => {
               color='primary'
               variant='ghost'
               className='p-8 text-2xl'
+              as={Link}
               href={`/create/criteria/${mediaTypes[mediaType.key].urlPlural}`}
               startContent={icon}
             >

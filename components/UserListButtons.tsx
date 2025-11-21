@@ -5,7 +5,7 @@ import { Button } from '@heroui/button'
 import { Tooltip } from '@heroui/tooltip'
 import { ListPlusIcon } from 'lucide-react'
 import { UserListActions } from './UserListActions'
-import Link from 'next/link'
+import { Link } from '@heroui/link'
 import { useUser } from '@clerk/nextjs'
 import { useUserListUrl } from '@/lib/hooks'
 
@@ -40,6 +40,7 @@ export function UserListButtons({
             size={isSmall ? 'sm' : 'lg'}
             href={userListUrl}
             isIconOnly
+            as={Link}
             className='text-foreground-400'
             color='primary'
             aria-label='add'

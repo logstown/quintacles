@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import { UserListSkeleton } from './user-list/UserListSkeleton'
 import { MediaTypeQuery } from '@/app/user/_components/MediaTypeQuery'
 import { Button } from '@heroui/button'
-import Link from 'next/link'
+import { Link } from '@heroui/link'
 import { PlusIcon } from 'lucide-react'
 
 export function MediaTypeUserLists({
@@ -34,6 +34,7 @@ export function MediaTypeUserLists({
                 size='lg'
                 radius='lg'
                 variant='light'
+                as={Link}
                 href={`/create/criteria/${mediaTypes[mediaType.key].urlPlural}`}
                 endContent={<PlusIcon size={15} />}
               >

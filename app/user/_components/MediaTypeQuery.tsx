@@ -5,7 +5,7 @@ import { userListQuery } from '@/lib/server-functions'
 import { Button } from '@heroui/button'
 import { MediaType } from '@prisma/client'
 import { ArrowRightIcon } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@heroui/link'
 
 export async function MediaTypeQuery({
   mediaType,
@@ -55,6 +55,7 @@ export async function MediaTypeQuery({
                 variant='light'
                 className='m-6'
                 href={moreHref}
+                as={Link}
                 endContent={<ArrowRightIcon size={15} />}
               >
                 All {mediaTypeObj.display} lists

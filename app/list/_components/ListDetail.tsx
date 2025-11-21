@@ -18,7 +18,7 @@ import { getImages } from '@/lib/TmdbService'
 import { UserListIcon } from '@/components/user-list/UserListIcon'
 import { alternateLogos } from '@/lib/alternate-logos'
 import { ListDetailItem } from './ListDetailItem'
-import Link from 'next/link'
+import { Link } from '@heroui/link'
 
 export type ListDetailProps = { isModal?: boolean } & (
   | { id: number }
@@ -147,6 +147,7 @@ export async function ListDetail(props: ListDetailProps) {
               <Tooltip content='View all list users'>
                 <Button
                   href={`/list/${userList.id}`}
+                  as={Link}
                   size='lg'
                   isIconOnly
                   className='text-foreground-400'
@@ -187,6 +188,7 @@ export async function ListDetail(props: ListDetailProps) {
           <Button
             className='from-primary-500 to-secondary-500 bg-linear-to-br text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
             size='lg'
+            as={Link}
             href={getUserListsUrl(restrictions)}
             startContent={<PlusIcon />}
           >
