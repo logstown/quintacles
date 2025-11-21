@@ -39,7 +39,6 @@ export function UserListButtons({
           <Button
             size={isSmall ? 'sm' : 'lg'}
             href={userListUrl}
-            prefetch={!!user}
             isIconOnly
             className='text-foreground-400'
             color='primary'

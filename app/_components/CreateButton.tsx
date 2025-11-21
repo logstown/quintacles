@@ -15,7 +15,6 @@ export async function CreateButton({ isLoading }: { isLoading?: boolean }) {
       className='from-primary-600 via-primary-500 to-secondary-400 bg-linear-to-tr text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
       size='lg'
       isLoading={isLoading}
-      prefetch={!!authUI?.userId}
       href='/create/criteria'
       startContent={<PlusIcon />}
     >

@@ -18,6 +18,7 @@ import { getImages } from '@/lib/TmdbService'
 import { UserListIcon } from '@/components/user-list/UserListIcon'
 import { alternateLogos } from '@/lib/alternate-logos'
 import { ListDetailItem } from './ListDetailItem'
+import Link from 'next/link'
 
 export type ListDetailProps = { isModal?: boolean } & (
   | { id: number }
@@ -186,7 +187,6 @@ export async function ListDetail(props: ListDetailProps) {
           <Button
             className='from-primary-500 to-secondary-500 bg-linear-to-br text-white shadow-2xl md:rounded-3xl md:p-10 md:text-2xl'
             size='lg'
-            prefetch={!!currentUserId}
             href={getUserListsUrl(restrictions)}
             startContent={<PlusIcon />}
           >

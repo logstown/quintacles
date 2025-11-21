@@ -34,7 +34,6 @@ export function MediaTypeUserLists({
                 size='lg'
                 radius='lg'
                 variant='light'
-                prefetch={!!userId}
                 href={`/create/criteria/${mediaTypes[mediaType.key].urlPlural}`}
                 endContent={<PlusIcon size={15} />}
               >

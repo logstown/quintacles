@@ -14,3 +14,7 @@ notifications for when users make the same list
 ideas:
 allow anyone to edit any list to create their own
 allow users to change out posters and backdrops
+
+
+11-21-2025
+- add prefetch back to create button links
