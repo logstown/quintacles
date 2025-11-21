@@ -322,7 +322,7 @@ export async function createOrUpdateUserList({
     revalidatePath(`/list/${createdOrUpdatedList.id}`)
   }
 
-  revalidateTag(`user-mediaType-${user.id}-${restrictions.mediaType}`)
+  revalidateTag(`user-mediaType-${user.id}-${restrictions.mediaType}`, 'max')
 
   redirect(`/user/${user.username}/list/${slug}`)
 }
@@ -354,7 +354,7 @@ export async function userDeletesList(
   const slug = getSlug(restrictions)
   revalidatePath(`/user/${user.username}/list/${slug}`)
   revalidatePath(`/list/${userListId}`)
-  revalidateTag(`user-mediaType-${user.id}-${restrictions.mediaType}`)
+  revalidateTag(`user-mediaType-${user.id}-${restrictions.mediaType}`, 'max')
 
   redirect('/') // works but could be better ux
 }
