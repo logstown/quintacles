@@ -2,13 +2,13 @@
 
 import { ChevronDown, ListIcon, ShuffleIcon } from 'lucide-react'
 import { mediaTypeArrForLists } from '../../lib/mediaTypes'
-import { Button } from "@heroui/button"
+import { Button } from '@heroui/button'
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-} from "@heroui/dropdown"
+} from '@heroui/dropdown'
 import { cloneElement, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { getRandomList } from '@/app/actions'
@@ -90,7 +90,7 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
           type.href ? (
             <DropdownItem
               startContent={<span className='mr-1'>{type.icon}</span>}
-              className='capitalize text-foreground'
+              className='text-foreground capitalize'
               textValue={type.text}
               key={type.text}
               href={`/browse/${type.href}`}
@@ -101,7 +101,7 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
             <DropdownItem
               startContent={<span className='mr-1'>{type.icon}</span>}
               className='text-foreground'
-              color='warning'
+              color='secondary'
               key={type.text}
               onPress={type.onPress}
             >
