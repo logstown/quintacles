@@ -171,7 +171,7 @@ export async function ListDetail(props: ListDetailProps) {
           )}
         </div>
       </div>
-      <div className='mx-auto mt-8 flex max-w-(--breakpoint-md) flex-col items-center gap-12 sm:mt-16 lg:gap-20'>
+      <div className='mx-auto mt-8 flex max-w-(--breakpoint-sm) flex-col items-center gap-12 sm:mt-16 lg:gap-20'>
         {listItemsReverse.map((item, i) => (
           <ListDetailItem
             key={item.tmdbId}
