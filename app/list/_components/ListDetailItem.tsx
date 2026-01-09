@@ -38,7 +38,7 @@ export function ListDetailItem({
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), ${item.bgColor}),url(${item.backdropUrl})`,
         }}
       >
-        <div className='-mb-52 flex max-w-prose flex-col gap-6 sm:gap-10'>
+        <div className='-mb-52 flex max-w-prose flex-col gap-6'>
           <div
             className={`flex justify-center gap-6 sm:gap-10 lg:gap-12 ${item.logoPath ? 'items-center' : isEpisodes ? 'items-center' : 'items-end'}`}
           >
