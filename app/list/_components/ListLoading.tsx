@@ -1,4 +1,4 @@
-import { Skeleton } from "@heroui/skeleton"
+import { Skeleton } from '@heroui/skeleton'
 import { Fragment } from 'react'
 
 export default function ListLoading() {
@@ -6,7 +6,7 @@ export default function ListLoading() {
   return (
     <main>
       <div className='mx-8 mb-14 flex flex-col items-center gap-4'>
-        <Skeleton className='h-22 w-[50%] rounded-lg text-center text-5xl font-semibold capitalize tracking-tight sm:text-6xl lg:text-7xl'>
+        <Skeleton className='h-22 w-[50%] rounded-lg text-center text-5xl font-semibold tracking-tight capitalize sm:text-6xl lg:text-7xl'>
           dummy
         </Skeleton>
         <div className='flex flex-none items-center gap-3'>
@@ -19,7 +19,7 @@ export default function ListLoading() {
           </div>
         </div>
       </div>
-      <div className='mx-auto flex max-w-(--breakpoint-md) flex-col items-center'>
+      <div className='mx-auto flex max-w-(--breakpoint-sm) flex-col items-center'>
         {arr.map(i => (
           <Fragment key={i}>
             <Skeleton className='aspect-video w-full rounded-t-xl' />
