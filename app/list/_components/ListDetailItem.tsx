@@ -63,6 +63,9 @@ export function ListDetailItem({
                   ) : (
                     <span
                       className={`line-clamp-4 pb-1.5 text-center text-4xl leading-none font-extrabold tracking-tight text-balance drop-shadow-2xl sm:text-6xl`}
+                      style={{
+                        textShadow: '8px 8px 16px rgba(0, 0, 0, 0.5)',
+                      }}
                     >
                       {item.name}{' '}
                       {!isEpisodes &&
