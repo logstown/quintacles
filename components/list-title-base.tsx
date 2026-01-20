@@ -68,10 +68,14 @@ export const getListTitle = ({
   if (isDetailView) {
     const replaced = episodesTvShowId ? 'TV' : ''
     const plural = replace(mediaTypes[mediaType].plural, replaced, '')
-    title += plural
+    title += `${plural} `
   }
 
-  return title
+  if(isForSlug && EpisodesTvShow?.id) {
+    title += `${EpisodesTvShow.id.toString()}`
+  }
+
+  return trim(title)
 }
 
 export const getMetaDataListTitle = (restrictions: Restrictions): string => {
