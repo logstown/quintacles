@@ -249,17 +249,21 @@ export async function getUserListData(props: ListDetailProps) {
 
   if (isForUser) {
     const prismaFn = () =>
-      prisma.usersOnUserLists.findUnique({
-        where: {
-          userRestrictionsByUsername: {
-            username: props.username,
-            restrictionsSlug: props.slug,
-          },
-        },
+      prisma.user.findUnique({
+        where: { username: props.username },
         select: {
-          UserList: { include },
-          User: true,
-          userAddedAt: true,
+          id: true,
+          username: true,
+          displayName: true,
+          photoURL: true,
+          userLists: {
+            where: { restrictionsSlug: props.slug },
+            select: {
+              UserList: { include },
+              userAddedAt: true,
+            },
+            take: 1,
+          },
         },
       })
 
@@ -270,9 +274,9 @@ export async function getUserListData(props: ListDetailProps) {
     ])()
 
     return {
-      userList: userOnUserList?.UserList,
-      userListUsers: userOnUserList ? [userOnUserList.User] : [],
-      userAddedAt: userOnUserList?.userAddedAt,
+      userList: userOnUserList?.userLists[0]?.UserList,
+      userListUsers: userOnUserList ? [userOnUserList] : [],
+      userAddedAt: userOnUserList?.userLists[0]?.userAddedAt,
     }
   } else {
     const prismaFn = () =>

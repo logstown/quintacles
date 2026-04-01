@@ -187,7 +187,7 @@ function createOrConnectUserToList(
       }
 
   const users = {
-    create: { userId: user.id, username: user.username!, restrictionsSlug: slug },
+    create: { userId: user.id, restrictionsSlug: slug },
   }
 
   return prisma.userList.upsert({
@@ -273,6 +273,50 @@ function removeOrphanedUserLists() {
   })
 }
 
+async function ensureUserRecord(user: User) {
+  const existingUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: {
+      username: true,
+      displayName: true,
+      photoURL: true,
+    },
+  })
+
+  const displayName =
+    user.firstName || user.lastName
+      ? `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim()
+      : null
+
+  if (!existingUser) {
+    await prisma.user.create({
+      data: {
+        id: user.id,
+        username: user.username!,
+        photoURL: user.imageUrl,
+        ...(displayName ? { displayName } : {}),
+      },
+    })
+    return
+  }
+
+  if (
+    existingUser.username !== user.username ||
+    existingUser.displayName !== displayName ||
+    existingUser.photoURL !== user.imageUrl
+  ) {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        username: user.username!,
+        photoURL: user.imageUrl,
+        updatedAt: new Date(),
+        ...(displayName ? { displayName } : { displayName: null }),
+      },
+    })
+  }
+}
+
 export async function createOrUpdateUserList({
   restrictions,
   listItems,
@@ -287,6 +331,9 @@ export async function createOrUpdateUserList({
   if (!user) {
     throw new Error('User not found')
   }
+
+  //remove when local db has the right user row
+  await ensureUserRecord(user)
 
   const createUpdateOperation = createOrConnectUserToList(
     user,

@@ -66,16 +66,14 @@ model UsersOnUserLists {
   userId           String
   userListId       Int
   restrictionsSlug String
-  username         String
 
-  User     User     @relation(fields: [userId, username], references: [id, username])
+  User     User     @relation(fields: [userId], references: [id])
   UserList UserList @relation(fields: [userListId], references: [id])
 
   userAddedAt DateTime @default(now())
 
   @@id([userId, userListId])
   @@unique(name: "userRestrictionsById", [userId, restrictionsSlug])
-  @@unique(name: "userRestrictionsByUsername", [username, restrictionsSlug])
   @@index([userId])
   @@index([userListId])
   @@index([restrictionsSlug])
