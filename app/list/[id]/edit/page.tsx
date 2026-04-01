@@ -50,7 +50,8 @@ export default async function EditListPage(props: {
   }
 
   const episodeData =
-    list.Restrictions.mediaType === MediaType.TvEpisode
+    list.Restrictions.mediaType === MediaType.TvEpisode &&
+    list.Restrictions.EpisodesTvShow
       ? await getEpisodeData(list.Restrictions.EpisodesTvShow.id)
       : undefined
 

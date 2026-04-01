@@ -142,7 +142,7 @@ export function MovieTvCriteria({
           color='primary'
           size='lg'
           labelExcludesSelect={true}
-          selectedItem={Person}
+          selectedItem={Person ?? undefined}
           onSelected={setMoviePersonFromPicker}
           mediaType={MediaType.Person}
         />
@@ -163,7 +163,7 @@ export function MovieTvCriteria({
       </Select>
       {mediaType === MediaType.TvShow && (
         <NetworkPicker
-          networkId={networkId}
+          networkId={networkId ?? undefined}
           setNetworkFromPicker={setNetworkFromPicker}
           networkName={Network?.name}
         />

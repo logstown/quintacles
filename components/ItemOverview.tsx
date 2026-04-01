@@ -51,12 +51,24 @@ const useTruncatedElement = ({ ref }: { ref: any }) => {
   const [isShowingMore, setIsShowingMore] = useState(false)
 
   useLayoutEffect(() => {
-    const { offsetHeight, scrollHeight } = ref?.current || {}
+    const element = ref?.current as HTMLElement | null
 
-    if (offsetHeight && scrollHeight && offsetHeight < scrollHeight) {
-      setIsTruncated(true)
-    } else {
-      setIsTruncated(false)
+    if (!element) {
+      return
+    }
+
+    const updateIsTruncated = () => {
+      const { offsetHeight, scrollHeight } = element
+      setIsTruncated(offsetHeight > 0 && scrollHeight > offsetHeight)
+    }
+
+    const frameId = requestAnimationFrame(updateIsTruncated)
+    const resizeObserver = new ResizeObserver(updateIsTruncated)
+    resizeObserver.observe(element)
+
+    return () => {
+      cancelAnimationFrame(frameId)
+      resizeObserver.disconnect()
     }
   }, [ref])
 

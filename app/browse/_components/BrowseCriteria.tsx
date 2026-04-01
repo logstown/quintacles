@@ -166,7 +166,7 @@ export function BrowseCriteria({
                 labelExcludesSelect={true}
                 size='lg'
                 color='primary'
-                selectedItem={restrictions.EpisodesTvShow}
+                selectedItem={restrictions.EpisodesTvShow ?? undefined}
                 onSelected={tvShowSelected}
                 mediaType={MediaType.TvShow}
               />

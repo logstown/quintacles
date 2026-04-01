@@ -76,7 +76,13 @@ export default function MediaPicker({
     }
   }
 
-  useEffect(() => setSearchText(selectedItem?.name ?? ''), [selectedItem])
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setSearchText(selectedItem?.name ?? '')
+    }, 0)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [selectedItem])
 
   return (
     <>

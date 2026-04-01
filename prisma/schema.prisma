@@ -89,14 +89,14 @@ model Restrictions {
   year             Int       @default(0)
   isLiveActionOnly Boolean   @default(false)
 
-  Person   Person @relation(fields: [personId], references: [id])
-  personId Int    @default(0)
+  Person   Person? @relation(fields: [personId], references: [id])
+  personId Int?
 
-  EpisodesTvShow   TvShowLite @relation(fields: [episodesTvShowId], references: [id])
-  episodesTvShowId Int        @default(0)
+  EpisodesTvShow   TvShowLite? @relation(fields: [episodesTvShowId], references: [id])
+  episodesTvShowId Int?
 
-  Network   Network @relation(fields: [networkId], references: [id])
-  networkId Int     @default(0)
+  Network   Network? @relation(fields: [networkId], references: [id])
+  networkId Int?
 
   userLists UserList[]
 

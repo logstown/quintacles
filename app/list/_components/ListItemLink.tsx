@@ -9,7 +9,7 @@ export function ListItemLink({
   children,
 }: {
   mediaType: MediaType
-  tvShowId: number
+  tvShowId?: number
   item: ListItem
   children: React.ReactNode
 }) {
@@ -28,15 +28,21 @@ const getTmdbHref = ({
   item,
 }: {
   mediaType: MediaType
-  tvShowId: number
+  tvShowId?: number
   item: ListItem
 }) => {
   const baseUrl = `https://www.themoviedb.org`
 
   switch (mediaType) {
     case MediaType.TvSeason:
+      if (!tvShowId) {
+        return `${baseUrl}/${mediaTypes[mediaType].url}/${item.tmdbId}`
+      }
       return `${baseUrl}/${mediaTypes[MediaType.TvShow].url}/${tvShowId}/season/${item.seasonNum}`
     case MediaType.TvEpisode:
+      if (!tvShowId) {
+        return `${baseUrl}/${mediaTypes[mediaType].url}/${item.tmdbId}`
+      }
       return `${baseUrl}/${mediaTypes[MediaType.TvShow].url}/${tvShowId}/season/${item.seasonNum}/episode/${item.episodeNum}`
     default:
       return `${baseUrl}/${mediaTypes[mediaType].url}/${item.tmdbId}`

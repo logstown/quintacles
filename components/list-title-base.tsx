@@ -1,5 +1,4 @@
 import { replace, trim } from 'lodash'
-import { useMemo } from 'react'
 import { getGenreById } from '../lib/genres'
 import { mediaTypes } from '../lib/mediaTypes'
 import { RestrictionsUI } from '@/lib/models'
@@ -96,13 +95,11 @@ export function ListTitleBase({
   includeMediaType?: boolean
   tvShowLogoFilePath?: string
 }) {
-  const partialTitle = useMemo(() => {
-    return getListTitle({
-      restrictions,
-      isDetailView: includeMediaType,
-      tvShowLogoFilePath,
-    })
-  }, [restrictions, includeMediaType])
+  const partialTitle = getListTitle({
+    restrictions,
+    isDetailView: includeMediaType,
+    tvShowLogoFilePath,
+  })
 
   return (
     <span

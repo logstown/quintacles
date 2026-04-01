@@ -50,7 +50,7 @@ export async function ListDetail(props: ListDetailProps) {
   const isCurrentUsersList = some(userListUsers, { id: currentUserId })
 
   let tvShowLogoFilePath
-  if (restrictions.EpisodesTvShow.id) {
+  if (restrictions.EpisodesTvShow?.id) {
     const { logos } = await getImages(
       MediaType.TvShow,
       restrictions.EpisodesTvShow.id,

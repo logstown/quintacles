@@ -21,8 +21,10 @@ export function ListDetailItem({
   i: number
   isEpisodes: boolean
   isModal?: boolean
-  restrictions: RestrictionsUI & { EpisodesTvShow: TvShowLiteUI }
+  restrictions: RestrictionsUI
 }) {
+  const tvShowId = restrictions.EpisodesTvShow?.id
+
   return (
     <div
       className={`relative w-full border border-neutral-800/50 shadow-[0_2.8px_2.2px_rgba(0,0,0,0.034),0_6.7px_5.3px_rgba(0,0,0,0.048),0_12.5px_10px_rgba(0,0,0,0.06),0_22.3px_17.9px_rgba(0,0,0,0.072),0_41.8px_33.4px_rgba(0,0,0,0.086),0_100px_80px_rgba(0,0,0,0.12)] ${isModal ? 'lg:rounded-xl' : 'rounded-xl'}`}
@@ -48,7 +50,7 @@ export function ListDetailItem({
             >
               <ListItemLink
                 mediaType={restrictions.mediaType}
-                tvShowId={restrictions.EpisodesTvShow.id}
+                tvShowId={tvShowId}
                 item={item}
               >
                 <Tooltip content={item.name} delay={1000}>

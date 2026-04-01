@@ -10,7 +10,6 @@ import {
   DropdownItem,
 } from '@heroui/dropdown'
 import { cloneElement, useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
 import { getRandomList } from '@/app/actions'
 import { noop } from 'lodash'
 import { usePathname } from 'next/navigation'
@@ -20,7 +19,11 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
   const pathName = usePathname()
 
   useEffect(() => {
-    setIsLoading(false)
+    const timeoutId = window.setTimeout(() => {
+      setIsLoading(false)
+    }, 0)
+
+    return () => window.clearTimeout(timeoutId)
   }, [pathName])
 
   const dropdownItems = useMemo(() => {
@@ -41,7 +44,7 @@ export function BrowseDropdown({ isSmall }: { isSmall?: boolean }) {
     })
 
     return items
-  }, [setIsLoading])
+  }, [])
 
   const loadingSVG = (
     <svg

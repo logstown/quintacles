@@ -18,12 +18,12 @@ export type RestrictionsUI = {
   isLiveActionOnly?: boolean
   genreId?: number
   year?: number
-  personId?: number
-  Person?: Person
-  episodesTvShowId?: number
-  EpisodesTvShow?: TvShowLiteUI
-  networkId?: number
-  Network?: Network
+  personId?: number | null
+  Person?: Person | null
+  episodesTvShowId?: number | null
+  EpisodesTvShow?: TvShowLiteUI | null
+  networkId?: number | null
+  Network?: Network | null
 }
 
 export interface CreateListSearchParams {

@@ -40,7 +40,9 @@ export default async function SeasonsEpisodesCriteriaPage({
     { tags: [`user-mediaType-${userId}-${mediaType}`] },
   )()
 
-  const tvShowIds = restrictions.map(r => r.EpisodesTvShow.id)
+  const tvShowIds = restrictions
+    .map(r => r.EpisodesTvShow?.id)
+    .filter((id): id is number => id !== undefined)
 
   return (
     <>

@@ -8,7 +8,7 @@ import { Genre, RestrictionsUI, Year } from '@/lib/models'
 import { getSlug, getUserListsUrl, getYears } from '@/lib/random'
 import { userListQuery } from '@/lib/server-functions'
 import { User, auth, currentUser } from '@clerk/nextjs/server'
-import { ListItem, MediaType, PrismaPromise, UserList } from '@prisma/client'
+import { ListItem, MediaType, Prisma, PrismaPromise, UserList } from '@prisma/client'
 import { some } from 'lodash'
 import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache'
 import { redirect } from 'next/navigation'
@@ -126,7 +126,7 @@ function createOrConnectUserToList(
   listItems: ListItem[],
   isUpdate = false,
 ): PrismaPromise<UserList> {
-  let {
+  const {
     mediaType,
     year,
     isLiveActionOnly,
@@ -136,26 +136,44 @@ function createOrConnectUserToList(
     Network,
   } = restrictions
 
-  Person = Person ?? {
-    id: 0,
-    name: '',
-    profilePath: null,
-  }
-
-  EpisodesTvShow = EpisodesTvShow ?? {
-    id: 0,
-    name: '',
-    posterPath: null,
-    backdropPath: null,
-  }
-
-  Network = Network ?? {
-    id: 0,
-    name: '',
-    logoPath: null,
-  }
-
   const slug = getSlug(restrictions)
+  const createRestrictionsData: Prisma.RestrictionsCreateWithoutUserListsInput = {
+    slug,
+    mediaType,
+    year,
+    isLiveActionOnly,
+    genreId,
+    ...(Person
+      ? {
+          Person: {
+            connectOrCreate: {
+              where: { id: Person.id },
+              create: Person,
+            },
+          },
+        }
+      : {}),
+    ...(Network
+      ? {
+          Network: {
+            connectOrCreate: {
+              where: { id: Network.id },
+              create: Network,
+            },
+          },
+        }
+      : {}),
+    ...(EpisodesTvShow
+      ? {
+          EpisodesTvShow: {
+            connectOrCreate: {
+              where: { id: EpisodesTvShow.id },
+              create: EpisodesTvShow,
+            },
+          },
+        }
+      : {}),
+  }
 
   const Restrictions = isUpdate
     ? {
@@ -164,31 +182,7 @@ function createOrConnectUserToList(
     : {
         connectOrCreate: {
           where: { slug },
-          create: {
-            slug,
-            mediaType,
-            year,
-            isLiveActionOnly,
-            genreId,
-            Person: {
-              connectOrCreate: {
-                where: { id: Person.id },
-                create: Person,
-              },
-            },
-            Network: {
-              connectOrCreate: {
-                where: { id: Network.id },
-                create: Network,
-              },
-            },
-            EpisodesTvShow: {
-              connectOrCreate: {
-                where: { id: EpisodesTvShow.id },
-                create: EpisodesTvShow,
-              },
-            },
-          },
+          create: createRestrictionsData,
         },
       }
 

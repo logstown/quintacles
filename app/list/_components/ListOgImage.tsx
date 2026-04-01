@@ -62,7 +62,7 @@ export async function ListOgImage(
               </div>
             ))}
           </div>
-        ) : (
+        ) : userList.Restrictions.EpisodesTvShow ? (
           <img
             src={getTmdbImageUrl(
               userList.Restrictions.EpisodesTvShow.backdropPath ??
@@ -72,6 +72,8 @@ export async function ListOgImage(
             )}
             alt=''
           />
+        ) : (
+          <div />
         )}
       </div>
     ),
