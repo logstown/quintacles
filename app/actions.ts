@@ -187,7 +187,7 @@ function createOrConnectUserToList(
       }
 
   const users = {
-    create: { userId: user.id, username: user.username! },
+    create: { userId: user.id, username: user.username!, restrictionsSlug: slug },
   }
 
   return prisma.userList.upsert({
