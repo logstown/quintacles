@@ -57,7 +57,6 @@ model UserList {
   Restrictions     Restrictions @relation(fields: [restrictionsSlug], references: [slug])
   restrictionsSlug String
 
-  @@unique([id, restrictionsSlug])
   @@unique(name: "uniqueList", [item1Id, item2Id, item3Id, item4Id, item5Id, restrictionsSlug])
   @@index([restrictionsSlug])
   @@index([lastUserAddedAt])
@@ -70,7 +69,7 @@ model UsersOnUserLists {
   username         String
 
   User     User     @relation(fields: [userId, username], references: [id, username])
-  UserList UserList @relation(fields: [userListId, restrictionsSlug], references: [id, restrictionsSlug])
+  UserList UserList @relation(fields: [userListId], references: [id])
 
   userAddedAt DateTime @default(now())
 
